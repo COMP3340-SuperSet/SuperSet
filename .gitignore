@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/laravel,react,composer
-# Edit at https://www.toptal.com/developers/gitignore?templates=laravel,react,composer
+# Created by https://www.toptal.com/developers/gitignore/api/laravel,composer,react,powershell
+# Edit at https://www.toptal.com/developers/gitignore?templates=laravel,composer,react,powershell
 
 ### Composer ###
 composer.phar
@@ -37,6 +37,13 @@ Homestead.json
 *.meta.*
 _ide_*
 
+### PowerShell ###
+# Exclude packaged modules
+*.zip
+
+# Exclude .NET assemblies from source
+*.dll
+
 ### react ###
 .DS_*
 *.log
@@ -53,4 +60,4 @@ psd
 thumb
 sketch
 
-# End of https://www.toptal.com/developers/gitignore/api/laravel,react,composer
+# End of https://www.toptal.com/developers/gitignore/api/laravel,composer,react,powershell
