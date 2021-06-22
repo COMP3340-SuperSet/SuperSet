@@ -1,5 +1,21 @@
-# Created by https://www.toptal.com/developers/gitignore/api/laravel,composer,react,powershell
-# Edit at https://www.toptal.com/developers/gitignore?templates=laravel,composer,react,powershell
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+
+# Created by https://www.toptal.com/developers/gitignore/api/laravel,composer,react,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=laravel,composer,react,visualstudiocode
 
 ### Composer ###
 composer.phar
@@ -33,17 +49,6 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-# Laravel IDE helper
-*.meta.*
-_ide_*
-
-### PowerShell ###
-# Exclude packaged modules
-*.zip
-
-# Exclude .NET assemblies from source
-*.dll
-
 ### react ###
 .DS_*
 *.log
@@ -60,4 +65,20 @@ psd
 thumb
 sketch
 
-# End of https://www.toptal.com/developers/gitignore/api/laravel,composer,react,powershell
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/laravel,composer,react,visualstudiocode
