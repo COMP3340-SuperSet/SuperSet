@@ -28,7 +28,7 @@ Route::get('/uuid', function () {
 
 Route::post('/upload', function (Request $request) {
     if($request->hasFile('image')){
-        $fileName = 'test/'.(string) Str::uuid();
+        $fileName = 'images/'.(string) Str::uuid();
         Storage::disk('local')->put($fileName, $request->file('image'));
     }else{
         return response()->json(['error'=>'Could not find attached file.'], 400);
