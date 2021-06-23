@@ -22,6 +22,11 @@ class SetController extends Controller
         return Set::find($id);
     }
 
+    public function search($name)
+    {
+        return Set::where('name', 'like', '%'.$name.'%')->get();
+    }
+
     public function update(Request $request, $id)
     {
         
