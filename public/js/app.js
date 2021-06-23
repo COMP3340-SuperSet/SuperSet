@@ -1882,7 +1882,6 @@ __webpack_require__.r(__webpack_exports__);
 
 function FileUpload() {
   var uploadFile = function uploadFile() {
-    console.log('upload');
     var formData = new FormData();
     var fileInput = document.getElementById('file');
     formData.append("image", fileInput.files[0]);
@@ -1892,6 +1891,8 @@ function FileUpload() {
       }
     }).then(function (response) {
       console.log('response: ', response);
+    })["catch"](function (error) {
+      console.error(error);
     });
   };
 

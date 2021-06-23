@@ -4,7 +4,6 @@ import axios from 'axios';
 function FileUpload() {
 
    const uploadFile = () => {
-       console.log('upload');
         var formData = new FormData();
         var fileInput = document.getElementById('file');
         formData.append("image", fileInput.files[0]);
@@ -14,6 +13,8 @@ function FileUpload() {
             }
         }).then(response => {
             console.log('response: ', response);
+        }).catch(error => {
+            console.error(error);
         });
    }
 
