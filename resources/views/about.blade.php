@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="admin"></div>
+<div id="about"></div>
 @endsection

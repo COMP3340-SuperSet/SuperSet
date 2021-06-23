@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Set;
+
 use Illuminate\Http\Request;
 
-class SetController extends Controller
+class SetImageController extends Controller
 {
     public function index()
     {
-        return Set::all();
+        //
     }
 
     public function store(Request $request)
     {
-        return Set::create($request->all());
+        //
     }
 
     public function show($id)
     {
-        return Set::find($id);
+        //
     }
 
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
-    public function destroy($setid)
+    public function destroy($id)
     {
-        return Set::destroy($setid);
+        //
     }
 }
