@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 //users
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/search/{query}', [UserController::class, 'search']);
 Route::get('/user/{userid}', [UserController::class, 'show']);
 
 //sets
 Route::get('/sets', [SetController::class, 'index']);
+Route::get('/sets/search/{query}', [SetController::class, 'search']);
 Route::get('/set/{setid}', [SetController::class, 'show']);
 
 //items
