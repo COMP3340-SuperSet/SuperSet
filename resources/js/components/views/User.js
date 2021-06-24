@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from '../Header';
+import Profile from '../Profile';
+
+
 
 function User() {
     return (
         <div>
-            I am the User Component
+            <Header />
+            <Profile />
         </div>
     );
 }
