@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import LoginForm from '../LoginForm';
+
 function Login() {
     return (
         <div>
-            I am the Login Component
+            <LoginForm/>
         </div>
     );
 }
