@@ -1,0 +1,11 @@
+@media(max-width: 480px){
+    .pad-top{ padding-top: 8% !important; }
+}
+
+.inline{ display: inline-block !important; }
+
+.no-bottompadding{ padding-bottom: 0 !important; }
+
+.pad-top{ padding-top: 20%; }
+
+.ss-grey{ color: #464C55 !important; }
