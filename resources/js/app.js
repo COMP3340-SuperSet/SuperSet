@@ -7,3 +7,4 @@ require('./components/views/Register');
 require('./components/views/Set');
 require('./components/views/User');
 require('./components/views/Edit');
+require('./components/views/Auth');
