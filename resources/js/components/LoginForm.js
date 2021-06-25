@@ -1,26 +1,52 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
+import { storeToken } from '../utils/localStorage';
 
 const LoginForm = () => {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    return (
+    const onLoginSubmit = (event) => {
+        event.preventDefault();
 
+        console.log('email: ', email);
+        console.log('password: ', password);
+
+        /**
+         * post request for a user to login
+         * 
+         */
+        axios.post('/api/login',
+            {
+                email: email,
+                password: password,
+            }, {
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(response => {
+            storeToken(response.data.token);
+        }).catch(error => {
+            console.log(error.response.data);
+        });
+    }
+
+    return (
         <Container>
-            <Form>
+            <Form onSubmit={(e) => onLoginSubmit(e)}>
                 <Form.Field>
                     <label>
-                        Username
+                        Email
                     </label>
-                    <input id='username' placeholder="Username" value={username} onChange={(e) => setUsername(e.value)} />
+                    <input id='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </Form.Field>
                 <Form.Field>
                     <label>
                         Password
                     </label>
-                    <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.value)} />
+                    <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                 </Form.Field>
                 <Button type='submit'>Login</Button>
             </Form>

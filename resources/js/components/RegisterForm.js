@@ -60,7 +60,7 @@ const RegisterForm = () => {
                 <Form.Field>
                     <input id='password_confirmation' placeholder="Confirm Password" value={password_confirmation} type="password" onChange={(e) => setPassword_Confirmation(e.target.value)} />
                 </Form.Field>
-                <Button type='submit'>Login</Button>
+                <Button type='submit'>Register</Button>
             </Form>
         </Container>
 
