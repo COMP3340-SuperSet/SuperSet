@@ -1,0 +1,22 @@
+
+.ss-title-title{
+    color: lightslategray;
+    font-size: 70px;
+}
+
+.ss-title-logo{
+    margin-right: 10px !important;
+    margin-top: 0px !important;
+    padding-bottom: 25px;
+}
+
+.ss-title-header{
+    padding-top: 50px !important;
+}
+
+.ss-title-subtitle{
+    font-size: 20px;
+    color: grey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
