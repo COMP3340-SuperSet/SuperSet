@@ -3079,6 +3079,7 @@ var SetsDisplay = function SetsDisplay(props) {
   } else {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
       celled: true,
+      selectable: true,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Header, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Row, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.HeaderCell, {
@@ -3244,22 +3245,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var SetCard = function SetCard(props) {
+var SetCard = function SetCard(_ref) {
+  var _ref$count = _ref.count,
+      count = _ref$count === void 0 ? 1 : _ref$count,
+      name = _ref.name,
+      description = _ref.description;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default, {
     centered: true,
+    href: "#",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default, {
       src: ""
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Content, {
       textAlign: "center",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Header, {
-        children: props.name
+        children: name
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Description, {
-        children: props.description
+        children: description
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Content, {
       extra: true,
       textAlign: "center",
-      children: props.count
+      children: count
     })]
   });
 };
@@ -3287,22 +3293,298 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var SetCell = function SetCell(props) {
+var SetCell = function SetCell(_ref) {
+  var _ref$count = _ref.count,
+      count = _ref$count === void 0 ? 1 : _ref$count,
+      name = _ref.name,
+      description = _ref.description;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Row, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
       textAlign: "center",
-      children: props.count
+      children: count
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
       textAlign: "center",
-      children: props.name
+      children: name
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
       textAlign: "center",
-      children: props.description
+      children: description
     })]
   });
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SetCell);
+
+/***/ }),
+
+/***/ "./resources/js/components/SetView.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/SetView.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Grid/Grid.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Table/Table.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Segment/Segment.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Image/Image.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Icon/Icon.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Header/Header.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Input/Input.js");
+/* harmony import */ var _SetCard_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SetCard.js */ "./resources/js/components/SetCard.js");
+/* harmony import */ var _SetCell_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SetCell.js */ "./resources/js/components/SetCell.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var GRID_MODE = true;
+var LIST_MODE = false;
+
+var SetViewDisplay = function SetViewDisplay(props) {
+  if (props.view === GRID_MODE) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+      stackable: true,
+      container: true,
+      columns: 5,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 1",
+          description: "This is an item"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 2",
+          count: "5",
+          description: "This is an item again"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 3",
+          count: "4",
+          description: "Test description"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 4",
+          count: "8",
+          description: "Lorem Ipsum"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 5",
+          description: "Another item"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          name: "Item 5",
+          description: "Another other item"
+        })
+      })]
+    });
+  } else {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default, {
+      celled: true,
+      selectable: true,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Header, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Row, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.HeaderCell, {
+            width: 1,
+            textAlign: "center",
+            children: "Qty"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.HeaderCell, {
+            width: 3,
+            textAlign: "center",
+            children: "Item Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.HeaderCell, {
+            width: 12,
+            textAlign: "center",
+            children: "Description"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Body, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 1",
+          description: "This is an item"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 2",
+          count: "5",
+          description: "This is an item again"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 3",
+          count: "4",
+          description: "Test description"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 4",
+          count: "8",
+          description: "Lorem Ipsum"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 5",
+          description: "Another item"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 1",
+          count: "2",
+          description: "This is an item"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 2",
+          count: "5",
+          description: "This is an item again"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 3",
+          count: "4",
+          description: "Test description"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 4",
+          count: "8",
+          description: "Lorem Ipsum"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+          name: "Item 5",
+          description: "Another item"
+        })]
+      })]
+    });
+  }
+};
+
+var SetImagesDisplay = function SetImagesDisplay() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default.Group, {
+      size: "small",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+        src: "https://react.semantic-ui.com/images/wireframe/image.png"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+        src: "https://react.semantic-ui.com/images/wireframe/image.png"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+        src: "https://react.semantic-ui.com/images/wireframe/image.png"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+        src: "https://react.semantic-ui.com/images/wireframe/image.png"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+        src: "https://react.semantic-ui.com/images/wireframe/image.png"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
+      fluid: true,
+      icon: true,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
+        name: "plus"
+      })
+    })]
+  });
+};
+
+var SetView = function SetView() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(GRID_MODE),
+      _useState2 = _slicedToArray(_useState, 2),
+      viewType = _useState2[0],
+      setViewType = _useState2[1];
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+    centered: true,
+    stackable: true,
+    container: true,
+    columns: 1,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        textAlign: "center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
+          icon: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
+            name: "pencil"
+          })
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        textAlign: "center",
+        verticalAlign: "middle",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__.default, {
+          as: "h1",
+          children: "Set name"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        textAlign: "center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__.default, {
+          children: "Description"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default, {
+        fluid: true,
+        textAlign: "center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(SetImagesDisplay, {})
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Column, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default, {
+          text: "Sort",
+          button: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Menu, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Item, {
+              text: "A-Z",
+              icon: "angle up"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Item, {
+              text: "A-Z",
+              icon: "angle down"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
+          onClick: function onClick() {
+            return setViewType(GRID_MODE);
+          },
+          icon: true,
+          primary: viewType,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
+            name: "th"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
+          onClick: function onClick() {
+            return setViewType(LIST_MODE);
+          },
+          icon: true,
+          primary: !viewType,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
+            name: "list"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__.default, {
+          floated: "right",
+          placeholder: "Search Items"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Row, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default, {
+        fluid: true,
+        textAlign: "center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(SetViewDisplay, {
+          view: viewType
+        })
+      })
+    })]
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SetView);
 
 /***/ }),
 
@@ -3546,21 +3828,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Header */ "./resources/js/components/Header.js");
+/* harmony import */ var _SetView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SetView */ "./resources/js/components/SetView.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 
 
 
 function Set() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: "I am the Set Component"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_2__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SetView__WEBPACK_IMPORTED_MODULE_3__.default, {})]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Set);
 
 if (document.getElementById('set')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Set, {}), document.getElementById('set'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Set, {}), document.getElementById('set'));
 }
 
 /***/ }),
@@ -49497,6 +49784,79 @@ ButtonOr.propTypes =  true ? {
   text: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonOr);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+
+
+
+
+
+/**
+ * A container limits content to a maximum width.
+ */
+
+function Container(props) {
+  var children = props.children,
+      className = props.className,
+      content = props.content,
+      fluid = props.fluid,
+      text = props.text,
+      textAlign = props.textAlign;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)('ui', (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(text, 'text'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(fluid, 'fluid'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useTextAlignProp)(textAlign), 'container', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(Container, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(Container, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    className: classes
+  }), _lib__WEBPACK_IMPORTED_MODULE_7__.isNil(children) ? content : children);
+}
+
+Container.handledProps = ["as", "children", "className", "content", "fluid", "text", "textAlign"];
+Container.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_8__.contentShorthand,
+
+  /** Container has no maximum width. */
+  fluid: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Reduce maximum width to more naturally accommodate text. */
+  text: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Align container text. */
+  textAlign: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(_lib__WEBPACK_IMPORTED_MODULE_9__.TEXT_ALIGNMENTS)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Container);
 
 /***/ }),
 

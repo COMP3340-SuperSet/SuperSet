@@ -1,12 +1,12 @@
 import React from "react";
 import { Table } from 'semantic-ui-react';
 
-const SetCell = (props) => {
+const SetCell = ({count = 1, name, description}) => {
     return (
         <Table.Row>
-            <Table.Cell textAlign = "center">{props.count}</Table.Cell>
-            <Table.Cell textAlign = "center">{props.name}</Table.Cell>
-            <Table.Cell textAlign = "center">{props.description}</Table.Cell>
+            <Table.Cell textAlign = "center">{count}</Table.Cell>
+            <Table.Cell textAlign = "center">{name}</Table.Cell>
+            <Table.Cell textAlign = "center">{description}</Table.Cell>
         </Table.Row>
     );
 }
