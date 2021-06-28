@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from '../Header';
+import InstructionsCarousel from '../InstructionsCarousel';
 
 function Landing() {
     return (
         <div>
-            I am the Landing Component
+            <Header />
+            <InstructionsCarousel />
         </div>
     );
 }
