@@ -2993,6 +2993,118 @@ var SSHeader = function SSHeader() {
 
 /***/ }),
 
+/***/ "./resources/js/components/LoginForm.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/LoginForm.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Form/Form.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var _utils_localStorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/localStorage */ "./resources/js/utils/localStorage.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var LoginForm = function LoginForm() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      email = _useState2[0],
+      setEmail = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      password = _useState4[0],
+      setPassword = _useState4[1];
+
+  var onLoginSubmit = function onLoginSubmit(event) {
+    event.preventDefault();
+    console.log('email: ', email);
+    console.log('password: ', password);
+    /**
+     * post request for a user to login
+     * 
+     */
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
+      email: email,
+      password: password
+    }, {
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
+    })["catch"](function (error) {
+      console.log(error.response.data);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default, {
+      onSubmit: function onSubmit(e) {
+        return onLoginSubmit(e);
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          children: "Email"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "email",
+          placeholder: "email",
+          value: email,
+          onChange: function onChange(e) {
+            return setEmail(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          children: "Password"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "password",
+          placeholder: "Password",
+          value: password,
+          type: "password",
+          onChange: function onChange(e) {
+            return setPassword(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+        type: "submit",
+        children: "Login"
+      })]
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginForm);
+
+/***/ }),
+
 /***/ "./resources/js/components/Profile.js":
 /*!********************************************!*\
   !*** ./resources/js/components/Profile.js ***!
@@ -3221,6 +3333,149 @@ var Profile = function Profile() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Profile);
+
+/***/ }),
+
+/***/ "./resources/js/components/RegisterForm.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/RegisterForm.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Form/Form.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_localStorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/localStorage */ "./resources/js/utils/localStorage.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var RegisterForm = function RegisterForm() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      name = _useState2[0],
+      setName = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      email = _useState4[0],
+      setEmail = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      password = _useState6[0],
+      setPassword = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      password_confirmation = _useState8[0],
+      setPassword_Confirmation = _useState8[1];
+
+  var onRegisterSubmit = function onRegisterSubmit(event) {
+    event.preventDefault();
+    /**
+     * post request for registered user
+     * stores token on register success
+     */
+
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    }, {
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
+    })["catch"](function (error) {
+      console.log(error.response.data);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default, {
+      onSubmit: function onSubmit(e) {
+        return onRegisterSubmit(e);
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          children: "Name"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "name",
+          placeholder: "Name",
+          value: name,
+          onChange: function onChange(e) {
+            return setName(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          children: "Email"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "email",
+          placeholder: "Email",
+          value: email,
+          onChange: function onChange(e) {
+            return setEmail(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          children: "Password"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "password",
+          placeholder: "Password",
+          value: password,
+          type: "password",
+          onChange: function onChange(e) {
+            return setPassword(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Field, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          id: "password_confirmation",
+          placeholder: "Confirm Password",
+          value: password_confirmation,
+          type: "password",
+          onChange: function onChange(e) {
+            return setPassword_Confirmation(e.target.value);
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+        type: "submit",
+        children: "Register"
+      })]
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RegisterForm);
 
 /***/ }),
 
@@ -3482,21 +3737,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../LoginForm */ "./resources/js/components/LoginForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
 
 function Login() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: "I am the Login Component"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_LoginForm__WEBPACK_IMPORTED_MODULE_2__.default, {})
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
 
 if (document.getElementById('login')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Login, {}), document.getElementById('login'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Login, {}), document.getElementById('login'));
 }
 
 /***/ }),
@@ -3514,21 +3771,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _RegisterForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../RegisterForm */ "./resources/js/components/RegisterForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
 
 function Register() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: "I am the Register Component"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_RegisterForm__WEBPACK_IMPORTED_MODULE_2__.default, {})
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Register);
 
 if (document.getElementById('register')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Register, {}), document.getElementById('register'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Register, {}), document.getElementById('register'));
 }
 
 /***/ }),
@@ -3598,6 +3857,29 @@ function User() {
 
 if (document.getElementById('user')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(User, {}), document.getElementById('user'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/utils/localStorage.js":
+/*!********************************************!*\
+  !*** ./resources/js/utils/localStorage.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchToken": () => (/* binding */ fetchToken),
+/* harmony export */   "storeToken": () => (/* binding */ storeToken)
+/* harmony export */ });
+function fetchToken() {
+  return {
+    token: localStorage.getItem('token')
+  };
+}
+function storeToken(token) {
+  localStorage.setItem('token', token);
 }
 
 /***/ }),
@@ -14177,6 +14459,57 @@ function reduce(collection, iteratee, accumulator) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reduce);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/set.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash-es/set.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseSet_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseSet.js */ "./node_modules/lodash-es/_baseSet.js");
+
+
+/**
+ * Sets the value at `path` of `object`. If a portion of `path` doesn't exist,
+ * it's created. Arrays are created for missing index properties while objects
+ * are created for all other missing properties. Use `_.setWith` to customize
+ * `path` creation.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.7.0
+ * @category Object
+ * @param {Object} object The object to modify.
+ * @param {Array|string} path The path of the property to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.set(object, 'a[0].b.c', 4);
+ * console.log(object.a[0].b.c);
+ * // => 4
+ *
+ * _.set(object, ['x', '0', 'y', 'z'], 5);
+ * console.log(object.x[0].y.z);
+ * // => 5
+ */
+function set(object, path, value) {
+  return object == null ? object : (0,_baseSet_js__WEBPACK_IMPORTED_MODULE_0__.default)(object, path, value);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (set);
 
 
 /***/ }),
@@ -47911,6 +48244,1088 @@ function validateTrigger(element) {
 
 /***/ }),
 
+/***/ "./node_modules/semantic-ui-react/dist/es/addons/Radio/Radio.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/addons/Radio/Radio.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _modules_Checkbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modules/Checkbox */ "./node_modules/semantic-ui-react/dist/es/modules/Checkbox/Checkbox.js");
+
+
+
+
+/**
+ * A Radio is sugar for <Checkbox radio />.
+ * Useful for exclusive groups of sliders or toggles.
+ * @see Checkbox
+ * @see Form
+ */
+
+function Radio(props) {
+  var slider = props.slider,
+      toggle = props.toggle,
+      type = props.type;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_2__.default)(Radio, props); // const ElementType = getElementType(Radio, props)
+  // radio, slider, toggle are exclusive
+  // use an undefined radio if slider or toggle are present
+
+  var radio = !(slider || toggle) || undefined;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_modules_Checkbox__WEBPACK_IMPORTED_MODULE_3__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    type: type,
+    radio: radio,
+    slider: slider,
+    toggle: toggle
+  }));
+}
+
+Radio.handledProps = ["slider", "toggle", "type"];
+Radio.propTypes =  true ? {
+  /** Format to emphasize the current selection state. */
+  slider: _modules_Checkbox__WEBPACK_IMPORTED_MODULE_3__.default.propTypes.slider,
+
+  /** Format to show an on or off choice. */
+  toggle: _modules_Checkbox__WEBPACK_IMPORTED_MODULE_3__.default.propTypes.toggle,
+
+  /** HTML input type, either checkbox or radio. */
+  type: _modules_Checkbox__WEBPACK_IMPORTED_MODULE_3__.default.propTypes.type
+} : 0;
+Radio.defaultProps = {
+  type: 'radio'
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Radio);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/addons/Select/Select.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/addons/Select/Select.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modules/Dropdown */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
+
+
+
+
+/**
+ * A Select is sugar for <Dropdown selection />.
+ * @see Dropdown
+ * @see Form
+ */
+
+function Select(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, props, {
+    selection: true
+  }));
+}
+
+Select.handledProps = ["options"];
+Select.propTypes =  true ? {
+  /** Array of Dropdown.Item props e.g. `{ text: '', value: '' }` */
+  options: prop_types__WEBPACK_IMPORTED_MODULE_1___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape(_modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default.Item.propTypes)).isRequired
+} : 0;
+Select.Divider = _modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default.Divider;
+Select.Header = _modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default.Header;
+Select.Item = _modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default.Item;
+Select.Menu = _modules_Dropdown__WEBPACK_IMPORTED_MODULE_3__.default.Menu;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Select);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/addons/TextArea/TextArea.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/addons/TextArea/TextArea.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash-es/invoke */ "./node_modules/lodash-es/invoke.js");
+/* harmony import */ var lodash_es_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash-es/get */ "./node_modules/lodash-es/get.js");
+/* harmony import */ var _fluentui_react_component_ref__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fluentui/react-component-ref */ "./node_modules/@fluentui/react-component-ref/dist/es/Ref.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+
+
+
+
+
+
+
+
+/**
+ * A TextArea can be used to allow for extended user input.
+ * @see Form
+ */
+
+var TextArea = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(TextArea, _Component);
+
+  function TextArea() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.ref = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_3__.createRef)();
+
+    _this.focus = function () {
+      return _this.ref.current.focus();
+    };
+
+    _this.handleChange = function (e) {
+      var value = (0,lodash_es_get__WEBPACK_IMPORTED_MODULE_4__.default)(e, 'target.value');
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__.default)(_this.props, 'onChange', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+        value: value
+      }));
+    };
+
+    _this.handleInput = function (e) {
+      var value = (0,lodash_es_get__WEBPACK_IMPORTED_MODULE_4__.default)(e, 'target.value');
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__.default)(_this.props, 'onInput', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+        value: value
+      }));
+    };
+
+    return _this;
+  }
+
+  var _proto = TextArea.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        rows = _this$props.rows,
+        value = _this$props.value;
+    var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(TextArea, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_7__.default)(TextArea, this.props);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(_fluentui_react_component_ref__WEBPACK_IMPORTED_MODULE_8__.Ref, {
+      innerRef: this.ref
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      onChange: this.handleChange,
+      onInput: this.handleInput,
+      rows: rows,
+      value: value
+    })));
+  };
+
+  return TextArea;
+}(react__WEBPACK_IMPORTED_MODULE_3__.Component);
+
+TextArea.handledProps = ["as", "onChange", "onInput", "rows", "value"];
+TextArea.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /**
+   * Called on change.
+   * @param {SyntheticEvent} event - The React SyntheticEvent object
+   * @param {object} data - All props and the event value.
+   */
+  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
+
+  /**
+   * Called on input.
+   * @param {SyntheticEvent} event - The React SyntheticEvent object
+   * @param {object} data - All props and the event value.
+   */
+  onInput: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
+
+  /** Indicates row count for a TextArea. */
+  rows: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)]),
+
+  /** The value of the textarea. */
+  value: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)])
+} : 0;
+TextArea.defaultProps = {
+  as: 'textarea',
+  rows: 3
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TextArea);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/Form.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/Form.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var lodash_es_without__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash-es/without */ "./node_modules/lodash-es/without.js");
+/* harmony import */ var lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash-es/invoke */ "./node_modules/lodash-es/invoke.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+/* harmony import */ var _FormButton__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./FormButton */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormButton.js");
+/* harmony import */ var _FormCheckbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./FormCheckbox */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormCheckbox.js");
+/* harmony import */ var _FormDropdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./FormDropdown */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormDropdown.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+/* harmony import */ var _FormGroup__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./FormGroup */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormGroup.js");
+/* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./FormInput */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormInput.js");
+/* harmony import */ var _FormRadio__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./FormRadio */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormRadio.js");
+/* harmony import */ var _FormSelect__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./FormSelect */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormSelect.js");
+/* harmony import */ var _FormTextArea__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./FormTextArea */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormTextArea.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A Form displays a set of related user input fields in a structured way.
+ * @see Button
+ * @see Checkbox
+ * @see Dropdown
+ * @see Input
+ * @see Message
+ * @see Radio
+ * @see Select
+ * @see Visibility
+ */
+
+var Form = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(Form, _Component);
+
+  function Form() {
+    var _this;
+
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(_args)) || this;
+
+    _this.handleSubmit = function (e) {
+      var action = _this.props.action; // Heads up! Third party libs can pass own data as first argument, we need to check that it has preventDefault()
+      // method.
+
+      if (typeof action !== 'string') (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__.default)(e, 'preventDefault');
+
+      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      lodash_es_invoke__WEBPACK_IMPORTED_MODULE_5__.default.apply(void 0, [_this.props, 'onSubmit', e, _this.props].concat(args));
+    };
+
+    return _this;
+  }
+
+  var _proto = Form.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        action = _this$props.action,
+        children = _this$props.children,
+        className = _this$props.className,
+        error = _this$props.error,
+        inverted = _this$props.inverted,
+        loading = _this$props.loading,
+        reply = _this$props.reply,
+        size = _this$props.size,
+        success = _this$props.success,
+        unstackable = _this$props.unstackable,
+        warning = _this$props.warning,
+        widths = _this$props.widths;
+    var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)('ui', size, (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(error, 'error'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(inverted, 'inverted'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(loading, 'loading'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(reply, 'reply'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(success, 'success'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(unstackable, 'unstackable'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(warning, 'warning'), (0,_lib__WEBPACK_IMPORTED_MODULE_6__.useWidthProp)(widths, null, true), 'form', className);
+    var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_7__.default)(Form, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_8__.default)(Form, this.props);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      action: action,
+      className: classes,
+      onSubmit: this.handleSubmit
+    }), children);
+  };
+
+  return Form;
+}(react__WEBPACK_IMPORTED_MODULE_4__.Component);
+
+Form.handledProps = ["action", "as", "children", "className", "error", "inverted", "loading", "onSubmit", "reply", "size", "success", "unstackable", "warning", "widths"];
+Form.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /** The HTML form action */
+  action: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** Automatically show any error Message children. */
+  error: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A form can have its color inverted for contrast. */
+  inverted: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Automatically show a loading indicator. */
+  loading: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** The HTML form submit handler. */
+  onSubmit: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /** A comment can contain a form to reply to a comment. This may have arbitrary content. */
+  reply: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A form can vary in size. */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf((0,lodash_es_without__WEBPACK_IMPORTED_MODULE_9__.default)(_lib__WEBPACK_IMPORTED_MODULE_10__.SIZES, 'medium')),
+
+  /** Automatically show any success Message children. */
+  success: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A form can prevent itself from stacking on mobile. */
+  unstackable: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Automatically show any warning Message children. */
+  warning: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Forms can automatically divide fields to be equal width. */
+  widths: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['equal'])
+} : 0;
+Form.defaultProps = {
+  as: 'form'
+};
+Form.Field = _FormField__WEBPACK_IMPORTED_MODULE_11__.default;
+Form.Button = _FormButton__WEBPACK_IMPORTED_MODULE_12__.default;
+Form.Checkbox = _FormCheckbox__WEBPACK_IMPORTED_MODULE_13__.default;
+Form.Dropdown = _FormDropdown__WEBPACK_IMPORTED_MODULE_14__.default;
+Form.Group = _FormGroup__WEBPACK_IMPORTED_MODULE_15__.default;
+Form.Input = _FormInput__WEBPACK_IMPORTED_MODULE_16__.default;
+Form.Radio = _FormRadio__WEBPACK_IMPORTED_MODULE_17__.default;
+Form.Select = _FormSelect__WEBPACK_IMPORTED_MODULE_18__.default;
+Form.TextArea = _FormTextArea__WEBPACK_IMPORTED_MODULE_19__.default;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormButton.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormButton.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _elements_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../elements/Button */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Button} />.
+ * @see Button
+ * @see Form
+ */
+
+function FormButton(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormButton, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormButton, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormButton.handledProps = ["as", "control"];
+FormButton.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormButton.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _elements_Button__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormButton);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormCheckbox.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormCheckbox.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _modules_Checkbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modules/Checkbox */ "./node_modules/semantic-ui-react/dist/es/modules/Checkbox/Checkbox.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Checkbox} />.
+ * @see Checkbox
+ * @see Form
+ */
+
+function FormCheckbox(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormCheckbox, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormCheckbox, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormCheckbox.handledProps = ["as", "control"];
+FormCheckbox.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormCheckbox.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _modules_Checkbox__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormCheckbox);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormDropdown.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormDropdown.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _modules_Dropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modules/Dropdown */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Dropdown} />.
+ * @see Dropdown
+ * @see Form
+ */
+
+function FormDropdown(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormDropdown, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormDropdown, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormDropdown.handledProps = ["as", "control"];
+FormDropdown.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormDropdown.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _modules_Dropdown__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormDropdown);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var lodash_es_isNil__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash-es/isNil */ "./node_modules/lodash-es/isNil.js");
+/* harmony import */ var lodash_es_get__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash-es/get */ "./node_modules/lodash-es/get.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/factories.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+/* harmony import */ var _elements_Label__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../elements/Label */ "./node_modules/semantic-ui-react/dist/es/elements/Label/Label.js");
+/* harmony import */ var _modules_Checkbox__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../modules/Checkbox */ "./node_modules/semantic-ui-react/dist/es/modules/Checkbox/Checkbox.js");
+/* harmony import */ var _addons_Radio__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../addons/Radio */ "./node_modules/semantic-ui-react/dist/es/addons/Radio/Radio.js");
+
+
+
+
+
+
+
+
+
+
+/**
+ * A field is a form element containing a label and an input.
+ * @see Form
+ * @see Button
+ * @see Checkbox
+ * @see Dropdown
+ * @see Input
+ * @see Radio
+ * @see Select
+ * @see Visibility
+ */
+
+function FormField(props) {
+  var children = props.children,
+      className = props.className,
+      content = props.content,
+      control = props.control,
+      disabled = props.disabled,
+      error = props.error,
+      inline = props.inline,
+      label = props.label,
+      required = props.required,
+      type = props.type,
+      width = props.width,
+      id = props.id;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)((0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(disabled, 'disabled'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(error, 'error'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(inline, 'inline'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(required, 'required'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useWidthProp)(width, 'wide'), 'field', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(FormField, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(FormField, props);
+
+  var errorPointing = (0,lodash_es_get__WEBPACK_IMPORTED_MODULE_7__.default)(error, 'pointing', 'above');
+
+  var errorLabel = _elements_Label__WEBPACK_IMPORTED_MODULE_8__.default.create(error, {
+    autoGenerateKey: false,
+    defaultProps: {
+      prompt: true,
+      pointing: errorPointing,
+      id: id ? id + "-error-message" : undefined,
+      role: 'alert',
+      'aria-atomic': true
+    }
+  });
+  var errorLabelBefore = (errorPointing === 'below' || errorPointing === 'right') && errorLabel;
+  var errorLabelAfter = (errorPointing === 'above' || errorPointing === 'left') && errorLabel; // ----------------------------------------
+  // No Control
+  // ----------------------------------------
+
+  if ((0,lodash_es_isNil__WEBPACK_IMPORTED_MODULE_9__.default)(control)) {
+    if ((0,lodash_es_isNil__WEBPACK_IMPORTED_MODULE_9__.default)(label)) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+        className: classes,
+        id: id
+      }), _lib__WEBPACK_IMPORTED_MODULE_10__.isNil(children) ? content : children);
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      className: classes,
+      id: id
+    }), errorLabelBefore, (0,_lib__WEBPACK_IMPORTED_MODULE_11__.createHTMLLabel)(label, {
+      autoGenerateKey: false
+    }), errorLabelAfter);
+  } // ----------------------------------------
+  // Checkbox/Radio Control
+  // ----------------------------------------
+
+
+  var ariaDescribedBy = id && error ? id + "-error-message" : null;
+  var ariaAttrs = {
+    'aria-describedby': ariaDescribedBy,
+    'aria-invalid': error ? true : undefined
+  };
+
+  var controlProps = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    content: content,
+    children: children,
+    disabled: disabled,
+    required: required,
+    type: type,
+    id: id
+  }); // wrap HTML checkboxes/radios in the label
+
+
+  if (control === 'input' && (type === 'checkbox' || type === 'radio')) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, {
+      className: classes
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("label", null, errorLabelBefore, /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(control, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, ariaAttrs, controlProps)), " ", label, errorLabelAfter));
+  } // pass label prop to controls that support it
+
+
+  if (control === _modules_Checkbox__WEBPACK_IMPORTED_MODULE_12__.default || control === _addons_Radio__WEBPACK_IMPORTED_MODULE_13__.default) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, {
+      className: classes
+    }, errorLabelBefore, /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(control, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, ariaAttrs, controlProps, {
+      label: label
+    })), errorLabelAfter);
+  } // ----------------------------------------
+  // Other Control
+  // ----------------------------------------
+
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, {
+    className: classes
+  }, (0,_lib__WEBPACK_IMPORTED_MODULE_11__.createHTMLLabel)(label, {
+    defaultProps: {
+      htmlFor: id
+    },
+    autoGenerateKey: false
+  }), errorLabelBefore, /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(control, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, ariaAttrs, controlProps)), errorLabelAfter);
+}
+
+FormField.handledProps = ["as", "children", "className", "content", "control", "disabled", "error", "id", "inline", "label", "required", "type", "width"];
+FormField.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_14__.contentShorthand,
+
+  /**
+   * A form control component (i.e. Dropdown) or HTML tagName (i.e. 'input').
+   * Extra FormField props are passed to the control component.
+   * Mutually exclusive with children.
+   */
+  control: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType), prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['button', 'input', 'select', 'textarea'])]),
+
+  /** Individual fields may be disabled. */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Individual fields may display an error state along with a message. */
+  error: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool), _lib__WEBPACK_IMPORTED_MODULE_14__.itemShorthand]),
+
+  /** The id of the control */
+  id: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** A field can have its label next to instead of above it. */
+  inline: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+  // Heads Up!
+  // Do not disallow children with `label` shorthand
+  // The `control` might accept a `label` prop and `children`
+
+  /** Mutually exclusive with children. */
+  label: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().node), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)]),
+
+  /** A field can show that input is mandatory. */
+  required: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Passed to the control component (i.e. <input type='password' />) */
+  type: _lib__WEBPACK_IMPORTED_MODULE_14__.every([_lib__WEBPACK_IMPORTED_MODULE_14__.demand(['control']) // don't strictly validate HTML types
+  // a control might be passed that uses a `type` prop with unknown values
+  // let the control validate if for us
+  ]),
+
+  /** A field can specify its width in grid columns */
+  width: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(_lib__WEBPACK_IMPORTED_MODULE_15__.WIDTHS)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormField);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormGroup.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormGroup.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+
+
+
+
+
+/**
+ * A set of fields can appear grouped together.
+ * @see Form
+ */
+
+function FormGroup(props) {
+  var children = props.children,
+      className = props.className,
+      grouped = props.grouped,
+      inline = props.inline,
+      unstackable = props.unstackable,
+      widths = props.widths;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)((0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(grouped, 'grouped'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(inline, 'inline'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(unstackable, 'unstackable'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useWidthProp)(widths, null, true), 'fields', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(FormGroup, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(FormGroup, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    className: classes
+  }), children);
+}
+
+FormGroup.handledProps = ["as", "children", "className", "grouped", "inline", "unstackable", "widths"];
+FormGroup.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Fields can show related choices. */
+  grouped: _lib__WEBPACK_IMPORTED_MODULE_7__.every([_lib__WEBPACK_IMPORTED_MODULE_7__.disallow(['inline']), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool)]),
+
+  /** Multiple fields may be inline in a row. */
+  inline: _lib__WEBPACK_IMPORTED_MODULE_7__.every([_lib__WEBPACK_IMPORTED_MODULE_7__.disallow(['grouped']), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool)]),
+
+  /** A form group can prevent itself from stacking on mobile. */
+  unstackable: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Fields Groups can specify their width in grid columns or automatically divide fields to be equal width. */
+  widths: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf([].concat(_lib__WEBPACK_IMPORTED_MODULE_8__.WIDTHS, ['equal']))
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormGroup);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormInput.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormInput.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _elements_Input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../elements/Input */ "./node_modules/semantic-ui-react/dist/es/elements/Input/Input.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Input} />.
+ * @see Form
+ * @see Input
+ */
+
+function FormInput(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormInput, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormInput, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormInput.handledProps = ["as", "control"];
+FormInput.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormInput.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _elements_Input__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormInput);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormRadio.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormRadio.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _addons_Radio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../addons/Radio */ "./node_modules/semantic-ui-react/dist/es/addons/Radio/Radio.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Radio} />.
+ * @see Form
+ * @see Radio
+ */
+
+function FormRadio(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormRadio, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormRadio, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormRadio.handledProps = ["as", "control"];
+FormRadio.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormRadio.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _addons_Radio__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormRadio);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormSelect.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormSelect.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _addons_Select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../addons/Select */ "./node_modules/semantic-ui-react/dist/es/addons/Select/Select.js");
+/* harmony import */ var _modules_Dropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modules/Dropdown */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={Select} />.
+ * @see Form
+ * @see Select
+ */
+
+function FormSelect(props) {
+  var control = props.control,
+      options = props.options;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormSelect, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormSelect, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control,
+    options: options
+  }));
+}
+
+FormSelect.handledProps = ["as", "control", "options"];
+FormSelect.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control,
+
+  /** Array of Dropdown.Item props e.g. `{ text: '', value: '' }` */
+  options: prop_types__WEBPACK_IMPORTED_MODULE_1___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape(_modules_Dropdown__WEBPACK_IMPORTED_MODULE_6__.default.Item.propTypes)).isRequired
+} : 0;
+FormSelect.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _addons_Select__WEBPACK_IMPORTED_MODULE_7__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormSelect);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormTextArea.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/collections/Form/FormTextArea.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _addons_TextArea__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../addons/TextArea */ "./node_modules/semantic-ui-react/dist/es/addons/TextArea/TextArea.js");
+/* harmony import */ var _FormField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormField */ "./node_modules/semantic-ui-react/dist/es/collections/Form/FormField.js");
+
+
+
+
+
+
+/**
+ * Sugar for <Form.Field control={TextArea} />.
+ * @see Form
+ * @see TextArea
+ */
+
+function FormTextArea(props) {
+  var control = props.control;
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_3__.default)(FormTextArea, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(FormTextArea, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    control: control
+  }));
+}
+
+FormTextArea.handledProps = ["as", "control"];
+FormTextArea.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().elementType),
+
+  /** A FormField control prop. */
+  control: _FormField__WEBPACK_IMPORTED_MODULE_5__.default.propTypes.control
+} : 0;
+FormTextArea.defaultProps = {
+  as: _FormField__WEBPACK_IMPORTED_MODULE_5__.default,
+  control: _addons_TextArea__WEBPACK_IMPORTED_MODULE_6__.default
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormTextArea);
+
+/***/ }),
+
 /***/ "./node_modules/semantic-ui-react/dist/es/collections/Grid/Grid.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/semantic-ui-react/dist/es/collections/Grid/Grid.js ***!
@@ -49497,6 +50912,79 @@ ButtonOr.propTypes =  true ? {
   text: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonOr);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/elements/Container/Container.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+
+
+
+
+
+/**
+ * A container limits content to a maximum width.
+ */
+
+function Container(props) {
+  var children = props.children,
+      className = props.className,
+      content = props.content,
+      fluid = props.fluid,
+      text = props.text,
+      textAlign = props.textAlign;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)('ui', (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(text, 'text'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(fluid, 'fluid'), (0,_lib__WEBPACK_IMPORTED_MODULE_4__.useTextAlignProp)(textAlign), 'container', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(Container, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(Container, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    className: classes
+  }), _lib__WEBPACK_IMPORTED_MODULE_7__.isNil(children) ? content : children);
+}
+
+Container.handledProps = ["as", "children", "className", "content", "fluid", "text", "textAlign"];
+Container.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_8__.contentShorthand,
+
+  /** Container has no maximum width. */
+  fluid: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Reduce maximum width to more naturally accommodate text. */
+  text: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Align container text. */
+  textAlign: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(_lib__WEBPACK_IMPORTED_MODULE_9__.TEXT_ALIGNMENTS)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Container);
 
 /***/ }),
 
@@ -52816,6 +54304,348 @@ function numberToWord(value) {
 
   return '';
 }
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Checkbox/Checkbox.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Checkbox/Checkbox.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Checkbox)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var lodash_es_set__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash-es/set */ "./node_modules/lodash-es/set.js");
+/* harmony import */ var lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash-es/invoke */ "./node_modules/lodash-es/invoke.js");
+/* harmony import */ var lodash_es_isNil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash-es/isNil */ "./node_modules/lodash-es/isNil.js");
+/* harmony import */ var _fluentui_react_component_ref__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fluentui/react-component-ref */ "./node_modules/@fluentui/react-component-ref/dist/es/Ref.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/htmlPropsUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/factories.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/ModernAutoControlledComponent.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A checkbox allows a user to select a value from a small set of options, often binary.
+ * @see Form
+ * @see Radio
+ */
+var Checkbox = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(Checkbox, _Component);
+
+  function Checkbox() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.inputRef = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_4__.createRef)();
+    _this.labelRef = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_4__.createRef)();
+
+    _this.canToggle = function () {
+      var _this$props = _this.props,
+          disabled = _this$props.disabled,
+          radio = _this$props.radio,
+          readOnly = _this$props.readOnly;
+      var checked = _this.state.checked;
+      return !disabled && !readOnly && !(radio && checked);
+    };
+
+    _this.computeTabIndex = function () {
+      var _this$props2 = _this.props,
+          disabled = _this$props2.disabled,
+          tabIndex = _this$props2.tabIndex;
+      if (!(0,lodash_es_isNil__WEBPACK_IMPORTED_MODULE_5__.default)(tabIndex)) return tabIndex;
+      return disabled ? -1 : 0;
+    };
+
+    _this.handleClick = function (e) {
+      var id = _this.props.id;
+      var _this$state = _this.state,
+          checked = _this$state.checked,
+          indeterminate = _this$state.indeterminate;
+
+      var isInputClick = (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.inputRef.current, 'contains', e.target);
+
+      var isLabelClick = (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.labelRef.current, 'contains', e.target);
+
+      var isRootClick = !isLabelClick && !isInputClick;
+      var hasId = !(0,lodash_es_isNil__WEBPACK_IMPORTED_MODULE_5__.default)(id);
+      var isLabelClickAndForwardedToInput = isLabelClick && hasId; // https://github.com/Semantic-Org/Semantic-UI-React/pull/3351
+
+      if (!isLabelClickAndForwardedToInput) {
+        (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.props, 'onClick', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+          checked: !checked,
+          indeterminate: !!indeterminate
+        }));
+      }
+
+      if (_this.isClickFromMouse) {
+        _this.isClickFromMouse = false;
+
+        if (isLabelClick && !hasId) {
+          _this.handleChange(e);
+        } // Changes should be triggered for the slider variation
+
+
+        if (isRootClick) {
+          _this.handleChange(e);
+        }
+
+        if (isLabelClick && hasId) {
+          // To prevent two clicks from being fired from the component we have to stop the propagation
+          // from the "input" click: https://github.com/Semantic-Org/Semantic-UI-React/issues/3433
+          e.stopPropagation();
+        }
+      }
+    };
+
+    _this.handleChange = function (e) {
+      var checked = _this.state.checked;
+      if (!_this.canToggle()) return;
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.props, 'onChange', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+        checked: !checked,
+        indeterminate: false
+      }));
+
+      _this.setState({
+        checked: !checked,
+        indeterminate: false
+      });
+    };
+
+    _this.handleMouseDown = function (e) {
+      var _this$state2 = _this.state,
+          checked = _this$state2.checked,
+          indeterminate = _this$state2.indeterminate;
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.props, 'onMouseDown', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+        checked: !!checked,
+        indeterminate: !!indeterminate
+      }));
+
+      if (!e.defaultPrevented) {
+        (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.inputRef.current, 'focus');
+      } // Heads up!
+      // We need to call "preventDefault" to keep element focused.
+
+
+      e.preventDefault();
+    };
+
+    _this.handleMouseUp = function (e) {
+      var _this$state3 = _this.state,
+          checked = _this$state3.checked,
+          indeterminate = _this$state3.indeterminate;
+      _this.isClickFromMouse = true;
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_6__.default)(_this.props, 'onMouseUp', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, _this.props, {
+        checked: !!checked,
+        indeterminate: !!indeterminate
+      }));
+    };
+
+    _this.setIndeterminate = function () {
+      var indeterminate = _this.state.indeterminate;
+
+      (0,lodash_es_set__WEBPACK_IMPORTED_MODULE_7__.default)(_this.inputRef, 'current.indeterminate', !!indeterminate);
+    };
+
+    return _this;
+  }
+
+  var _proto = Checkbox.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.setIndeterminate();
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this.setIndeterminate();
+  };
+
+  _proto.render = function render() {
+    var _this$props3 = this.props,
+        className = _this$props3.className,
+        disabled = _this$props3.disabled,
+        label = _this$props3.label,
+        id = _this$props3.id,
+        name = _this$props3.name,
+        radio = _this$props3.radio,
+        readOnly = _this$props3.readOnly,
+        slider = _this$props3.slider,
+        toggle = _this$props3.toggle,
+        type = _this$props3.type,
+        value = _this$props3.value;
+    var _this$state4 = this.state,
+        checked = _this$state4.checked,
+        indeterminate = _this$state4.indeterminate;
+    var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)('ui', (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(checked, 'checked'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(disabled, 'disabled'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(indeterminate, 'indeterminate'), // auto apply fitted class to compact white space when there is no label
+    // https://semantic-ui.com/modules/checkbox.html#fitted
+    (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)((0,lodash_es_isNil__WEBPACK_IMPORTED_MODULE_5__.default)(label), 'fitted'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(radio, 'radio'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(readOnly, 'read-only'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(slider, 'slider'), (0,_lib__WEBPACK_IMPORTED_MODULE_8__.useKeyOnly)(toggle, 'toggle'), 'checkbox', className);
+    var unhandled = (0,_lib__WEBPACK_IMPORTED_MODULE_9__.default)(Checkbox, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_10__.default)(Checkbox, this.props);
+
+    var _partitionHTMLProps = (0,_lib__WEBPACK_IMPORTED_MODULE_11__.partitionHTMLProps)(unhandled, {
+      htmlProps: _lib__WEBPACK_IMPORTED_MODULE_11__.htmlInputAttrs
+    }),
+        htmlInputProps = _partitionHTMLProps[0],
+        rest = _partitionHTMLProps[1]; // Heads Up!
+    // Do not remove empty labels, they are required by SUI CSS
+
+
+    var labelElement = (0,_lib__WEBPACK_IMPORTED_MODULE_12__.createHTMLLabel)(label, {
+      defaultProps: {
+        htmlFor: id
+      },
+      autoGenerateKey: false
+    }) || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("label", {
+      htmlFor: id
+    });
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      className: classes,
+      onClick: this.handleClick,
+      onChange: this.handleChange,
+      onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(_fluentui_react_component_ref__WEBPACK_IMPORTED_MODULE_13__.Ref, {
+      innerRef: this.inputRef
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("input", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, htmlInputProps, {
+      checked: checked,
+      className: "hidden",
+      disabled: disabled,
+      id: id,
+      name: name,
+      readOnly: true,
+      tabIndex: this.computeTabIndex(),
+      type: type,
+      value: value
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(_fluentui_react_component_ref__WEBPACK_IMPORTED_MODULE_13__.Ref, {
+      innerRef: this.labelRef
+    }, labelElement));
+  };
+
+  return Checkbox;
+}(_lib__WEBPACK_IMPORTED_MODULE_14__.default);
+
+Checkbox.handledProps = ["as", "checked", "className", "defaultChecked", "defaultIndeterminate", "disabled", "fitted", "id", "indeterminate", "label", "name", "onChange", "onClick", "onMouseDown", "onMouseUp", "radio", "readOnly", "slider", "tabIndex", "toggle", "type", "value"];
+
+Checkbox.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /** Whether or not checkbox is checked. */
+  checked: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** The initial value of checked. */
+  defaultChecked: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Whether or not checkbox is indeterminate. */
+  defaultIndeterminate: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A checkbox can appear disabled and be unable to change states */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Removes padding for a label. Auto applied when there is no label. */
+  fitted: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A unique identifier. */
+  id: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /** Whether or not checkbox is indeterminate. */
+  indeterminate: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** The text of the associated label element. */
+  label: _lib__WEBPACK_IMPORTED_MODULE_15__.itemShorthand,
+
+  /** The HTML input name. */
+  name: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * Called when the user attempts to change the checked state.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props and proposed checked/indeterminate state.
+   */
+  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * Called when the checkbox or label is clicked.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props and current checked/indeterminate state.
+   */
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * Called when the user presses down on the mouse.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props and current checked/indeterminate state.
+   */
+  onMouseDown: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * Called when the user releases the mouse.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props and current checked/indeterminate state.
+   */
+  onMouseUp: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /** Format as a radio element. This means it is an exclusive option. */
+  radio: _lib__WEBPACK_IMPORTED_MODULE_15__.every([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool), _lib__WEBPACK_IMPORTED_MODULE_15__.disallow(['slider', 'toggle'])]),
+
+  /** A checkbox can be read-only and unable to change states. */
+  readOnly: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Format to emphasize the current selection state. */
+  slider: _lib__WEBPACK_IMPORTED_MODULE_15__.every([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool), _lib__WEBPACK_IMPORTED_MODULE_15__.disallow(['radio', 'toggle'])]),
+
+  /** A checkbox can receive focus. */
+  tabIndex: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /** Format to show an on or off choice. */
+  toggle: _lib__WEBPACK_IMPORTED_MODULE_15__.every([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool), _lib__WEBPACK_IMPORTED_MODULE_15__.disallow(['radio', 'slider'])]),
+
+  /** HTML input type, either checkbox or radio. */
+  type: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['checkbox', 'radio']),
+
+  /** The HTML input value. */
+  value: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number)])
+} : 0;
+Checkbox.defaultProps = {
+  type: 'checkbox'
+};
+Checkbox.autoControlledProps = ['checked', 'indeterminate'];
 
 /***/ }),
 

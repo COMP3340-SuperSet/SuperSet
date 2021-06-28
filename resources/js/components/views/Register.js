@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RegisterForm from '../RegisterForm';
+
 
 function Register() {
     return (
         <div>
-            I am the Register Component
+            <RegisterForm />
         </div>
     );
 }
