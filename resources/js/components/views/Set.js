@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Header from '../Header';
+import SetView from '../SetView';
+
 function Set() {
     return (
         <div>
-            I am the Set Component
+            <Header />
+            <SetView />
         </div>
     );
 }

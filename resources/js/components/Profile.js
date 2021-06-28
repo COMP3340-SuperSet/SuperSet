@@ -22,7 +22,7 @@ const SetsDisplay = (props) => {
     }
     else{
         return(
-            <Table celled>
+            <Table celled selectable>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell width = {1}  textAlign = "center">Items</Table.HeaderCell>

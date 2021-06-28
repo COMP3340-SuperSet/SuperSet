@@ -1,15 +1,15 @@
 import React from "react";
 import { Card, Image } from 'semantic-ui-react';
 
-const SetCard = (props) => {
+const SetCard = ({count = 1, name, description}) => {
     return (
-        <Card centered>
+        <Card centered href = "#">
             <Image src = '' />
             <Card.Content textAlign = "center">
-                <Card.Header>{props.name}</Card.Header>
-                <Card.Description>{props.description}</Card.Description>
+                <Card.Header>{name}</Card.Header>
+                <Card.Description>{description}</Card.Description>
             </Card.Content>
-            <Card.Content extra textAlign = "center">{props.count}</Card.Content>
+            <Card.Content extra textAlign = "center">{count}</Card.Content>
         </Card>
     );
 }
