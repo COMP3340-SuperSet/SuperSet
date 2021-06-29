@@ -1,7 +1,7 @@
 
 import React, { Fragment } from 'react';
 import {Header, Image} from "semantic-ui-react";
-import logo from "../images/superset.png";
+import logo from "../../images/superset.png";
 import "../../css/Title.css";
 
 const Title = ( { title, subtitle }) =>
