@@ -14,7 +14,7 @@ class CreateItemImagesTable extends Migration
     public function up()
     {
         Schema::create('item_images', function (Blueprint $table) {
-            $table->integer('imageid', false, true)->unique();
+            $table->string('imageid', 32)->nullable()->unique();
             $table->integer('itemid', false, true);
             $table->foreign('itemid')->references('itemid')->on('items');
             $table->timestamps();

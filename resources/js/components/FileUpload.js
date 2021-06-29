@@ -3,11 +3,14 @@ import axios from 'axios';
 
 function FileUpload() {
 
-   const uploadFile = () => {
+    const uploadFile = () => {
         var formData = new FormData();
+
+        const setid = 1;
+
         var fileInput = document.getElementById('file');
         formData.append("image", fileInput.files[0]);
-        axios.post('/api/upload', formData, {
+        axios.post('/api/setImages/' + setid, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -16,14 +19,14 @@ function FileUpload() {
         }).catch(error => {
             console.error(error);
         });
-   }
+    }
 
     return (
         <div>
             I am the File Upload Component
-            <form id="uploadForm" role="form" enctype="multipart/form-data">
-                <input type="file" id="file" name="file"/>
-                <input type="button" onClick={() => uploadFile()} value="Upload"/>
+            <form id="uploadForm" role="form" encType="multipart/form-data">
+                <input type="file" id="file" name="file" />
+                <input type="button" onClick={() => uploadFile()} value="Upload" />
             </form>
         </div>
     );

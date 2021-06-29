@@ -9,4 +9,10 @@ class Set extends Model
 {
     use HasFactory;
     protected $primaryKey = 'setid';
+
+    protected $fillable = [
+        'userid',
+        'name',
+        'description',
+    ];
 }

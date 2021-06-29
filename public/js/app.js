@@ -2868,9 +2868,10 @@ __webpack_require__.r(__webpack_exports__);
 function FileUpload() {
   var uploadFile = function uploadFile() {
     var formData = new FormData();
+    var setid = 1;
     var fileInput = document.getElementById('file');
     formData.append("image", fileInput.files[0]);
-    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/upload', formData, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/setImages/' + setid, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -2885,7 +2886,7 @@ function FileUpload() {
     children: ["I am the File Upload Component", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
       id: "uploadForm",
       role: "form",
-      enctype: "multipart/form-data",
+      encType: "multipart/form-data",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
         type: "file",
         id: "file",

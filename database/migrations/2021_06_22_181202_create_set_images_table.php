@@ -14,7 +14,7 @@ class CreateSetImagesTable extends Migration
     public function up()
     {
         Schema::create('set_images', function (Blueprint $table) {
-            $table->integer('imageid', false, true)->unique();
+            $table->string('imageid', 32)->unique();
             $table->integer('setid', false, true);
             $table->foreign('setid')->references('setid')->on('sets');
             $table->timestamps();
