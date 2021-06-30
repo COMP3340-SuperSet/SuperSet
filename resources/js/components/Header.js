@@ -12,7 +12,7 @@ const SSHeader = () => {
             <Segment basic compact className = "ss-bg-grey no-margin no-bottompadding ss-header-1">
                 <Header size = "huge" className = "inline">
                     <Image className = "ss-header-logo" src = {logo} size = "tiny" centered verticalAlign = "middle" spaced = "left"/>
-                    <a class = "ss-header-title" style = {{padding: "12px", verticalAlign: "middle"}} href = "#">SuperSet</a>
+                    <a className = "ss-header-title" style = {{padding: "12px", verticalAlign: "middle"}} href = "#">SuperSet</a>
                 </Header>
                 
                 <Input className = "ss-header-searchbar" placeholder = "Search"/>
