@@ -3262,6 +3262,15 @@ var LoginForm = function LoginForm() {
       }
     }).then(function (response) {
       (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth', {
+        headers: {
+          Authorization: 'Bearer ' + response.data.token
+        }
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.error(error);
+      });
     })["catch"](function (error) {
       console.log(error.response.data);
     });
