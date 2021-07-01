@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\SetImage;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Console\ServerLogger;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Storage;
@@ -21,16 +21,16 @@ class SetImageController extends Controller
     {   
         try{
             if($request->hasFile('image')){
-            $imageid = (string) Str::uuid();
-            error_log('image: '.$imageid.' set: '.$setid);
-            Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
-            return SetImage::create([
-                'imageid'=>$imageid,
-                'setid'=>$setid 
-            ]);
-        }else{
-            return response()->json(['error'=>'Could not find attached file.'], 400);
-        }
+                $imageid = (string) Str::uuid();
+                error_log('image: '.$imageid.' set: '.$setid);
+                Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
+                return SetImage::create([
+                    'imageid'=>$imageid,
+                    'setid'=>$setid 
+                ]);
+            }else{
+                return response()->json(['error'=>'Could not find attached file.'], 400);
+            }
         }catch(Exception $e){
             error_log($e);
         }

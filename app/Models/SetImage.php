@@ -16,5 +16,4 @@ class SetImage extends Model
         'setid'
     ];
     
-
 }

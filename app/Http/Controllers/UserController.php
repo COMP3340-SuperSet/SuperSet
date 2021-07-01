@@ -27,9 +27,11 @@ class UserController extends Controller
         return User::where('name', 'like', '%'.$name.'%')->get();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $userid)
     {
-        //
+        $user = User::first($userid);
+        $user->update($request->all());
+        return $user;
     }
 
     public function destroy($userid)

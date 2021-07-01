@@ -5,11 +5,12 @@ use App\Http\Controllers\SetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SetImageController;
+use App\Http\Controllers\ItemImageController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-use Illuminate\Support\Facades\Storage;
 
 /* 
     PUBLIC ROUTES
@@ -49,7 +50,7 @@ Route::get('/setImages/{imageid}', [SetImageController::class, 'show']);
 
 //setImage - protected
 Route::put('/setImages/{imageid}', [SetImageController::class, 'update']);
-// Route::post('/setImages/{setid}', [SetImageController::class, 'store']);
+Route::post('/setImages/{setid}', [SetImageController::class, 'store']);
 Route::delete('/setImages/{imageid}', [SetImageController::class, 'destroy']);
 
 //itemImage 
@@ -58,7 +59,7 @@ Route::get('/itemImages/{imageid}', [ItemImageController::class, 'show']);
 
 //itemImage - protected
 Route::put('/itemImages/{imageid}', [ItemImageController::class, 'update']);
-Route::post('/itemImages', [ItemImageController::class, 'store']);
+Route::post('/itemImages/{itemid}', [ItemImageController::class, 'store']);
 Route::delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 
 // Route::post('/upload', function (Request $request) {
@@ -76,4 +77,3 @@ Route::delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 //     // SetImageController->store(setid);
 // });
 
-Route::post('/setImages/{setid}', [SetImageController::class, 'store']);

@@ -6,11 +6,11 @@ function FileUpload() {
     const uploadFile = () => {
         var formData = new FormData();
 
-        const setid = 1;
+        const itemid = 1;
 
         var fileInput = document.getElementById('file');
         formData.append("image", fileInput.files[0]);
-        axios.post('/api/setImages/' + setid, formData, {
+        axios.post('/api/itemImages/' + itemid, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
