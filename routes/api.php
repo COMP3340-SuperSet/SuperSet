@@ -25,6 +25,10 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/search/{query}', [UserController::class, 'search']);
 Route::get('/user/{userid}', [UserController::class, 'show']);
 
+//user - [protected]
+Route::put('/user/{userid}', [UserController::class, 'update']);
+Route::put('/user/{userid}/image', [UserController::class, 'update_image']);
+
 //sets
 Route::get('/sets', [SetController::class, 'index']);
 Route::get('/sets/search/{query}', [SetController::class, 'search']);
