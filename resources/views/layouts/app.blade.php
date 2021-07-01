@@ -6,6 +6,7 @@
         <title>SuperSet</title>
         <meta name="description" content="">
         <meta name="author" content="">
+        @include('themes.logic')
     </head>
     <body>
         @yield('content')
