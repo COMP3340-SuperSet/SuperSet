@@ -3253,26 +3253,25 @@ var LoginForm = function LoginForm() {
      * 
      */
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
-      email: email,
-      password: password
-    }, {
-      headers: {
-        Accept: 'application/json'
-      }
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie', {
+      withCredentials: true
     }).then(function (response) {
-      (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth', {
+      console.log('crsf: ', response);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
+        email: email,
+        password: password
+      }, {
+        withCredentials: true,
         headers: {
-          Authorization: 'Bearer ' + response.data.token
+          Accept: 'application/json',
+          withCredentials: true
         }
       }).then(function (response) {
-        console.log(response);
+        console.log('login: ', response);
+        (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
       })["catch"](function (error) {
-        console.error(error);
+        console.log(error.response.data);
       });
-    })["catch"](function (error) {
-      console.log(error.response.data);
     });
   };
 
@@ -3625,6 +3624,7 @@ var RegisterForm = function RegisterForm() {
       }
     }).then(function (response) {
       (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
+      console.log('register: ', response);
     })["catch"](function (error) {
       console.log(error.response.data);
     });

@@ -18,28 +18,28 @@ const LoginForm = () => {
          * post request for a user to login
          * 
          */
-        axios.post('/api/login',
-            {
-                email: email,
-                password: password,
-            }, {
-            headers: {
-                Accept: 'application/json'
-            }
+        axios.get('/sanctum/csrf-cookie', {
+            withCredentials: true
         }).then(response => {
-            storeToken(response.data.token);
-            axios.get('/auth', {
+            console.log('crsf: ', response);
+            axios.post('/api/login',
+                {
+                    email: email,
+                    password: password,
+                }, {
+                withCredentials: true,
                 headers: {
-                    Authorization: 'Bearer ' + response.data.token
+                    Accept: 'application/json',
+                    withCredentials: true
                 }
             }).then(response => {
-                console.log(response);
+                console.log('login: ', response);
+                storeToken(response.data.token);
             }).catch(error => {
-                console.error(error);
+                console.log(error.response.data);
             });
-        }).catch(error => {
-            console.log(error.response.data);
         });
+
     }
 
     return (
