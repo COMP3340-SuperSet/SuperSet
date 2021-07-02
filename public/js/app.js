@@ -3516,7 +3516,7 @@ var LoginForm = function LoginForm() {
     console.log('password: ', password);
     /**
      * post request for a user to login
-     * 
+     *
      */
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
@@ -3528,6 +3528,15 @@ var LoginForm = function LoginForm() {
       }
     }).then(function (response) {
       (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth', {
+        headers: {
+          Authorization: 'Bearer ' + response.data.token
+        }
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.error(error);
+      });
     })["catch"](function (error) {
       console.log(error.response.data);
     });
@@ -5182,6 +5191,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\r\n.ss-title-title{\r\n    color: lig
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/Title.css":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/Title.css ***!
+  \*******************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n.ss-title-title{\r\n    color: lightslategray;\r\n    font-size: 70px;\r\n}\r\n\r\n.ss-title-logo{\r\n    margin-right: 10px !important;\r\n    margin-top: 0px !important;\r\n    padding-bottom: 25px;\r\n}\r\n\r\n.ss-title-header{\r\n    padding-top: 50px !important;\r\n}\r\n\r\n.ss-title-subtitle{\r\n    font-size: 20px;\r\n    color: grey;\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -5391,6 +5424,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/superset.png?4cdadf3f267270a40612b2d239231779");
+
+/***/ }),
+
+/***/ "./resources/images/testIMG1.jpg":
+/*!***************************************!*\
+  !*** ./resources/images/testIMG1.jpg ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/testIMG1.jpg?defd0758d97b709a25aacff8a3586022");
+
+/***/ }),
+
+/***/ "./resources/images/testIMG2.jpg":
+/*!***************************************!*\
+  !*** ./resources/images/testIMG2.jpg ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/testIMG2.jpg?e8ee4d02fa4b4656fe881c21cddf77e1");
+
+/***/ }),
+
+/***/ "./resources/images/testIMG3.jpg":
+/*!***************************************!*\
+  !*** ./resources/images/testIMG3.jpg ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/testIMG3.jpg?b4aeceabf2c1dc8b73b9253474d2f9c8");
 
 /***/ }),
 
@@ -60826,7 +60904,7 @@ function injectIntoDevTools(devToolsConfig) {
     scheduleRoot:  scheduleRoot ,
     setRefreshHandler:  setRefreshHandler ,
     // Enables DevTools to append owner stacks to error messages in DEV mode.
-    getCurrentFiber:  getCurrentFiberForDevTools 
+    getCurrentFiber:  getCurrentFiberForDevTools
   });
 }
 
@@ -77145,6 +77223,240 @@ Progress.propTypes =  true ? {
 
 /***/ }),
 
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Progress/Progress.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Progress/Progress.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var lodash_es_without__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lodash-es/without */ "./node_modules/lodash-es/without.js");
+/* harmony import */ var lodash_es_round__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash-es/round */ "./node_modules/lodash-es/round.js");
+/* harmony import */ var lodash_es_clamp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash-es/clamp */ "./node_modules/lodash-es/clamp.js");
+/* harmony import */ var lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash-es/isUndefined */ "./node_modules/lodash-es/isUndefined.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/factories.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+
+
+
+
+
+
+
+
+
+
+/**
+ * A progress bar shows the progression of a task.
+ */
+
+var Progress = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(Progress, _Component);
+
+  function Progress() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+    _this.calculatePercent = function () {
+      var _this$props = _this.props,
+          percent = _this$props.percent,
+          total = _this$props.total,
+          value = _this$props.value;
+      if (!(0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(percent)) return percent;
+      if (!(0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(total) && !(0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(value)) return value / total * 100;
+    };
+
+    _this.computeValueText = function (percent) {
+      var _this$props2 = _this.props,
+          progress = _this$props2.progress,
+          total = _this$props2.total,
+          value = _this$props2.value;
+      if (progress === 'value') return value;
+      if (progress === 'ratio') return value + "/" + total;
+      return percent + "%";
+    };
+
+    _this.getPercent = function () {
+      var _this$props3 = _this.props,
+          precision = _this$props3.precision,
+          progress = _this$props3.progress,
+          total = _this$props3.total,
+          value = _this$props3.value;
+
+      var percent = (0,lodash_es_clamp__WEBPACK_IMPORTED_MODULE_6__.default)(_this.calculatePercent(), 0, 100);
+
+      if (!(0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(total) && !(0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(value) && progress === 'value') {
+        return value / total * 100;
+      }
+
+      if (progress === 'value') return value;
+      if ((0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(precision)) return percent;
+      return (0,lodash_es_round__WEBPACK_IMPORTED_MODULE_7__.default)(percent, precision);
+    };
+
+    _this.isAutoSuccess = function () {
+      var _this$props4 = _this.props,
+          autoSuccess = _this$props4.autoSuccess,
+          percent = _this$props4.percent,
+          total = _this$props4.total,
+          value = _this$props4.value;
+      return autoSuccess && (percent >= 100 || value >= total);
+    };
+
+    _this.renderLabel = function () {
+      var _this$props5 = _this.props,
+          children = _this$props5.children,
+          content = _this$props5.content,
+          label = _this$props5.label;
+      if (!_lib__WEBPACK_IMPORTED_MODULE_8__.isNil(children)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+        className: "label"
+      }, children);
+      if (!_lib__WEBPACK_IMPORTED_MODULE_8__.isNil(content)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+        className: "label"
+      }, content);
+      return (0,_lib__WEBPACK_IMPORTED_MODULE_9__.createHTMLDivision)(label, {
+        autoGenerateKey: false,
+        defaultProps: {
+          className: 'label'
+        }
+      });
+    };
+
+    _this.renderProgress = function (percent) {
+      var _this$props6 = _this.props,
+          precision = _this$props6.precision,
+          progress = _this$props6.progress;
+      if (!progress && (0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_5__.default)(precision)) return;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+        className: "progress"
+      }, _this.computeValueText(percent));
+    };
+
+    return _this;
+  }
+
+  var _proto = Progress.prototype;
+
+  _proto.render = function render() {
+    var _this$props7 = this.props,
+        active = _this$props7.active,
+        attached = _this$props7.attached,
+        className = _this$props7.className,
+        color = _this$props7.color,
+        disabled = _this$props7.disabled,
+        error = _this$props7.error,
+        indicating = _this$props7.indicating,
+        inverted = _this$props7.inverted,
+        size = _this$props7.size,
+        success = _this$props7.success,
+        warning = _this$props7.warning;
+    var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)('ui', color, size, (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(active || indicating, 'active'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(disabled, 'disabled'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(error, 'error'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(indicating, 'indicating'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(inverted, 'inverted'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(success || this.isAutoSuccess(), 'success'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useKeyOnly)(warning, 'warning'), (0,_lib__WEBPACK_IMPORTED_MODULE_10__.useValueAndKey)(attached, 'attached'), 'progress', className);
+    var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_11__.default)(Progress, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_12__.default)(Progress, this.props);
+    var percent = this.getPercent() || 0;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      className: classes,
+      "data-percent": Math.floor(percent)
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+      className: "bar",
+      style: {
+        width: percent + "%"
+      }
+    }, this.renderProgress(percent)), this.renderLabel());
+  };
+
+  return Progress;
+}(react__WEBPACK_IMPORTED_MODULE_4__.Component);
+
+Progress.handledProps = ["active", "as", "attached", "autoSuccess", "children", "className", "color", "content", "disabled", "error", "indicating", "inverted", "label", "percent", "precision", "progress", "size", "success", "total", "value", "warning"];
+Progress.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /** A progress bar can show activity. */
+  active: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A progress bar can attach to and show the progress of an element (i.e. Card or Segment). */
+  attached: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['top', 'bottom']),
+
+  /** Whether success state should automatically trigger when progress completes. */
+  autoSuccess: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** A progress bar can have different colors. */
+  color: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(_lib__WEBPACK_IMPORTED_MODULE_13__.COLORS),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_14__.contentShorthand,
+
+  /** A progress bar be disabled. */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A progress bar can show a error state. */
+  error: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** An indicating progress bar visually indicates the current level of progress of a task. */
+  indicating: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** A progress bar can have its colors inverted. */
+  inverted: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Can be set to either to display progress as percent or ratio. */
+  label: _lib__WEBPACK_IMPORTED_MODULE_14__.itemShorthand,
+
+  /** Current percent complete. */
+  percent: _lib__WEBPACK_IMPORTED_MODULE_14__.every([_lib__WEBPACK_IMPORTED_MODULE_14__.disallow(['total', 'value']), prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])]),
+
+  /** Decimal point precision for calculated progress. */
+  precision: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+
+  /** A progress bar can contain a text value indicating current progress. */
+  progress: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool), prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['percent', 'ratio', 'value'])]),
+
+  /** A progress bar can vary in size. */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf((0,lodash_es_without__WEBPACK_IMPORTED_MODULE_15__.default)(_lib__WEBPACK_IMPORTED_MODULE_13__.SIZES, 'mini', 'huge', 'massive')),
+
+  /** A progress bar can show a success state. */
+  success: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** For use with value. Together, these will calculate the percent. Mutually excludes percent. */
+  total: _lib__WEBPACK_IMPORTED_MODULE_14__.every([_lib__WEBPACK_IMPORTED_MODULE_14__.demand(['value']), _lib__WEBPACK_IMPORTED_MODULE_14__.disallow(['percent']), prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])]),
+
+  /** For use with total. Together, these will calculate the percent. Mutually excludes percent. */
+  value: _lib__WEBPACK_IMPORTED_MODULE_14__.every([_lib__WEBPACK_IMPORTED_MODULE_14__.disallow(['percent']), prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])]),
+
+  /** A progress bar can show a warning state. */
+  warning: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Progress);
+
+/***/ }),
+
 /***/ "./node_modules/semantic-ui-react/dist/es/views/Card/Card.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/semantic-ui-react/dist/es/views/Card/Card.js ***!
@@ -77844,7 +78156,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_semantic_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./semantic.min.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./node_modules/semantic-ui-css/semantic.min.css");
 
-            
+
 
 var options = {};
 
@@ -77874,7 +78186,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_Header_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./Header.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/Header.css");
 
-            
+
 
 var options = {};
 
@@ -77904,7 +78216,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_InstructionsCarousel_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./InstructionsCarousel.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/InstructionsCarousel.css");
 
-            
+
 
 var options = {};
 
@@ -77934,7 +78246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_ItemModal_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./ItemModal.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/ItemModal.css");
 
-            
+
 
 var options = {};
 
@@ -77964,7 +78276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_ItemSlider_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./ItemSlider.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/ItemSlider.css");
 
-            
+
 
 var options = {};
 
@@ -77994,7 +78306,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_Profile_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./Profile.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/Profile.css");
 
-            
+
 
 var options = {};
 
@@ -78024,7 +78336,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_SetView_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./SetView.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/SetView.css");
 
-            
+
 
 var options = {};
 
@@ -78054,7 +78366,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_Title_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./Title.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/css/Title.css");
 
-            
+
 
 var options = {};
 
@@ -78352,7 +78664,7 @@ module.exports = function (list, options) {
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -78366,20 +78678,20 @@ module.exports = function (list, options) {
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/chunk loaded */
 /******/ 	(() => {
@@ -78411,7 +78723,7 @@ module.exports = function (list, options) {
 /******/ 			return result;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -78423,7 +78735,7 @@ module.exports = function (list, options) {
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -78435,7 +78747,7 @@ module.exports = function (list, options) {
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -78447,12 +78759,12 @@ module.exports = function (list, options) {
 /******/ 			}
 /******/ 		})();
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -78463,7 +78775,7 @@ module.exports = function (list, options) {
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -78472,11 +78784,11 @@ module.exports = function (list, options) {
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		// no baseURI
-/******/ 		
+/******/
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
@@ -78484,19 +78796,19 @@ module.exports = function (list, options) {
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0
 /******/ 		};
-/******/ 		
+/******/
 /******/ 		// no chunk on demand loading
-/******/ 		
+/******/
 /******/ 		// no prefetching
-/******/ 		
+/******/
 /******/ 		// no preloaded
-/******/ 		
+/******/
 /******/ 		// no HMR
-/******/ 		
+/******/
 /******/ 		// no HMR manifest
-/******/ 		
+/******/
 /******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
+/******/
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 /******/ 			var [chunkIds, moreModules, runtime] = data;
@@ -78519,20 +78831,20 @@ module.exports = function (list, options) {
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
-/******/ 		
+/******/
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+/******/
 /******/ })()
 ;

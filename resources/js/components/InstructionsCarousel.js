@@ -44,7 +44,7 @@ const InstructionsCarousel = () => {
                     <Button.Group fluid>
                         <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)}/>
                         <Button content="Get Started" className="ss-instructions-button" attached="bottom"/>
-                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>    
+                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>
                     </Button.Group>
                 </Grid.Column>
             </Grid>

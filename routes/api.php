@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,3 +54,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         return 'Protected Hello, World!';
     });
 });
+
+Route::get('/settings', [SettingController::class, 'index   ']);
+Route::get('/settings/{setting}', [SettingController::class, 'show']);
+Route::post('/settings', [SettingController::class, 'store']);
+Route::put('/settings', [SettingController::class, 'update']);

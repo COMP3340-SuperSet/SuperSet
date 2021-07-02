@@ -41,7 +41,7 @@ const ItemCarousel = () =>
                     <Progress percent={percent} style={{marginTop: '10px'}}></Progress>
                     <Button.Group fluid>
                         <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)}/>
-                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>    
+                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>
                     </Button.Group>
                 </Grid.Column>
             </Grid>
