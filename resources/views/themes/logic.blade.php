@@ -1,9 +1,11 @@
 <?php
-    //use App\Http\Controllers\SettingController;
-    //$db = SettingController::show('theme');
-    //$theme = $db['value'];
-
-    $theme = 0;
+    use App\Http\Controllers\SettingController;
+    try {
+        $db = SettingController::show('theme');
+        $theme = $db['value'];
+    } catch (Exception $e) {
+        $theme = 0;
+    }
 ?>
 
 @if($theme == '2')
