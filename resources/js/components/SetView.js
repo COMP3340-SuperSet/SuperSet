@@ -1,46 +1,80 @@
 import React, {useState} from "react";
 import { Grid, Button, Icon, Segment, Header, Dropdown, Input, Table, Image, Container } from 'semantic-ui-react';
-import SetCard from './SetCard.js';
-import SetCell from './SetCell.js';
+import ItemCard from './ItemCard.js';
+import ItemModal from "./ItemModal.js";
+
+import "../../css/SetView.css";
+
+import placeholderImage from "../../images/superset.png";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
 
+//unsure how this structure will look like later, but we can change the code that parses this accordingly
+var set = {
+    id: 1,
+    name: "set name",
+    description: "description",
+    images: [placeholderImage, placeholderImage],
+    itemList: [{
+        itemId: 2634,
+        itemName: "item name 1",
+        itemDescription: "item description 1",
+        itemImages: [null]
+    }, {
+        itemId: 2346,
+        itemName: "item name 2",
+        itemDescription: "item description 2",
+        itemImages: [null]
+    }, {
+        itemId: 2214,
+        itemName: "item name 3",
+        itemDescription: "item description 3",
+        itemImages: [null]
+    }]
+};
+
 const SetViewDisplay = (props) => {
     if (props.view === GRID_MODE){
+        let allCards = set.itemList.map( (obj) =>  
+            <Grid.Column key = {obj.itemId}>
+                <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
+                    <Button fluid className = "basic-button">
+                        <ItemCard name = {obj.itemName} count = {obj.itemQuantity} description = {obj.itemDescription} image = {obj.itemImages[0]}/>
+                    </Button>} />
+            </Grid.Column> );
+
         return (
             <Grid stackable container columns = {5}>
-                <Grid.Column><SetCard name = "Item 1"  description = "This is an item"/></Grid.Column>
-                <Grid.Column><SetCard name = "Item 2" count = "5" description = "This is an item again"/></Grid.Column>
-                <Grid.Column><SetCard name = "Item 3" count = "4" description = "Test description"/></Grid.Column>
-                <Grid.Column><SetCard name = "Item 4" count = "8" description = "Lorem Ipsum"/></Grid.Column>
-                <Grid.Column><SetCard name = "Item 5" description = "Another item"/></Grid.Column>
-                <Grid.Column><SetCard name = "Item 5" description = "Another other item"/></Grid.Column>
+                {allCards}
             </Grid>
         );
     }
     else{
+
+        let allCells = set.itemList.map( (obj) =>  
+            <Table.Row key = {obj.itemId}>
+                <Table.Cell style = {{padding: "0"}}>
+                    <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
+                        <Button fluid className = "basic-button padded-cell-button">{obj.itemName}</Button>} />
+                </Table.Cell>
+                <Table.Cell style = {{padding: "0"}}>
+                    <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
+                        <Button fluid className = "basic-button padded-cell-button">{obj.itemDescription}</Button>} />
+                </Table.Cell>   
+            </Table.Row> );
+
         return (
             <Table celled selectable>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell width = {1}  textAlign = "center">Qty</Table.HeaderCell>
                         <Table.HeaderCell width = {3}  textAlign = "center">Item Name</Table.HeaderCell>
                         <Table.HeaderCell width = {12}  textAlign = "center">Description</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                    <SetCell name = "Item 1" description = "This is an item"/>
-                    <SetCell name = "Item 2" count = "5" description = "This is an item again"/>
-                    <SetCell name = "Item 3" count = "4" description = "Test description"/>
-                    <SetCell name = "Item 4" count = "8" description = "Lorem Ipsum"/>
-                    <SetCell name = "Item 5" description = "Another item"/>
-                    <SetCell name = "Item 1" count = "2" description = "This is an item"/>
-                    <SetCell name = "Item 2" count = "5" description = "This is an item again"/>
-                    <SetCell name = "Item 3" count = "4" description = "Test description"/>
-                    <SetCell name = "Item 4" count = "8" description = "Lorem Ipsum"/>
-                    <SetCell name = "Item 5" description = "Another item"/>
+                    {allCells}
                 </Table.Body>
             </Table>
         );
@@ -48,16 +82,13 @@ const SetViewDisplay = (props) => {
 }
 
 const SetImagesDisplay = () => {
+    let allSetImages = set.images.map( (obj, index) =>  <Image key = {index} src = {obj} />);
+
     return (
         <Segment>
             <Image.Group size = "small">
-                <Image src = "https://react.semantic-ui.com/images/wireframe/image.png" />
-                <Image src = "https://react.semantic-ui.com/images/wireframe/image.png" />
-                <Image src = "https://react.semantic-ui.com/images/wireframe/image.png" />
-                <Image src = "https://react.semantic-ui.com/images/wireframe/image.png" />
-                <Image src = "https://react.semantic-ui.com/images/wireframe/image.png" />    
+                {allSetImages} 
             </Image.Group>
-            <Button fluid icon><Icon name = "plus"/></Button>
         </Segment>
     );
 }
@@ -69,7 +100,7 @@ const SetView = () => {
         <Grid centered stackable container columns = {1}>
             <Grid.Row>
                 <Grid.Column textAlign = "center">
-                    <Button icon ><Icon name = "pencil"/></Button>
+                    <Button style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>
                 </Grid.Column>
             </Grid.Row>
 

@@ -4,7 +4,7 @@ import {Modal, Button, Grid} from "semantic-ui-react";
 import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 
-const ItemModal = ({itemImages, itemName, itemDescription}) => {
+const ItemModal = ({itemId, itemName, itemDescription, itemImages, modalTrigger = <Button>Show Modal</Button>}) => {
 
     const [open, setOpen] = useState(false);
     
@@ -13,7 +13,7 @@ const ItemModal = ({itemImages, itemName, itemDescription}) => {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Show Modal</Button>}
+            trigger={modalTrigger}
         >
             <Modal.Header className="ss-itemmodal-modalheader">Item View: {itemName}</Modal.Header>
             <Grid centered stackable columns={3}>

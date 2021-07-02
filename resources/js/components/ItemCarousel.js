@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 import {Grid, Button, Container, Progress} from "semantic-ui-react";
 import "../../css/InstructionsCarousel.css";
 import ImageSlider from "./ImageSlider";
-import setInstructions from "../../public/images/testIMG1.jpg";
-import adminInstructions from "../../testIMG2.jpg";
-import reportInstructions from "../../images/testIMG3.jpg";
 
+import setInstructions from "../../images/superset.png";
+import adminInstructions from "../../images/superset.png";
+import reportInstructions from "../../images/superset.png";
+
+/*
+import setInstructions from "../public/images/testIMG1.jpg";
+import adminInstructions from "../public/images/testIMG2.jpg";
+import reportInstructions from "../public/images/testIMG3.jpg";
+*/
 const SliderData = [
     {
         url: setInstructions
@@ -35,7 +41,7 @@ const ItemCarousel = () =>
                     <Progress percent={percent} style={{marginTop: '10px'}}></Progress>
                     <Button.Group fluid>
                         <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)}/>
-                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>    
+                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>
                     </Button.Group>
                 </Grid.Column>
             </Grid>
