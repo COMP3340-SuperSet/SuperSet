@@ -28,6 +28,15 @@ const LoginForm = () => {
             }
         }).then(response => {
             storeToken(response.data.token);
+            axios.get('/auth', {
+                headers: {
+                    Authorization: 'Bearer ' + response.data.token
+                }
+            }).then(response => {
+                console.log(response);
+            }).catch(error => {
+                console.error(error);
+            });
         }).catch(error => {
             console.log(error.response.data);
         });
