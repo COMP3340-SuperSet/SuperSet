@@ -30,6 +30,7 @@ const RegisterForm = () => {
             }
         }).then(response => {
             storeToken(response.data.token);
+            console.log('register: ', response);
         }).catch(error => {
             console.log(error.response.data);
         });
