@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     });
 });
 
-Route::get('/settings', [SettingController::class, 'index   ']);
+Route::get('/settings', [SettingController::class, 'index']);
 Route::get('/settings/{setting}', [SettingController::class, 'show']);
 Route::post('/settings', [SettingController::class, 'store']);
 Route::put('/settings', [SettingController::class, 'update']);
