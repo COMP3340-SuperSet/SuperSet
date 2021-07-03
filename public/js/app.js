@@ -2868,11 +2868,9 @@ __webpack_require__.r(__webpack_exports__);
 function FileUpload() {
   var uploadFile = function uploadFile() {
     var formData = new FormData();
-    var userid = 1;
     var fileInput = document.getElementById('file');
     formData.append("image", fileInput.files[0]);
-    var url = '/api/user/' + userid + '/image';
-    axios__WEBPACK_IMPORTED_MODULE_1___default().put(url, formData, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/user/1/image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

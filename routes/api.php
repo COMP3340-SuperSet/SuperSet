@@ -27,7 +27,7 @@ Route::get('/user/{userid}', [UserController::class, 'show']);
 
 //user - [protected]
 Route::put('/user/{userid}', [UserController::class, 'update']);
-Route::put('/user/{userid}/image', [UserController::class, 'update_image']);
+Route::post('/user/{userid}/image', [UserController::class, 'update_image']);
 
 //sets
 Route::get('/sets', [SetController::class, 'index']);

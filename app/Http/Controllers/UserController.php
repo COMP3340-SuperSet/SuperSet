@@ -38,16 +38,20 @@ class UserController extends Controller
 
     public function update_image(Request $request, $userid)
     {   
+        //return $request;
+        error_log($request);
+
         try{
+            $user = User::find($userid);
             if($request->hasFile('image')){
                 $imageid = (string) Str::uuid();
-                error_log('image: '.$imageid.' user: '.$userid);
                 Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
                 $user->update(['imageid'=>$imageid]);
-                return $user;
-            }else{
-                return response()->json(['error'=>'Could not find attached file.'], 400);
+                $user->save();
             }
+            // }else{
+            //     return response()->json(['error'=>'Could not find attached file.'], 400);
+            // }
         }catch(Exception $e){
             error_log($e);
         }
