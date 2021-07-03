@@ -13,3 +13,5 @@ Route::get('/about', fn() => view('about'));
 Route::get('/edit', fn() => view('edit'));
 
 Route::middleware('auth:sanctum')->get('/auth', fn() => view('auth'));
+
+Route::get('/hello', fn() => view('hello'));

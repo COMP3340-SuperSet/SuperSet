@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\Set;
+
+
 class CreateSetsTable extends Migration
 {
     /**
@@ -22,6 +25,8 @@ class CreateSetsTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
         });
+
+        Set::create(['userid'=>'1', 'name'=>'Test Set 1', 'description'=>'Sample Description for Test Set 1.']);
     }
 
     /**
