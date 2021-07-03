@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import { storeToken } from '../utils/localStorage';
+import { redirect } from '../utils/redirect';
+import { referer } from '../utils/redirect';
 
 const RegisterForm = () => {
 
@@ -31,6 +33,7 @@ const RegisterForm = () => {
         }).then(response => {
             storeToken(response.data.token);
             console.log('register: ', response);
+            redirect(fetchReferer() ? fetchReferer() : '/');
         }).catch(error => {
             console.log(error.response.data);
         });

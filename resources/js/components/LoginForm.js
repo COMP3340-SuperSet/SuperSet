@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
+import { fetchReferer } from '../utils/sessionStorage';
+import { redirect } from '../utils/redirect';
 
 const LoginForm = () => {
 
@@ -35,6 +37,7 @@ const LoginForm = () => {
             }).then(response => {
                 console.log('login: ', response);
                 storeToken(response.data.token);
+                redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
                 console.log(error.response.data);
             });
