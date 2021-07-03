@@ -14,12 +14,16 @@ class SetController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'string'   
+        ]);
         return Set::create($request->all());
     }
 
-    public function show($id)
+    public function show($setid)
     {
-        return Set::find($id);
+        return Set::find($setid);
     }
 
     public function search($name)
@@ -27,9 +31,11 @@ class SetController extends Controller
         return Set::where('name', 'like', '%'.$name.'%')->get();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $setid)
     {
-        
+        $set = Set::first($setid);
+        $set->update($request->all());
+        return $set;
     }
 
     public function destroy($setid)
