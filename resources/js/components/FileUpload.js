@@ -2,14 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { uploadFile } from '../services/fileUpload';
 
-const FileUpload = ({fileUploadURL}) => {
+const FileUpload = ({ fileUploadURL }) => {
 
     const onSubmitFile = () => {
         var formData = new FormData();
-
         var fileInput = document.getElementById(fileUploadURL);
         formData.append("image", fileInput.files[0]);
-        
         uploadFile(fileUploadURL, formData);
     }
 
@@ -21,6 +19,7 @@ const FileUpload = ({fileUploadURL}) => {
             </form>
         </div>
     );
+
 }
 
 export default FileUpload;
