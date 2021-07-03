@@ -67,7 +67,7 @@ Route::post('/itemImages/{itemid}', [ItemImageController::class, 'store']);
 Route::delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 
 //settings - protected
-Route::get('/settings', [SettingController::class, 'index   ']);
+Route::get('/settings', [SettingController::class, 'index']);
 Route::get('/settings/{setting}', [SettingController::class, 'show']);
 Route::post('/settings', [SettingController::class, 'store']);
 Route::put('/settings', [SettingController::class, 'update']);
