@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SetImage;
-
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +23,7 @@ class SetImageController extends Controller
             if($request->hasFile('image')){
                 $imageid = (string) Str::uuid();
                 error_log('image: '.$imageid.' set: '.$setid);
-                Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
+                Storage::disk('local')->put('images/sets/'.$imageid, $request->file('image'));
                 return SetImage::create([
                     'imageid'=>$imageid,
                     'setid'=>$setid 
@@ -33,6 +33,7 @@ class SetImageController extends Controller
             }
         }catch(Exception $e){
             error_log($e);
+            return response()->json(['error'=>'Error uploading file.'], 500);
         }
     }
 

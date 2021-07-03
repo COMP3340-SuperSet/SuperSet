@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -45,14 +46,14 @@ class UserController extends Controller
             $user = User::find($userid);
             if($request->hasFile('image')){
                 $imageid = (string) Str::uuid();
-                Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
+                Storage::disk('local')->put('images/users/'.$imageid, $request->file('image'));
                 $user->update(['imageid'=>$imageid]);
                 $user->save();
+            }else{
+                return response()->json(['error'=>'Could not find attached file.'], 400);
             }
-            // }else{
-            //     return response()->json(['error'=>'Could not find attached file.'], 400);
-            // }
         }catch(Exception $e){
+            return response()->json(['error'=>'Error uploading file.'], 500);
             error_log($e);
         }
     }

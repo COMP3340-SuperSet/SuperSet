@@ -1,31 +1,23 @@
 import React from 'react';
 import axios from 'axios';
+import { uploadFile } from '../services/fileUpload';
 
-function FileUpload() {
+const FileUpload = ({fileUploadURL}) => {
 
-    const uploadFile = () => {
+    const onSubmitFile = () => {
         var formData = new FormData();
 
-        var fileInput = document.getElementById('file');
+        var fileInput = document.getElementById(fileUploadURL);
         formData.append("image", fileInput.files[0]);
-
-        axios.post('/api/user/1/image', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(response => {
-            console.log('response: ', response);
-        }).catch(error => {
-            console.error(error);
-        });
+        
+        uploadFile(fileUploadURL, formData);
     }
 
     return (
         <div>
-            I am the File Upload Component
-            <form id="uploadForm" role="form" encType="multipart/form-data">
-                <input type="file" id="file" name="file" />
-                <input type="button" onClick={() => uploadFile()} value="Upload" />
+            <form name="file" role="form" encType="multipart/form-data">
+                <input type="file" id={fileUploadURL} name="file" />
+                <input type="button" onClick={() => onSubmitFile()} value="Upload" />
             </form>
         </div>
     );

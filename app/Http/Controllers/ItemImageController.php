@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemImage;
-
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +21,7 @@ class ItemImageController extends Controller
             if($request->hasFile('image')){
                 $imageid = (string) Str::uuid();
                 error_log('image: '.$imageid.' item: '.$itemid);
-                Storage::disk('local')->put('images/'.$imageid, $request->file('image'));
+                Storage::disk('local')->put('images/items/'.$imageid, $request->file('image'));
                 return ItemImage::create([
                     'imageid'=>$imageid,
                     'itemid'=>$itemid 
@@ -31,6 +31,7 @@ class ItemImageController extends Controller
             }
         }catch(Exception $e){
             error_log($e);
+            return response()->json(['error'=>'Error uploading file.'], 500);
         }
     }
 
