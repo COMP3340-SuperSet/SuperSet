@@ -23,13 +23,12 @@ class SettingController extends Controller
     }
 
     public function update(Request $request)
-    {
-        $updated = Setting::where($request->get($request->setting))->update($request->all());
-        if($updated) 
-            return response()->json(['message'=>'Setting updated successfully'], 200);
-        else
-            return response()->json(['message'=>'Unable to update setting.'], 500);
-        
+    {   
+        $setting = Setting::find($request->get('setting'));
+        $setting->update($request->all());
+        $setting->save();
+        return $setting;
+
     }
 
     public static function destroy($setting)
