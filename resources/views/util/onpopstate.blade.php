@@ -12,7 +12,6 @@
 
     window.onpopstate = function() {
         const path = window.location.pathname;
-        alert('popstate from path ', path);
         if(!nonReferers.includes(path)){
             storeReferer(path);
         }
