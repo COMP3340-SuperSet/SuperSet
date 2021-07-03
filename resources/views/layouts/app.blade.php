@@ -6,6 +6,8 @@
         <title>SuperSet</title>
         <meta name="description" content="">
         <meta name="author" content="">
+        @include('util.logic')
+        @include('util.onpopstate')
     </head>
     <body>
         @yield('content')

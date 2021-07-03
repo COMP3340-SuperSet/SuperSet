@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
+import { fetchReferer } from '../utils/sessionStorage';
+import { redirect } from '../utils/redirect';
 
 const LoginForm = () => {
 
@@ -18,19 +20,29 @@ const LoginForm = () => {
          * post request for a user to login
          * 
          */
-        axios.post('/api/login',
-            {
-                email: email,
-                password: password,
-            }, {
-            headers: {
-                Accept: 'application/json'
-            }
+        axios.get('/sanctum/csrf-cookie', {
+            withCredentials: true
         }).then(response => {
-            storeToken(response.data.token);
-        }).catch(error => {
-            console.log(error.response.data);
+            console.log('crsf: ', response);
+            axios.post('/api/login',
+                {
+                    email: email,
+                    password: password,
+                }, {
+                withCredentials: true,
+                headers: {
+                    Accept: 'application/json',
+                    withCredentials: true
+                }
+            }).then(response => {
+                console.log('login: ', response);
+                storeToken(response.data.token);
+                redirect(fetchReferer() ? fetchReferer() : '/');
+            }).catch(error => {
+                console.log(error.response.data);
+            });
         });
+
     }
 
     return (

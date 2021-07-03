@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SetImageController;
 use App\Http\Controllers\ItemImageController;
-
+use App\Http\Controllers\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -66,18 +66,8 @@ Route::put('/itemImages/{imageid}', [ItemImageController::class, 'update']);
 Route::post('/itemImages/{itemid}', [ItemImageController::class, 'store']);
 Route::delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 
-// Route::post('/upload', function (Request $request) {
-
-//     if($request->hasFile('image')){
-//         $fileName = 'images/'.(string) Str::uuid();
-//         Storage::disk('local')->put($fileName, $request->file('image'));
-//     }else{
-//         return response()->json(['error'=>'Could not find attached file.'], 400);
-//     }
-// });
-
-// Route::post('/setImages/{setid}', function($setid){
-//     error_log('test');
-//     // SetImageController->store(setid);
-// });
-
+//settings - protected
+Route::get('/settings', [SettingController::class, 'index   ']);
+Route::get('/settings/{setting}', [SettingController::class, 'show']);
+Route::post('/settings', [SettingController::class, 'store']);
+Route::put('/settings', [SettingController::class, 'update']);

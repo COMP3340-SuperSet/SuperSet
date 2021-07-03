@@ -9,3 +9,16 @@
 .pad-top{ padding-top: 20%; }
 
 .ss-grey{ color: #464C55 !important; }
+
+.pfp-upload-label{
+    padding: 8px 30px 8px 30px;
+}
+
+.pfp-upload-label:hover{
+    cursor: pointer;
+}
+
+.pfp-upload-button{
+    padding: 10px 0px 10px 0px !important;
+}
+
