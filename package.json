@@ -24,6 +24,8 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "chart.js": "^3.4.0",
+        "react-chartjs-2": "^3.0.3",
         "react-redux": "^7.2.4",
         "react-thunk": "^1.0.0",
         "redux": "^4.1.0",

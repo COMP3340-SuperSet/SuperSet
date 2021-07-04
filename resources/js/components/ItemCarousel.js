@@ -1,34 +1,23 @@
 
 import React, { useState } from 'react';
 import {Grid, Button, Container, Progress} from "semantic-ui-react";
-import "../../css/InstructionsCarousel.css";
+import "../../css/Instructions.css";
 import ImageSlider from "./ImageSlider";
 
-import setInstructions from "../../images/superset.png";
-import adminInstructions from "../../images/superset.png";
-import reportInstructions from "../../images/superset.png";
-
-/*
-import setInstructions from "../public/images/testIMG1.jpg";
-import adminInstructions from "../public/images/testIMG2.jpg";
-import reportInstructions from "../public/images/testIMG3.jpg";
-*/
-const SliderData = [
-    {
-        url: setInstructions
-    },
-    {
-        url: adminInstructions
-    },
-    {
-        url: reportInstructions
-    }
-];
-
-const ItemCarousel = () =>
+const ItemCarousel = ({itemImages}) =>
 {
+    /*
+    * Input: --No Input--
+    * Description: The purpose of this functional component is to house the 
+    *               all other functional components that are related to the 
+    *               webpages instructions
+    * Usage: Instructions.js --> /views
+    */
+
+    // Contains the percent value
     const [percent, setPercent] = useState(null);
 
+    // Use to determine what direction the actor is going in the instructions 
     const [pageOffset, setPageOffset] = useState(0);
 
     return(
@@ -36,12 +25,12 @@ const ItemCarousel = () =>
             <Grid centered stackable columns={3}>
                 <Grid.Column>
                     <Container className="ss-instructions-container">
-                        <ImageSlider setPercent={setPercent} images={SliderData} pageOffset={pageOffset} setPageOffset={setPageOffset}/>
+                        <ImageSlider setPercent={setPercent} itemImages={itemImages} pageOffset={pageOffset} setPageOffset={setPageOffset}/>
                     </Container>
                     <Progress percent={percent} style={{marginTop: '10px'}}></Progress>
                     <Button.Group fluid>
                         <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)}/>
-                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>
+                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>    
                     </Button.Group>
                 </Grid.Column>
             </Grid>

@@ -3,3 +3,9 @@
     align-self: center;
     align-items: center;
 }
+
+.ss-imageslider-image{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
