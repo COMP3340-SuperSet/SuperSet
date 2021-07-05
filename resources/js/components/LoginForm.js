@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'semantic-ui-react';
+import { Form, Button, Grid } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
@@ -46,23 +46,27 @@ const LoginForm = () => {
     }
 
     return (
-        <Container>
-            <Form onSubmit={(e) => onLoginSubmit(e)}>
-                <Form.Field>
-                    <label>
-                        Email
-                    </label>
-                    <input id='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </Form.Field>
-                <Form.Field>
-                    <label>
-                        Password
-                    </label>
-                    <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
-                </Form.Field>
-                <Button type='submit'>Login</Button>
-            </Form>
-        </Container>
+        <Grid container centered style={{ marginTop: "50px" }} >
+            <Grid.Row>
+                <Grid.Column width={12}>
+                    <Form onSubmit={(e) => onLoginSubmit(e)} size="large">
+                        <Form.Field>
+                            <label>
+                                Email
+                            </label>
+                            <input id='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>
+                                Password
+                            </label>
+                            <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
+                        </Form.Field>
+                        <Button type='submit'>Login</Button>
+                    </Form>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
 
     );
 }
