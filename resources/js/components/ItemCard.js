@@ -3,7 +3,7 @@ import { Card, Image } from 'semantic-ui-react';
 
 const ItemCard = ({name, description, images = [null]}) => {
     return (
-        <Card centered href = "#">
+        <Card centered>
             <Image src = {images[0]} />
             <Card.Content textAlign = "center">
                 <Card.Header>{name}</Card.Header>
