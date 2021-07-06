@@ -36,7 +36,7 @@ var set = {
 
 const SetViewDisplay = (props) => {
     if (props.view === GRID_MODE){
-        let allCards = set.itemList.map( (obj) =>  
+        let AllCards = set.itemList.map( (obj) =>  
             <Grid.Column key = {obj.itemId}>
                 <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
                     <Button fluid className = "basic-button">
@@ -46,13 +46,13 @@ const SetViewDisplay = (props) => {
 
         return (
             <Grid stackable container columns = {5}>
-                {allCards}
+                {AllCards}
             </Grid>
         );
     }
     else{
 
-        let allCells = set.itemList.map( (obj) =>  
+        let AllCells = set.itemList.map( (obj) =>  
             <Table.Row key = {obj.itemId}>
                 <Table.Cell style = {{padding: "0"}}>
                     <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
@@ -74,7 +74,7 @@ const SetViewDisplay = (props) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {allCells}
+                    {AllCells}
                 </Table.Body>
             </Table>
         );
@@ -86,7 +86,7 @@ const SetImagesDisplay = () => {
 
     return (
         <Segment>
-            <Image.Group size = "small">
+            <Image.Group size = "tiny">
                 {allSetImages} 
             </Image.Group>
         </Segment>

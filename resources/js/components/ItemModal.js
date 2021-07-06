@@ -4,7 +4,7 @@ import {Modal, Button, Grid} from "semantic-ui-react";
 import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 
-const ItemModal = ({itemImages, itemName, itemDescription, trigger}) => {
+const ItemModal = ({itemImages, itemName, itemDescription, modalTrigger = <Button>Modal</Button>}) => {
     /*
     * Input: --itemImages, itemName, itemDescription--
     * Description: The purpose of this functional component is to house the 
@@ -13,14 +13,14 @@ const ItemModal = ({itemImages, itemName, itemDescription, trigger}) => {
     */
 
     // Use to determine when the modal is open or closed  
-    const [open, setOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     
     return(
         <Modal  
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            trigger={trigger}
+            onClose={() => setModalOpen(false)}
+            onOpen={() => setModalOpen(true)}
+            open={modalOpen}
+            trigger={modalTrigger}
         >
             <Modal.Header className="ss-itemmodal-modalheader">Item View: {itemName}</Modal.Header>
             <Grid centered stackable columns={3}>
@@ -41,7 +41,7 @@ const ItemModal = ({itemImages, itemName, itemDescription, trigger}) => {
             </Grid>
 
             <Modal.Actions>
-                <Button color='blue' onClick={() => setOpen(false)}> Back </Button>
+                <Button color='blue' onClick={() => setModalOpen(false)}> Back </Button>
             </Modal.Actions>
         </Modal>
     );

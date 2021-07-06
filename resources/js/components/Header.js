@@ -16,7 +16,7 @@ const SSHeader = () => {
                         onClick={() => redirect('/')}
                         style={{cursor: "pointer"}}
                     >
-                        <Image className="ss-header-logo" src={logo} size="tiny" centered verticalAlign="middle" spaced="left"/>
+                        <Image className="ss-header-logo" src={logo} size="mini" centered verticalAlign="middle" spaced="left"/>
                         <a className="ss-header-title" style={{padding: "12px", verticalAlign: "middle", textDecoration: "none"}}>SuperSet</a>
                     </div>
                 </Header>
