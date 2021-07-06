@@ -4,7 +4,7 @@ import Head from "./Header";
 
 // npm install --save react-chartjs-2 chart.js
 import {Bar, Line, Pie} from 'react-chartjs-2';
-import "../css/StatisticsPage.css";
+import "../../css/StatisticsPage.css";
 
 // Data sent into bar graph (Popular Sets)
 const barGraphData = {

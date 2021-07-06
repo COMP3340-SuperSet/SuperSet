@@ -1,0 +1,34 @@
+.ss-feedback-griddiv{
+    padding-top: 15vh;
+}
+
+.ss-feedback-gridcolumn{
+    border-style: double;
+    background-color: lightslategray;
+}
+
+.ss-feedback-formdiv{
+    padding-top: 100px;
+    text-align: center;
+    align-items: center;
+}
+
+.ss-feedback-form{
+    border-style: groove;
+    padding: 1px;
+    background-color: black;
+    width: 100%;
+}
+
+.ss-feedback-formtextarea{
+    width: 100%;
+}
+
+.ss-feedback-starslabel{
+    padding: 10px;
+}
+
+.ss-feedback-submitbutton{
+    padding-top: 50px;
+    padding-bottom: 25px;
+}
