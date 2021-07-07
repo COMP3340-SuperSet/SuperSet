@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->integer('userid', true, true);
             $table->string('email')->unique();
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('name', 32);
             $table->string('bio')->nullable();
@@ -28,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['email'=>'admin@ss.ca', 'name'=>'Admin', 'password'=>'password', 'password_confirmation'=>'password']);
+        User::create(['email'=>'admin@ss.ca', 'name'=>'Admin', 'username'=>'admin', 'password'=>'password', 'password_confirmation'=>'password']);
     }
 
     /**

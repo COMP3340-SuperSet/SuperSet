@@ -62,4 +62,8 @@ class UserController extends Controller
     {
         return User::destroy($userid);
     }
+
+    public function getRole($userid){
+        return User::select('role')->find($userid);
+    }
 }
