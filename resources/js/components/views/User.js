@@ -13,6 +13,7 @@ function User() {
         let userid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/user/${userid}`).then((response) => {
             setUser(response.data);
+            //console.log("User: " + JSON.stringify(response));
         }).catch((error) => {
             console.error("Error: " + error);
         });
@@ -20,13 +21,13 @@ function User() {
         
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
+            //console.log("Sets retrieved: " + JSON.stringify(response));
         }).catch((error) => {
             console.error("Error: " + error);
         });
     }, []);
 
-    useEffect(() =>{
-    }, [user, userSets]);
+    useEffect(() =>{ }, [user, userSets]);
 
     return (
         <div>
