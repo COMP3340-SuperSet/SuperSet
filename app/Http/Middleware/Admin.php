@@ -1,18 +1,27 @@
 <?php
 
-
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
-use Closure;
 
-class Admin
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
+
+class Owner
 {
-    public function handle($request, Closure $next)
+    protected $auth;
+
+    public function __construct(Guard $auth)
     {
-         if (Auth::user()) {
-                return $next($request);
-         }
-    
-        return redirect('/login');
+        $this->auth = $auth;
+    }
+
+    public function handle(Request $request, Closure $next)
+    {
+        if (Auth::user()->role == 1) {
+            return $next($request);
+        }else{
+            return response()->json(['error' => 'This route can only be used by admins.'], 401);
+        }
     }
 }
