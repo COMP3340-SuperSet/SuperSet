@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SetImageController;
 use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Route;
     PUBLIC ROUTES
 */
 
+//search
+Route::get('/search/{term}', [SearchController::class, 'search']);
+Route::get('/users/search/{term}', [SearchController::class, 'searchUsers']);
+Route::get('/sets/search/{term}', [SearchController::class, 'searchSets']);
+
 //auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -24,6 +30,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/search/{query}', [UserController::class, 'search']);
 Route::get('/user/{userid}', [UserController::class, 'show']);
+Route::get('/user/sets/{userid}', [UserController::class, 'getSets']);
 
 //user - [protected]
 Route::put('/user/{userid}', [UserController::class, 'update']);
@@ -42,6 +49,7 @@ Route::delete('sets/{setid}', [SetController::class, 'destroy']);
 //items
 Route::get('/items', [ItemController::class, 'index']);
 Route::get('/items/{itemid}', [ItemController::class, 'show']);
+Route::get('/items/set/{setid}', [SetController::class, 'getItems']);
 
 //items - protected
 Route::put('/item/{itemid}', [ItemController::class, 'update']);

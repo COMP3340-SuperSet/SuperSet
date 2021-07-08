@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Set;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class SetController extends Controller
@@ -36,6 +37,11 @@ class SetController extends Controller
         $set = Set::first($setid);
         $set->update($request->all());
         return $set;
+    }
+
+    public function getItems(Request $request, $setid)
+    {
+        return Item::where('setid', '=', $setid)->get();
     }
 
     public function destroy($setid)

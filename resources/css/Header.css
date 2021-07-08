@@ -20,7 +20,7 @@
     justify-content: space-between;
 }
 
-.ss-header-searchbar{ padding-left: 12px !important; }
+.ss-header-searchbar{ padding-left: 12px !important; display: inline-block; }
 
 .ss-white{ color: white !important; }
 

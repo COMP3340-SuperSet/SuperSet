@@ -34,13 +34,14 @@ var set = {
     }]
 };
 
-const SetViewDisplay = (props) => {
-    if (props.view === GRID_MODE){
-        let AllCards = set.itemList.map( (obj) =>  
-            <Grid.Column key = {obj.itemId}>
-                <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
+const ItemViewDisplay = ({view, itemInfo}) => {
+    if (itemInfo === null) return null;
+    if (view === GRID_MODE){
+        let AllCards = itemInfo.map( (obj) =>  
+            <Grid.Column key = {obj.itemid}>
+                <ItemModal item = {obj} modalTrigger = {
                     <Button fluid className = "basic-button">
-                        <ItemCard name = {obj.itemName} count = {obj.itemQuantity} description = {obj.itemDescription} image = {obj.itemImages[0]}/>
+                        <ItemCard name = {obj.name} count = {5} description = {obj.description} image = {null}/>
                     </Button>} />
             </Grid.Column> );
 
@@ -51,16 +52,15 @@ const SetViewDisplay = (props) => {
         );
     }
     else{
-
-        let AllCells = set.itemList.map( (obj) =>  
-            <Table.Row key = {obj.itemId}>
+        let AllCells = itemInfo.map( (obj) =>  
+            <Table.Row key = {obj.itemid}>
                 <Table.Cell style = {{padding: "0"}}>
-                    <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
-                        <Button fluid className = "basic-button padded-cell-button">{obj.itemName}</Button>} />
+                    <ItemModal item = {obj} modalTrigger = {
+                        <Button fluid className = "basic-button padded-cell-button">{obj.name}</Button>} />
                 </Table.Cell>
                 <Table.Cell style = {{padding: "0"}}>
-                    <ItemModal itemName = {obj.itemName} itemDescription = {obj.itemDescription} itemImages = {obj.itemImages} modalTrigger = {
-                        <Button fluid className = "basic-button padded-cell-button">{obj.itemDescription}</Button>} />
+                    <ItemModal item = {obj} modalTrigger = {
+                        <Button fluid className = "basic-button padded-cell-button">{obj.description}</Button>} />
                 </Table.Cell>   
             </Table.Row> );
 
@@ -93,8 +93,12 @@ const SetImagesDisplay = () => {
     );
 }
 
-const SetView = () => {
+const SetView = ({set, items}) => {
     const [viewType, setViewType] = useState(GRID_MODE);
+
+    if (!set){
+        set = {name: "Set name", description: "Description"}
+    }
 
     return (
         <Grid centered stackable container columns = {1}>
@@ -106,13 +110,13 @@ const SetView = () => {
 
             <Grid.Row>
                 <Grid.Column textAlign = "center" verticalAlign = "middle">
-                    <Header as = "h1">Set name</Header>
+                    <Header as = "h1">{set.name}</Header>
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
                 <Grid.Column textAlign = "center">
-                    <Header>Description</Header>
+                    <Header>{set.description}</Header>
                 </Grid.Column>
             </Grid.Row>
 
@@ -138,7 +142,7 @@ const SetView = () => {
 
             <Grid.Row>
                 <Container fluid textAlign = "center">
-                    <SetViewDisplay view = {viewType} />
+                    <ItemViewDisplay view = {viewType} itemInfo = {items} />
                 </Container>
             </Grid.Row>
         </Grid>

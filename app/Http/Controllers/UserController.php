@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Set;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -35,6 +36,12 @@ class UserController extends Controller
         $user = User::first($userid);
         $user->update($request->only(['name', 'bio']));
         return $user;   
+    }
+
+    public function getSets(Request $request, $userid)
+    {
+        $sets = Set::where('userid', '=', $userid)->get();
+        return $sets;
     }
 
     public function update_image(Request $request, $userid)

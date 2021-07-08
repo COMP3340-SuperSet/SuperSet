@@ -9,3 +9,7 @@
 .padded-cell-button{
     padding: 11px !important;
 }
+
+.hoverable{
+    cursor: pointer;
+}

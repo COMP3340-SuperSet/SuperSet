@@ -4,7 +4,7 @@ import {Modal, Button, Grid} from "semantic-ui-react";
 import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 
-const ItemModal = ({itemImages, itemName, itemDescription, modalTrigger = <Button>Modal</Button>}) => {
+const ItemModal = ({item, modalTrigger = <Button>Modal</Button>}) => {
     /*
     * Input: --itemImages, itemName, itemDescription--
     * Description: The purpose of this functional component is to house the 
@@ -22,18 +22,18 @@ const ItemModal = ({itemImages, itemName, itemDescription, modalTrigger = <Butto
             open={modalOpen}
             trigger={modalTrigger}
         >
-            <Modal.Header className="ss-itemmodal-modalheader">Item View: {itemName}</Modal.Header>
+            <Modal.Header className="ss-itemmodal-modalheader">Item View: {item.name}</Modal.Header>
             <Grid centered stackable columns={3}>
                 <Modal.Content image>
                     <Grid.Row>
                         <Grid.Column className="ss-itemmodal-images">
-                            <ItemCarousel itemImages={itemImages}/>
+                            <ItemCarousel itemImages={[]}/>
                         </Grid.Column>
 
                         <Modal.Description>
                             <Grid.Column className="ss-itemmodal-description">
                                 <hr></hr>
-                                <p>{itemDescription}</p>
+                                <p>{item.description}</p>
                             </Grid.Column>
                         </Modal.Description>
                         </Grid.Row>
