@@ -2913,17 +2913,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Segment/Segment.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Header/Header.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Image/Image.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Input/Input.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Icon/Icon.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Search/Search.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Segment/Segment.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Header/Header.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Image/Image.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Icon/Icon.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Dropdown/Dropdown.js");
 /* harmony import */ var _css_Header_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css/Header.css */ "./resources/css/Header.css");
 /* harmony import */ var semantic_ui_css_semantic_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! semantic-ui-css/semantic.min.css */ "./node_modules/semantic-ui-css/semantic.min.css");
 /* harmony import */ var _images_superset_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../images/superset.png */ "./resources/images/superset.png");
 /* harmony import */ var _utils_redirect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/redirect */ "./resources/js/utils/redirect.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -2932,32 +2945,108 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+var SearchInput = function SearchInput() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      results = _useState4[0],
+      setResults = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      value = _useState6[0],
+      setValue = _useState6[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [results]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!value) return;
+
+    var search = function search() {
+      axios__WEBPACK_IMPORTED_MODULE_5___default().get("/api/search/".concat(value)).then(function (response) {
+        var temp = response.data;
+        if (temp.users.results && temp.users.results.length === 0) delete temp.users;
+        if (temp.sets.results && temp.sets.results.length === 0) delete temp.sets;
+        setResults(temp);
+        setLoading(false);
+      })["catch"](function (error) {
+        console.error("Error: " + error);
+      });
+    };
+
+    setLoading(true);
+    var timeoutId = setTimeout(function () {
+      search();
+    }, 250);
+    return function () {
+      clearTimeout(timeoutId);
+    };
+  }, [value]);
+
+  var onSearchChange = function onSearchChange(e) {
+    e.preventDefault();
+    setValue(e.target.value);
+  };
+
+  var onResultSelect = function onResultSelect(e, _ref) {
+    var result = _ref.result;
+
+    if ("setid" in result) {
+      (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)("/set", [{
+        key: "id",
+        value: result.setid
+      }]);
+    } else if ("userid" in result) {
+      (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)("/user", [{
+        key: "id",
+        value: result.userid
+      }]);
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+    category: true,
+    className: "ss-header-searchbar",
+    placeholder: "Search",
+    loading: loading,
+    onSearchChange: onSearchChange,
+    onResultSelect: onResultSelect,
+    results: results,
+    value: value
+  });
+};
 
 var SSHeader = function SSHeader() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
     className: "ss-header ",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
       basic: true,
       compact: true,
-      className: "ss-bg-grey no-margin no-bottompadding ss-header-1",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
+      className: "ss-header-title-search ss-bg-grey no-margin no-bottompadding ss-header-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
         size: "huge",
         className: "inline",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           onClick: function onClick() {
             return (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)('/');
           },
           style: {
             cursor: "pointer"
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__.default, {
             className: "ss-header-logo",
             src: _images_superset_png__WEBPACK_IMPORTED_MODULE_3__.default,
-            size: "tiny",
+            size: "mini",
             centered: true,
             verticalAlign: "middle",
             spaced: "left"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
             className: "ss-header-title",
             style: {
               padding: "12px",
@@ -2967,34 +3056,31 @@ var SSHeader = function SSHeader() {
             children: "SuperSet"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
-        className: "ss-header-searchbar",
-        placeholder: "Search"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(SearchInput, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
       basic: true,
       floated: "right",
       compact: true,
       className: "ss-bg-grey no-margin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default, {
         name: "user",
         className: "ss-white no-padding"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default, {
         button: true,
         className: "ss-white ss-bg-grey no-padding no-margin",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default.Menu, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Menu, {
           direction: "left",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default.Item, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Item, {
             text: "Log In",
             onClick: function onClick() {
               return (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)('/login');
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default.Item, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Item, {
             text: "Sign Up",
             onClick: function onClick() {
               return (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)('/register');
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_11__.default.Item, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default.Item, {
             text: "Tutorial"
           })]
         })
@@ -3259,7 +3345,7 @@ var ItemCard = function ItemCard(_ref) {
       images = _ref$images === void 0 ? [null] : _ref$images;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default, {
     centered: true,
-    href: "#",
+    link: true,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default, {
       src: images[0]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Content, {
@@ -3400,9 +3486,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Modal/Modal.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Grid/Grid.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Button/Button.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/modules/Modal/Modal.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Grid/Grid.js");
 /* harmony import */ var _css_ItemModal_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css/ItemModal.css */ "./resources/css/ItemModal.css");
 /* harmony import */ var _ItemCarousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemCarousel */ "./resources/js/components/ItemCarousel.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -3426,10 +3512,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ItemModal = function ItemModal(_ref) {
-  var itemImages = _ref.itemImages,
-      itemName = _ref.itemName,
-      itemDescription = _ref.itemDescription,
-      trigger = _ref.trigger;
+  var item = _ref.item,
+      _ref$modalTrigger = _ref.modalTrigger,
+      modalTrigger = _ref$modalTrigger === void 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+    children: "Modal"
+  }) : _ref$modalTrigger;
 
   /*
   * Input: --itemImages, itemName, itemDescription--
@@ -3440,48 +3527,48 @@ var ItemModal = function ItemModal(_ref) {
   // Use to determine when the modal is open or closed  
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      open = _useState2[0],
-      setOpen = _useState2[1];
+      modalOpen = _useState2[0],
+      setModalOpen = _useState2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default, {
     onClose: function onClose() {
-      return setOpen(false);
+      return setModalOpen(false);
     },
     onOpen: function onOpen() {
-      return setOpen(true);
+      return setModalOpen(true);
     },
-    open: open,
-    trigger: trigger,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Header, {
+    open: modalOpen,
+    trigger: modalTrigger,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Header, {
       className: "ss-itemmodal-modalheader",
-      children: ["Item View: ", itemName]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default, {
+      children: ["Item View: ", item.name]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
       centered: true,
       stackable: true,
       columns: 3,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Content, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Content, {
         image: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Row, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Row, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Column, {
             className: "ss-itemmodal-images",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ItemCarousel__WEBPACK_IMPORTED_MODULE_2__.default, {
-              itemImages: itemImages
+              itemImages: []
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Description, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Description, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Column, {
               className: "ss-itemmodal-description",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-                children: itemDescription
+                children: item.description
               })]
             })
           })]
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default.Actions, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_5__.default.Actions, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
         color: "blue",
         onClick: function onClick() {
-          return setOpen(false);
+          return setModalOpen(false);
         },
         children: " Back "
       })
@@ -3548,8 +3635,6 @@ var LoginForm = function LoginForm() {
 
   var onLoginSubmit = function onLoginSubmit(event) {
     event.preventDefault();
-    console.log('email: ', email);
-    console.log('password: ', password);
     /**
      * post request for a user to login
      * 
@@ -3558,7 +3643,6 @@ var LoginForm = function LoginForm() {
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie', {
       withCredentials: true
     }).then(function (response) {
-      console.log('crsf: ', response);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
         email: email,
         password: password
@@ -3569,11 +3653,10 @@ var LoginForm = function LoginForm() {
           withCredentials: true
         }
       }).then(function (response) {
-        console.log('login: ', response);
         (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
         (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_4__.redirect)((0,_utils_sessionStorage__WEBPACK_IMPORTED_MODULE_3__.fetchReferer)() ? (0,_utils_sessionStorage__WEBPACK_IMPORTED_MODULE_3__.fetchReferer)() : '/');
       })["catch"](function (error) {
-        console.log(error.response.data);
+        console.error(error.response.data);
       });
     });
   };
@@ -3657,8 +3740,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3688,46 +3769,18 @@ var profileInfo = {
   description: "Description"
 };
 var editedProfileInfo = profileInfo;
-var setsInfo = [{
-  id: 123,
-  name: "Test set 1",
-  count: 2,
-  description: "This is a set",
-  image: null
-}, {
-  id: 183,
-  name: "Test set 2",
-  count: 6,
-  description: "This is a another set",
-  image: null
-}, {
-  id: 261,
-  name: "Test set 3",
-  count: 1,
-  description: "Test description",
-  image: null
-}, {
-  id: 523,
-  name: "Test set 4",
-  count: 3,
-  description: "Lorem ipsum",
-  image: null
-}, {
-  id: 331,
-  name: "Test set 5",
-  count: 8,
-  description: "Lorem ipsum 2",
-  image: null
-}];
 
 var ProfileDisplay = function ProfileDisplay(_ref) {
-  var editingMode = _ref.editingMode;
+  var editingMode = _ref.editingMode,
+      name = _ref.name,
+      bio = _ref.bio,
+      imageid = _ref.imageid;
 
   if (!editingMode) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
         size: "small",
-        src: profileInfo.pfp,
+        src: imageid,
         circular: true,
         centered: true
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
@@ -3818,33 +3871,21 @@ var SendUpdatedProfileInfoToDatabase = function SendUpdatedProfileInfoToDatabase
 };
 
 var SetsDisplay = function SetsDisplay(_ref3) {
-  var displayMode = _ref3.displayMode;
+  var displayMode = _ref3.displayMode,
+      setInfo = _ref3.setInfo;
 
   if (displayMode === GRID_MODE) {
-    var allCards = [];
-
-    var _iterator = _createForOfIteratorHelper(setsInfo),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var obj = _step.value;
-        allCards.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__.default.Column, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
-            id: obj.id,
-            name: obj.name,
-            count: obj.count,
-            description: obj.description,
-            image: obj.image
-          })
-        }));
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
+    var allCards = setInfo.map(function (obj) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__.default.Column, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SetCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
+          id: obj.setid,
+          name: obj.name,
+          count: 4,
+          description: obj.description,
+          image: null
+        })
+      }, obj.setid);
+    });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__.default, {
       stackable: true,
       container: true,
@@ -3852,27 +3893,14 @@ var SetsDisplay = function SetsDisplay(_ref3) {
       children: allCards
     });
   } else {
-    var allCells = [];
-
-    var _iterator2 = _createForOfIteratorHelper(setsInfo),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var _obj = _step2.value;
-        allCells.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
-          id: _obj.id,
-          name: _obj.name,
-          count: _obj.count,
-          description: _obj.description
-        }));
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-
+    var allCells = setInfo.map(function (obj) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SetCell_js__WEBPACK_IMPORTED_MODULE_2__.default, {
+        id: obj.setid,
+        name: obj.name,
+        count: 4,
+        description: obj.description
+      }, obj.setid);
+    });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_14__.default, {
       celled: true,
       selectable: true,
@@ -3899,7 +3927,16 @@ var SetsDisplay = function SetsDisplay(_ref3) {
   }
 };
 
-var Profile = function Profile() {
+var Profile = function Profile(_ref4) {
+  var userInfo = _ref4.userInfo,
+      userSets = _ref4.userSets;
+
+  if (userInfo !== null) {
+    profileInfo.username = userInfo.name;
+    profileInfo.description = userInfo.bio;
+    profileInfo.pfp = userInfo.imageid;
+  }
+
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
       editing = _useState4[0],
@@ -3997,7 +4034,8 @@ var Profile = function Profile() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default, {
         padded: true,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(SetsDisplay, {
-          displayMode: displayType
+          displayMode: displayType,
+          setInfo: userSets
         })
       })]
     })]
@@ -4088,10 +4126,9 @@ var RegisterForm = function RegisterForm() {
       }
     }).then(function (response) {
       (0,_utils_localStorage__WEBPACK_IMPORTED_MODULE_2__.storeToken)(response.data.token);
-      console.log('register: ', response);
       (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_3__.redirect)(fetchReferer() ? fetchReferer() : '/');
     })["catch"](function (error) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     });
   };
 
@@ -4183,9 +4220,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/views/Card/Card.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Image/Image.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/views/Card/Card.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/elements/Image/Image.js");
+/* harmony import */ var _utils_redirect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/redirect */ "./resources/js/utils/redirect.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 /* handle page transfer to view set of inputted id using onClick = {} or href within Card tag*/
@@ -4200,19 +4239,25 @@ var SetCard = function SetCard(_ref) {
       name = _ref.name,
       description = _ref.description,
       image = _ref.image;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default, {
     centered: true,
-    href: "#",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default, {
+    link: true,
+    onClick: function onClick() {
+      (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_1__.redirect)("/set", [{
+        key: "id",
+        value: id
+      }]);
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_4__.default, {
       src: image
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Content, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Content, {
       textAlign: "center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Header, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Header, {
         children: name
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Description, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Description, {
         children: description
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Content, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Content, {
       extra: true,
       textAlign: "center",
       children: count
@@ -4236,8 +4281,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Table/Table.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/collections/Table/Table.js");
+/* harmony import */ var _utils_redirect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/redirect */ "./resources/js/utils/redirect.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 /* handle page transfer to view set of inputted id using onClick = {} within Table.Row tag*/
@@ -4251,14 +4298,21 @@ var SetCell = function SetCell(_ref) {
       count = _ref$count === void 0 ? 1 : _ref$count,
       name = _ref.name,
       description = _ref.description;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Row, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Row, {
+    className: "hoverable",
+    onClick: function onClick() {
+      (0,_utils_redirect__WEBPACK_IMPORTED_MODULE_1__.redirect)("/set", [{
+        key: "id",
+        value: id
+      }]);
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Cell, {
       textAlign: "center",
       children: count
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Cell, {
       textAlign: "center",
       children: name
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__.default.Cell, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_3__.default.Cell, {
       textAlign: "center",
       children: description
     })]
@@ -4342,48 +4396,48 @@ var set = {
   }]
 };
 
-var SetViewDisplay = function SetViewDisplay(props) {
-  if (props.view === GRID_MODE) {
-    var allCards = set.itemList.map(function (obj) {
+var ItemViewDisplay = function ItemViewDisplay(_ref) {
+  var view = _ref.view,
+      itemInfo = _ref.itemInfo;
+  if (itemInfo === null) return null;
+
+  if (view === GRID_MODE) {
+    var AllCards = itemInfo.map(function (obj) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Column, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ItemModal_js__WEBPACK_IMPORTED_MODULE_2__.default, {
-          itemName: obj.itemName,
-          itemDescription: obj.itemDescription,
-          itemImages: obj.itemImages,
+          item: obj,
           modalTrigger: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
             fluid: true,
             className: "basic-button",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ItemCard_js__WEBPACK_IMPORTED_MODULE_1__.default, {
-              name: obj.itemName,
-              count: obj.itemQuantity,
-              description: obj.itemDescription,
-              image: obj.itemImages[0]
+              name: obj.name,
+              count: 5,
+              description: obj.description,
+              image: null
             })
           })
         })
-      }, obj.itemId);
+      }, obj.itemid);
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
       stackable: true,
       container: true,
       columns: 5,
-      children: allCards
+      children: AllCards
     });
   } else {
-    var allCells = set.itemList.map(function (obj) {
+    var AllCells = itemInfo.map(function (obj) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default.Row, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default.Cell, {
           style: {
             padding: "0"
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ItemModal_js__WEBPACK_IMPORTED_MODULE_2__.default, {
-            itemName: obj.itemName,
-            itemDescription: obj.itemDescription,
-            itemImages: obj.itemImages,
+            item: obj,
             modalTrigger: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
               fluid: true,
               className: "basic-button padded-cell-button",
-              children: obj.itemName
+              children: obj.name
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default.Cell, {
@@ -4391,17 +4445,15 @@ var SetViewDisplay = function SetViewDisplay(props) {
             padding: "0"
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ItemModal_js__WEBPACK_IMPORTED_MODULE_2__.default, {
-            itemName: obj.itemName,
-            itemDescription: obj.itemDescription,
-            itemImages: obj.itemImages,
+            item: obj,
             modalTrigger: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_7__.default, {
               fluid: true,
               className: "basic-button padded-cell-button",
-              children: obj.itemDescription
+              children: obj.description
             })
           })
         })]
-      }, obj.itemId);
+      }, obj.itemid);
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default, {
       celled: true,
@@ -4419,7 +4471,7 @@ var SetViewDisplay = function SetViewDisplay(props) {
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_8__.default.Body, {
-        children: allCells
+        children: AllCells
       })]
     });
   }
@@ -4433,17 +4485,27 @@ var SetImagesDisplay = function SetImagesDisplay() {
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_10__.default, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_9__.default.Group, {
-      size: "small",
+      size: "tiny",
       children: allSetImages
     })
   });
 };
 
-var SetView = function SetView() {
+var SetView = function SetView(_ref2) {
+  var set = _ref2.set,
+      items = _ref2.items;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(GRID_MODE),
       _useState2 = _slicedToArray(_useState, 2),
       viewType = _useState2[0],
       setViewType = _useState2[1];
+
+  if (!set) {
+    set = {
+      name: "Set name",
+      description: "Description"
+    };
+  }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default, {
     centered: true,
@@ -4471,14 +4533,14 @@ var SetView = function SetView() {
         verticalAlign: "middle",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default, {
           as: "h1",
-          children: "Set name"
+          children: set.name
         })
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Row, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Column, {
         textAlign: "center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_12__.default, {
-          children: "Description"
+          children: set.description
         })
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Row, {
@@ -4528,8 +4590,9 @@ var SetView = function SetView() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_13__.default, {
         fluid: true,
         textAlign: "center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SetViewDisplay, {
-          view: viewType
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(ItemViewDisplay, {
+          view: viewType,
+          itemInfo: items
         })
       })
     })]
@@ -4932,9 +4995,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _SetView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SetView */ "./resources/js/components/SetView.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Header */ "./resources/js/components/Header.js");
+/* harmony import */ var _SetView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SetView */ "./resources/js/components/SetView.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -4943,15 +5021,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Set() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_2__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SetView__WEBPACK_IMPORTED_MODULE_3__.default, {})]
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      set = _useState2[0],
+      setSet = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      setItems = _useState4[0],
+      setSetItems = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var setid = new URL(window.location.href).searchParams.get("id");
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/sets/".concat(setid)).then(function (response) {
+      setSet(response.data);
+    })["catch"](function (error) {
+      console.error("Error: " + error);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/items/set/".concat(setid)).then(function (response) {
+      setSetItems(response.data);
+    })["catch"](function (error) {
+      console.error("Error: " + error);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [set, setItems]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SetView__WEBPACK_IMPORTED_MODULE_4__.default, {
+      set: set,
+      items: setItems
+    })]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Set);
 
 if (document.getElementById('set')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Set, {}), document.getElementById('set'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Set, {}), document.getElementById('set'));
 }
 
 /***/ }),
@@ -4967,11 +5072,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _Profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Profile */ "./resources/js/components/Profile.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Header */ "./resources/js/components/Header.js");
+/* harmony import */ var _Profile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Profile */ "./resources/js/components/Profile.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -4980,15 +5100,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function User() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_2__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Profile__WEBPACK_IMPORTED_MODULE_3__.default, {})]
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      user = _useState2[0],
+      setUser = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      userSets = _useState4[0],
+      setUserSets = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    var userid = new URL(window.location.href).searchParams.get("id");
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user/".concat(userid)).then(function (response) {
+      setUser(response.data);
+    })["catch"](function (error) {
+      console.error("Error: " + error);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user/sets/".concat(userid)).then(function (response) {
+      setUserSets(response.data);
+    })["catch"](function (error) {
+      console.error("Error: " + error);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {}, [user, userSets]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Profile__WEBPACK_IMPORTED_MODULE_4__.default, {
+      userInfo: user,
+      userSets: userSets
+    })]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (User);
 
 if (document.getElementById('user')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(User, {}), document.getElementById('user'));
+  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(User, {}), document.getElementById('user'));
 }
 
 /***/ }),
@@ -5012,8 +5159,6 @@ function uploadFile(url, formData) {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
-  }).then(function (res) {
-    return console.log(res);
   })["catch"](function (err) {
     return console.error(err);
   });
@@ -5245,7 +5390,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@media(max-width: 480px){\r\n    .ss-header{ min-width: 350px; }\r\n\r\n    .ss-header-title{ display: none; }\r\n\r\n    .ss-header-logo{\r\n        margin-right: 10px !important;\r\n        margin-top: 0px !important;\r\n    }\r\n\r\n    .ss-header-1{ padding-top: 8px !important; }\r\n}\r\n\r\n.ss-header{\r\n    background-color: #464C55 !important;\r\n    border-radius: 0 !important;\r\n    margin-top: 0 !important;\r\n    display:flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n}\r\n\r\n.ss-header-searchbar{ padding-left: 12px !important; }\r\n\r\n.ss-white{ color: white !important; }\r\n\r\n.ss-grey{ color: #464C55 !important; }\r\n\r\n.ss-bg-grey{ background-color: #464C55 !important; }\r\n\r\n.no-margin{ margin: 0 !important; }\r\n\r\n.no-padding{ padding: 0 !important; }\r\n\r\n.no-bottompadding{ padding-bottom: 0 !important; }\r\n\r\n.inline{ display: inline-block !important; }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@media(max-width: 480px){\r\n    .ss-header{ min-width: 350px; }\r\n\r\n    .ss-header-title{ display: none; }\r\n\r\n    .ss-header-logo{\r\n        margin-right: 10px !important;\r\n        margin-top: 0px !important;\r\n    }\r\n\r\n    .ss-header-1{ padding-top: 8px !important; }\r\n}\r\n\r\n.ss-header{\r\n    background-color: #464C55 !important;\r\n    border-radius: 0 !important;\r\n    margin-top: 0 !important;\r\n    display:flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n}\r\n\r\n.ss-header-searchbar{ padding-left: 12px !important; display: inline-block; }\r\n\r\n.ss-white{ color: white !important; }\r\n\r\n.ss-grey{ color: #464C55 !important; }\r\n\r\n.ss-bg-grey{ background-color: #464C55 !important; }\r\n\r\n.no-margin{ margin: 0 !important; }\r\n\r\n.no-padding{ padding: 0 !important; }\r\n\r\n.no-bottompadding{ padding-bottom: 0 !important; }\r\n\r\n.inline{ display: inline-block !important; }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5365,7 +5510,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n.basic-button{\r\n    margin: 0 !important;\r\n    padding: 0 !important;\r\n    background: none !important;\r\n    border: none !important;\r\n}\r\n\r\n.padded-cell-button{\r\n    padding: 11px !important;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n.basic-button{\r\n    margin: 0 !important;\r\n    padding: 0 !important;\r\n    background: none !important;\r\n    border: none !important;\r\n}\r\n\r\n.padded-cell-button{\r\n    padding: 11px !important;\r\n}\r\n\r\n.hoverable{\r\n    cursor: pointer;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6275,6 +6420,51 @@ Hash.prototype.set = _hashSet_js__WEBPACK_IMPORTED_MODULE_4__.default;
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_LazyWrapper.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/_LazyWrapper.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseCreate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseCreate.js */ "./node_modules/lodash-es/_baseCreate.js");
+/* harmony import */ var _baseLodash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_baseLodash.js */ "./node_modules/lodash-es/_baseLodash.js");
+
+
+
+/** Used as references for the maximum length and index of an array. */
+var MAX_ARRAY_LENGTH = 4294967295;
+
+/**
+ * Creates a lazy wrapper object which wraps `value` to enable lazy evaluation.
+ *
+ * @private
+ * @constructor
+ * @param {*} value The value to wrap.
+ */
+function LazyWrapper(value) {
+  this.__wrapped__ = value;
+  this.__actions__ = [];
+  this.__dir__ = 1;
+  this.__filtered__ = false;
+  this.__iteratees__ = [];
+  this.__takeCount__ = MAX_ARRAY_LENGTH;
+  this.__views__ = [];
+}
+
+// Ensure `LazyWrapper` is an instance of `baseLodash`.
+LazyWrapper.prototype = (0,_baseCreate_js__WEBPACK_IMPORTED_MODULE_0__.default)(_baseLodash_js__WEBPACK_IMPORTED_MODULE_1__.default.prototype);
+LazyWrapper.prototype.constructor = LazyWrapper;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LazyWrapper);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_ListCache.js":
 /*!**********************************************!*\
   !*** ./node_modules/lodash-es/_ListCache.js ***!
@@ -6323,6 +6513,45 @@ ListCache.prototype.has = _listCacheHas_js__WEBPACK_IMPORTED_MODULE_3__.default;
 ListCache.prototype.set = _listCacheSet_js__WEBPACK_IMPORTED_MODULE_4__.default;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListCache);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_LodashWrapper.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash-es/_LodashWrapper.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseCreate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseCreate.js */ "./node_modules/lodash-es/_baseCreate.js");
+/* harmony import */ var _baseLodash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_baseLodash.js */ "./node_modules/lodash-es/_baseLodash.js");
+
+
+
+/**
+ * The base constructor for creating `lodash` wrapper objects.
+ *
+ * @private
+ * @param {*} value The value to wrap.
+ * @param {boolean} [chainAll] Enable explicit method chain sequences.
+ */
+function LodashWrapper(value, chainAll) {
+  this.__wrapped__ = value;
+  this.__actions__ = [];
+  this.__chain__ = !!chainAll;
+  this.__index__ = 0;
+  this.__values__ = undefined;
+}
+
+LodashWrapper.prototype = (0,_baseCreate_js__WEBPACK_IMPORTED_MODULE_0__.default)(_baseLodash_js__WEBPACK_IMPORTED_MODULE_1__.default.prototype);
+LodashWrapper.prototype.constructor = LodashWrapper;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LodashWrapper);
 
 
 /***/ }),
@@ -7264,6 +7493,52 @@ function baseClamp(number, lower, upper) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseClamp);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_baseCreate.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_baseCreate.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _isObject_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isObject.js */ "./node_modules/lodash-es/isObject.js");
+
+
+/** Built-in value references. */
+var objectCreate = Object.create;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(proto) {
+    if (!(0,_isObject_js__WEBPACK_IMPORTED_MODULE_0__.default)(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object;
+    object.prototype = undefined;
+    return result;
+  };
+}());
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseCreate);
 
 
 /***/ }),
@@ -8598,6 +8873,31 @@ function baseKeys(object) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_baseLodash.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_baseLodash.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * The function whose prototype chain sequence wrappers inherit from.
+ *
+ * @private
+ */
+function baseLodash() {
+  // No operation performed.
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseLodash);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_baseLt.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash-es/_baseLt.js ***!
@@ -9148,6 +9448,40 @@ function baseSet(object, path, value, customizer) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseSet);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_baseSetData.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/_baseSetData.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _identity_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./identity.js */ "./node_modules/lodash-es/identity.js");
+/* harmony import */ var _metaMap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_metaMap.js */ "./node_modules/lodash-es/_metaMap.js");
+
+
+
+/**
+ * The base implementation of `setData` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to associate metadata with.
+ * @param {*} data The metadata.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetData = !_metaMap_js__WEBPACK_IMPORTED_MODULE_0__.default ? _identity_js__WEBPACK_IMPORTED_MODULE_1__.default : function(func, data) {
+  _metaMap_js__WEBPACK_IMPORTED_MODULE_0__.default.set(func, data);
+  return func;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (baseSetData);
 
 
 /***/ }),
@@ -9984,6 +10318,151 @@ function compareMultiple(object, other, orders) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_composeArgs.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/_composeArgs.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Creates an array that is the composition of partially applied arguments,
+ * placeholders, and provided arguments into a single array of arguments.
+ *
+ * @private
+ * @param {Array} args The provided arguments.
+ * @param {Array} partials The arguments to prepend to those provided.
+ * @param {Array} holders The `partials` placeholder indexes.
+ * @params {boolean} [isCurried] Specify composing for a curried function.
+ * @returns {Array} Returns the new array of composed arguments.
+ */
+function composeArgs(args, partials, holders, isCurried) {
+  var argsIndex = -1,
+      argsLength = args.length,
+      holdersLength = holders.length,
+      leftIndex = -1,
+      leftLength = partials.length,
+      rangeLength = nativeMax(argsLength - holdersLength, 0),
+      result = Array(leftLength + rangeLength),
+      isUncurried = !isCurried;
+
+  while (++leftIndex < leftLength) {
+    result[leftIndex] = partials[leftIndex];
+  }
+  while (++argsIndex < holdersLength) {
+    if (isUncurried || argsIndex < argsLength) {
+      result[holders[argsIndex]] = args[argsIndex];
+    }
+  }
+  while (rangeLength--) {
+    result[leftIndex++] = args[argsIndex++];
+  }
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (composeArgs);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_composeArgsRight.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/lodash-es/_composeArgsRight.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * This function is like `composeArgs` except that the arguments composition
+ * is tailored for `_.partialRight`.
+ *
+ * @private
+ * @param {Array} args The provided arguments.
+ * @param {Array} partials The arguments to append to those provided.
+ * @param {Array} holders The `partials` placeholder indexes.
+ * @params {boolean} [isCurried] Specify composing for a curried function.
+ * @returns {Array} Returns the new array of composed arguments.
+ */
+function composeArgsRight(args, partials, holders, isCurried) {
+  var argsIndex = -1,
+      argsLength = args.length,
+      holdersIndex = -1,
+      holdersLength = holders.length,
+      rightIndex = -1,
+      rightLength = partials.length,
+      rangeLength = nativeMax(argsLength - holdersLength, 0),
+      result = Array(rangeLength + rightLength),
+      isUncurried = !isCurried;
+
+  while (++argsIndex < rangeLength) {
+    result[argsIndex] = args[argsIndex];
+  }
+  var offset = argsIndex;
+  while (++rightIndex < rightLength) {
+    result[offset + rightIndex] = partials[rightIndex];
+  }
+  while (++holdersIndex < holdersLength) {
+    if (isUncurried || argsIndex < argsLength) {
+      result[offset + holders[holdersIndex]] = args[argsIndex++];
+    }
+  }
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (composeArgsRight);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_copyArray.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash-es/_copyArray.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (copyArray);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_coreJsData.js":
 /*!***********************************************!*\
   !*** ./node_modules/lodash-es/_coreJsData.js ***!
@@ -10002,6 +10481,42 @@ __webpack_require__.r(__webpack_exports__);
 var coreJsData = _root_js__WEBPACK_IMPORTED_MODULE_0__.default["__core-js_shared__"];
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (coreJsData);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_countHolders.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash-es/_countHolders.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Gets the number of `placeholder` occurrences in `array`.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} placeholder The placeholder to search for.
+ * @returns {number} Returns the placeholder count.
+ */
+function countHolders(array, placeholder) {
+  var length = array.length,
+      result = 0;
+
+  while (length--) {
+    if (array[length] === placeholder) {
+      ++result;
+    }
+  }
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (countHolders);
 
 
 /***/ }),
@@ -10094,6 +10609,173 @@ function createBaseFor(fromRight) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_createBind.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_createBind.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createCtor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_createCtor.js */ "./node_modules/lodash-es/_createCtor.js");
+/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1;
+
+/**
+ * Creates a function that wraps `func` to invoke it with the optional `this`
+ * binding of `thisArg`.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createBind(func, bitmask, thisArg) {
+  var isBind = bitmask & WRAP_BIND_FLAG,
+      Ctor = (0,_createCtor_js__WEBPACK_IMPORTED_MODULE_0__.default)(func);
+
+  function wrapper() {
+    var fn = (this && this !== _root_js__WEBPACK_IMPORTED_MODULE_1__.default && this instanceof wrapper) ? Ctor : func;
+    return fn.apply(isBind ? thisArg : this, arguments);
+  }
+  return wrapper;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createBind);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createCtor.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_createCtor.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseCreate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseCreate.js */ "./node_modules/lodash-es/_baseCreate.js");
+/* harmony import */ var _isObject_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isObject.js */ "./node_modules/lodash-es/isObject.js");
+
+
+
+/**
+ * Creates a function that produces an instance of `Ctor` regardless of
+ * whether it was invoked as part of a `new` expression or by `call` or `apply`.
+ *
+ * @private
+ * @param {Function} Ctor The constructor to wrap.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createCtor(Ctor) {
+  return function() {
+    // Use a `switch` statement to work with class constructors. See
+    // http://ecma-international.org/ecma-262/7.0/#sec-ecmascript-function-objects-call-thisargument-argumentslist
+    // for more details.
+    var args = arguments;
+    switch (args.length) {
+      case 0: return new Ctor;
+      case 1: return new Ctor(args[0]);
+      case 2: return new Ctor(args[0], args[1]);
+      case 3: return new Ctor(args[0], args[1], args[2]);
+      case 4: return new Ctor(args[0], args[1], args[2], args[3]);
+      case 5: return new Ctor(args[0], args[1], args[2], args[3], args[4]);
+      case 6: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5]);
+      case 7: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+    }
+    var thisBinding = (0,_baseCreate_js__WEBPACK_IMPORTED_MODULE_0__.default)(Ctor.prototype),
+        result = Ctor.apply(thisBinding, args);
+
+    // Mimic the constructor's `return` behavior.
+    // See https://es5.github.io/#x13.2.2 for more details.
+    return (0,_isObject_js__WEBPACK_IMPORTED_MODULE_1__.default)(result) ? result : thisBinding;
+  };
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createCtor);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createCurry.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/_createCurry.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _apply_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_apply.js */ "./node_modules/lodash-es/_apply.js");
+/* harmony import */ var _createCtor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_createCtor.js */ "./node_modules/lodash-es/_createCtor.js");
+/* harmony import */ var _createHybrid_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_createHybrid.js */ "./node_modules/lodash-es/_createHybrid.js");
+/* harmony import */ var _createRecurry_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_createRecurry.js */ "./node_modules/lodash-es/_createRecurry.js");
+/* harmony import */ var _getHolder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_getHolder.js */ "./node_modules/lodash-es/_getHolder.js");
+/* harmony import */ var _replaceHolders_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_replaceHolders.js */ "./node_modules/lodash-es/_replaceHolders.js");
+/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+
+
+
+
+
+
+
+
+/**
+ * Creates a function that wraps `func` to enable currying.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @param {number} arity The arity of `func`.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createCurry(func, bitmask, arity) {
+  var Ctor = (0,_createCtor_js__WEBPACK_IMPORTED_MODULE_0__.default)(func);
+
+  function wrapper() {
+    var length = arguments.length,
+        args = Array(length),
+        index = length,
+        placeholder = (0,_getHolder_js__WEBPACK_IMPORTED_MODULE_1__.default)(wrapper);
+
+    while (index--) {
+      args[index] = arguments[index];
+    }
+    var holders = (length < 3 && args[0] !== placeholder && args[length - 1] !== placeholder)
+      ? []
+      : (0,_replaceHolders_js__WEBPACK_IMPORTED_MODULE_2__.default)(args, placeholder);
+
+    length -= holders.length;
+    if (length < arity) {
+      return (0,_createRecurry_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+        func, bitmask, _createHybrid_js__WEBPACK_IMPORTED_MODULE_4__.default, wrapper.placeholder, undefined,
+        args, holders, undefined, undefined, arity - length);
+    }
+    var fn = (this && this !== _root_js__WEBPACK_IMPORTED_MODULE_5__.default && this instanceof wrapper) ? Ctor : func;
+    return (0,_apply_js__WEBPACK_IMPORTED_MODULE_6__.default)(fn, this, args);
+  }
+  return wrapper;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createCurry);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_createFind.js":
 /*!***********************************************!*\
   !*** ./node_modules/lodash-es/_createFind.js ***!
@@ -10133,6 +10815,257 @@ function createFind(findIndexFunc) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createFind);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createHybrid.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash-es/_createHybrid.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _composeArgs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_composeArgs.js */ "./node_modules/lodash-es/_composeArgs.js");
+/* harmony import */ var _composeArgsRight_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_composeArgsRight.js */ "./node_modules/lodash-es/_composeArgsRight.js");
+/* harmony import */ var _countHolders_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_countHolders.js */ "./node_modules/lodash-es/_countHolders.js");
+/* harmony import */ var _createCtor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_createCtor.js */ "./node_modules/lodash-es/_createCtor.js");
+/* harmony import */ var _createRecurry_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_createRecurry.js */ "./node_modules/lodash-es/_createRecurry.js");
+/* harmony import */ var _getHolder_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_getHolder.js */ "./node_modules/lodash-es/_getHolder.js");
+/* harmony import */ var _reorder_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_reorder.js */ "./node_modules/lodash-es/_reorder.js");
+/* harmony import */ var _replaceHolders_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_replaceHolders.js */ "./node_modules/lodash-es/_replaceHolders.js");
+/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+
+
+
+
+
+
+
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1,
+    WRAP_BIND_KEY_FLAG = 2,
+    WRAP_CURRY_FLAG = 8,
+    WRAP_CURRY_RIGHT_FLAG = 16,
+    WRAP_ARY_FLAG = 128,
+    WRAP_FLIP_FLAG = 512;
+
+/**
+ * Creates a function that wraps `func` to invoke it with optional `this`
+ * binding of `thisArg`, partial application, and currying.
+ *
+ * @private
+ * @param {Function|string} func The function or method name to wrap.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {Array} [partials] The arguments to prepend to those provided to
+ *  the new function.
+ * @param {Array} [holders] The `partials` placeholder indexes.
+ * @param {Array} [partialsRight] The arguments to append to those provided
+ *  to the new function.
+ * @param {Array} [holdersRight] The `partialsRight` placeholder indexes.
+ * @param {Array} [argPos] The argument positions of the new function.
+ * @param {number} [ary] The arity cap of `func`.
+ * @param {number} [arity] The arity of `func`.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createHybrid(func, bitmask, thisArg, partials, holders, partialsRight, holdersRight, argPos, ary, arity) {
+  var isAry = bitmask & WRAP_ARY_FLAG,
+      isBind = bitmask & WRAP_BIND_FLAG,
+      isBindKey = bitmask & WRAP_BIND_KEY_FLAG,
+      isCurried = bitmask & (WRAP_CURRY_FLAG | WRAP_CURRY_RIGHT_FLAG),
+      isFlip = bitmask & WRAP_FLIP_FLAG,
+      Ctor = isBindKey ? undefined : (0,_createCtor_js__WEBPACK_IMPORTED_MODULE_0__.default)(func);
+
+  function wrapper() {
+    var length = arguments.length,
+        args = Array(length),
+        index = length;
+
+    while (index--) {
+      args[index] = arguments[index];
+    }
+    if (isCurried) {
+      var placeholder = (0,_getHolder_js__WEBPACK_IMPORTED_MODULE_1__.default)(wrapper),
+          holdersCount = (0,_countHolders_js__WEBPACK_IMPORTED_MODULE_2__.default)(args, placeholder);
+    }
+    if (partials) {
+      args = (0,_composeArgs_js__WEBPACK_IMPORTED_MODULE_3__.default)(args, partials, holders, isCurried);
+    }
+    if (partialsRight) {
+      args = (0,_composeArgsRight_js__WEBPACK_IMPORTED_MODULE_4__.default)(args, partialsRight, holdersRight, isCurried);
+    }
+    length -= holdersCount;
+    if (isCurried && length < arity) {
+      var newHolders = (0,_replaceHolders_js__WEBPACK_IMPORTED_MODULE_5__.default)(args, placeholder);
+      return (0,_createRecurry_js__WEBPACK_IMPORTED_MODULE_6__.default)(
+        func, bitmask, createHybrid, wrapper.placeholder, thisArg,
+        args, newHolders, argPos, ary, arity - length
+      );
+    }
+    var thisBinding = isBind ? thisArg : this,
+        fn = isBindKey ? thisBinding[func] : func;
+
+    length = args.length;
+    if (argPos) {
+      args = (0,_reorder_js__WEBPACK_IMPORTED_MODULE_7__.default)(args, argPos);
+    } else if (isFlip && length > 1) {
+      args.reverse();
+    }
+    if (isAry && ary < length) {
+      args.length = ary;
+    }
+    if (this && this !== _root_js__WEBPACK_IMPORTED_MODULE_8__.default && this instanceof wrapper) {
+      fn = Ctor || (0,_createCtor_js__WEBPACK_IMPORTED_MODULE_0__.default)(fn);
+    }
+    return fn.apply(thisBinding, args);
+  }
+  return wrapper;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createHybrid);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createPartial.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash-es/_createPartial.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _apply_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_apply.js */ "./node_modules/lodash-es/_apply.js");
+/* harmony import */ var _createCtor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_createCtor.js */ "./node_modules/lodash-es/_createCtor.js");
+/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1;
+
+/**
+ * Creates a function that wraps `func` to invoke it with the `this` binding
+ * of `thisArg` and `partials` prepended to the arguments it receives.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} partials The arguments to prepend to those provided to
+ *  the new function.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createPartial(func, bitmask, thisArg, partials) {
+  var isBind = bitmask & WRAP_BIND_FLAG,
+      Ctor = (0,_createCtor_js__WEBPACK_IMPORTED_MODULE_0__.default)(func);
+
+  function wrapper() {
+    var argsIndex = -1,
+        argsLength = arguments.length,
+        leftIndex = -1,
+        leftLength = partials.length,
+        args = Array(leftLength + argsLength),
+        fn = (this && this !== _root_js__WEBPACK_IMPORTED_MODULE_1__.default && this instanceof wrapper) ? Ctor : func;
+
+    while (++leftIndex < leftLength) {
+      args[leftIndex] = partials[leftIndex];
+    }
+    while (argsLength--) {
+      args[leftIndex++] = arguments[++argsIndex];
+    }
+    return (0,_apply_js__WEBPACK_IMPORTED_MODULE_2__.default)(fn, isBind ? thisArg : this, args);
+  }
+  return wrapper;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createPartial);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createRecurry.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash-es/_createRecurry.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _isLaziable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_isLaziable.js */ "./node_modules/lodash-es/_isLaziable.js");
+/* harmony import */ var _setData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_setData.js */ "./node_modules/lodash-es/_setData.js");
+/* harmony import */ var _setWrapToString_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_setWrapToString.js */ "./node_modules/lodash-es/_setWrapToString.js");
+
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1,
+    WRAP_BIND_KEY_FLAG = 2,
+    WRAP_CURRY_BOUND_FLAG = 4,
+    WRAP_CURRY_FLAG = 8,
+    WRAP_PARTIAL_FLAG = 32,
+    WRAP_PARTIAL_RIGHT_FLAG = 64;
+
+/**
+ * Creates a function that wraps `func` to continue currying.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @param {Function} wrapFunc The function to create the `func` wrapper.
+ * @param {*} placeholder The placeholder value.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {Array} [partials] The arguments to prepend to those provided to
+ *  the new function.
+ * @param {Array} [holders] The `partials` placeholder indexes.
+ * @param {Array} [argPos] The argument positions of the new function.
+ * @param {number} [ary] The arity cap of `func`.
+ * @param {number} [arity] The arity of `func`.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createRecurry(func, bitmask, wrapFunc, placeholder, thisArg, partials, holders, argPos, ary, arity) {
+  var isCurry = bitmask & WRAP_CURRY_FLAG,
+      newHolders = isCurry ? holders : undefined,
+      newHoldersRight = isCurry ? undefined : holders,
+      newPartials = isCurry ? partials : undefined,
+      newPartialsRight = isCurry ? undefined : partials;
+
+  bitmask |= (isCurry ? WRAP_PARTIAL_FLAG : WRAP_PARTIAL_RIGHT_FLAG);
+  bitmask &= ~(isCurry ? WRAP_PARTIAL_RIGHT_FLAG : WRAP_PARTIAL_FLAG);
+
+  if (!(bitmask & WRAP_CURRY_BOUND_FLAG)) {
+    bitmask &= ~(WRAP_BIND_FLAG | WRAP_BIND_KEY_FLAG);
+  }
+  var newData = [
+    func, bitmask, thisArg, newPartials, newHolders, newPartialsRight,
+    newHoldersRight, argPos, ary, arity
+  ];
+
+  var result = wrapFunc.apply(undefined, newData);
+  if ((0,_isLaziable_js__WEBPACK_IMPORTED_MODULE_0__.default)(func)) {
+    (0,_setData_js__WEBPACK_IMPORTED_MODULE_1__.default)(result, newData);
+  }
+  result.placeholder = placeholder;
+  return (0,_setWrapToString_js__WEBPACK_IMPORTED_MODULE_2__.default)(result, func, bitmask);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createRecurry);
 
 
 /***/ }),
@@ -10224,6 +11157,137 @@ var createSet = !(_Set_js__WEBPACK_IMPORTED_MODULE_0__.default && (1 / (0,_setTo
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createSet);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_createWrap.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_createWrap.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseSetData_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_baseSetData.js */ "./node_modules/lodash-es/_baseSetData.js");
+/* harmony import */ var _createBind_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_createBind.js */ "./node_modules/lodash-es/_createBind.js");
+/* harmony import */ var _createCurry_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_createCurry.js */ "./node_modules/lodash-es/_createCurry.js");
+/* harmony import */ var _createHybrid_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_createHybrid.js */ "./node_modules/lodash-es/_createHybrid.js");
+/* harmony import */ var _createPartial_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_createPartial.js */ "./node_modules/lodash-es/_createPartial.js");
+/* harmony import */ var _getData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_getData.js */ "./node_modules/lodash-es/_getData.js");
+/* harmony import */ var _mergeData_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_mergeData.js */ "./node_modules/lodash-es/_mergeData.js");
+/* harmony import */ var _setData_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_setData.js */ "./node_modules/lodash-es/_setData.js");
+/* harmony import */ var _setWrapToString_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./_setWrapToString.js */ "./node_modules/lodash-es/_setWrapToString.js");
+/* harmony import */ var _toInteger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toInteger.js */ "./node_modules/lodash-es/toInteger.js");
+
+
+
+
+
+
+
+
+
+
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1,
+    WRAP_BIND_KEY_FLAG = 2,
+    WRAP_CURRY_FLAG = 8,
+    WRAP_CURRY_RIGHT_FLAG = 16,
+    WRAP_PARTIAL_FLAG = 32,
+    WRAP_PARTIAL_RIGHT_FLAG = 64;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Creates a function that either curries or invokes `func` with optional
+ * `this` binding and partially applied arguments.
+ *
+ * @private
+ * @param {Function|string} func The function or method name to wrap.
+ * @param {number} bitmask The bitmask flags.
+ *    1 - `_.bind`
+ *    2 - `_.bindKey`
+ *    4 - `_.curry` or `_.curryRight` of a bound function
+ *    8 - `_.curry`
+ *   16 - `_.curryRight`
+ *   32 - `_.partial`
+ *   64 - `_.partialRight`
+ *  128 - `_.rearg`
+ *  256 - `_.ary`
+ *  512 - `_.flip`
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {Array} [partials] The arguments to be partially applied.
+ * @param {Array} [holders] The `partials` placeholder indexes.
+ * @param {Array} [argPos] The argument positions of the new function.
+ * @param {number} [ary] The arity cap of `func`.
+ * @param {number} [arity] The arity of `func`.
+ * @returns {Function} Returns the new wrapped function.
+ */
+function createWrap(func, bitmask, thisArg, partials, holders, argPos, ary, arity) {
+  var isBindKey = bitmask & WRAP_BIND_KEY_FLAG;
+  if (!isBindKey && typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var length = partials ? partials.length : 0;
+  if (!length) {
+    bitmask &= ~(WRAP_PARTIAL_FLAG | WRAP_PARTIAL_RIGHT_FLAG);
+    partials = holders = undefined;
+  }
+  ary = ary === undefined ? ary : nativeMax((0,_toInteger_js__WEBPACK_IMPORTED_MODULE_0__.default)(ary), 0);
+  arity = arity === undefined ? arity : (0,_toInteger_js__WEBPACK_IMPORTED_MODULE_0__.default)(arity);
+  length -= holders ? holders.length : 0;
+
+  if (bitmask & WRAP_PARTIAL_RIGHT_FLAG) {
+    var partialsRight = partials,
+        holdersRight = holders;
+
+    partials = holders = undefined;
+  }
+  var data = isBindKey ? undefined : (0,_getData_js__WEBPACK_IMPORTED_MODULE_1__.default)(func);
+
+  var newData = [
+    func, bitmask, thisArg, partials, holders, partialsRight, holdersRight,
+    argPos, ary, arity
+  ];
+
+  if (data) {
+    (0,_mergeData_js__WEBPACK_IMPORTED_MODULE_2__.default)(newData, data);
+  }
+  func = newData[0];
+  bitmask = newData[1];
+  thisArg = newData[2];
+  partials = newData[3];
+  holders = newData[4];
+  arity = newData[9] = newData[9] === undefined
+    ? (isBindKey ? 0 : func.length)
+    : nativeMax(newData[9] - length, 0);
+
+  if (!arity && bitmask & (WRAP_CURRY_FLAG | WRAP_CURRY_RIGHT_FLAG)) {
+    bitmask &= ~(WRAP_CURRY_FLAG | WRAP_CURRY_RIGHT_FLAG);
+  }
+  if (!bitmask || bitmask == WRAP_BIND_FLAG) {
+    var result = (0,_createBind_js__WEBPACK_IMPORTED_MODULE_3__.default)(func, bitmask, thisArg);
+  } else if (bitmask == WRAP_CURRY_FLAG || bitmask == WRAP_CURRY_RIGHT_FLAG) {
+    result = (0,_createCurry_js__WEBPACK_IMPORTED_MODULE_4__.default)(func, bitmask, arity);
+  } else if ((bitmask == WRAP_PARTIAL_FLAG || bitmask == (WRAP_BIND_FLAG | WRAP_PARTIAL_FLAG)) && !holders.length) {
+    result = (0,_createPartial_js__WEBPACK_IMPORTED_MODULE_5__.default)(func, bitmask, thisArg, partials);
+  } else {
+    result = _createHybrid_js__WEBPACK_IMPORTED_MODULE_6__.default.apply(undefined, newData);
+  }
+  var setter = data ? _baseSetData_js__WEBPACK_IMPORTED_MODULE_7__.default : _setData_js__WEBPACK_IMPORTED_MODULE_8__.default;
+  return (0,_setWrapToString_js__WEBPACK_IMPORTED_MODULE_9__.default)(setter(result, newData), func, bitmask);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createWrap);
 
 
 /***/ }),
@@ -10770,6 +11834,113 @@ function getAllKeys(object) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_getData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash-es/_getData.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _metaMap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_metaMap.js */ "./node_modules/lodash-es/_metaMap.js");
+/* harmony import */ var _noop_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./noop.js */ "./node_modules/lodash-es/noop.js");
+
+
+
+/**
+ * Gets metadata for `func`.
+ *
+ * @private
+ * @param {Function} func The function to query.
+ * @returns {*} Returns the metadata for `func`.
+ */
+var getData = !_metaMap_js__WEBPACK_IMPORTED_MODULE_0__.default ? _noop_js__WEBPACK_IMPORTED_MODULE_1__.default : function(func) {
+  return _metaMap_js__WEBPACK_IMPORTED_MODULE_0__.default.get(func);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getData);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_getFuncName.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/_getFuncName.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _realNames_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_realNames.js */ "./node_modules/lodash-es/_realNames.js");
+
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Gets the name of `func`.
+ *
+ * @private
+ * @param {Function} func The function to query.
+ * @returns {string} Returns the function name.
+ */
+function getFuncName(func) {
+  var result = (func.name + ''),
+      array = _realNames_js__WEBPACK_IMPORTED_MODULE_0__.default[result],
+      length = hasOwnProperty.call(_realNames_js__WEBPACK_IMPORTED_MODULE_0__.default, result) ? array.length : 0;
+
+  while (length--) {
+    var data = array[length],
+        otherFunc = data.func;
+    if (otherFunc == null || otherFunc == func) {
+      return data.name;
+    }
+  }
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getFuncName);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_getHolder.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash-es/_getHolder.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Gets the argument placeholder value for `func`.
+ *
+ * @private
+ * @param {Function} func The function to inspect.
+ * @returns {*} Returns the placeholder value.
+ */
+function getHolder(func) {
+  var object = func;
+  return object.placeholder;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getHolder);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_getMapData.js":
 /*!***********************************************!*\
   !*** ./node_modules/lodash-es/_getMapData.js ***!
@@ -11118,6 +12289,38 @@ function getValue(object, key) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_getWrapDetails.js":
+/*!***************************************************!*\
+  !*** ./node_modules/lodash-es/_getWrapDetails.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/** Used to match wrap detail comments. */
+var reWrapDetails = /\{\n\/\* \[wrapped with (.+)\] \*/,
+    reSplitDetails = /,? & /;
+
+/**
+ * Extracts wrapper details from the `source` body comment.
+ *
+ * @private
+ * @param {string} source The source to inspect.
+ * @returns {Array} Returns the wrapper details.
+ */
+function getWrapDetails(source) {
+  var match = source.match(reWrapDetails);
+  return match ? match[1].split(reSplitDetails) : [];
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getWrapDetails);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_hasPath.js":
 /*!********************************************!*\
   !*** ./node_modules/lodash-es/_hasPath.js ***!
@@ -11406,6 +12609,44 @@ function hashSet(key, value) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_insertWrapDetails.js":
+/*!******************************************************!*\
+  !*** ./node_modules/lodash-es/_insertWrapDetails.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/** Used to match wrap detail comments. */
+var reWrapComment = /\{(?:\n\/\* \[wrapped with .+\] \*\/)?\n?/;
+
+/**
+ * Inserts wrapper `details` in a comment at the top of the `source` body.
+ *
+ * @private
+ * @param {string} source The source to modify.
+ * @returns {Array} details The details to insert.
+ * @returns {string} Returns the modified source.
+ */
+function insertWrapDetails(source, details) {
+  var length = details.length;
+  if (!length) {
+    return source;
+  }
+  var lastIndex = length - 1;
+  details[lastIndex] = (length > 1 ? '& ' : '') + details[lastIndex];
+  details = details.join(length > 2 ? ', ' : ' ');
+  return source.replace(reWrapComment, '{\n/* [wrapped with ' + details + '] */\n');
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (insertWrapDetails);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_isFlattenable.js":
 /*!**************************************************!*\
   !*** ./node_modules/lodash-es/_isFlattenable.js ***!
@@ -11605,6 +12846,53 @@ function isKeyable(value) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isKeyable);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_isLaziable.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash-es/_isLaziable.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_LazyWrapper.js */ "./node_modules/lodash-es/_LazyWrapper.js");
+/* harmony import */ var _getData_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_getData.js */ "./node_modules/lodash-es/_getData.js");
+/* harmony import */ var _getFuncName_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_getFuncName.js */ "./node_modules/lodash-es/_getFuncName.js");
+/* harmony import */ var _wrapperLodash_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrapperLodash.js */ "./node_modules/lodash-es/wrapperLodash.js");
+
+
+
+
+
+/**
+ * Checks if `func` has a lazy counterpart.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` has a lazy counterpart,
+ *  else `false`.
+ */
+function isLaziable(func) {
+  var funcName = (0,_getFuncName_js__WEBPACK_IMPORTED_MODULE_0__.default)(func),
+      other = _wrapperLodash_js__WEBPACK_IMPORTED_MODULE_1__.default[funcName];
+
+  if (typeof other != 'function' || !(funcName in _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_2__.default.prototype)) {
+    return false;
+  }
+  if (func === other) {
+    return true;
+  }
+  var data = (0,_getData_js__WEBPACK_IMPORTED_MODULE_3__.default)(other);
+  return !!data && func === data[0];
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isLaziable);
 
 
 /***/ }),
@@ -12182,6 +13470,136 @@ function memoizeCapped(func) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_mergeData.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash-es/_mergeData.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _composeArgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_composeArgs.js */ "./node_modules/lodash-es/_composeArgs.js");
+/* harmony import */ var _composeArgsRight_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_composeArgsRight.js */ "./node_modules/lodash-es/_composeArgsRight.js");
+/* harmony import */ var _replaceHolders_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_replaceHolders.js */ "./node_modules/lodash-es/_replaceHolders.js");
+
+
+
+
+/** Used as the internal argument placeholder. */
+var PLACEHOLDER = '__lodash_placeholder__';
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1,
+    WRAP_BIND_KEY_FLAG = 2,
+    WRAP_CURRY_BOUND_FLAG = 4,
+    WRAP_CURRY_FLAG = 8,
+    WRAP_ARY_FLAG = 128,
+    WRAP_REARG_FLAG = 256;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMin = Math.min;
+
+/**
+ * Merges the function metadata of `source` into `data`.
+ *
+ * Merging metadata reduces the number of wrappers used to invoke a function.
+ * This is possible because methods like `_.bind`, `_.curry`, and `_.partial`
+ * may be applied regardless of execution order. Methods like `_.ary` and
+ * `_.rearg` modify function arguments, making the order in which they are
+ * executed important, preventing the merging of metadata. However, we make
+ * an exception for a safe combined case where curried functions have `_.ary`
+ * and or `_.rearg` applied.
+ *
+ * @private
+ * @param {Array} data The destination metadata.
+ * @param {Array} source The source metadata.
+ * @returns {Array} Returns `data`.
+ */
+function mergeData(data, source) {
+  var bitmask = data[1],
+      srcBitmask = source[1],
+      newBitmask = bitmask | srcBitmask,
+      isCommon = newBitmask < (WRAP_BIND_FLAG | WRAP_BIND_KEY_FLAG | WRAP_ARY_FLAG);
+
+  var isCombo =
+    ((srcBitmask == WRAP_ARY_FLAG) && (bitmask == WRAP_CURRY_FLAG)) ||
+    ((srcBitmask == WRAP_ARY_FLAG) && (bitmask == WRAP_REARG_FLAG) && (data[7].length <= source[8])) ||
+    ((srcBitmask == (WRAP_ARY_FLAG | WRAP_REARG_FLAG)) && (source[7].length <= source[8]) && (bitmask == WRAP_CURRY_FLAG));
+
+  // Exit early if metadata can't be merged.
+  if (!(isCommon || isCombo)) {
+    return data;
+  }
+  // Use source `thisArg` if available.
+  if (srcBitmask & WRAP_BIND_FLAG) {
+    data[2] = source[2];
+    // Set when currying a bound function.
+    newBitmask |= bitmask & WRAP_BIND_FLAG ? 0 : WRAP_CURRY_BOUND_FLAG;
+  }
+  // Compose partial arguments.
+  var value = source[3];
+  if (value) {
+    var partials = data[3];
+    data[3] = partials ? (0,_composeArgs_js__WEBPACK_IMPORTED_MODULE_0__.default)(partials, value, source[4]) : value;
+    data[4] = partials ? (0,_replaceHolders_js__WEBPACK_IMPORTED_MODULE_1__.default)(data[3], PLACEHOLDER) : source[4];
+  }
+  // Compose partial right arguments.
+  value = source[5];
+  if (value) {
+    partials = data[5];
+    data[5] = partials ? (0,_composeArgsRight_js__WEBPACK_IMPORTED_MODULE_2__.default)(partials, value, source[6]) : value;
+    data[6] = partials ? (0,_replaceHolders_js__WEBPACK_IMPORTED_MODULE_1__.default)(data[5], PLACEHOLDER) : source[6];
+  }
+  // Use source `argPos` if available.
+  value = source[7];
+  if (value) {
+    data[7] = value;
+  }
+  // Use source `ary` if it's smaller.
+  if (srcBitmask & WRAP_ARY_FLAG) {
+    data[8] = data[8] == null ? source[8] : nativeMin(data[8], source[8]);
+  }
+  // Use source `arity` if one is not provided.
+  if (data[9] == null) {
+    data[9] = source[9];
+  }
+  // Use source `func` and merge bitmasks.
+  data[0] = source[0];
+  data[1] = newBitmask;
+
+  return data;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mergeData);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_metaMap.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash-es/_metaMap.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _WeakMap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_WeakMap.js */ "./node_modules/lodash-es/_WeakMap.js");
+
+
+/** Used to store function metadata. */
+var metaMap = _WeakMap_js__WEBPACK_IMPORTED_MODULE_0__.default && new _WeakMap_js__WEBPACK_IMPORTED_MODULE_0__.default;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (metaMap);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_nativeCreate.js":
 /*!*************************************************!*\
   !*** ./node_modules/lodash-es/_nativeCreate.js ***!
@@ -12424,6 +13842,115 @@ function parent(object, path) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_realNames.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash-es/_realNames.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/** Used to lookup unminified function names. */
+var realNames = {};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (realNames);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_reorder.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash-es/_reorder.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _copyArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_copyArray.js */ "./node_modules/lodash-es/_copyArray.js");
+/* harmony import */ var _isIndex_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_isIndex.js */ "./node_modules/lodash-es/_isIndex.js");
+
+
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMin = Math.min;
+
+/**
+ * Reorder `array` according to the specified indexes where the element at
+ * the first index is assigned as the first element, the element at
+ * the second index is assigned as the second element, and so on.
+ *
+ * @private
+ * @param {Array} array The array to reorder.
+ * @param {Array} indexes The arranged array indexes.
+ * @returns {Array} Returns `array`.
+ */
+function reorder(array, indexes) {
+  var arrLength = array.length,
+      length = nativeMin(indexes.length, arrLength),
+      oldArray = (0,_copyArray_js__WEBPACK_IMPORTED_MODULE_0__.default)(array);
+
+  while (length--) {
+    var index = indexes[length];
+    array[length] = (0,_isIndex_js__WEBPACK_IMPORTED_MODULE_1__.default)(index, arrLength) ? oldArray[index] : undefined;
+  }
+  return array;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reorder);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_replaceHolders.js":
+/*!***************************************************!*\
+  !*** ./node_modules/lodash-es/_replaceHolders.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/** Used as the internal argument placeholder. */
+var PLACEHOLDER = '__lodash_placeholder__';
+
+/**
+ * Replaces all `placeholder` elements in `array` with an internal placeholder
+ * and returns an array of their indexes.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {*} placeholder The placeholder to replace.
+ * @returns {Array} Returns the new array of placeholder indexes.
+ */
+function replaceHolders(array, placeholder) {
+  var index = -1,
+      length = array.length,
+      resIndex = 0,
+      result = [];
+
+  while (++index < length) {
+    var value = array[index];
+    if (value === placeholder || value === PLACEHOLDER) {
+      array[index] = PLACEHOLDER;
+      result[resIndex++] = index;
+    }
+  }
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (replaceHolders);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_root.js":
 /*!*****************************************!*\
   !*** ./node_modules/lodash-es/_root.js ***!
@@ -12512,6 +14039,43 @@ function setCacheHas(value) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_setData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash-es/_setData.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseSetData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_baseSetData.js */ "./node_modules/lodash-es/_baseSetData.js");
+/* harmony import */ var _shortOut_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_shortOut.js */ "./node_modules/lodash-es/_shortOut.js");
+
+
+
+/**
+ * Sets metadata for `func`.
+ *
+ * **Note:** If this function becomes hot, i.e. is invoked a lot in a short
+ * period of time, it will trip its breaker and transition to an identity
+ * function to avoid garbage collection pauses in V8. See
+ * [V8 issue 2070](https://bugs.chromium.org/p/v8/issues/detail?id=2070)
+ * for more details.
+ *
+ * @private
+ * @param {Function} func The function to associate metadata with.
+ * @param {*} data The metadata.
+ * @returns {Function} Returns `func`.
+ */
+var setData = (0,_shortOut_js__WEBPACK_IMPORTED_MODULE_0__.default)(_baseSetData_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (setData);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_setToArray.js":
 /*!***********************************************!*\
   !*** ./node_modules/lodash-es/_setToArray.js ***!
@@ -12572,6 +14136,46 @@ __webpack_require__.r(__webpack_exports__);
 var setToString = (0,_shortOut_js__WEBPACK_IMPORTED_MODULE_0__.default)(_baseSetToString_js__WEBPACK_IMPORTED_MODULE_1__.default);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (setToString);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_setWrapToString.js":
+/*!****************************************************!*\
+  !*** ./node_modules/lodash-es/_setWrapToString.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _getWrapDetails_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_getWrapDetails.js */ "./node_modules/lodash-es/_getWrapDetails.js");
+/* harmony import */ var _insertWrapDetails_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_insertWrapDetails.js */ "./node_modules/lodash-es/_insertWrapDetails.js");
+/* harmony import */ var _setToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_setToString.js */ "./node_modules/lodash-es/_setToString.js");
+/* harmony import */ var _updateWrapDetails_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_updateWrapDetails.js */ "./node_modules/lodash-es/_updateWrapDetails.js");
+
+
+
+
+
+/**
+ * Sets the `toString` method of `wrapper` to mimic the source of `reference`
+ * with wrapper details in a comment at the top of the source body.
+ *
+ * @private
+ * @param {Function} wrapper The function to modify.
+ * @param {Function} reference The reference function.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @returns {Function} Returns `wrapper`.
+ */
+function setWrapToString(wrapper, reference, bitmask) {
+  var source = (reference + '');
+  return (0,_setToString_js__WEBPACK_IMPORTED_MODULE_0__.default)(wrapper, (0,_insertWrapDetails_js__WEBPACK_IMPORTED_MODULE_1__.default)(source, (0,_updateWrapDetails_js__WEBPACK_IMPORTED_MODULE_2__.default)((0,_getWrapDetails_js__WEBPACK_IMPORTED_MODULE_3__.default)(source), bitmask)));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (setWrapToString);
 
 
 /***/ }),
@@ -13177,6 +14781,110 @@ function unicodeToArray(string) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (unicodeToArray);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_updateWrapDetails.js":
+/*!******************************************************!*\
+  !*** ./node_modules/lodash-es/_updateWrapDetails.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _arrayEach_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_arrayEach.js */ "./node_modules/lodash-es/_arrayEach.js");
+/* harmony import */ var _arrayIncludes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_arrayIncludes.js */ "./node_modules/lodash-es/_arrayIncludes.js");
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_BIND_FLAG = 1,
+    WRAP_BIND_KEY_FLAG = 2,
+    WRAP_CURRY_FLAG = 8,
+    WRAP_CURRY_RIGHT_FLAG = 16,
+    WRAP_PARTIAL_FLAG = 32,
+    WRAP_PARTIAL_RIGHT_FLAG = 64,
+    WRAP_ARY_FLAG = 128,
+    WRAP_REARG_FLAG = 256,
+    WRAP_FLIP_FLAG = 512;
+
+/** Used to associate wrap methods with their bit flags. */
+var wrapFlags = [
+  ['ary', WRAP_ARY_FLAG],
+  ['bind', WRAP_BIND_FLAG],
+  ['bindKey', WRAP_BIND_KEY_FLAG],
+  ['curry', WRAP_CURRY_FLAG],
+  ['curryRight', WRAP_CURRY_RIGHT_FLAG],
+  ['flip', WRAP_FLIP_FLAG],
+  ['partial', WRAP_PARTIAL_FLAG],
+  ['partialRight', WRAP_PARTIAL_RIGHT_FLAG],
+  ['rearg', WRAP_REARG_FLAG]
+];
+
+/**
+ * Updates wrapper `details` based on `bitmask` flags.
+ *
+ * @private
+ * @returns {Array} details The details to modify.
+ * @param {number} bitmask The bitmask flags. See `createWrap` for more details.
+ * @returns {Array} Returns `details`.
+ */
+function updateWrapDetails(details, bitmask) {
+  (0,_arrayEach_js__WEBPACK_IMPORTED_MODULE_0__.default)(wrapFlags, function(pair) {
+    var value = '_.' + pair[0];
+    if ((bitmask & pair[1]) && !(0,_arrayIncludes_js__WEBPACK_IMPORTED_MODULE_1__.default)(details, value)) {
+      details.push(value);
+    }
+  });
+  return details.sort();
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (updateWrapDetails);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_wrapperClone.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash-es/_wrapperClone.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_LazyWrapper.js */ "./node_modules/lodash-es/_LazyWrapper.js");
+/* harmony import */ var _LodashWrapper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_LodashWrapper.js */ "./node_modules/lodash-es/_LodashWrapper.js");
+/* harmony import */ var _copyArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_copyArray.js */ "./node_modules/lodash-es/_copyArray.js");
+
+
+
+
+/**
+ * Creates a clone of `wrapper`.
+ *
+ * @private
+ * @param {Object} wrapper The wrapper to clone.
+ * @returns {Object} Returns the cloned wrapper.
+ */
+function wrapperClone(wrapper) {
+  if (wrapper instanceof _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_0__.default) {
+    return wrapper.clone();
+  }
+  var result = new _LodashWrapper_js__WEBPACK_IMPORTED_MODULE_1__.default(wrapper.__wrapped__, wrapper.__chain__);
+  result.__actions__ = (0,_copyArray_js__WEBPACK_IMPORTED_MODULE_2__.default)(wrapper.__actions__);
+  result.__index__  = wrapper.__index__;
+  result.__values__ = wrapper.__values__;
+  return result;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (wrapperClone);
 
 
 /***/ }),
@@ -15754,6 +17462,74 @@ function noop() {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/partialRight.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash-es/partialRight.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _baseRest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseRest.js */ "./node_modules/lodash-es/_baseRest.js");
+/* harmony import */ var _createWrap_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_createWrap.js */ "./node_modules/lodash-es/_createWrap.js");
+/* harmony import */ var _getHolder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_getHolder.js */ "./node_modules/lodash-es/_getHolder.js");
+/* harmony import */ var _replaceHolders_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_replaceHolders.js */ "./node_modules/lodash-es/_replaceHolders.js");
+
+
+
+
+
+/** Used to compose bitmasks for function metadata. */
+var WRAP_PARTIAL_RIGHT_FLAG = 64;
+
+/**
+ * This method is like `_.partial` except that partially applied arguments
+ * are appended to the arguments it receives.
+ *
+ * The `_.partialRight.placeholder` value, which defaults to `_` in monolithic
+ * builds, may be used as a placeholder for partially applied arguments.
+ *
+ * **Note:** This method doesn't set the "length" property of partially
+ * applied functions.
+ *
+ * @static
+ * @memberOf _
+ * @since 1.0.0
+ * @category Function
+ * @param {Function} func The function to partially apply arguments to.
+ * @param {...*} [partials] The arguments to be partially applied.
+ * @returns {Function} Returns the new partially applied function.
+ * @example
+ *
+ * function greet(greeting, name) {
+ *   return greeting + ' ' + name;
+ * }
+ *
+ * var greetFred = _.partialRight(greet, 'fred');
+ * greetFred('hi');
+ * // => 'hi fred'
+ *
+ * // Partially applied with placeholders.
+ * var sayHelloTo = _.partialRight(greet, 'hello', _);
+ * sayHelloTo('fred');
+ * // => 'hello fred'
+ */
+var partialRight = (0,_baseRest_js__WEBPACK_IMPORTED_MODULE_0__.default)(function(func, partials) {
+  var holders = (0,_replaceHolders_js__WEBPACK_IMPORTED_MODULE_1__.default)(partials, (0,_getHolder_js__WEBPACK_IMPORTED_MODULE_2__.default)(partialRight));
+  return (0,_createWrap_js__WEBPACK_IMPORTED_MODULE_3__.default)(func, WRAP_PARTIAL_RIGHT_FLAG, undefined, partials, holders);
+});
+
+// Assign default placeholders.
+partialRight.placeholder = {};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (partialRight);
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/pick.js":
 /*!****************************************!*\
   !*** ./node_modules/lodash-es/pick.js ***!
@@ -16926,6 +18702,174 @@ var without = (0,_baseRest_js__WEBPACK_IMPORTED_MODULE_0__.default)(function(arr
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (without);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/wrapperLodash.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash-es/wrapperLodash.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_LazyWrapper.js */ "./node_modules/lodash-es/_LazyWrapper.js");
+/* harmony import */ var _LodashWrapper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_LodashWrapper.js */ "./node_modules/lodash-es/_LodashWrapper.js");
+/* harmony import */ var _baseLodash_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_baseLodash.js */ "./node_modules/lodash-es/_baseLodash.js");
+/* harmony import */ var _isArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isArray.js */ "./node_modules/lodash-es/isArray.js");
+/* harmony import */ var _isObjectLike_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isObjectLike.js */ "./node_modules/lodash-es/isObjectLike.js");
+/* harmony import */ var _wrapperClone_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_wrapperClone.js */ "./node_modules/lodash-es/_wrapperClone.js");
+
+
+
+
+
+
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates a `lodash` object which wraps `value` to enable implicit method
+ * chain sequences. Methods that operate on and return arrays, collections,
+ * and functions can be chained together. Methods that retrieve a single value
+ * or may return a primitive value will automatically end the chain sequence
+ * and return the unwrapped value. Otherwise, the value must be unwrapped
+ * with `_#value`.
+ *
+ * Explicit chain sequences, which must be unwrapped with `_#value`, may be
+ * enabled using `_.chain`.
+ *
+ * The execution of chained methods is lazy, that is, it's deferred until
+ * `_#value` is implicitly or explicitly called.
+ *
+ * Lazy evaluation allows several methods to support shortcut fusion.
+ * Shortcut fusion is an optimization to merge iteratee calls; this avoids
+ * the creation of intermediate arrays and can greatly reduce the number of
+ * iteratee executions. Sections of a chain sequence qualify for shortcut
+ * fusion if the section is applied to an array and iteratees accept only
+ * one argument. The heuristic for whether a section qualifies for shortcut
+ * fusion is subject to change.
+ *
+ * Chaining is supported in custom builds as long as the `_#value` method is
+ * directly or indirectly included in the build.
+ *
+ * In addition to lodash methods, wrappers have `Array` and `String` methods.
+ *
+ * The wrapper `Array` methods are:
+ * `concat`, `join`, `pop`, `push`, `shift`, `sort`, `splice`, and `unshift`
+ *
+ * The wrapper `String` methods are:
+ * `replace` and `split`
+ *
+ * The wrapper methods that support shortcut fusion are:
+ * `at`, `compact`, `drop`, `dropRight`, `dropWhile`, `filter`, `find`,
+ * `findLast`, `head`, `initial`, `last`, `map`, `reject`, `reverse`, `slice`,
+ * `tail`, `take`, `takeRight`, `takeRightWhile`, `takeWhile`, and `toArray`
+ *
+ * The chainable wrapper methods are:
+ * `after`, `ary`, `assign`, `assignIn`, `assignInWith`, `assignWith`, `at`,
+ * `before`, `bind`, `bindAll`, `bindKey`, `castArray`, `chain`, `chunk`,
+ * `commit`, `compact`, `concat`, `conforms`, `constant`, `countBy`, `create`,
+ * `curry`, `debounce`, `defaults`, `defaultsDeep`, `defer`, `delay`,
+ * `difference`, `differenceBy`, `differenceWith`, `drop`, `dropRight`,
+ * `dropRightWhile`, `dropWhile`, `extend`, `extendWith`, `fill`, `filter`,
+ * `flatMap`, `flatMapDeep`, `flatMapDepth`, `flatten`, `flattenDeep`,
+ * `flattenDepth`, `flip`, `flow`, `flowRight`, `fromPairs`, `functions`,
+ * `functionsIn`, `groupBy`, `initial`, `intersection`, `intersectionBy`,
+ * `intersectionWith`, `invert`, `invertBy`, `invokeMap`, `iteratee`, `keyBy`,
+ * `keys`, `keysIn`, `map`, `mapKeys`, `mapValues`, `matches`, `matchesProperty`,
+ * `memoize`, `merge`, `mergeWith`, `method`, `methodOf`, `mixin`, `negate`,
+ * `nthArg`, `omit`, `omitBy`, `once`, `orderBy`, `over`, `overArgs`,
+ * `overEvery`, `overSome`, `partial`, `partialRight`, `partition`, `pick`,
+ * `pickBy`, `plant`, `property`, `propertyOf`, `pull`, `pullAll`, `pullAllBy`,
+ * `pullAllWith`, `pullAt`, `push`, `range`, `rangeRight`, `rearg`, `reject`,
+ * `remove`, `rest`, `reverse`, `sampleSize`, `set`, `setWith`, `shuffle`,
+ * `slice`, `sort`, `sortBy`, `splice`, `spread`, `tail`, `take`, `takeRight`,
+ * `takeRightWhile`, `takeWhile`, `tap`, `throttle`, `thru`, `toArray`,
+ * `toPairs`, `toPairsIn`, `toPath`, `toPlainObject`, `transform`, `unary`,
+ * `union`, `unionBy`, `unionWith`, `uniq`, `uniqBy`, `uniqWith`, `unset`,
+ * `unshift`, `unzip`, `unzipWith`, `update`, `updateWith`, `values`,
+ * `valuesIn`, `without`, `wrap`, `xor`, `xorBy`, `xorWith`, `zip`,
+ * `zipObject`, `zipObjectDeep`, and `zipWith`
+ *
+ * The wrapper methods that are **not** chainable by default are:
+ * `add`, `attempt`, `camelCase`, `capitalize`, `ceil`, `clamp`, `clone`,
+ * `cloneDeep`, `cloneDeepWith`, `cloneWith`, `conformsTo`, `deburr`,
+ * `defaultTo`, `divide`, `each`, `eachRight`, `endsWith`, `eq`, `escape`,
+ * `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`, `findLast`,
+ * `findLastIndex`, `findLastKey`, `first`, `floor`, `forEach`, `forEachRight`,
+ * `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `get`, `gt`, `gte`, `has`,
+ * `hasIn`, `head`, `identity`, `includes`, `indexOf`, `inRange`, `invoke`,
+ * `isArguments`, `isArray`, `isArrayBuffer`, `isArrayLike`, `isArrayLikeObject`,
+ * `isBoolean`, `isBuffer`, `isDate`, `isElement`, `isEmpty`, `isEqual`,
+ * `isEqualWith`, `isError`, `isFinite`, `isFunction`, `isInteger`, `isLength`,
+ * `isMap`, `isMatch`, `isMatchWith`, `isNaN`, `isNative`, `isNil`, `isNull`,
+ * `isNumber`, `isObject`, `isObjectLike`, `isPlainObject`, `isRegExp`,
+ * `isSafeInteger`, `isSet`, `isString`, `isUndefined`, `isTypedArray`,
+ * `isWeakMap`, `isWeakSet`, `join`, `kebabCase`, `last`, `lastIndexOf`,
+ * `lowerCase`, `lowerFirst`, `lt`, `lte`, `max`, `maxBy`, `mean`, `meanBy`,
+ * `min`, `minBy`, `multiply`, `noConflict`, `noop`, `now`, `nth`, `pad`,
+ * `padEnd`, `padStart`, `parseInt`, `pop`, `random`, `reduce`, `reduceRight`,
+ * `repeat`, `result`, `round`, `runInContext`, `sample`, `shift`, `size`,
+ * `snakeCase`, `some`, `sortedIndex`, `sortedIndexBy`, `sortedLastIndex`,
+ * `sortedLastIndexBy`, `startCase`, `startsWith`, `stubArray`, `stubFalse`,
+ * `stubObject`, `stubString`, `stubTrue`, `subtract`, `sum`, `sumBy`,
+ * `template`, `times`, `toFinite`, `toInteger`, `toJSON`, `toLength`,
+ * `toLower`, `toNumber`, `toSafeInteger`, `toString`, `toUpper`, `trim`,
+ * `trimEnd`, `trimStart`, `truncate`, `unescape`, `uniqueId`, `upperCase`,
+ * `upperFirst`, `value`, and `words`
+ *
+ * @name _
+ * @constructor
+ * @category Seq
+ * @param {*} value The value to wrap in a `lodash` instance.
+ * @returns {Object} Returns the new `lodash` wrapper instance.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n;
+ * }
+ *
+ * var wrapped = _([1, 2, 3]);
+ *
+ * // Returns an unwrapped value.
+ * wrapped.reduce(_.add);
+ * // => 6
+ *
+ * // Returns a wrapped value.
+ * var squares = wrapped.map(square);
+ *
+ * _.isArray(squares);
+ * // => false
+ *
+ * _.isArray(squares.value());
+ * // => true
+ */
+function lodash(value) {
+  if ((0,_isObjectLike_js__WEBPACK_IMPORTED_MODULE_0__.default)(value) && !(0,_isArray_js__WEBPACK_IMPORTED_MODULE_1__.default)(value) && !(value instanceof _LazyWrapper_js__WEBPACK_IMPORTED_MODULE_2__.default)) {
+    if (value instanceof _LodashWrapper_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+      return value;
+    }
+    if (hasOwnProperty.call(value, '__wrapped__')) {
+      return (0,_wrapperClone_js__WEBPACK_IMPORTED_MODULE_4__.default)(value);
+    }
+  }
+  return new _LodashWrapper_js__WEBPACK_IMPORTED_MODULE_3__.default(value);
+}
+
+// Ensure wrappers are instances of `baseLodash`.
+lodash.prototype = _baseLodash_js__WEBPACK_IMPORTED_MODULE_5__.default.prototype;
+lodash.prototype.constructor = lodash;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (lodash);
 
 
 /***/ }),
@@ -77356,6 +79300,1061 @@ Progress.propTypes =  true ? {
   warning: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Progress);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Search/Search.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Search/Search.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Search)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var lodash_es_without__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! lodash-es/without */ "./node_modules/lodash-es/without.js");
+/* harmony import */ var lodash_es_isEmpty__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! lodash-es/isEmpty */ "./node_modules/lodash-es/isEmpty.js");
+/* harmony import */ var lodash_es_partialRight__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! lodash-es/partialRight */ "./node_modules/lodash-es/partialRight.js");
+/* harmony import */ var lodash_es_inRange__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! lodash-es/inRange */ "./node_modules/lodash-es/inRange.js");
+/* harmony import */ var lodash_es_map__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lodash-es/map */ "./node_modules/lodash-es/map.js");
+/* harmony import */ var lodash_es_get__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash-es/get */ "./node_modules/lodash-es/get.js");
+/* harmony import */ var lodash_es_reduce__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lodash-es/reduce */ "./node_modules/lodash-es/reduce.js");
+/* harmony import */ var lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash-es/invoke */ "./node_modules/lodash-es/invoke.js");
+/* harmony import */ var lodash_es_isPlainObject__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash-es/isPlainObject */ "./node_modules/lodash-es/isPlainObject.js");
+/* harmony import */ var lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash-es/isUndefined */ "./node_modules/lodash-es/isUndefined.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var keyboard_key__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! keyboard-key */ "./node_modules/keyboard-key/src/keyboardKey.js");
+/* harmony import */ var keyboard_key__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(keyboard_key__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var shallowequal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
+/* harmony import */ var shallowequal__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(shallowequal__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/eventStack/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/isBrowser.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/htmlPropsUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/ModernAutoControlledComponent.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/SUI.js");
+/* harmony import */ var _elements_Input__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../elements/Input */ "./node_modules/semantic-ui-react/dist/es/elements/Input/Input.js");
+/* harmony import */ var _SearchCategory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./SearchCategory */ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategory.js");
+/* harmony import */ var _SearchResult__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./SearchResult */ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResult.js");
+/* harmony import */ var _SearchResults__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./SearchResults */ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResults.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var overrideSearchInputProps = function overrideSearchInputProps(predefinedProps) {
+  var input = predefinedProps.input;
+
+  if ((0,lodash_es_isUndefined__WEBPACK_IMPORTED_MODULE_8__.default)(input)) {
+    return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, predefinedProps, {
+      input: {
+        className: 'prompt'
+      }
+    });
+  }
+
+  if ((0,lodash_es_isPlainObject__WEBPACK_IMPORTED_MODULE_9__.default)(input)) {
+    return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, predefinedProps, {
+      input: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, input, {
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__.default)(input.className, 'prompt')
+      })
+    });
+  }
+
+  return predefinedProps;
+};
+/**
+ * A search module allows a user to query for results from a selection of data
+ */
+
+
+var Search = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(Search, _Component);
+
+  function Search() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+    _this.handleResultSelect = function (e, result) {
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onResultSelect', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, _this.props, {
+        result: result
+      }));
+    };
+
+    _this.handleSelectionChange = function (e) {
+      var result = _this.getSelectedResult();
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onSelectionChange', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, _this.props, {
+        result: result
+      }));
+    };
+
+    _this.closeOnEscape = function (e) {
+      if (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().getCode(e) !== (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().Escape)) return;
+      e.preventDefault();
+
+      _this.close();
+    };
+
+    _this.moveSelectionOnKeyDown = function (e) {
+      switch (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().getCode(e)) {
+        case (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().ArrowDown):
+          e.preventDefault();
+
+          _this.moveSelectionBy(e, 1);
+
+          break;
+
+        case (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().ArrowUp):
+          e.preventDefault();
+
+          _this.moveSelectionBy(e, -1);
+
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    _this.selectItemOnEnter = function (e) {
+      if (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().getCode(e) !== (keyboard_key__WEBPACK_IMPORTED_MODULE_4___default().Enter)) return;
+
+      var result = _this.getSelectedResult(); // prevent selecting null if there was no selected item value
+
+
+      if (!result) return;
+      e.preventDefault(); // notify the onResultSelect prop that the user is trying to change value
+
+      _this.setValue(result.title);
+
+      _this.handleResultSelect(e, result);
+
+      _this.close();
+    };
+
+    _this.closeOnDocumentClick = function (e) {
+      _this.close();
+    };
+
+    _this.handleMouseDown = function (e) {
+      _this.isMouseDown = true;
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onMouseDown', e, _this.props);
+
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.sub('mouseup', _this.handleDocumentMouseUp);
+    };
+
+    _this.handleDocumentMouseUp = function () {
+      _this.isMouseDown = false;
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('mouseup', _this.handleDocumentMouseUp);
+    };
+
+    _this.handleInputClick = function (e) {
+      // prevent closeOnDocumentClick()
+      e.nativeEvent.stopImmediatePropagation();
+
+      _this.tryOpen();
+    };
+
+    _this.handleItemClick = function (e, _ref) {
+      var id = _ref.id;
+
+      var result = _this.getSelectedResult(id); // prevent closeOnDocumentClick()
+
+
+      e.nativeEvent.stopImmediatePropagation(); // notify the onResultSelect prop that the user is trying to change value
+
+      _this.setValue(result.title);
+
+      _this.handleResultSelect(e, result);
+
+      _this.close();
+    };
+
+    _this.handleItemMouseDown = function (e) {
+      // Heads up! We should prevent default to prevent blur events.
+      // https://github.com/Semantic-Org/Semantic-UI-React/issues/3298
+      e.preventDefault();
+    };
+
+    _this.handleFocus = function (e) {
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onFocus', e, _this.props);
+
+      _this.setState({
+        focus: true
+      });
+    };
+
+    _this.handleBlur = function (e) {
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onBlur', e, _this.props);
+
+      _this.setState({
+        focus: false
+      });
+    };
+
+    _this.handleSearchChange = function (e) {
+      // prevent propagating to this.props.onChange()
+      e.stopPropagation();
+      var minCharacters = _this.props.minCharacters;
+      var open = _this.state.open;
+      var newQuery = e.target.value;
+
+      (0,lodash_es_invoke__WEBPACK_IMPORTED_MODULE_10__.default)(_this.props, 'onSearchChange', e, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, _this.props, {
+        value: newQuery
+      })); // open search dropdown on search query
+
+
+      if (newQuery.length < minCharacters) {
+        _this.close();
+      } else if (!open) {
+        _this.tryOpen(newQuery);
+      }
+
+      _this.setValue(newQuery);
+    };
+
+    _this.getFlattenedResults = function () {
+      var _this$props = _this.props,
+          category = _this$props.category,
+          results = _this$props.results;
+      return !category ? results : (0,lodash_es_reduce__WEBPACK_IMPORTED_MODULE_12__.default)(results, function (memo, categoryData) {
+        return memo.concat(categoryData.results);
+      }, []);
+    };
+
+    _this.getSelectedResult = function (index) {
+      if (index === void 0) {
+        index = _this.state.selectedIndex;
+      }
+
+      var results = _this.getFlattenedResults();
+
+      return (0,lodash_es_get__WEBPACK_IMPORTED_MODULE_13__.default)(results, index);
+    };
+
+    _this.setValue = function (value) {
+      var selectFirstResult = _this.props.selectFirstResult;
+
+      _this.setState({
+        value: value,
+        selectedIndex: selectFirstResult ? 0 : -1
+      });
+    };
+
+    _this.moveSelectionBy = function (e, offset) {
+      var selectedIndex = _this.state.selectedIndex;
+
+      var results = _this.getFlattenedResults();
+
+      var lastIndex = results.length - 1; // next is after last, wrap to beginning
+      // next is before first, wrap to end
+
+      var nextIndex = selectedIndex + offset;
+      if (nextIndex > lastIndex) nextIndex = 0;else if (nextIndex < 0) nextIndex = lastIndex;
+
+      _this.setState({
+        selectedIndex: nextIndex
+      });
+
+      _this.scrollSelectedItemIntoView();
+
+      _this.handleSelectionChange(e);
+    };
+
+    _this.scrollSelectedItemIntoView = function () {
+      // Do not access document when server side rendering
+      if (!(0,_lib__WEBPACK_IMPORTED_MODULE_14__.default)()) return;
+      var menu = document.querySelector('.ui.search.active.visible .results.visible');
+      if (!menu) return;
+      var item = menu.querySelector('.result.active');
+      if (!item) return;
+      var isOutOfUpperView = item.offsetTop < menu.scrollTop;
+      var isOutOfLowerView = item.offsetTop + item.clientHeight > menu.scrollTop + menu.clientHeight;
+
+      if (isOutOfUpperView) {
+        menu.scrollTop = item.offsetTop;
+      } else if (isOutOfLowerView) {
+        menu.scrollTop = item.offsetTop + item.clientHeight - menu.clientHeight;
+      }
+    };
+
+    _this.tryOpen = function (currentValue) {
+      if (currentValue === void 0) {
+        currentValue = _this.state.value;
+      }
+
+      var minCharacters = _this.props.minCharacters;
+      if (currentValue.length < minCharacters) return;
+
+      _this.open();
+    };
+
+    _this.open = function () {
+      _this.setState({
+        open: true
+      });
+    };
+
+    _this.close = function () {
+      _this.setState({
+        open: false
+      });
+    };
+
+    _this.renderSearchInput = function (rest) {
+      var _this$props2 = _this.props,
+          icon = _this$props2.icon,
+          input = _this$props2.input;
+      var value = _this.state.value;
+      return _elements_Input__WEBPACK_IMPORTED_MODULE_15__.default.create(input, {
+        autoGenerateKey: false,
+        defaultProps: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, rest, {
+          autoComplete: 'off',
+          icon: icon,
+          onChange: _this.handleSearchChange,
+          onClick: _this.handleInputClick,
+          tabIndex: '0',
+          value: value
+        }),
+        // Nested shorthand props need special treatment to survive the shallow merge
+        overrideProps: overrideSearchInputProps
+      });
+    };
+
+    _this.renderNoResults = function () {
+      var _this$props3 = _this.props,
+          noResultsDescription = _this$props3.noResultsDescription,
+          noResultsMessage = _this$props3.noResultsMessage;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement("div", {
+        className: "message empty"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement("div", {
+        className: "header"
+      }, noResultsMessage), noResultsDescription && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement("div", {
+        className: "description"
+      }, noResultsDescription));
+    };
+
+    _this.renderResult = function (_ref2, index, _array, offset) {
+      var childKey = _ref2.childKey,
+          result = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(_ref2, ["childKey"]);
+
+      if (offset === void 0) {
+        offset = 0;
+      }
+
+      var resultRenderer = _this.props.resultRenderer;
+      var selectedIndex = _this.state.selectedIndex;
+      var offsetIndex = index + offset;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement(_SearchResult__WEBPACK_IMPORTED_MODULE_16__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({
+        key: childKey != null ? childKey : result.id || result.title,
+        active: selectedIndex === offsetIndex,
+        onClick: _this.handleItemClick,
+        onMouseDown: _this.handleItemMouseDown,
+        renderer: resultRenderer
+      }, result, {
+        id: offsetIndex // Used to lookup the result on item click
+
+      }));
+    };
+
+    _this.renderResults = function () {
+      var results = _this.props.results;
+      return (0,lodash_es_map__WEBPACK_IMPORTED_MODULE_17__.default)(results, _this.renderResult);
+    };
+
+    _this.renderCategories = function () {
+      var _this$props4 = _this.props,
+          categoryLayoutRenderer = _this$props4.categoryLayoutRenderer,
+          categoryRenderer = _this$props4.categoryRenderer,
+          categories = _this$props4.results;
+      var selectedIndex = _this.state.selectedIndex;
+      var count = 0;
+      return (0,lodash_es_map__WEBPACK_IMPORTED_MODULE_17__.default)(categories, function (_ref3) {
+        var childKey = _ref3.childKey,
+            category = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(_ref3, ["childKey"]);
+
+        var categoryProps = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({
+          key: childKey != null ? childKey : category.name,
+          active: (0,lodash_es_inRange__WEBPACK_IMPORTED_MODULE_18__.default)(selectedIndex, count, count + category.results.length),
+          layoutRenderer: categoryLayoutRenderer,
+          renderer: categoryRenderer
+        }, category);
+
+        var renderFn = (0,lodash_es_partialRight__WEBPACK_IMPORTED_MODULE_19__.default)(_this.renderResult, count);
+
+        count += category.results.length;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement(_SearchCategory__WEBPACK_IMPORTED_MODULE_20__.default, categoryProps, category.results.map(renderFn));
+      });
+    };
+
+    _this.renderMenuContent = function () {
+      var _this$props5 = _this.props,
+          category = _this$props5.category,
+          showNoResults = _this$props5.showNoResults,
+          results = _this$props5.results;
+
+      if ((0,lodash_es_isEmpty__WEBPACK_IMPORTED_MODULE_21__.default)(results)) {
+        return showNoResults ? _this.renderNoResults() : null;
+      }
+
+      return category ? _this.renderCategories() : _this.renderResults();
+    };
+
+    _this.renderResultsMenu = function () {
+      var open = _this.state.open;
+      var resultsClasses = open ? 'visible' : '';
+
+      var menuContent = _this.renderMenuContent();
+
+      if (!menuContent) return;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement(_SearchResults__WEBPACK_IMPORTED_MODULE_22__.default, {
+        className: resultsClasses
+      }, menuContent);
+    };
+
+    return _this;
+  }
+
+  Search.getAutoControlledStateFromProps = function getAutoControlledStateFromProps(props, state) {
+    // We need to store a `prevValue` to compare as in `getDerivedStateFromProps` we don't have
+    // prevState
+    if (typeof state.prevValue !== 'undefined' && shallowequal__WEBPACK_IMPORTED_MODULE_7___default()(state.prevValue, state.value)) {
+      return {
+        prevValue: state.value
+      };
+    }
+
+    var selectedIndex = props.selectFirstResult ? 0 : -1;
+    return {
+      prevValue: state.value,
+      selectedIndex: selectedIndex
+    };
+  };
+
+  var _proto = Search.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+    return !shallowequal__WEBPACK_IMPORTED_MODULE_7___default()(nextProps, this.props) || !shallowequal__WEBPACK_IMPORTED_MODULE_7___default()(nextState, this.state);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState) {
+    // eslint-disable-line complexity
+    // focused / blurred
+    if (!prevState.focus && this.state.focus) {
+      if (!this.isMouseDown) {
+        this.tryOpen();
+      }
+
+      if (this.state.open) {
+        _lib__WEBPACK_IMPORTED_MODULE_11__.default.sub('keydown', [this.moveSelectionOnKeyDown, this.selectItemOnEnter]);
+      }
+    } else if (prevState.focus && !this.state.focus) {
+      if (!this.isMouseDown) {
+        this.close();
+      }
+
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('keydown', [this.moveSelectionOnKeyDown, this.selectItemOnEnter]);
+    } // opened / closed
+
+
+    if (!prevState.open && this.state.open) {
+      this.open();
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.sub('click', this.closeOnDocumentClick);
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.sub('keydown', [this.closeOnEscape, this.moveSelectionOnKeyDown, this.selectItemOnEnter]);
+    } else if (prevState.open && !this.state.open) {
+      this.close();
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('click', this.closeOnDocumentClick);
+      _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('keydown', [this.closeOnEscape, this.moveSelectionOnKeyDown, this.selectItemOnEnter]);
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('click', this.closeOnDocumentClick);
+    _lib__WEBPACK_IMPORTED_MODULE_11__.default.unsub('keydown', [this.closeOnEscape, this.moveSelectionOnKeyDown, this.selectItemOnEnter]);
+  } // ----------------------------------------
+  // Document Event Handlers
+  // ----------------------------------------
+  ;
+
+  _proto.render = function render() {
+    var _this$state = this.state,
+        searchClasses = _this$state.searchClasses,
+        focus = _this$state.focus,
+        open = _this$state.open;
+    var _this$props6 = this.props,
+        aligned = _this$props6.aligned,
+        category = _this$props6.category,
+        className = _this$props6.className,
+        fluid = _this$props6.fluid,
+        loading = _this$props6.loading,
+        size = _this$props6.size; // Classes
+
+    var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_3__.default)('ui', open && 'active visible', size, searchClasses, (0,_lib__WEBPACK_IMPORTED_MODULE_23__.useKeyOnly)(category, 'category'), (0,_lib__WEBPACK_IMPORTED_MODULE_23__.useKeyOnly)(focus, 'focus'), (0,_lib__WEBPACK_IMPORTED_MODULE_23__.useKeyOnly)(fluid, 'fluid'), (0,_lib__WEBPACK_IMPORTED_MODULE_23__.useKeyOnly)(loading, 'loading'), (0,_lib__WEBPACK_IMPORTED_MODULE_23__.useValueAndKey)(aligned, 'aligned'), 'search', className);
+    var unhandled = (0,_lib__WEBPACK_IMPORTED_MODULE_24__.default)(Search, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_25__.default)(Search, this.props);
+
+    var _partitionHTMLProps = (0,_lib__WEBPACK_IMPORTED_MODULE_26__.partitionHTMLProps)(unhandled, {
+      htmlProps: _lib__WEBPACK_IMPORTED_MODULE_26__.htmlInputAttrs
+    }),
+        htmlInputProps = _partitionHTMLProps[0],
+        rest = _partitionHTMLProps[1];
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, rest, {
+      className: classes,
+      onBlur: this.handleBlur,
+      onFocus: this.handleFocus,
+      onMouseDown: this.handleMouseDown
+    }), this.renderSearchInput(htmlInputProps), this.renderResultsMenu());
+  };
+
+  return Search;
+}(_lib__WEBPACK_IMPORTED_MODULE_27__.default);
+
+Search.handledProps = ["aligned", "as", "category", "categoryLayoutRenderer", "categoryRenderer", "className", "defaultOpen", "defaultValue", "fluid", "icon", "input", "loading", "minCharacters", "noResultsDescription", "noResultsMessage", "onBlur", "onFocus", "onMouseDown", "onResultSelect", "onSearchChange", "onSelectionChange", "open", "resultRenderer", "results", "selectFirstResult", "showNoResults", "size", "value"];
+
+Search.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().elementType),
+  // ------------------------------------
+  // Behavior
+  // ------------------------------------
+
+  /** Initial value of open. */
+  defaultOpen: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** Initial value. */
+  defaultValue: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().string),
+
+  /** Shorthand for Icon. */
+  icon: prop_types__WEBPACK_IMPORTED_MODULE_5___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_5___default().node), (prop_types__WEBPACK_IMPORTED_MODULE_5___default().object)]),
+
+  /** Minimum characters to query for results */
+  minCharacters: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().number),
+
+  /** Additional text for "No Results" message with less emphasis. */
+  noResultsDescription: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().node),
+
+  /** Message to display when there are no results. */
+  noResultsMessage: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().node),
+
+  /** Controls whether or not the results menu is displayed. */
+  open: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /**
+   * One of:
+   * - array of Search.Result props e.g. `{ title: '', description: '' }` or
+   * - object of categories e.g. `{ name: '', results: [{ title: '', description: '' }]`
+   */
+  results: prop_types__WEBPACK_IMPORTED_MODULE_5___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_5___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_5___default().shape(_SearchResult__WEBPACK_IMPORTED_MODULE_16__.default.propTypes)), prop_types__WEBPACK_IMPORTED_MODULE_5___default().shape(_SearchCategory__WEBPACK_IMPORTED_MODULE_20__.default.propTypes)]),
+
+  /** Whether the search should automatically select the first result after searching. */
+  selectFirstResult: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** Whether a "no results" message should be shown if no results are found. */
+  showNoResults: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** Current value of the search input. Creates a controlled component. */
+  value: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().string),
+  // ------------------------------------
+  // Rendering
+  // ------------------------------------
+
+  /**
+   * Renders the SearchCategory layout.
+   *
+   * @param {object} categoryContent - The Renderable SearchCategory contents.
+   * @param {object} resultsContent - The Renderable SearchResult contents.
+   * @returns {*} - Renderable SearchCategory layout.
+   */
+  categoryLayoutRenderer: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Renders the SearchCategory contents.
+   *
+   * @param {object} props - The SearchCategory props object.
+   * @returns {*} - Renderable SearchCategory contents.
+   */
+  categoryRenderer: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Renders the SearchResult contents.
+   *
+   * @param {object} props - The SearchResult props object.
+   * @returns {*} - Renderable SearchResult contents.
+   */
+  resultRenderer: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+  // ------------------------------------
+  // Callbacks
+  // ------------------------------------
+
+  /**
+   * Called on blur.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onBlur: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Called on focus.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onFocus: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Called on mousedown.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onMouseDown: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Called when a result is selected.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onResultSelect: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Called on search input change.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props, includes current value of search input.
+   */
+  onSearchChange: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+
+  /**
+   * Called when the active selection index is changed.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onSelectionChange: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().func),
+  // ------------------------------------
+  // Style
+  // ------------------------------------
+
+  /** A search can have its results aligned to its left or right container edge. */
+  aligned: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().string),
+
+  /** A search can display results from remote content ordered by categories. */
+  category: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().string),
+
+  /** A search can have its results take up the width of its container. */
+  fluid: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** Shorthand for input element. */
+  input: _lib__WEBPACK_IMPORTED_MODULE_28__.itemShorthand,
+
+  /** A search can show a loading indicator. */
+  loading: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().bool),
+
+  /** A search can have different sizes. */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_5___default().oneOf((0,lodash_es_without__WEBPACK_IMPORTED_MODULE_29__.default)(_lib__WEBPACK_IMPORTED_MODULE_30__.SIZES, 'medium'))
+} : 0;
+Search.defaultProps = {
+  icon: 'search',
+  input: 'text',
+  minCharacters: 1,
+  noResultsMessage: 'No results found.',
+  showNoResults: true
+};
+Search.autoControlledProps = ['open', 'value'];
+Search.Category = _SearchCategory__WEBPACK_IMPORTED_MODULE_20__.default;
+Search.Result = _SearchResult__WEBPACK_IMPORTED_MODULE_16__.default;
+Search.Results = _SearchResults__WEBPACK_IMPORTED_MODULE_22__.default;
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategory.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategory.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+/* harmony import */ var _SearchCategoryLayout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./SearchCategoryLayout */ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategoryLayout.js");
+
+
+
+
+
+
+
+function SearchCategory(props) {
+  var active = props.active,
+      children = props.children,
+      className = props.className,
+      content = props.content,
+      layoutRenderer = props.layoutRenderer,
+      renderer = props.renderer;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)((0,_lib__WEBPACK_IMPORTED_MODULE_4__.useKeyOnly)(active, 'active'), 'category', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(SearchCategory, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_6__.default)(SearchCategory, props);
+  var categoryContent = renderer(props);
+  var resultsContent = _lib__WEBPACK_IMPORTED_MODULE_7__.isNil(children) ? content : children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    className: classes
+  }), layoutRenderer({
+    categoryContent: categoryContent,
+    resultsContent: resultsContent
+  }));
+}
+
+SearchCategory.handledProps = ["active", "as", "children", "className", "content", "layoutRenderer", "name", "renderer", "results"];
+SearchCategory.defaultProps = {
+  layoutRenderer: _SearchCategoryLayout__WEBPACK_IMPORTED_MODULE_8__.default,
+  renderer: function renderer(_ref) {
+    var name = _ref.name;
+    return name;
+  }
+};
+SearchCategory.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** The item currently selected by keyboard shortcut. */
+  active: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_9__.contentShorthand,
+
+  /** Display name. */
+  name: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /**
+   * Renders the category layout contents.
+   *
+   * @param {object} props - The SearchCategoryLayout props object.
+   * @returns {*} - Renderable category layout contents.
+   */
+  layoutRenderer: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
+
+  /**
+   * Renders the category contents.
+   *
+   * @param {object} props - The SearchCategory props object.
+   * @returns {*} - Renderable category contents.
+   */
+  renderer: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
+
+  /** Array of Search.Result props. */
+  results: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchCategory);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategoryLayout.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Search/SearchCategoryLayout.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+
+function SearchCategoryLayout(props) {
+  var categoryContent = props.categoryContent,
+      resultsContent = props.resultsContent;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "name"
+  }, categoryContent), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "results"
+  }, resultsContent));
+}
+
+SearchCategoryLayout.handledProps = ["categoryContent", "resultsContent"];
+SearchCategoryLayout.propTypes =  true ? {
+  /** The rendered category content */
+  categoryContent: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().element.isRequired),
+
+  /** The rendered results content */
+  resultsContent: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().element.isRequired)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchCategoryLayout);
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResult.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResult.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SearchResult)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/factories.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/classNameBuilders.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+
+
+
+
+
+ // Note: You technically only need the 'content' wrapper when there's an
+// image. However, optionally wrapping it makes this function a lot more
+// complicated and harder to read. Since always wrapping it doesn't affect
+// the style in any way let's just do that.
+//
+// Note: To avoid requiring a wrapping div, we return an array here so to
+// prevent rendering issues each node needs a unique key.
+
+var defaultRenderer = function defaultRenderer(_ref) {
+  var image = _ref.image,
+      price = _ref.price,
+      title = _ref.title,
+      description = _ref.description;
+  return [image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+    key: "image",
+    className: "image"
+  }, (0,_lib__WEBPACK_IMPORTED_MODULE_5__.createHTMLImage)(image, {
+    autoGenerateKey: false
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+    key: "content",
+    className: "content"
+  }, price && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+    className: "price"
+  }, price), title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+    className: "title"
+  }, title), description && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement("div", {
+    className: "description"
+  }, description))];
+};
+
+defaultRenderer.handledProps = [];
+
+var SearchResult = /*#__PURE__*/function (_Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(SearchResult, _Component);
+
+  function SearchResult() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+    _this.handleClick = function (e) {
+      var onClick = _this.props.onClick;
+      if (onClick) onClick(e, _this.props);
+    };
+
+    return _this;
+  }
+
+  var _proto = SearchResult.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        active = _this$props.active,
+        className = _this$props.className,
+        renderer = _this$props.renderer;
+    var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)((0,_lib__WEBPACK_IMPORTED_MODULE_6__.useKeyOnly)(active, 'active'), 'result', className);
+    var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_7__.default)(SearchResult, this.props);
+    var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_8__.default)(SearchResult, this.props); // Note: You technically only need the 'content' wrapper when there's an
+    // image. However, optionally wrapping it makes this function a lot more
+    // complicated and harder to read. Since always wrapping it doesn't affect
+    // the style in any way let's just do that.
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+      className: classes,
+      onClick: this.handleClick
+    }), renderer(this.props));
+  };
+
+  return SearchResult;
+}(react__WEBPACK_IMPORTED_MODULE_4__.Component);
+
+SearchResult.handledProps = ["active", "as", "className", "content", "description", "id", "image", "onClick", "price", "renderer", "title"];
+
+SearchResult.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /** The item currently selected by keyboard shortcut. */
+  active: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_9__.contentShorthand,
+
+  /** Additional text with less emphasis. */
+  description: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /** A unique identifier. */
+  id: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /** Add an image to the item. */
+  image: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * Called on click.
+   *
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /** Customized text for price. */
+  price: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * Renders the result contents.
+   *
+   * @param {object} props - The SearchResult props object.
+   * @returns {*} - Renderable result contents.
+   */
+  renderer: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /** Display title. */
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string.isRequired)
+} : 0;
+SearchResult.defaultProps = {
+  renderer: defaultRenderer
+};
+
+/***/ }),
+
+/***/ "./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResults.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/semantic-ui-react/dist/es/modules/Search/SearchResults.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getUnhandledProps.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/getElementType.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/childrenUtils.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib */ "./node_modules/semantic-ui-react/dist/es/lib/customPropTypes.js");
+
+
+
+
+
+
+function SearchResults(props) {
+  var children = props.children,
+      className = props.className,
+      content = props.content;
+  var classes = (0,clsx__WEBPACK_IMPORTED_MODULE_1__.default)('results transition', className);
+  var rest = (0,_lib__WEBPACK_IMPORTED_MODULE_4__.default)(SearchResults, props);
+  var ElementType = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.default)(SearchResults, props);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ElementType, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, rest, {
+    className: classes
+  }), _lib__WEBPACK_IMPORTED_MODULE_6__.isNil(children) ? content : children);
+}
+
+SearchResults.handledProps = ["as", "children", "className", "content"];
+SearchResults.propTypes =  true ? {
+  /** An element type to render as (string or function). */
+  as: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().elementType),
+
+  /** Primary content. */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
+
+  /** Additional classes. */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+
+  /** Shorthand for primary content. */
+  content: _lib__WEBPACK_IMPORTED_MODULE_7__.contentShorthand
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchResults);
 
 /***/ }),
 

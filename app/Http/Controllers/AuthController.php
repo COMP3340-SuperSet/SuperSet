@@ -21,11 +21,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             return response()->json([
-                'user'=> $user,
-                'message' => 'registration successful'], 201);
+                'user' => $user,
+                'message' => 'registration successful'
+            ], 201);
         }
     }
-      /**
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -61,11 +62,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        //return $request->user;
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return response()->json(['message' => 'Login successful'], 200);
+            $user = User::where('email', '=', $request->email)->first();
+            //return $user->tokens;
+            $token = $user->createToken('access_token')->plainTextToken;
+            return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
         }
     }
 

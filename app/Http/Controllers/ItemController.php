@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'string'            
+            'description' => 'string'
         ]);
         return Item::create($request->all());
     }
@@ -31,11 +31,11 @@ class ItemController extends Controller
     {
         $item = Item::first($itemid);
         $item->update($request->all());
-        return $product;
+        return $item;
     }
 
-    public function destroy($itemid)
+    public function destroy(Request $request)
     {
-        return Item::destroy($itemid);
+        return Item::destroy($request->itemid);
     }
 }
