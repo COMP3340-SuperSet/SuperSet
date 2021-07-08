@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SetImageController;
 use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 /* 
     PUBLIC ROUTES
 */
+
+//search
+Route::get('/search/{term}', [SearchController::class, 'search']);
+Route::get('/users/search/{term}', [SearchController::class, 'searchUsers']);
+Route::get('/sets/search/{term}', [SearchController::class, 'searchSets']);
 
 //auth
 Route::post('/register', [AuthController::class, 'register']);
