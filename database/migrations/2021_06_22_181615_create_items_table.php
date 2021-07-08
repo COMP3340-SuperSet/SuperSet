@@ -25,8 +25,9 @@ class CreateItemsTable extends Migration
             $table->timestamps();
         });
 
-        Item::create(['setid'=>'1', 'name'=>'Test Item 1', 'description'=>'Sample Description for Test Item 1.']);
-
+        Item::create(['setid' => '1', 'name' => 'Test Item 1', 'description' => 'Sample Description for Test Item 1.']);
+        Item::create(['setid' => '2', 'name' => 'Test Item 2', 'description' => 'Sample Description for Test Item 2.']);
+        Item::create(['setid' => '2', 'name' => 'Test Item 3', 'description' => 'Sample Description for Test Item 3.']);
     }
 
     /**

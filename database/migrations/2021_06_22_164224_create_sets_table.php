@@ -26,7 +26,8 @@ class CreateSetsTable extends Migration
             $table->timestamps();
         });
 
-        Set::create(['userid'=>'1', 'name'=>'Test Set 1', 'description'=>'Sample Description for Test Set 1.']);
+        Set::create(['userid' => '1', 'name' => 'Test Set 1', 'description' => 'Sample Description for Test Set 1.']);
+        Set::create(['userid' => '2', 'name' => 'Test Set 2', 'description' => 'Sample Description for Test Set 2.']);
     }
 
     /**
