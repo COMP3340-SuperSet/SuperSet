@@ -1,19 +1,18 @@
 <?php
 
+
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
+use Closure;
 
 class Admin
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    protected function (Request $request)
+    public function handle($request, Closure $next)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
-        }
+         if (Auth::user()) {
+                return $next($request);
+         }
+    
+        return redirect('/login');
     }
 }

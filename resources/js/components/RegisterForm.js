@@ -8,6 +8,7 @@ import { referer } from '../utils/redirect';
 const RegisterForm = () => {
 
     const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPassword_Confirmation] = useState('');
@@ -22,6 +23,7 @@ const RegisterForm = () => {
         axios.post('/api/register',
             {
                 name: name,
+                username: username,
                 email: email,
                 password: password,
                 password_confirmation: password_confirmation,
@@ -50,6 +52,12 @@ const RegisterForm = () => {
                                 Name
                             </label>
                             <input required id='name' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>
+                                Username
+                            </label>
+                            <input required id='username' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>

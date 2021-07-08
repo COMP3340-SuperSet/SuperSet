@@ -4059,18 +4059,23 @@ var RegisterForm = function RegisterForm() {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      email = _useState4[0],
-      setEmail = _useState4[1];
+      username = _useState4[0],
+      setUsername = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      password = _useState6[0],
-      setPassword = _useState6[1];
+      email = _useState6[0],
+      setEmail = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      password_confirmation = _useState8[0],
-      setPassword_Confirmation = _useState8[1];
+      password = _useState8[0],
+      setPassword = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      password_confirmation = _useState10[0],
+      setPassword_Confirmation = _useState10[1];
 
   var onRegisterSubmit = function onRegisterSubmit(event) {
     event.preventDefault();
@@ -4081,6 +4086,7 @@ var RegisterForm = function RegisterForm() {
 
     axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', {
       name: name,
+      username: username,
       email: email,
       password: password,
       password_confirmation: password_confirmation
@@ -4121,6 +4127,18 @@ var RegisterForm = function RegisterForm() {
               value: name,
               onChange: function onChange(e) {
                 return setName(e.target.value);
+              }
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Field, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              children: "Username"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              required: true,
+              id: "username",
+              placeholder: "Username",
+              value: username,
+              onChange: function onChange(e) {
+                return setUsername(e.target.value);
               }
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(semantic_ui_react__WEBPACK_IMPORTED_MODULE_6__.default.Field, {
