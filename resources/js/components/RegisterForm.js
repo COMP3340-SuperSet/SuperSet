@@ -32,10 +32,9 @@ const RegisterForm = () => {
             }
         }).then(response => {
             storeToken(response.data.token);
-            console.log('register: ', response);
             redirect(fetchReferer() ? fetchReferer() : '/');
         }).catch(error => {
-            console.log(error.response.data);
+            console.error(error.response.data);
         });
     }
 

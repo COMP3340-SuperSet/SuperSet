@@ -19,49 +19,12 @@ var profileInfo = {
 
 var editedProfileInfo = profileInfo;
 
-var setsInfo = [
-    {
-        id: 123,
-        name: "Test set 1",
-        count: 2,
-        description: "This is a set",
-        image: null
-    },
-    {
-        id: 183,
-        name: "Test set 2",
-        count: 6,
-        description: "This is a another set",
-        image: null
-    },
-    {
-        id: 261,
-        name: "Test set 3",
-        count: 1,
-        description: "Test description",
-        image: null
-    },
-    {
-        id: 523,
-        name: "Test set 4",
-        count: 3,
-        description: "Lorem ipsum",
-        image: null
-    },
-    {
-        id: 331,
-        name: "Test set 5",
-        count: 8,
-        description: "Lorem ipsum 2",
-        image: null
-    }
-];
 
-const ProfileDisplay = ({editingMode}) => {
+const ProfileDisplay = ({editingMode, name, bio, imageid}) => {
     if (!editingMode){
         return (
             <div>
-                <Image size = "small" src = {profileInfo.pfp} circular centered/>
+                <Image size = "small" src = {imageid} circular centered/>
                 <Header as = "h1" textAlign = "center" >{profileInfo.username}</Header>
                 <Segment>
                     <Header as = "h3" textAlign = "center" >{profileInfo.description}</Header>
@@ -110,12 +73,12 @@ const SendUpdatedProfileInfoToDatabase = () => {
     //save profileInfo to database
 }
 
-const SetsDisplay = ({displayMode}) => {
+const SetsDisplay = ({displayMode, setInfo}) => {
     if (displayMode === GRID_MODE){
-        let allCards = [];
-        for (let obj of setsInfo){
-            allCards.push(<Grid.Column><SetCard id = {obj.id} name = {obj.name} count = {obj.count} description = {obj.description} image = {obj.image}/></Grid.Column>);
-        }
+        let allCards = setInfo.map( (obj) => 
+            <Grid.Column key = {obj.setid}>
+                <SetCard id = {obj.setid} name = {obj.name} count = {4} description = {obj.description} image = {null}/>
+            </Grid.Column>);
 
         return(
             <Grid stackable container columns = {4}>
@@ -124,10 +87,7 @@ const SetsDisplay = ({displayMode}) => {
         );
     }
     else{
-        let allCells = [];
-        for (let obj of setsInfo){
-            allCells.push(<SetCell id = {obj.id} name = {obj.name} count = {obj.count} description = {obj.description}/>);
-        }
+        let allCells = setInfo.map( (obj) => <SetCell key = {obj.setid} id = {obj.setid} name = {obj.name} count = {4} description = {obj.description}/>);
 
         return(
             <Table celled selectable>
@@ -149,7 +109,14 @@ const SetsDisplay = ({displayMode}) => {
 
 
 
-const Profile = () => {
+const Profile = ({userInfo, userSets}) => {
+
+    if (userInfo !== null){
+        profileInfo.username = userInfo.name;
+        profileInfo.description = userInfo.bio;
+        profileInfo.pfp = userInfo.imageid;
+    }
+
     const [editing, setEditing] = useState(false);
     const [displayType, setDisplayType] = useState(GRID_MODE);
 
@@ -172,7 +139,7 @@ const Profile = () => {
 
             <Grid.Column width = {5}>
                 <Segment padded = "very">
-                    <ProfileDisplay editingMode = {editing}/>
+                    <ProfileDisplay editingMode = {editing} />
                     <ProfileEdit editingMode = {editing}/>
                     {editButton}
                     {saveButton}
@@ -190,7 +157,7 @@ const Profile = () => {
                 </Segment>
 
                 <Segment padded>
-                    <SetsDisplay displayMode = {displayType}/>
+                    <SetsDisplay displayMode = {displayType} setInfo = {userSets}/>
                 </Segment>
             </Grid.Column>
 

@@ -13,9 +13,6 @@ const LoginForm = () => {
     const onLoginSubmit = (event) => {
         event.preventDefault();
 
-        console.log('email: ', email);
-        console.log('password: ', password);
-
         /**
          * post request for a user to login
          * 
@@ -23,7 +20,6 @@ const LoginForm = () => {
         axios.get('/sanctum/csrf-cookie', {
             withCredentials: true
         }).then(response => {
-            console.log('crsf: ', response);
             axios.post('/api/login',
                 {
                     email: email,
@@ -35,11 +31,10 @@ const LoginForm = () => {
                     withCredentials: true
                 }
             }).then(response => {
-                console.log('login: ', response);
                 storeToken(response.data.token);
                 redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
-                console.log(error.response.data);
+                console.error(error.response.data);
             });
         });
 

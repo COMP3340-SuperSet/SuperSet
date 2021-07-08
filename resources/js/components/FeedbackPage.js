@@ -9,8 +9,6 @@ const FeedbackPage = () => {
     const [intFeedback, setIntFeedback] = useState(0);
 
     const fullFeedback = () =>{
-        console.log(textFeedback);
-        console.log(intFeedback);
         // Logic to send to database
     }
 
