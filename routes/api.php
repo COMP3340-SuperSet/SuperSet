@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/check', [AuthController::class, 'check']);
 
 //user
 Route::get('/users', [UserController::class, 'index']);
@@ -27,12 +28,13 @@ Route::get('/user/{userid}', [UserController::class, 'show']);
 
 //user - protected
 Route::middleware('auth:sanctum', 'owner')->put('/user/{userid}', [UserController::class, 'update']);
-Route::middleware('auth:sanctum', 'owner')->post('/user/{userid}/image', [UserController::class, 'update_image']);
+Route::middleware('auth:sanctum', 'owner')->post('/user/image', [UserController::class, 'update_image']);
 
 //sets
 Route::get('/sets', [SetController::class, 'index']);
 Route::get('/sets/search/{query}', [SetController::class, 'search']);
 Route::get('/sets/{setid}', [SetController::class, 'show']);
+Route::get('/user/sets/{userid}', [SetController::class, 'getUserSets']);
 
 //sets - protected
 Route::middleware('auth:sanctum', 'owner')->put('/sets/{setid}', [SetController::class, 'update']);

@@ -60,6 +60,17 @@ class AuthController extends Controller
         return Auth::guard();
     }
 
+    public function check()
+    {
+        if (Auth::check()){
+            return response()->json(['user' => Auth::user()], 200);
+        }
+        else{
+            return response()->json(['user' => null], 200);
+        }
+       
+    }
+
     public function login(Request $request)
     {
         //return $request->user;

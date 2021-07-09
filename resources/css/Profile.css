@@ -32,3 +32,13 @@
     font-weight: bold;
     padding: 6px 0 !important;
 }
+
+.ss-btn-container{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#description-text-area{
+    resize: vertical;
+}

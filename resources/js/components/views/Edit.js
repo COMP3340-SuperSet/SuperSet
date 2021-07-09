@@ -12,7 +12,7 @@ function Edit() {
         <div>
             Upload User Profile Image
             <input type="number" value={userid} onChange={(e) => setUserid(e.target.value)} placeholder='UserID'></input>
-            <FileUpload fileUploadURL={`/api/user/${userid}/image`} /><br />
+            <FileUpload fileUploadURL={`/api/user/image`} /><br />
 
             Upload Set Image
             <input type="number" value={setid} onChange={(e) => setSetid(e.target.value)} placeholder='SetID'></input>

@@ -8,6 +8,8 @@ import "../../css/Profile.css";
 import tmp_pic from "../../images/pfp_placeholder.png";
 import { update } from "lodash";
 import { redirect } from "../utils/redirect.js";
+import axios from "axios";
+import { uploadFile } from "../services/fileUpload.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -17,9 +19,9 @@ const CreateNewSet = () => {
     //redirect("/set", [{key: "id", value: newsetid}]);
 }
 
-const SendUpdatedProfileInfoToDatabase = (updatedInfo) => {
+const SendUpdatedProfileInfoToDatabase = () => {
     //save profileInfo to database
-    console.log("New profile: " + JSON.stringify(updatedInfo));
+    //console.log("New profile: " + JSON.stringify());
 }
 
 const SetsDisplay = ({displayMode, setInfo}) => {
@@ -56,54 +58,67 @@ const SetsDisplay = ({displayMode, setInfo}) => {
     }
 }
 
-const Profile = ({userInfo, userSets}) => {
+const Profile = ({userInfo, userSets, currentUser}) => {
     const [editing, setEditing] = useState(false);
     const [displayType, setDisplayType] = useState(GRID_MODE);
-    const [pfpRefresh, setPfpRefresh] = useState(false);
-    const [editedInfo, setEditedInfo] = useState(userInfo);
-    
-    if (userInfo === null){
-        userInfo = {
-            imageid: tmp_pic,
-            name: "Username",
-            bio: "Description"
-        };
-    }
 
-    const refreshEditingProfile = () => {
+    const [image, setImage] = useState(null);
+
+    const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
+    const [name, setName] = useState((userInfo && userInfo.name) ? userInfo.name : "");
+    const [bio, setBio] = useState((userInfo && userInfo.bio) ? userInfo.bio : "");
+
+    useEffect(() => {
+        if (!userInfo) return;
+        setName(userInfo.name);
+        setImageid(userInfo.imageid);
+        setBio(userInfo.bio);
+    }, [userInfo]);
+
+    const onImageInput = (e) => {
+        //change image locally
+        setImage(e.target.files[0]);
+        console.log("Image input event: ", e.target.files[0]);
         let pfp_file = document.getElementById("pfp-upload").files;
         let imgObj;
         if (pfp_file && pfp_file[0]) imgObj = URL.createObjectURL(pfp_file[0]);
 
-        setEditedInfo({
-            imageid: imgObj,
-            name: document.getElementById("username-input").value,
-            bio: document.getElementById("description-textarea").value
-        });
-
-        setPfpRefresh(!pfpRefresh);
+        setImageid(imgObj);
     }
 
-    const saveUpdatedProfile = () => {
-        refreshEditingProfile();
+    const onSubmit = async () => {
+        const updatedName = document.getElementById("username-input").value;
+        const updatedBio = document.getElementById("description-textarea").value;
+        await axios.put(`/api/user/${currentUser.userid}`, {
+            name: updatedName, 
+            bio: updatedBio
+        });
+
+        //create form data for image change in database
+        var formData = new FormData();
+        formData.append("image", image);  
+        await uploadFile(`/api/user/image`, formData);
+        
         setEditing(false);
-        SendUpdatedProfileInfoToDatabase(editedInfo);
-        //redirect("/user", [{key: "id", value: userInfo.userid}]);
+
+        redirect(window.location.href);
     }
 
     const ProfileDisplay = ({editingMode}) => {
         if (!editingMode){
             return (
                 <div>
-                    <Image size = "small" src = {userInfo.imageid} circular centered/>
-                    <Header as = "h1" textAlign = "center" >{userInfo.name}</Header>
+                    <Image size = "small" src = {imageid} circular centered/>
+                    <Header as = "h1" textAlign = "center" >{name}</Header>
                     <Segment>
-                        <Header as = "h3" textAlign = "center" >{userInfo.bio}</Header>
+                        <Header as = "h3" textAlign = "center" >{bio}</Header>
                     </Segment>
                     <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
                         <Button icon onClick = {() => {
                             setEditing(true);
-                            setEditedInfo(userInfo);
+                            setName(userInfo.name);
+                            setImageid(userInfo.imageid);
+                            setBio(userInfo.bio);
                         }}><Icon name = "pencil"/></Button>
                     </div>
                 </div>
@@ -112,24 +127,25 @@ const Profile = ({userInfo, userSets}) => {
         else{
             return(
                 <div>
-                    <Image size = "small" src = {editedInfo.imageid} circular centered/>
+                    <Image size = "small" src = {imageid} circular centered/>
                     
-                    <Form>
+                    <Form role = "form" encType = "multipart/form-data">
                         <div style = {{width: "100%", textAlign: "center", marginTop: "30px"}}>
                             <Button className = "pfp-upload-button" id = "pfp-upload-button"><label htmlFor = "pfp-upload" className = "pfp-upload-label">Upload</label></Button>
-                            <input id = "pfp-upload" onChange = {refreshEditingProfile} hidden type = "file" accept = ".jpg, .jpeg, .png"/>
+                            <input id = "pfp-upload" onChange = {onImageInput} hidden type = "file" accept = ".jpg, .jpeg, .png"/>
                         </div>
-                    </Form>
+                    
     
-                    <Input fluid className = "username-input" id = "username-input" size = "large" defaultValue = {editedInfo.name} />
+                    <Input fluid className = "username-input" id = "username-input" size = "large" defaultValue = {name} />
 
                     <Segment>
-                        <Form><TextArea id = "description-textarea" style = {{resize: "vertical"}} defaultValue = {editedInfo.bio}></TextArea></Form>
+                        <TextArea id = "description-textarea" style = {{resize: "vertical"}} defaultValue = {bio}></TextArea>
                     </Segment>
 
                     <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
-                        <Button className = "profile-save-button" onClick = {saveUpdatedProfile}>Save</Button>
+                        <Button className = "profile-save-button" onClick = {onSubmit}>Save</Button>
                     </div>
+                    </Form>
                 </div>
             );
         }
