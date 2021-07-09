@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import Header from '../Header';
 import RegisterForm from '../RegisterForm';
 
-
 function Register() {
     return (
         <div>
-            <Header />
+            <Header currentUser = {null} />
             <RegisterForm />
         </div>
     );

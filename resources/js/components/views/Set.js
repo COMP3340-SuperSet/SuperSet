@@ -9,6 +9,8 @@ function Set() {
     const [set, setSet] = useState(null);
     const [setItems, setSetItems] = useState([]);
 
+    const [currentUser, setCurrentUser] = useState(null);    
+
     useEffect(() =>{        
         let setid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/sets/${setid}`).then((response) => {
@@ -22,13 +24,18 @@ function Set() {
         }).catch((error) => {
             console.error("Error: " + error);
         });
+
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
     }, []);
 
     useEffect(() =>{}, [set, setItems]);
-
+    useEffect(() =>{}, [currentUser]);
+    
     return (
         <div>
-            <Header />
+            <Header currentUser = {currentUser} />
             <SetView set = {set} items = {setItems} />
         </div>
     );

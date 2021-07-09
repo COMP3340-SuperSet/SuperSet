@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import Header from '../Header';
 import Profile from '../Profile';
@@ -27,22 +27,22 @@ function User() {
         });
 
         axios.get("/api/check").then((response) => {
-            console.log("getUser response: " + JSON.stringify(response.data.user));
+            //console.log("getUser response: " + JSON.stringify(response.data.user));
             setCurrentUser(response.data.user);
         });
     }, []);
 
     useEffect(() =>{ 
-        console.log("User from useeffect:", user );
+        //console.log("User from useeffect:", user );
     }, [user, userSets]);
 
     useEffect(() =>{
-        console.log("[From User useEffect] User logged in: " + JSON.stringify(currentUser));
-     }, [currentUser]);
+        //console.log("[From User useEffect] User logged in: " + JSON.stringify(currentUser));
+    }, [currentUser]);
 
     return (
         <div>
-            <Header />
+            <Header currentUser = {currentUser}/>
             <Profile userInfo = {user} userSets = {userSets} currentUser = {currentUser} />
         </div>
     );

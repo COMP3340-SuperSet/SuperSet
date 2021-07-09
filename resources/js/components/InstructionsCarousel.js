@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import {Grid, Button, Container, Progress} from "semantic-ui-react";
 import "../../css/Instructions.css";
-import SSHeader from './Header'
 import Title from './Title'
 import ImageSlider from "./ImageSlider";
+import { redirect } from '../utils/redirect';
 
 const InstructionsCarousel = ({images}) => {
     /*
@@ -23,7 +23,6 @@ const InstructionsCarousel = ({images}) => {
 
     return(
         <div>
-            <SSHeader />
             <div className="ss-instructions-location">
                 <Grid centered stackable columns={3}>
                     <Grid.Column>
@@ -34,7 +33,7 @@ const InstructionsCarousel = ({images}) => {
                         <Progress percent={percent} style={{marginTop: '10px'}}></Progress>
                         <Button.Group fluid>
                             <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)}/>
-                            <Button content="Get Started" className="ss-instructions-button" attached="bottom"/>
+                            <Button content="Get Started" className="ss-instructions-button" attached="bottom" onClick={() => redirect('/register')}/>
                             <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)}/>    
                         </Button.Group>
                     </Grid.Column>

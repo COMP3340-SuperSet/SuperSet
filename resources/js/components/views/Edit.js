@@ -1,15 +1,29 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+
 import FileUpload from '../FileUpload';
+import Header from "../Header";
 
 function Edit() {
     const [userid, setUserid] = useState('');
     const [setid, setSetid] = useState('');
     const [itemid, setItemid] = useState('');
 
+    const [currentUser, setCurrentUser] = useState(null);
+
+    useEffect(() =>{
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
+    }, []);
+
+    useEffect(() =>{}, [currentUser]);
+
     return (
         <div>
+            <Header currentUser = {currentUser}/>
+            
             Upload User Profile Image
             <input type="number" value={userid} onChange={(e) => setUserid(e.target.value)} placeholder='UserID'></input>
             <FileUpload fileUploadURL={`/api/user/image`} /><br />

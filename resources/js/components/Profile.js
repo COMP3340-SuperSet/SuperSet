@@ -19,11 +19,6 @@ const CreateNewSet = () => {
     //redirect("/set", [{key: "id", value: newsetid}]);
 }
 
-const SendUpdatedProfileInfoToDatabase = () => {
-    //save profileInfo to database
-    //console.log("New profile: " + JSON.stringify());
-}
-
 const SetsDisplay = ({displayMode, setInfo}) => {
     if (displayMode === GRID_MODE){
         let allCards = setInfo.map( (obj) => 
@@ -87,18 +82,21 @@ const Profile = ({userInfo, userSets, currentUser}) => {
     }
 
     const onSubmit = async () => {
-        const updatedName = document.getElementById("username-input").value;
-        const updatedBio = document.getElementById("description-textarea").value;
+        let updatedName = document.getElementById("username-input").value;
+        updatedName = updatedName === "" ? userInfo.name : updatedName;
+        let updatedBio = document.getElementById("description-textarea").value;
         await axios.put(`/api/user/${currentUser.userid}`, {
             name: updatedName, 
             bio: updatedBio
         });
 
         //create form data for image change in database
-        var formData = new FormData();
-        formData.append("image", image);  
-        await uploadFile(`/api/user/image`, formData);
-        
+        if (image){
+            var formData = new FormData();
+            formData.append("image", image);  
+            uploadFile(`/api/user/image`, formData);
+        }
+
         setEditing(false);
 
         redirect(window.location.href);
@@ -113,6 +111,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                     <Segment>
                         <Header as = "h3" textAlign = "center" >{bio}</Header>
                     </Segment>
+                    { currentUser && userInfo && currentUser.userid === userInfo.userid &&
                     <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
                         <Button icon onClick = {() => {
                             setEditing(true);
@@ -120,7 +119,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                             setImageid(userInfo.imageid);
                             setBio(userInfo.bio);
                         }}><Icon name = "pencil"/></Button>
-                    </div>
+                    </div> }
                 </div>
             );
         }
@@ -134,17 +133,16 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                             <Button className = "pfp-upload-button" id = "pfp-upload-button"><label htmlFor = "pfp-upload" className = "pfp-upload-label">Upload</label></Button>
                             <input id = "pfp-upload" onChange = {onImageInput} hidden type = "file" accept = ".jpg, .jpeg, .png"/>
                         </div>
-                    
     
-                    <Input fluid className = "username-input" id = "username-input" size = "large" defaultValue = {name} />
+                        <Input fluid className = "username-input" id = "username-input" size = "large" defaultValue = {name} />
 
-                    <Segment>
-                        <TextArea id = "description-textarea" style = {{resize: "vertical"}} defaultValue = {bio}></TextArea>
-                    </Segment>
+                        <Segment>
+                            <TextArea id = "description-textarea" style = {{resize: "vertical"}} defaultValue = {bio}></TextArea>
+                        </Segment>
 
-                    <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
-                        <Button className = "profile-save-button" onClick = {onSubmit}>Save</Button>
-                    </div>
+                        <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
+                            <Button className = "profile-save-button" onClick = {onSubmit}>Save</Button>
+                        </div>
                     </Form>
                 </div>
             );
@@ -162,9 +160,10 @@ const Profile = ({userInfo, userSets, currentUser}) => {
 
             <Grid.Column width = {11}>
                 <Segment textAlign = "center">
-                    <Header as = "h1" className = "inline ss-grey" >My Sets</Header>
+                    <Header as = "h1" className = "inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : name + "'s"} Sets</Header>
 
-                    <Button floated = "left" icon onClick = {CreateNewSet} ><Icon name = "plus"/></Button>
+                    {currentUser && userInfo && currentUser.userid === userInfo.userid && 
+                    <Button floated = "left" icon onClick = {CreateNewSet} ><Icon name = "plus"/></Button>}
                     
                     <Button onClick = {() => setDisplayType(LIST_MODE)} floated = "right" icon primary = {!displayType}><Icon name = "list"/></Button>
                     <Button onClick = {() => setDisplayType(GRID_MODE)} floated = "right" icon primary = {displayType}><Icon name = "th"/></Button>
