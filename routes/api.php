@@ -30,6 +30,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/search/{query}', [UserController::class, 'search']);
 Route::get('/user/{userid}', [UserController::class, 'show']);
+Route::get('/user/role/{userid}', [AuthController::class, 'getRole']);
 
 //user - protected
 Route::middleware('auth:sanctum', 'owner')->put('/user/{userid}', [UserController::class, 'update']);
@@ -73,7 +74,7 @@ Route::middleware('auth:sanctum', 'owner')->post('/itemImages/{itemid}', [ItemIm
 Route::middleware('auth:sanctum', 'owner')->delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 
 //settings - protected
-Route::middleware('auth:sanctum')->get('/settings', [SettingController::class, 'index']);
-Route::middleware('auth:sanctum')->get('/settings/{setting}', [SettingController::class, 'show']);
-Route::middleware('auth:sanctum')->post('/settings', [SettingController::class, 'store']);
-Route::middleware('auth:sanctum')->put('/settings', [SettingController::class, 'update']);
+Route::middleware('auth:sanctum', 'admin:api')->get('/settings', [SettingController::class, 'index']);
+Route::middleware('auth:sanctum', 'admin:api')->get('/settings/{setting}', [SettingController::class, 'show']);
+Route::middleware('auth:sanctum', 'admin:api')->post('/settings', [SettingController::class, 'store']);
+Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingController::class, 'update']);

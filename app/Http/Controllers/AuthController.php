@@ -60,6 +60,15 @@ class AuthController extends Controller
         return Auth::guard();
     }
 
+    public function getRole($userid){
+        $user = User::find($userid);
+
+        return response()->json([
+            'userid' => $user->userid,
+            'role' => $user->role
+        ], 200);
+    }
+
     public function login(Request $request)
     {
         //return $request->user;
