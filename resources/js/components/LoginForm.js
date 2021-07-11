@@ -4,6 +4,7 @@ import { Form, Button, Grid } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
+import { toast } from './Toast';
 
 const LoginForm = () => {
 
@@ -36,6 +37,7 @@ const LoginForm = () => {
                 redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
                 console.error(error.response.data);
+                toast('Invalid Credentials', 'error');
             });
         });
 
