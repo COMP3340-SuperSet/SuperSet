@@ -4,10 +4,12 @@ import { Form, Button, Grid } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
+import { toast } from './Toast';
 
 const LoginForm = () => {
 
-    const [email, setEmail] = useState('');
+    //username can also be entered as password
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const onLoginSubmit = (event) => {
@@ -22,8 +24,8 @@ const LoginForm = () => {
         }).then(response => {
             axios.post('/api/login',
                 {
-                    email: email,
-                    password: password,
+                    username,
+                    password
                 }, {
                 withCredentials: true,
                 headers: {
@@ -35,6 +37,7 @@ const LoginForm = () => {
                 redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
                 console.error(error.response.data);
+                toast('Invalid Credentials', 'error');
             });
         });
 
@@ -47,9 +50,9 @@ const LoginForm = () => {
                     <Form onSubmit={(e) => onLoginSubmit(e)} size="large">
                         <Form.Field>
                             <label>
-                                Email
+                                Username / Email
                             </label>
-                            <input id='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input id='username' placeholder="username or email" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>

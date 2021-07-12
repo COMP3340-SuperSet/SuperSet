@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function searchUsers($term)
     {
-        return User::where('name', 'like', '%'.$term.'%')->get();
+        return User::where('username', 'like', '%'.$term.'%')->get();
     }
 
     public function searchSets($term)
@@ -20,11 +20,11 @@ class SearchController extends Controller
 
     public function search($term)
     {
-        $users = User::where('name', 'like', '%'.$term.'%')->get();
+        $users = User::where('username', 'like', '%'.$term.'%')->get();
         $sets =  Set::where('name', 'like', '%'.$term.'%')->get();
 
         foreach($users as $user){
-            $user->title = $user->name;
+            $user->title = $user->username;
         }
 
         foreach($sets as $set){

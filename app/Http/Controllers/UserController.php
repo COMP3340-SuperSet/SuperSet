@@ -27,9 +27,9 @@ class UserController extends Controller
         return User::find($userid);
     }
 
-    public function search($name)
+    public function search($term)
     {
-        return User::where('name', 'like', '%'.$name.'%')->get();
+        return User::where('username', 'like', '%'.$term.'%')->get();
     }
 
     public function update(Request $request, $userid)

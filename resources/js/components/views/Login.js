@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 
 import Header from '../Header';
 import LoginForm from '../LoginForm';
+import Toast from '../Toast';
 
 function Login() {
     return (
         <div>
             <Header currentUser = {null} />
             <LoginForm />
+            <Toast/>
         </div>
     );
 }

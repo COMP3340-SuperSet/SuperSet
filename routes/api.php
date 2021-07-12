@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SetImageController;
 use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 /* 
     PUBLIC ROUTES
 */
+
+//search
+Route::get('/search/{term}', [SearchController::class, 'search']);
+Route::get('/users/search/{term}', [SearchController::class, 'searchUsers']);
+Route::get('/sets/search/{term}', [SearchController::class, 'searchSets']);
 
 //auth
 Route::post('/register', [AuthController::class, 'register']);
@@ -25,6 +31,7 @@ Route::get('/check', [AuthController::class, 'check']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/search/{query}', [UserController::class, 'search']);
 Route::get('/user/{userid}', [UserController::class, 'show']);
+Route::get('/user/role/{userid}', [AuthController::class, 'getRole']);
 
 //user - protected
 Route::middleware('auth:sanctum', 'owner')->put('/user/{userid}', [UserController::class, 'update']);
@@ -69,7 +76,7 @@ Route::middleware('auth:sanctum', 'owner')->post('/itemImages/{itemid}', [ItemIm
 Route::middleware('auth:sanctum', 'owner')->delete('/itemImages/{imageid}', [ItemImageController::class, 'destroy']);
 
 //settings - protected
-Route::middleware('auth:sanctum')->get('/settings', [SettingController::class, 'index']);
-Route::middleware('auth:sanctum')->get('/settings/{setting}', [SettingController::class, 'show']);
-Route::middleware('auth:sanctum')->post('/settings', [SettingController::class, 'store']);
-Route::middleware('auth:sanctum')->put('/settings', [SettingController::class, 'update']);
+Route::middleware('auth:sanctum', 'admin:api')->get('/settings', [SettingController::class, 'index']);
+Route::middleware('auth:sanctum', 'admin:api')->get('/settings/{setting}', [SettingController::class, 'show']);
+Route::middleware('auth:sanctum', 'admin:api')->post('/settings', [SettingController::class, 'store']);
+Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingController::class, 'update']);

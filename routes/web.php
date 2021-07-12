@@ -8,6 +8,6 @@ Route::get('/register', fn () => view('register'));
 Route::get('/user', fn () => view('user'));
 Route::get('/set', fn () => view('set'));
 Route::get('/item', fn () => view('item'));
-Route::middleware('auth:sanctum', 'admin')->get('/admin', fn () => view('admin'));
+Route::middleware('auth:sanctum', 'admin:web')->get('/admin', fn () => view('admin'));
 Route::get('/about', fn () => view('about'));
 Route::middleware('auth:sanctum')->get('/edit', fn () => view('edit'));

@@ -35,7 +35,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'min:4', 'max:32', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
@@ -50,7 +50,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -68,22 +68,34 @@ class AuthController extends Controller
         else{
             return response()->json(['user' => null], 200);
         }
-       
     }
 
     public function login(Request $request)
     {
-        //return $request->user;
+        $email = filter_var($request->username, FILTER_VALIDATE_EMAIL);
 
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            $user = User::where('email', '=', $request->email)->first();
-            //return $user->tokens;
-            $token = $user->createToken('access_token')->plainTextToken;
-            return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
+        //if email is valid, then user is attempting to log in with email
+        if($email){
+            if (Auth::attempt(['email'=>$request->username, 'password'=>$request->password])) {
+                $user = User::where('email', '=', $email)->first();
+                $token = $user->createToken('access_token')->plainTextToken;
+                return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
+            }else{
+                return response()->json(['error' => 'Bad credentials'], 401);
+            }
         }
+        //else user entered username
+        else{
+            if (Auth::attempt(['username'=>$request->username, 'password'=>$request->password])) {
+                $user = User::where('username', '=', $request->username)->first();
+                $token = $user->createToken('access_token')->plainTextToken;
+                return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
+            }else{
+                return response()->json(['error' => 'Bad credentials'], 401);
+            }
+        }
+
+        
     }
 
     public function logout()
