@@ -7,6 +7,7 @@ use App\Models\Set;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -33,9 +34,10 @@ class UserController extends Controller
 
     public function update(Request $request, $userid)
     {
-        $user = User::first($userid);
+        $user = User::find($userid);
         $user->update($request->only(['name', 'bio']));
-        return $user;   
+        $user->save();
+        return response()->json(['user' => $user ], 201);
     }
 
     public function getSets(Request $request, $userid)
@@ -44,13 +46,13 @@ class UserController extends Controller
         return $sets;
     }
 
-    public function update_image(Request $request, $userid)
+    public function update_image(Request $request)
     {   
+        $user = Auth::user();
         //return $request;
         error_log($request);
 
         try{
-            $user = User::find($userid);
             if($request->hasFile('image')){
                 $imageid = (string) Str::uuid();
                 Storage::disk('local')->put('images/users/'.$imageid, $request->file('image'));

@@ -1,76 +1,22 @@
 import React, { useState, useEffect } from "react";
 import SetCard from "./SetCard.js";
 import SetCell from "./SetCell.js";
-import { Grid, Segment, Header, Image, Icon, Button, Table, TextArea, Form } from "semantic-ui-react";
+import { Grid, Segment, Header, Image, Icon, Button, Table, TextArea, Form, Input } from "semantic-ui-react";
 
 import "../../css/Profile.css";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
 import { update } from "lodash";
+import { redirect } from "../utils/redirect.js";
+import axios from "axios";
+import { uploadFile } from "../services/fileUpload.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-var profileInfo = {
-    pfp: tmp_pic,
-    username: "Username",
-    description: "Description"
-};
-
-var editedProfileInfo = profileInfo;
-
-
-const ProfileDisplay = ({editingMode, name, bio, imageid}) => {
-    if (!editingMode){
-        return (
-            <div>
-                <Image size = "small" src = {imageid} circular centered/>
-                <Header as = "h1" textAlign = "center" >{profileInfo.username}</Header>
-                <Segment>
-                    <Header as = "h3" textAlign = "center" >{profileInfo.description}</Header>
-                </Segment>
-            </div>
-        );
-    }
-    return null;
-}
-
-const ProfileEdit = ({editingMode}) => {
-
-    const [uploadButtonChange, setUploadButtonChange] = useState(false);
-
-    const updateDescription = () => { editedProfileInfo.description = document.getElementById('description-textarea').value; }
-    const updatePfp = () => { 
-        let pfp_file = document.getElementById('pfp-upload').files; 
-        if (pfp_file && pfp_file[0]) editedProfileInfo.pfp = URL.createObjectURL(pfp_file[0]);
-        setUploadButtonChange(!uploadButtonChange); 
-    }   
-
-    if (editingMode){
-        return(
-            <div>
-                <Image size = "small" src = {editedProfileInfo.pfp} circular centered/>
-                
-                <Form>
-                    <div style = {{width: "100%", textAlign: "center", marginTop: "30px"}}>
-                        <Button className = "pfp-upload-button" id = "pfp-upload-button"><label htmlFor = "pfp-upload" className = "pfp-upload-label">Upload</label></Button>
-                        <input id = "pfp-upload" onChange = {updatePfp} hidden type = "file" accept = ".jpg, .jpeg, .png"/>
-                    </div>
-                </Form>
-
-                <Header as = "h1" textAlign = "center" >{profileInfo.username}</Header>
-                
-                <Segment>
-                    <Form><TextArea id = "description-textarea" onChange = {updateDescription}>{editedProfileInfo.description}</TextArea></Form>
-                </Segment>
-            </div>
-        );
-    }
-    return null;
-}
-
-const SendUpdatedProfileInfoToDatabase = () => {
-    //save profileInfo to database
+const CreateNewSet = () => {
+    //send new set to database and get id
+    //redirect("/set", [{key: "id", value: newsetid}]);
 }
 
 const SetsDisplay = ({displayMode, setInfo}) => {
@@ -107,50 +53,117 @@ const SetsDisplay = ({displayMode, setInfo}) => {
     }
 }
 
-
-
-const Profile = ({userInfo, userSets}) => {
-
-    if (userInfo !== null){
-        profileInfo.username = userInfo.name;
-        profileInfo.description = userInfo.bio;
-        profileInfo.pfp = userInfo.imageid;
-    }
-
+const Profile = ({userInfo, userSets, currentUser}) => {
     const [editing, setEditing] = useState(false);
     const [displayType, setDisplayType] = useState(GRID_MODE);
 
-    const saveUpdatedProfile = () => {
-        profileInfo = editedProfileInfo;
-        setEditing(false);
+    const [image, setImage] = useState(null);
 
-        SendUpdatedProfileInfoToDatabase();
+    const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
+    const [name, setName] = useState((userInfo && userInfo.name) ? userInfo.name : "");
+    const [bio, setBio] = useState((userInfo && userInfo.bio) ? userInfo.bio : "");
+
+    useEffect(() => {
+        if (!userInfo) return;
+        setName(userInfo.name);
+        setImageid(userInfo.imageid);
+        setBio(userInfo.bio);
+    }, [userInfo]);
+
+    const onImageInput = (e) => {
+        //change image locally
+        setImage(e.target.files[0]);
+        console.log("Image input event: ", e.target.files[0]);
+        let pfp_file = document.getElementById("pfp-upload").files;
+        let imgObj;
+        if (pfp_file && pfp_file[0]) imgObj = URL.createObjectURL(pfp_file[0]);
+
+        setImageid(imgObj);
     }
 
-    let editButton = !editing ? (<div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
-                                    <Button icon onClick = {() => setEditing(true)}><Icon name = "pencil"/></Button>
-                                </div>) : null;
-    let saveButton = editing ? (<div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
-                                    <Button className = "profile-save-button" onClick = {saveUpdatedProfile}>Save</Button>
-                                </div>) : null;
+    const onSubmit = async () => {
+        let updatedName = document.getElementById("username-input").value;
+        updatedName = updatedName === "" ? userInfo.name : updatedName;
+        let updatedBio = document.getElementById("description-textarea").value;
+        await axios.put(`/api/user/${currentUser.userid}`, {
+            name: updatedName, 
+            bio: updatedBio
+        });
+
+        //create form data for image change in database
+        if (image){
+            var formData = new FormData();
+            formData.append("image", image);  
+            uploadFile(`/api/user/image`, formData);
+        }
+
+        setEditing(false);
+
+        redirect(window.location.href);
+    }
+
+    const ProfileDisplay = ({editingMode}) => {
+        if (!editingMode){
+            return (
+                <div>
+                    <Image size = "small" src = {imageid} circular centered/>
+                    <Header as = "h1" textAlign = "center" >{name}</Header>
+                    <Segment>
+                        <Header as = "h3" textAlign = "center" >{bio}</Header>
+                    </Segment>
+                    { currentUser && userInfo && currentUser.userid === userInfo.userid &&
+                    <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
+                        <Button icon onClick = {() => {
+                            setEditing(true);
+                            setName(userInfo.name);
+                            setImageid(userInfo.imageid);
+                            setBio(userInfo.bio);
+                        }}><Icon name = "pencil"/></Button>
+                    </div> }
+                </div>
+            );
+        }
+        else{
+            return(
+                <div>
+                    <Image size = "small" src = {imageid} circular centered/>
+                    
+                    <Form role = "form" encType = "multipart/form-data">
+                        <div style = {{width: "100%", textAlign: "center", marginTop: "30px"}}>
+                            <Button className = "pfp-upload-button" id = "pfp-upload-button"><label htmlFor = "pfp-upload" className = "pfp-upload-label">Upload</label></Button>
+                            <input id = "pfp-upload" onChange = {onImageInput} hidden type = "file" accept = ".jpg, .jpeg, .png"/>
+                        </div>
+    
+                        <Input fluid className = "username-input" id = "username-input" size = "large" defaultValue = {name} />
+
+                        <Segment>
+                            <TextArea id = "description-textarea" style = {{resize: "vertical"}} defaultValue = {bio}></TextArea>
+                        </Segment>
+
+                        <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
+                            <Button className = "profile-save-button" onClick = {onSubmit}>Save</Button>
+                        </div>
+                    </Form>
+                </div>
+            );
+        }
+        
+    }
 
     return (
         <Grid divided padded stackable columns = {2} >
-
             <Grid.Column width = {5}>
                 <Segment padded = "very">
                     <ProfileDisplay editingMode = {editing} />
-                    <ProfileEdit editingMode = {editing}/>
-                    {editButton}
-                    {saveButton}
                 </Segment>
             </Grid.Column>
 
             <Grid.Column width = {11}>
                 <Segment textAlign = "center">
-                    <Header as = "h1" className = "inline ss-grey" >My Sets</Header>
+                    <Header as = "h1" className = "inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : name + "'s"} Sets</Header>
 
-                    <Button floated = "left" icon ><Icon name = "plus"/></Button>
+                    {currentUser && userInfo && currentUser.userid === userInfo.userid && 
+                    <Button floated = "left" icon onClick = {CreateNewSet} ><Icon name = "plus"/></Button>}
                     
                     <Button onClick = {() => setDisplayType(LIST_MODE)} floated = "right" icon primary = {!displayType}><Icon name = "list"/></Button>
                     <Button onClick = {() => setDisplayType(GRID_MODE)} floated = "right" icon primary = {displayType}><Icon name = "th"/></Button>
@@ -160,7 +173,6 @@ const Profile = ({userInfo, userSets}) => {
                     <SetsDisplay displayMode = {displayType} setInfo = {userSets}/>
                 </Segment>
             </Grid.Column>
-
         </Grid>
     );
 }

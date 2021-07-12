@@ -39,6 +39,11 @@ class SetController extends Controller
         return $set;
     }
 
+    public function getUserSets($userid)
+    {
+        return Set::where('userid', '=', $userid)->get();
+    }
+
     public function getItems(Request $request, $setid)
     {
         return Item::where('setid', '=', $setid)->get();

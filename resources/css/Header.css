@@ -1,14 +1,5 @@
-@media(max-width: 480px){
-    .ss-header{ min-width: 350px; }
-
-    .ss-header-title{ display: none; }
-
-    .ss-header-logo{
-        margin-right: 10px !important;
-        margin-top: 0px !important;
-    }
-
-    .ss-header-1{ padding-top: 8px !important; }
+@media(max-width: 520px){
+    .ss-header{ min-width: 395px; }
 }
 
 .ss-header{
@@ -35,3 +26,7 @@
 .no-bottompadding{ padding-bottom: 0 !important; }
 
 .inline{ display: inline-block !important; }
+
+.hoverable:hover{
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import Header from '../Header';
@@ -8,7 +8,7 @@ import Toast from '../Toast';
 function Login() {
     return (
         <div>
-            <Header />
+            <Header currentUser = {null} />
             <LoginForm />
             <Toast/>
         </div>
