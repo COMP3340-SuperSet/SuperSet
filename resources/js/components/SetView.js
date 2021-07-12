@@ -93,7 +93,7 @@ const SetImagesDisplay = () => {
     );
 }
 
-const SetView = ({set, items}) => {
+const SetView = ({set, items, currentUser}) => {
     const [viewType, setViewType] = useState(GRID_MODE);
 
     if (!set){
@@ -104,7 +104,8 @@ const SetView = ({set, items}) => {
         <Grid centered stackable container columns = {1}>
             <Grid.Row>
                 <Grid.Column textAlign = "center">
-                    <Button style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>
+                    {currentUser && set && currentUser.userid === set.userid &&
+                        <Button style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>}
                 </Grid.Column>
             </Grid.Row>
 
