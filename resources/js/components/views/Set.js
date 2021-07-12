@@ -36,7 +36,7 @@ function Set() {
     return (
         <div>
             <Header currentUser = {currentUser} />
-            <SetView set = {set} items = {setItems} />
+            <SetView set = {set} items = {setItems} currentUser = {currentUser} />
         </div>
     );
 }
