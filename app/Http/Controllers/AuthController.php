@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+include __DIR__ . '/../Utils/Error.php';
+
+use function App\Http\Utils\errorResponse;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -62,10 +66,9 @@ class AuthController extends Controller
 
     public function check()
     {
-        if (Auth::check()){
+        if (Auth::check()) {
             return response()->json(['user' => Auth::user()], 200);
-        }
-        else{
+        } else {
             return response()->json(['user' => null], 200);
         }
     }
@@ -75,27 +78,33 @@ class AuthController extends Controller
         $email = filter_var($request->username, FILTER_VALIDATE_EMAIL);
 
         //if email is valid, then user is attempting to log in with email
-        if($email){
-            if (Auth::attempt(['email'=>$request->username, 'password'=>$request->password])) {
+        if ($email) {
+            if (Auth::attempt(['email' => $request->username, 'password' => $request->password])) {
                 $user = User::where('email', '=', $email)->first();
                 $token = $user->createToken('access_token')->plainTextToken;
                 return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
-            }else{
-                return response()->json(['error' => 'Bad credentials'], 401);
+            } else {
+                return errorResponse(
+                    'Invalid Credentials',
+                    ["login" => ["Email and Password do not match."]],
+                    401
+                );
             }
         }
         //else user entered username
-        else{
-            if (Auth::attempt(['username'=>$request->username, 'password'=>$request->password])) {
+        else {
+            if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                 $user = User::where('username', '=', $request->username)->first();
                 $token = $user->createToken('access_token')->plainTextToken;
                 return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
-            }else{
-                return response()->json(['error' => 'Bad credentials'], 401);
+            } else {
+                return errorResponse(
+                    'Invalid Credentials',
+                    ["login" => ["Username and Password do not match."]],
+                    401
+                );
             }
         }
-
-        
     }
 
     public function logout()

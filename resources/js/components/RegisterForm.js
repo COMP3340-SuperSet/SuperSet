@@ -4,6 +4,7 @@ import axios from 'axios';
 import { storeToken } from '../utils/localStorage';
 import { redirect } from '../utils/redirect';
 import { referer } from '../utils/redirect';
+import ErrorMessage from './ErrorMessage';
 
 const RegisterForm = () => {
 
@@ -11,6 +12,7 @@ const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPassword_Confirmation] = useState('');
+    const [errors, setErrors] = useState(null);
 
     const onRegisterSubmit = (event) => {
         event.preventDefault();
@@ -34,8 +36,10 @@ const RegisterForm = () => {
             redirect(fetchReferer() ? fetchReferer() : '/');
         }).catch(error => {
             console.error(error.response.data);
+            setErrors(error.response.data.errors);
         });
     }
+
 
     return (
 
@@ -47,18 +51,21 @@ const RegisterForm = () => {
                             <label>
                                 Username
                             </label>
+                            <ErrorMessage errors={errors} type='username'></ErrorMessage>
                             <input required id='username' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>
                                 Email
                             </label>
+                            <ErrorMessage errors={errors} type='email'></ErrorMessage>
                             <input required id='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>
                                 Password
                             </label>
+                            <ErrorMessage errors={errors} type='password'></ErrorMessage>
                             <input required id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>
                         <Form.Field>

@@ -5,12 +5,14 @@ import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
 import { toast } from './Toast';
+import ErrorMessage from './ErrorMessage';
 
 const LoginForm = () => {
 
     //username can also be entered as password
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState(null);
 
     const onLoginSubmit = (event) => {
         event.preventDefault();
@@ -37,7 +39,7 @@ const LoginForm = () => {
                 redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
                 console.error(error.response.data);
-                toast('Invalid Credentials', 'error');
+                setErrors(error.response.data.errors);
             });
         });
 
@@ -52,7 +54,7 @@ const LoginForm = () => {
                             <label>
                                 Username / Email
                             </label>
-                            <input id='username' placeholder="username or email" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input id='username' placeholder="Username or Email" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>
@@ -60,6 +62,7 @@ const LoginForm = () => {
                             </label>
                             <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>
+                        <ErrorMessage errors={errors} type='login'></ErrorMessage>
                         <Button type='submit'>Login</Button>
                     </Form>
                 </Grid.Column>
