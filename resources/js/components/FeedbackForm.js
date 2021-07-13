@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import SSHeader from './Header';
 import {Grid, Form, Header, Rating, Button} from "semantic-ui-react";
 import "../../css/FeedbackPage.css";
 
-const FeedbackPage = () => {
+const FeedbackForm = () => {
 
     const [textFeedback, setTextFeedback] = useState('');
     const [intFeedback, setIntFeedback] = useState(0);
 
-    const fullFeedback = () =>{
-        // Logic to send to database
+    const fullFeedback = () => {
+        console.log(textFeedback);
+        console.log(intFeedback);
     }
 
     return(
         <div>
-            <SSHeader />
             <Header icon='clipboard' as="h2" content='Website Feedback'/>
             <div className='ss-feedback-griddiv'>
                 <Grid centered stackable columns={3}>
@@ -46,4 +45,4 @@ const FeedbackPage = () => {
 }
 
 
-export default FeedbackPage;
+export default FeedbackForm;
