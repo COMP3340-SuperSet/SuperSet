@@ -1,8 +1,5 @@
 import React from 'react';
-import {Grid, Icon, Header} from 'semantic-ui-react';
-import Head from "./Header";
-
-// npm install --save react-chartjs-2 chart.js
+import {Grid, Header} from 'semantic-ui-react';
 import {Bar, Line, Pie} from 'react-chartjs-2';
 import "../../css/StatisticsPage.css";
 
@@ -71,14 +68,9 @@ const StatisticsPage = () => {
     */
 
     return(
-        <div>
-            <Head />
-            <Header className='ss-reportlog-header' textAlign='center' as='h2'>
-                <Icon name='chart bar'/>
-                <Header.Content>Website Statistics</Header.Content>
-            </Header>
+        <div className='ss-statisticspage-div'>
             <Grid centered stackable columns={4}>
-                <Grid.Column textAlign="center" className='ss-statisticspage-column'>
+                <Grid.Column textAlign="center" className='ss-statisticspage-column' width={7}>
                     <div>
                         <Header> Top 10 Popular Sets </Header>
                         <Bar
@@ -93,7 +85,7 @@ const StatisticsPage = () => {
                         />
                     </div>
                 </Grid.Column>
-                <Grid.Column textAlign="center" className='ss-statisticspage-column'>
+                <Grid.Column textAlign="center" className='ss-statisticspage-column' width={7}>
                     <div>
                         <Header> Users Per Month </Header>
                         <Line

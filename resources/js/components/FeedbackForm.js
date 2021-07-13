@@ -47,6 +47,7 @@ const FeedbackForm = () => {
                                         className='ss-feedback-formtextarea'
                                         placeholder='Enter feedback here: '
                                         value={textFeedback}
+                                        rows={10}
                                         />
                                     </Form>
                                     <div className='ss-feedback-starslabel'>
@@ -56,15 +57,17 @@ const FeedbackForm = () => {
                                     <div>
                                         <Form>
                                             <Checkbox 
+                                            className='ss-feedback-checkbox'
                                             label='Get E-mails'
                                             onChange={() =>{setWillReachout(!willReachout)}}
                                             checked={willReachout}
                                             />
                                             <Form.TextArea
                                             onChange={(e, {value}) => {setReachoutEmail(value)}}
-                                            className='ss-feedback-formtextarea'
+                                            className='ss-feedback-emailtextarea'
                                             placeholder='Enter E-mail Here: '
                                             value={reachoutEmail}
+                                            rows={1}
                                             />                                         
                                         </Form>
                                     </div>

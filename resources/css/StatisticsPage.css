@@ -1,17 +1,19 @@
 .ss-statisticspage-graph{
-    margin-top: 100px;
+    margin-top: 75px;
 }
 
 .ss-statisticspage-column{
     margin: 10px;
     border-style: solid;
-    margin-top: 125px;
+    margin-top: 25px;
 }
 
 .ss-statisticspage-bargraph{
-    margin-top: 125px;
+    margin-top: 25px;
 }
 
 .ss-statisticspage-linegraph{
-    margin-top: 125px;
+    margin-top: 25px;
 }
+
+
