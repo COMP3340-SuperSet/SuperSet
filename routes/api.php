@@ -8,6 +8,7 @@ use App\Http\Controllers\SetImageController;
 use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -80,3 +81,7 @@ Route::middleware('auth:sanctum', 'admin:api')->get('/settings', [SettingControl
 Route::middleware('auth:sanctum', 'admin:api')->get('/settings/{setting}', [SettingController::class, 'show']);
 Route::middleware('auth:sanctum', 'admin:api')->post('/settings', [SettingController::class, 'store']);
 Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingController::class, 'update']);
+
+//feedback
+Route::post('/feedback', [FeedbackController::class, 'store']);
+Route::get('/feedback', [FeedbackController::class, 'index']);
