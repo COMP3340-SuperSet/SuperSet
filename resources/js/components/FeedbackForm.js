@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import {Grid, Form, Header, Rating, Button, Radio} from "semantic-ui-react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {Grid, Form, Header, Rating, Button, Checkbox} from "semantic-ui-react";
 import "../../css/FeedbackPage.css";
+import {toast} from './Toast'
 
 const FeedbackForm = () => {
 
@@ -9,15 +11,29 @@ const FeedbackForm = () => {
     const [reachoutEmail, setReachoutEmail] = useState('');
     const [willReachout, setWillReachout] = useState(false);
 
+    useEffect(() => {}, [textFeedback, intFeedback, reachoutEmail, willReachout]);
+
     const fullFeedback = () => {
-        console.log(textFeedback);
-        console.log(intFeedback);
-        console.log(reachoutEmail);
-        console.log(willReachout);
+        axios.post("/api/feedback",
+        {
+            email: reachoutEmail,
+            contact: willReachout,
+            content: textFeedback,
+            rating:intFeedback
+        }
+         ).then(response => {
+            toast('Feedback Submitted', 'success');
+            setTextFeedback('');
+            setIntFeedback(0);
+            setReachoutEmail('');
+            setWillReachout(false);
+        }).catch(error => {
+            toast('Error Submitting Feedback', 'error');
+        });
     }
 
     return(
-        <div>
+        <div className='ss-feedback-div'>
             <Header icon='clipboard' as="h2" content='Website Feedback'/>
             <div className='ss-feedback-griddiv'>
                 <Grid centered stackable columns={3}>
@@ -30,25 +46,26 @@ const FeedbackForm = () => {
                                         onChange={(e, {value}) => {setTextFeedback(value)}}
                                         className='ss-feedback-formtextarea'
                                         placeholder='Enter feedback here: '
+                                        value={textFeedback}
                                         />
                                     </Form>
                                     <div className='ss-feedback-starslabel'>
                                         <label> Please Enter a Rating: </label>
-                                        <Rating icon='star' defaultRating={intFeedback} maxRating={5} onRate={(e, {rating})=>{setIntFeedback(rating)}}/>
+                                        <Rating icon='star' maxRating={5} onRate={(e, {rating})=>{setIntFeedback(rating)}} rating={intFeedback}/>
                                     </div>
                                     <div>
                                         <Form>
-                                            <label>Get E-mail of report</label>
-                                            <Radio 
-                                                slider
-                                                 onChange={() => {setWillReachout(!willReachout)}}
+                                            <Checkbox 
+                                            label='Get E-mails'
+                                            onChange={() =>{setWillReachout(!willReachout)}}
+                                            checked={willReachout}
                                             />
                                             <Form.TextArea
                                             onChange={(e, {value}) => {setReachoutEmail(value)}}
                                             className='ss-feedback-formtextarea'
                                             placeholder='Enter E-mail Here: '
-                                            />
-                                            
+                                            value={reachoutEmail}
+                                            />                                         
                                         </Form>
                                     </div>
                                     <div className='ss-feedback-submitbutton'>
