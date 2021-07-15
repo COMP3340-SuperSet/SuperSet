@@ -2,10 +2,6 @@
 
 namespace App\Http\Utils;
 
-// class Error
-// {
-// }
-
 function errorResponse($message, $errors, $type)
 {
     return response()->json([

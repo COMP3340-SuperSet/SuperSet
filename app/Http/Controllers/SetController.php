@@ -17,7 +17,7 @@ class SetController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'string'   
+            'description' => 'string'
         ]);
         return Set::create($request->all());
     }
@@ -29,11 +29,12 @@ class SetController extends Controller
 
     public function search($name)
     {
-        return Set::where('name', 'like', '%'.$name.'%')->get();
+        return Set::where('name', 'like', '%' . $name . '%')->get();
     }
 
-    public function update(Request $request, $setid)
+    public function update(Request $request)
     {
+        $setid = $request->setid;
         $set = Set::first($setid);
         $set->update($request->all());
         return $set;
@@ -49,8 +50,16 @@ class SetController extends Controller
         return Item::where('setid', '=', $setid)->get();
     }
 
-    public function destroy($setid)
+    public static function destroySet(Request $request)
     {
-        return Set::destroy($setid);
+        $setid = $request->setid;
+        //TODO:: delete all set images ids  from table 
+        $items = Item::where('setid', '=', $setid)->get();
+
+        $deletedImages = [];
+
+        foreach ($items as $item) {
+            $item->destroy($item->itemid);
+        }
     }
 }

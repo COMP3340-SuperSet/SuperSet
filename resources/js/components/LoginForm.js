@@ -18,8 +18,7 @@ const LoginForm = () => {
         event.preventDefault();
 
         /**
-         * post request for a user to login
-         * 
+         * post request for a user to login 
          */
         axios.get('/sanctum/csrf-cookie', {
             withCredentials: true
@@ -42,7 +41,6 @@ const LoginForm = () => {
                 setErrors(error.response.data.errors);
             });
         });
-
     }
 
     return (
