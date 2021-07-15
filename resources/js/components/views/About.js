@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Header from '../Header';
+import InfoPage from '../InfoPage';
 
 function About() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -18,7 +19,7 @@ function About() {
     return (
         <div>
             <Header currentUser = {currentUser}/>
-            I am the About Component
+            <InfoPage />
         </div>
     );
 }
