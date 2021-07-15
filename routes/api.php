@@ -36,7 +36,7 @@ Route::get('/user/role/{userid}', [AuthController::class, 'getRole']);
 
 //user - protected
 Route::middleware('auth:sanctum', 'owner')->put('/user/{userid}', [UserController::class, 'update']);
-Route::middleware('auth:sanctum', 'owner')->post('/user/image', [UserController::class, 'update_image']);
+Route::middleware('auth:sanctum', 'owner')->post('/user/{userid}/image', [UserController::class, 'update_image']);
 
 //sets
 Route::get('/sets', [SetController::class, 'index']);
