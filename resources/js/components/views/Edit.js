@@ -26,7 +26,7 @@ function Edit() {
             
             Upload User Profile Image
             <input type="number" value={userid} onChange={(e) => setUserid(e.target.value)} placeholder='UserID'></input>
-            <FileUpload fileUploadURL={`/api/user/image`} /><br />
+            <FileUpload fileUploadURL={`/api/user/${currentUser.userid}/image`} /><br />
 
             Upload Set Image
             <input type="number" value={setid} onChange={(e) => setSetid(e.target.value)} placeholder='SetID'></input>

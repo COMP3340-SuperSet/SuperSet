@@ -114,7 +114,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         if (image){
             var formData = new FormData();
             formData.append("image", image);  
-            uploadFile(`/api/user/image`, formData);
+            uploadFile(`/api/user/${currentUser.userid}/image`, formData);
         }
 
         setEditing(false);

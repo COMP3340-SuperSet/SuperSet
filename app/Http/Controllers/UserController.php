@@ -46,9 +46,9 @@ class UserController extends Controller
         return $sets;
     }
 
-    public function update_image(Request $request)
+    public function update_image(Request $request, $userid)
     {   
-        $user = Auth::user();
+        $user = User::find($userid);
         //return $request;
         error_log($request);
 
