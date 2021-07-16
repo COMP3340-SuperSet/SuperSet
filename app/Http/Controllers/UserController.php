@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Set;
-use App\Models\SetImage;
-use App\Models\Item;
-use App\Models\ItemImage;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -76,16 +73,39 @@ class UserController extends Controller
     {
 
         //TODO:: delete user image from file system
-        // and set imageid column to null for user
 
         $userid = $request->userid;
 
-        $sets = Set::where('userid', '=', $userid)->get();
-        foreach ($sets as $set) {
-            return SetController::destroySet($set->setid);
+        $user = User::find($userid);
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
         }
 
-        return response()->json(['message' => 'deleting user...'], 500);
-        //return User::destroy($userid);
+        //get list of sets pointing to the user
+        $sets = Set::where('userid', '=', $userid)->get();
+
+        //delete all sets associated with the user
+        foreach ($sets as $set) {
+            $request->replace(['setid' => $set->setid]);
+            SetController::destroySet($request);
+        }
+
+        //set imageid to null
+        $deletedImage = [];
+        $imageid = $user->imageid;
+        if ($imageid) {
+            array_push($deletedImage, $imageid);
+            $user->update(['imageid' => null]);
+        }
+
+        //delete the user
+        $result = User::destroy($userid);
+
+        //if user was successfully deleted / else
+        if ($result) {
+            return response()->json(['user' => $userid, 'userImage' => $deletedImage], 200);
+        } else {
+            return response()->json(['message' => 'Error when deleting User.'], 400);
+        }
     }
 }

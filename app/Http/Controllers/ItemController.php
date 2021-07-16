@@ -38,9 +38,11 @@ class ItemController extends Controller
 
     public static function destroyItem(Request $request)
     {
-        return response()->json(['request' => $request], 200);
+
+        //TODO :: delete item images from file system
 
         $itemid = $request->itemid;
+
         //check if item exists
         $item = Item::find($itemid);
         if (!$item) {
@@ -58,7 +60,8 @@ class ItemController extends Controller
             $result = ItemImageController::destroyItemImage($itemImage);
             array_push($deletedImages, [$itemImage->itemid, $result]);
         }
-        //destroy image
+
+        //destroy item
         $result = Item::destroy($itemid);
 
         //if item was successfully deleted / else
