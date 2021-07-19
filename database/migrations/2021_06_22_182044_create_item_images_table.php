@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\ItemImage;
+
 class CreateItemImagesTable extends Migration
 {
     /**
@@ -14,11 +16,13 @@ class CreateItemImagesTable extends Migration
     public function up()
     {
         Schema::create('item_images', function (Blueprint $table) {
-            $table->string('imageid', 32)->nullable()->unique();
+            $table->string('imageid', 41)->nullable()->unique();
             $table->integer('itemid', false, true);
             $table->foreign('itemid')->references('itemid')->on('items');
             $table->timestamps();
         });
+
+        ItemImage::create(['itemid' => '1', 'imageid' => '55a3c888-57e4-4834-af44-fa9a9b27e8b9.jpg']);
     }
 
     /**

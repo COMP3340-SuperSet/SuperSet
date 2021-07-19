@@ -58,6 +58,13 @@ class UserController extends Controller
 
         try {
             if ($request->hasFile('image')) {
+
+                //delete old image when updating
+                $oldImageid = $user->imageid;
+                if ($oldImageid) {
+                    Storage::disk('local')->delete('images/users/' . $oldImageid);
+                }
+
                 $imageid = (string) Str::uuid();
                 Storage::disk('local')->put('images/users/' . $imageid, $request->file('image'));
                 $user->update(['imageid' => $imageid]);

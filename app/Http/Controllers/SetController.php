@@ -73,14 +73,16 @@ class SetController extends Controller
         }
 
         //get the image for that set
-        $setImage = SetImage::find($setid);
-        $deletedImage = [];
-        //delete the image only if it exists
-        if ($setImage) {
-            $request->replace(['imageid' => $setImage->imageid]); //add imageid to the request
-            //delete image from the set
-            $result = SetImageController::destroySetImage($setImage);
-            array_push($deletedImage, [$setImage->setid, $result]);
+        $setImages = SetImage::where('setid', '=', $setid)->get();
+        error_log('setImage' . $setImages);
+
+        $deletedImages = [];
+
+        foreach ($setImages as $setImage) {
+            $request->replace(['imageid' => $setImage->imageid]);
+
+            $result = SetImageController::destroySetImage($request);
+            array_push($deletedImages, [$setImage->setid, $result]);
         }
 
         //delete the set
@@ -88,7 +90,7 @@ class SetController extends Controller
 
         //if set was successfully deleted / else
         if ($result) {
-            return response()->json(['set' => $setid, 'setImage' => $deletedImage], 200);
+            return response()->json(['set' => $setid, 'setImage' => $deletedImages], 200);
         } else {
             return response()->json(['message' => 'Error when deleting set.'], 400);
         }
