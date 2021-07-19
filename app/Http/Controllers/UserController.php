@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function update_image(Request $request)
     {
-        $user = Auth::user();
+        $user = User::find($request->userid);
 
         //return $request;
         error_log($request);
