@@ -97,7 +97,7 @@ const SSHeader = ({currentUser}) => {
                           trigger = {<Icon name="user" className="ss-white"/>}>
                     <Dropdown.Menu direction = "left" >
                         {currentUser && <Dropdown.Item text = 'Profile' onClick={() => redirect('/user', [{key: "id", value: currentUser.userid}])} /> }
-                        {currentUser && <Dropdown.Item text = 'Settings' /> }
+                        {currentUser && <Dropdown.Item text = 'Settings' onClick={() => redirect("/user/settings")} /> }
                         {currentUser && <Dropdown.Item text = 'Log Out' /> }
 
                         {/*!currentUser && */<Dropdown.Item text = 'Log In' onClick={() => redirect('/login')} /> }

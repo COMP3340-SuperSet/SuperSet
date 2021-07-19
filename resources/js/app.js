@@ -5,6 +5,7 @@ require('./components/views/Landing');
 require('./components/views/Login');
 require('./components/views/Register');
 require('./components/views/Set');
+require('./components/views/Settings');
 require('./components/views/User');
 require('./components/views/Edit');
 require('./components/views/Auth');
