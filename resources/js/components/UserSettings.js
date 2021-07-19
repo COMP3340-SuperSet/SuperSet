@@ -5,8 +5,10 @@ import { redirect } from "../utils/redirect";
 import Confirmation from "./Confirmation";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
+import { uploadFile } from "../services/fileUpload";
+import axios from "axios";
 
-const UserSettings = ({userInfo, currentUser}) => {
+const UserSettings = ({userInfo}) => {
     const [image, setImage] = useState(null);
 
     const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
@@ -17,23 +19,39 @@ const UserSettings = ({userInfo, currentUser}) => {
     useEffect(() => {
         if (!userInfo) return;
         setName(userInfo.username);
-        setImageid(userInfo.imageid);
         setBio(userInfo.bio);
+        if (userInfo.imageid) setImageid(userInfo.imageid);
     }, [userInfo]);
 
-    const onImageInput = (e) => {
-        //change image locally
-        setImage(e.target.files[0]);
-        console.log("Image input event: ", e.target.files[0]);
-        let pfp_file = document.getElementById("pfp-upload").files;
-        let imgObj;
-        if (pfp_file && pfp_file[0]) imgObj = URL.createObjectURL(pfp_file[0]);
+    useEffect(() => {
+        //console.log("uploaded image: ", image);
+    }, [image]);
 
-        setImageid(imgObj);
+    const onImageInput = (e) => {
+        let uploadedFiles = e.target.files;
+
+        setImage(uploadedFiles[0]);
+        if (uploadedFiles && uploadedFiles[0]) setImageid(URL.createObjectURL(uploadedFiles[0]));
     }
 
-    const onSubmit = () => {
-        // submit to database
+    const onSubmit = async () => {
+        setName(name === "" ? userInfo.username : name);
+
+        console.log("Username");
+
+        await axios.put(`/api/user/`, {
+            userid: userInfo.userid,
+            username: name, 
+            bio: bio
+        });
+        
+        if (image){
+            var formData = new FormData();
+            formData.append("image", image);  
+            uploadFile(`/api/user/${userInfo.userid}/image`, formData);
+        }
+
+        redirect(window.location.href);
     }
 
     const onDeleteAccount = () => {

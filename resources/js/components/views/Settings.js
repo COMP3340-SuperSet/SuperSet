@@ -19,7 +19,7 @@ function Settings() {
     return (
         <div>
             <Header currentUser = {currentUser}/>
-            <UserSettings currentUser = {currentUser}/>
+            <UserSettings userInfo = {currentUser}/>
         </div>
     );
 }
