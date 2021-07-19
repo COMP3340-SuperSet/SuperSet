@@ -1,40 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 
 import FileUpload from '../FileUpload';
 import Header from "../Header";
+import EditItemForm from '../EditItemForm';
+import SetDetails from '../SetDetails';
+import ItemList from '../ItemList';
 
 function Edit() {
-    const [userid, setUserid] = useState('');
-    const [setid, setSetid] = useState('');
-    const [itemid, setItemid] = useState('');
-
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() =>{
+    const [set, setSet] = useState(null);
+    const [items, setItems] = useState([]);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const [openForm, setOpenForm] = useState(true);
+
+    useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
         });
     }, []);
 
-    useEffect(() =>{}, [currentUser]);
+    useEffect(() => {
+        console.log('current items list', items);
+    }, [currentUser, set, items, selectedItem]);
+
+    //todo: dont allow item to submit if item with same name already exists in set
+    const onSubmitItem = (item) => {
+        console.error('received item ', item);
+        if (!item || !item.name) {
+            console.error('Item does not have name');
+            return;
+        }
+        const tempItems = [...items];
+        const ind = findIndex(item.name);
+        if (ind === -1) {
+            tempItems.push(item);
+        } else {
+            tempItems[ind] = item;
+        }
+        setItems(tempItems);
+        setSelectedItem(null);
+    }
+
+    const onDeleteItem = (item) => {
+        const index = findIndex(item.name);
+        const tempItems = [...items];
+        tempItems.splice(index, 1);
+        setItems(tempItems);
+    }
+
+    const findIndex = (itemName) => {
+        return items.findIndex((item) => item && item.name && item.name === itemName);
+    }
+
+    const onSubmitSet = () => {
+        //todo: send list to database and redirect user
+    }
+
+    const onDiscardChanges = () => {
+        //todo: redirect the user back to referer
+    }
 
     return (
         <div>
-            <Header currentUser = {currentUser}/>
-            
-            Upload User Profile Image
-            <input type="number" value={userid} onChange={(e) => setUserid(e.target.value)} placeholder='UserID'></input>
-            <FileUpload fileUploadURL={`/api/user/${currentUser.userid}/image`} /><br />
 
-            Upload Set Image
-            <input type="number" value={setid} onChange={(e) => setSetid(e.target.value)} placeholder='SetID'></input>
-            <FileUpload fileUploadURL={`/api/setImages/${setid}`} /><br />
+            <Header currentUser={currentUser} />
 
-            Upload Item Image
-            <input type="number" value={itemid} onChange={(e) => setItemid(e.target.value)} placeholder='ItemID'></input>
-            <FileUpload fileUploadURL={`/api/itemImages/${itemid}`} /><br />
+            <Grid centered columns={2}>
+                <Grid.Column>
+                    <SetDetails set={set} />
+                    <Accordion fluid styled>
+                        <Accordion.Title
+                            active={openForm}
+                            onClick={() => setOpenForm(!openForm)}>
+                            <Icon name='dropdown' />
+                            Create an Item
+                        </Accordion.Title>
+                        <Accordion.Content active={openForm}>
+                            <EditItemForm
+                                selectedItem={selectedItem}
+                                setSelectedItem={item => setSelectedItem(item)}
+                                onSubmitItem={onSubmitItem} />
+                        </Accordion.Content>
+                    </Accordion>
+                    <ItemList
+                        items={items}
+                        onSelectItem={item => setSelectedItem(item)}
+                        onDeleteItem={item => onDeleteItem(item)}
+                    />
+                    <Divider />
+                    <div
+                        style={{ textAlign: 'right' }}>
+                        <Button secondary onClick={() => onDiscardChanges()}>Discard Changes</Button>
+                        <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
+                    </div>
+                </Grid.Column>
+            </Grid>
         </div>
     );
 }
