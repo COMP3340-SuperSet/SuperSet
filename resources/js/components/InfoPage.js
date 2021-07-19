@@ -282,31 +282,31 @@ const InfoPage = () => {
         <Grid columns = {2} stackable padded>
             <Grid.Column width = {3} >
                 <Segment padded basic>
-                    <Menu vertical fluid borderless secondary>
+                    <Menu vertical fluid borderless pointing secondary>
                         <Menu.Item header>About</Menu.Item>
-                        <Menu.Item active = {activeItem === ABOUT} onClick = {() => setActiveItem(ABOUT)} >
-                            <span><Icon rotated = 'clockwise' name = 'level up' />About SuperSet</span>
+                        <Menu.Item className = "no-hover" active = {activeItem === ABOUT} onClick = {() => setActiveItem(ABOUT)} >
+                            <span ><Icon rotated = 'clockwise' name = 'level up' />About SuperSet</span>
                         </Menu.Item>
 
                         <Menu.Item header>Documentation</Menu.Item>
-                        <Menu.Item active = {activeItem === DOC_AUTH} onClick = {() => setActiveItem(DOC_AUTH)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === DOC_AUTH} onClick = {() => setActiveItem(DOC_AUTH)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Authentication</span>
                         </Menu.Item>
-                        <Menu.Item active = {activeItem === DOC_PROFILE} onClick = {() => setActiveItem(DOC_PROFILE)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === DOC_PROFILE} onClick = {() => setActiveItem(DOC_PROFILE)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Profile</span>
                         </Menu.Item>
-                        <Menu.Item active = {activeItem === DOC_SETS} onClick = {() => setActiveItem(DOC_SETS)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === DOC_SETS} onClick = {() => setActiveItem(DOC_SETS)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Sets</span>
                         </Menu.Item>
-                        <Menu.Item active = {activeItem === DOC_ITEMS} onClick = {() => setActiveItem(DOC_ITEMS)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === DOC_ITEMS} onClick = {() => setActiveItem(DOC_ITEMS)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Items</span>
                         </Menu.Item>
-                        <Menu.Item active = {activeItem === DOC_SEARCH} onClick = {() => setActiveItem(DOC_SEARCH)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === DOC_SEARCH} onClick = {() => setActiveItem(DOC_SEARCH)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Search</span>
                         </Menu.Item>
 
                         <Menu.Item header>Tutorial</Menu.Item>
-                        <Menu.Item active = {activeItem === VIDEO_TUTORIAL} onClick = {() => setActiveItem(VIDEO_TUTORIAL)} >
+                        <Menu.Item className = "no-hover" active = {activeItem === VIDEO_TUTORIAL} onClick = {() => setActiveItem(VIDEO_TUTORIAL)} >
                             <span><Icon rotated = 'clockwise' name = 'level up' />Video Tutorial</span>
                         </Menu.Item>
                     </Menu>

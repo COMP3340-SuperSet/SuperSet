@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from '../Header';
 import SetView from '../SetView';
+import Toast from '../Toast';
 
 function Set() {
     const [set, setSet] = useState(null);
@@ -37,6 +38,7 @@ function Set() {
         <div>
             <Header currentUser = {currentUser} />
             <SetView set = {set} items = {setItems} currentUser = {currentUser} />
+            <Toast />
         </div>
     );
 }

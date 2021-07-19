@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from '../Header';
 import Profile from '../Profile';
+import Toast from '../Toast';
 
 function User() {
     const [user, setUser] = useState(null);
@@ -44,6 +45,7 @@ function User() {
         <div>
             <Header currentUser = {currentUser}/>
             <Profile userInfo = {user} userSets = {userSets} currentUser = {currentUser} />
+            <Toast />
         </div>
     );
 }

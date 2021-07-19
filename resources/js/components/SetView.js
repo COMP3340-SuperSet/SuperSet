@@ -82,8 +82,9 @@ const ItemViewDisplay = ({view, itemInfo}) => {
     }
 }
 
-const SetImagesDisplay = () => {
-    let allSetImages = set.images.map( (obj, index) =>  <Image key = {index} src = {obj} />);
+const SetImagesDisplay = ({images}) => {
+    let allSetImages = null;
+    if (images) images.map( (obj, index) =>  <Image key = {index} src = {obj} />);
 
     return (
         <Segment>
@@ -99,7 +100,7 @@ const SetView = ({set, items, currentUser}) => {
 
     if (!set){ set = {name: "Set name", description: "Description"};  }
 
-    const openSet = () => {
+    const editSet = () => {
 
     }
 
@@ -113,7 +114,7 @@ const SetView = ({set, items, currentUser}) => {
         document.execCommand('copy');
         document.body.removeChild(temp);
 
-        toast("Copied set link to clipboard!");
+        toast("Copied set link to clipboard!", "success");
     }
 
     return (
@@ -121,7 +122,7 @@ const SetView = ({set, items, currentUser}) => {
             <Grid.Row>
                 <Grid.Column textAlign = "center">
                         {currentUser && set && currentUser.userid === set.userid &&
-                        <Button onClick = {() => openSet()} style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>}
+                        <Button onClick = {() => editSet()} style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>}
 
                         {currentUser && set && currentUser.userid === set.userid &&
                         <Button onClick = {() => copyLinkToSet()} style = {{padding: "11px"}}><Icon name = "linkify" style = {{margin: "0px"}}/></Button>}
@@ -142,18 +143,19 @@ const SetView = ({set, items, currentUser}) => {
 
             <Grid.Row>
                 <Container fluid textAlign = "center">
-                    <SetImagesDisplay />
+                    <SetImagesDisplay images = {null}/>
                 </Container>
             </Grid.Row>
 
             <Grid.Row >
                 <Grid.Column>
+                    { false && 
                     <Dropdown text = "Sort" button>
                         <Dropdown.Menu>
                             <Dropdown.Item text = "A-Z" icon = "angle up" />
                             <Dropdown.Item text = "A-Z" icon = "angle down" />
                         </Dropdown.Menu>
-                    </Dropdown>
+                    </Dropdown> }
                     <Button onClick = {() => setViewType(GRID_MODE)} icon primary = {viewType}><Icon name = "th"/></Button>
                     <Button onClick = {() => setViewType(LIST_MODE)} icon primary = {!viewType}><Icon name = "list"/></Button>
                     <Input floated = "right" placeholder = "Search Items" />
