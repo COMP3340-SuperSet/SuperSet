@@ -106,8 +106,9 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         let updatedName = document.getElementById("username-input").value;
         updatedName = updatedName === "" ? userInfo.username : updatedName;
         let updatedBio = document.getElementById("description-textarea").value;
-        await axios.put(`/api/user/${currentUser.userid}`, {
-            name: updatedName, 
+        await axios.put(`/api/user/`, {
+            userid: currentUser.userid,
+            username: updatedName, 
             bio: updatedBio
         });
 

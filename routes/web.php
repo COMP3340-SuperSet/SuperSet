@@ -7,6 +7,7 @@ Route::get('/login', fn () => view('login'))->name('login');
 Route::get('/register', fn () => view('register'));
 Route::get('/user', fn () => view('user'));
 Route::get('/set', fn () => view('set'));
+Route::get('/user/settings', fn () => view('settings'));
 Route::get('/item', fn () => view('item'));
 Route::middleware('auth:sanctum', 'admin:web')->get('/admin', fn () => view('admin'));
 Route::get('/about', fn () => view('about'));
