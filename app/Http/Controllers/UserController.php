@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -98,6 +99,7 @@ class UserController extends Controller
         if ($imageid) {
             array_push($deletedImage, $imageid);
             $user->update(['imageid' => null]);
+            Storage::disk('local')->delete('images/users/' . $imageid);
         }
 
         //delete the user
