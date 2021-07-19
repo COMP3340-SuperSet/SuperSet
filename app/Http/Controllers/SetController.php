@@ -74,7 +74,6 @@ class SetController extends Controller
 
         //get the image for that set
         $setImages = SetImage::where('setid', '=', $setid)->get();
-        error_log('setImage' . $setImages);
 
         $deletedImages = [];
 

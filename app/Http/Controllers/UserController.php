@@ -53,9 +53,6 @@ class UserController extends Controller
     {
         $user = User::find($request->userid);
 
-        //return $request;
-        error_log($request);
-
         try {
             if ($request->hasFile('image')) {
 
@@ -74,7 +71,6 @@ class UserController extends Controller
             }
         } catch (Exception $e) {
             return response()->json(['error' => 'Error uploading file.'], 500);
-            error_log($e);
         }
     }
 
