@@ -24,10 +24,11 @@ const CreateNewSet = (name) => {
 }
 
 const SetsDisplay = ({displayMode, setInfo}) => {
+    console.log("Sets:", JSON.stringify(setInfo));
     if (displayMode === GRID_MODE){
         let allCards = setInfo.map( (obj) => 
             <Grid.Column key = {obj.setid}>
-                <SetCard id = {obj.setid} name = {obj.name} count = {4} description = {obj.description} image = {null}/>
+                <SetCard id = {obj.setid} name = {obj.name} count = {4} description = {obj.description}/>
             </Grid.Column>);
 
         return(
@@ -67,12 +68,12 @@ const Profile = ({userInfo, userSets, currentUser}) => {
     const [image, setImage] = useState(null);
 
     const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
-    const [name, setName] = useState((userInfo && userInfo.name) ? userInfo.name : "");
+    const [name, setName] = useState((userInfo && userInfo.username) ? userInfo.username : "");
     const [bio, setBio] = useState((userInfo && userInfo.bio) ? userInfo.bio : "");
 
     useEffect(() => {
         if (!userInfo) return;
-        setName(userInfo.name);
+        setName(userInfo.username);
         setImageid(userInfo.imageid);
         setBio(userInfo.bio);
     }, [userInfo]);
@@ -87,7 +88,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         document.execCommand('copy');
         document.body.removeChild(temp);
 
-        toast("Copied profile link to clipboard!");
+        toast("Copied profile link to clipboard!", "success");
     }
 
     const onImageInput = (e) => {
@@ -103,7 +104,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
 
     const onSubmit = async () => {
         let updatedName = document.getElementById("username-input").value;
-        updatedName = updatedName === "" ? userInfo.name : updatedName;
+        updatedName = updatedName === "" ? userInfo.username : updatedName;
         let updatedBio = document.getElementById("description-textarea").value;
         await axios.put(`/api/user/${currentUser.userid}`, {
             name: updatedName, 
@@ -120,6 +121,11 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         setEditing(false);
 
         redirect(window.location.href);
+    }
+
+    const onCancel = () => {
+        setImageid(userInfo.imageid);
+        setEditing(false);
     }
 
     const onCreateNewSet = () => {
@@ -139,7 +145,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                     <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
                         <Button icon onClick = {() => {
                             setEditing(true);
-                            setName(userInfo.name);
+                            setName(userInfo.username);
                             setImageid(userInfo.imageid);
                             setBio(userInfo.bio);
                         }}><Icon name = "pencil"/></Button>
@@ -166,7 +172,8 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                         </Segment>
 
                         <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
-                            <Button className = "profile-save-button" onClick = {onSubmit}>Save</Button>
+                            <Button className = "profile-save-button" color = "green" onClick = {onSubmit}>Save</Button>
+                            <Button color = "red" onClick = {onCancel}>Cancel</Button>
                         </div>
                     </Form>
                 </div>

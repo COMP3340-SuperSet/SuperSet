@@ -3,7 +3,7 @@ import { Card, Image, Button } from 'semantic-ui-react';
 import { redirect } from "../utils/redirect";
 
 /* handle page transfer to view set of inputted id using onClick = {} or href within Card tag*/
-const SetCard = ({id, count = 1, name, description, image}) => {
+const SetCard = ({id, count = 1, name, description, image = null}) => {
     return (
         <Card centered link onClick = {() => {redirect("/set", [{key: "id", value: id}])}}>
             <Image src = {image} />
