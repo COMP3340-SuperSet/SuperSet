@@ -10,10 +10,11 @@ class ItemImage extends Model
     use HasFactory;
 
     protected $primaryKey = 'imageid';
+    protected $casts = ['imageid' => 'string'];
+    public $incrementing = false;
 
     protected $fillable = [
         'imageid',
         'itemid'
     ];
-    
 }

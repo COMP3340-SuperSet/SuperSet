@@ -25,7 +25,6 @@ class ItemImageController extends Controller
         try {
             if ($request->hasFile('image')) {
                 $imageid = (string) Str::uuid();
-                error_log('image: ' . $imageid . ' item: ' . $itemid);
                 Storage::disk('local')->put('images/items/' . $imageid, $request->file('image'));
                 return ItemImage::create([
                     'imageid' => $imageid,
@@ -35,7 +34,6 @@ class ItemImageController extends Controller
                 return response()->json(['error' => 'Could not find attached file.'], 404);
             }
         } catch (Exception $e) {
-            error_log($e);
             return response()->json(['error' => 'Error uploading file.'], 500);
         }
     }
@@ -60,6 +58,7 @@ class ItemImageController extends Controller
         $imageid = $request->imageid;
         if (!$imageid) return response()->json(['message' => 'Image not found'], 404);
 
+        Storage::disk('local')->delete('images/items/' . $imageid);
         ItemImage::destroy($imageid);
         return response()->json(['image' => $imageid], 200);
     }

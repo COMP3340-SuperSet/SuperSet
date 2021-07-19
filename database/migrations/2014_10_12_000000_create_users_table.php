@@ -23,13 +23,13 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('username', 32)->unique();
             $table->string('bio')->nullable();
-            $table->string('imageid', 32)->nullable()->unique();
+            $table->string('imageid', 41)->nullable()->unique();
             $table->integer('role', false, true)->default('0');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['email' => 'admin@ss.ca', 'username' => 'admin', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
+        User::create(['email' => 'admin@ss.ca', 'username' => 'admin', 'imageid' => '8fedbaec-0e34-46c0-bd94-28bca8ec6d40.png', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
         User::create(['email' => 'stephen@stephen.com', 'username' => 'user', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
     }
 

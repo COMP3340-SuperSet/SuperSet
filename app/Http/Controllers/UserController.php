@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -50,13 +51,17 @@ class UserController extends Controller
 
     public function update_image(Request $request)
     {
-        $user = Auth::user();
-
-        //return $request;
-        error_log($request);
+        $user = User::find($request->userid);
 
         try {
             if ($request->hasFile('image')) {
+
+                //delete old image when updating
+                $oldImageid = $user->imageid;
+                if ($oldImageid) {
+                    Storage::disk('local')->delete('images/users/' . $oldImageid);
+                }
+
                 $imageid = (string) Str::uuid();
                 Storage::disk('local')->put('images/users/' . $imageid, $request->file('image'));
                 $user->update(['imageid' => $imageid]);
@@ -66,7 +71,6 @@ class UserController extends Controller
             }
         } catch (Exception $e) {
             return response()->json(['error' => 'Error uploading file.'], 500);
-            error_log($e);
         }
     }
 
@@ -98,6 +102,7 @@ class UserController extends Controller
         if ($imageid) {
             array_push($deletedImage, $imageid);
             $user->update(['imageid' => null]);
+            Storage::disk('local')->delete('images/users/' . $imageid);
         }
 
         //delete the user

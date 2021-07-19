@@ -45,19 +45,22 @@ class ItemController extends Controller
 
         //check if item exists
         $item = Item::find($itemid);
+
         if (!$item) {
             return response()->json(['message' => 'Item not found.'], 404);
         }
 
         //get list of item images pointing to this item
-        $itemImages = ItemImage::where('itemid', '=', $itemid)->get();
+        $itemImages = ItemImage::where('itemid', '=', $item->itemid)->get();
 
         //deleted item images array for detailed response
         $deletedImages = [];
 
         //delete all related itemImages
         foreach ($itemImages as $itemImage) {
-            $result = ItemImageController::destroyItemImage($itemImage);
+            $request->replace(['imageid' => $itemImage->imageid]);
+
+            $result = ItemImageController::destroyItemImage($request);
             array_push($deletedImages, [$itemImage->itemid, $result]);
         }
 
@@ -66,7 +69,7 @@ class ItemController extends Controller
 
         //if item was successfully deleted / else
         if ($result) {
-            return response()->json(['item' => $itemid, 'itemImages' => $deletedImages], 200);
+            return response()->json(['itemid' => $itemid, 'itemImages' => $deletedImages], 200);
         } else {
             return response()->json(['message' => 'Error when deleting item.'], 400);
         }
