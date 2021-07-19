@@ -42,7 +42,6 @@ class Owner
      */
     public function handle(Request $request, Closure $next)
     {
-
         /**
          * Approve ALL Admin requests.
          */
@@ -82,10 +81,8 @@ class Owner
 
                 $item = Item::find($request->itemid);
 
-                $obj = json_encode($item);
-
                 if (!$item) {
-                    return response()->json(['error' => 'Item not found.'], 400);
+                    return response()->json(['error' => 'Item not found.'], 404);
                 }
 
                 $setid = $item->setid;

@@ -1,13 +1,12 @@
 <?php
 
-use Namespace 
+namespace App\Http\Utils;
 
-class Error
+function errorResponse($message, $errors, $type)
 {
-    public function response($message, $errors, $type){
-        return response()->json([
-            'message' => $message,
-            'errors' => $errors
-        ], $type);
-    }
+    return response()->json([
+        'message' => $message,
+        'errors' => $errors
+    ], $type);
+
 }

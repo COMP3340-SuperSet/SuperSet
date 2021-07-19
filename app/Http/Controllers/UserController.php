@@ -29,15 +29,16 @@ class UserController extends Controller
 
     public function search($term)
     {
-        return User::where('username', 'like', '%'.$term.'%')->get();
+        return User::where('username', 'like', '%' . $term . '%')->get();
     }
 
-    public function update(Request $request, $userid)
+    public function update(Request $request)
     {
+        $userid = $request->userid;
         $user = User::find($userid);
         $user->update($request->only(['name', 'bio']));
         $user->save();
-        return response()->json(['user' => $user ], 201);
+        return response()->json(['user' => $user], 201);
     }
 
     public function getSets(Request $request, $userid)
@@ -46,29 +47,67 @@ class UserController extends Controller
         return $sets;
     }
 
-    public function update_image(Request $request, $userid)
-    {   
-        $user = User::find($userid);
+
+    public function update_image(Request $request)
+    {
+        $user = Auth::user();
+
         //return $request;
         error_log($request);
 
-        try{
-            if($request->hasFile('image')){
+        try {
+            if ($request->hasFile('image')) {
                 $imageid = (string) Str::uuid();
-                Storage::disk('local')->put('images/users/'.$imageid, $request->file('image'));
-                $user->update(['imageid'=>$imageid]);
+                Storage::disk('local')->put('images/users/' . $imageid, $request->file('image'));
+                $user->update(['imageid' => $imageid]);
                 $user->save();
-            }else{
-                return response()->json(['error'=>'Could not find attached file.'], 400);
+            } else {
+                return response()->json(['error' => 'Could not find attached file.'], 400);
             }
-        }catch(Exception $e){
-            return response()->json(['error'=>'Error uploading file.'], 500);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error uploading file.'], 500);
             error_log($e);
         }
     }
 
-    public function destroy($userid)
+
+    public static function destroyUser(Request $request)
     {
-        return User::destroy($userid);
+
+        //TODO:: delete user image from file system
+
+        $userid = $request->userid;
+
+        $user = User::find($userid);
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
+
+        //get list of sets pointing to the user
+        $sets = Set::where('userid', '=', $userid)->get();
+
+        //delete all sets associated with the user
+        foreach ($sets as $set) {
+            $request->replace(['setid' => $set->setid]);
+            SetController::destroySet($request);
+        }
+
+        //set imageid to null
+        $deletedImage = [];
+        $imageid = $user->imageid;
+        if ($imageid) {
+            array_push($deletedImage, $imageid);
+            $user->update(['imageid' => null]);
+        }
+
+        //delete the user
+        $result = User::destroy($userid);
+
+        //if user was successfully deleted / else
+        if ($result) {
+            return response()->json(['user' => $userid, 'userImage' => $deletedImage], 200);
+        } else {
+            return response()->json(['message' => 'Error when deleting User.'], 400);
+        }
     }
 }
