@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Header from "../Header";
+import AdminPages from '../AdminPages';
 
 function Admin() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -18,7 +19,7 @@ function Admin() {
     return (
         <div>
             <Header currentUser = {currentUser}/>
-            I am the Admin Component
+            <AdminPages />
         </div>
     );
 }

@@ -8,4 +8,5 @@ function errorResponse($message, $errors, $type)
         'message' => $message,
         'errors' => $errors
     ], $type);
+
 }

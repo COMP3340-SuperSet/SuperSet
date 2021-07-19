@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SetCard from "./SetCard.js";
 import SetCell from "./SetCell.js";
-import { Grid, Segment, Header, Image, Icon, Button, Table, TextArea, Form, Input } from "semantic-ui-react";
+import { Grid, Segment, Header, Image, Icon, Button, Table, TextArea, Form, Input, Modal } from "semantic-ui-react";
 
 import "../../css/Profile.css";
 
@@ -10,11 +10,15 @@ import { update } from "lodash";
 import { redirect } from "../utils/redirect.js";
 import axios from "axios";
 import { uploadFile } from "../services/fileUpload.js";
+import { toast } from "./Toast.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-const CreateNewSet = () => {
+const CreateNewSet = (name) => {
+    //console.log("New set name: " + name);
+
+
     //send new set to database and get id
     //redirect("/set", [{key: "id", value: newsetid}]);
 }
@@ -57,6 +61,9 @@ const Profile = ({userInfo, userSets, currentUser}) => {
     const [editing, setEditing] = useState(false);
     const [displayType, setDisplayType] = useState(GRID_MODE);
 
+    const [modalOpen, setModalOpen] = useState(false);
+    const [newSetName, setNewSetName] = useState("");
+
     const [image, setImage] = useState(null);
 
     const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
@@ -69,6 +76,19 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         setImageid(userInfo.imageid);
         setBio(userInfo.bio);
     }, [userInfo]);
+
+    const copyLinkToProfile = () => {
+        let temp = document.createElement('input');
+        let linkToProfile = window.location.href;
+
+        document.body.appendChild(temp);
+        temp.value = linkToProfile; 
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+
+        toast("Copied profile link to clipboard!");
+    }
 
     const onImageInput = (e) => {
         //change image locally
@@ -94,12 +114,16 @@ const Profile = ({userInfo, userSets, currentUser}) => {
         if (image){
             var formData = new FormData();
             formData.append("image", image);  
-            uploadFile(`/api/user/image`, formData);
+            uploadFile(`/api/user/${currentUser.userid}/image`, formData);
         }
 
         setEditing(false);
 
         redirect(window.location.href);
+    }
+
+    const onCreateNewSet = () => {
+
     }
 
     const ProfileDisplay = ({editingMode}) => {
@@ -119,6 +143,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                             setImageid(userInfo.imageid);
                             setBio(userInfo.bio);
                         }}><Icon name = "pencil"/></Button>
+                        <Button icon onClick = {() => copyLinkToProfile()}><Icon name = "linkify"/></Button>
                     </div> }
                 </div>
             );
@@ -163,7 +188,27 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                     <Header as = "h1" className = "inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : name + "'s"} Sets</Header>
 
                     {currentUser && userInfo && currentUser.userid === userInfo.userid && 
-                    <Button floated = "left" icon onClick = {CreateNewSet} ><Icon name = "plus"/></Button>}
+                    <Modal  dimmer = "inverted"
+                            size = "mini"
+                            centered = {false}
+                            onClose = {() => setModalOpen(false)}
+                            onOpen = {() => setModalOpen(true)}
+                            open = {modalOpen}
+                            trigger = {<Button floated = "left" icon onClick = {() => onCreateNewSet()} ><Icon name = "plus"/></Button>}>
+
+                                <Modal.Header>Enter your set's name</Modal.Header>
+                                <Modal.Content>
+                                    <Form><Form.Field required>
+                                        <Form.Input fluid
+                                                    value = {newSetName}
+                                                    onChange = {(e) => setNewSetName(e.target.value)} />
+                                    </Form.Field></Form>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button onClick = {() => { CreateNewSet(newSetName); setModalOpen(false); }} positive>Create</Button>
+                                    <Button onClick = {() => setModalOpen(false)} negative >Cancel</Button>
+                                </Modal.Actions>
+                    </Modal>}
                     
                     <Button onClick = {() => setDisplayType(LIST_MODE)} floated = "right" icon primary = {!displayType}><Icon name = "list"/></Button>
                     <Button onClick = {() => setDisplayType(GRID_MODE)} floated = "right" icon primary = {displayType}><Icon name = "th"/></Button>

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Grid, Button, Icon, Segment, Header, Dropdown, Input, Table, Image, Container } from 'semantic-ui-react';
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
+import { toast } from './Toast';
 
 import "../../css/SetView.css";
 
@@ -96,16 +97,34 @@ const SetImagesDisplay = () => {
 const SetView = ({set, items, currentUser}) => {
     const [viewType, setViewType] = useState(GRID_MODE);
 
-    if (!set){
-        set = {name: "Set name", description: "Description"}
+    if (!set){ set = {name: "Set name", description: "Description"};  }
+
+    const openSet = () => {
+
+    }
+
+    const copyLinkToSet = () => {
+        let temp = document.createElement('input');
+        let linkToSet = window.location.href;
+
+        document.body.appendChild(temp);
+        temp.value = linkToSet; 
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+
+        toast("Copied set link to clipboard!");
     }
 
     return (
         <Grid centered stackable container columns = {1}>
             <Grid.Row>
                 <Grid.Column textAlign = "center">
-                    {currentUser && set && currentUser.userid === set.userid &&
-                        <Button style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>}
+                        {currentUser && set && currentUser.userid === set.userid &&
+                        <Button onClick = {() => openSet()} style = {{padding: "11px"}}><Icon name = "pencil" style = {{margin: "0px"}}/></Button>}
+
+                        {currentUser && set && currentUser.userid === set.userid &&
+                        <Button onClick = {() => copyLinkToSet()} style = {{padding: "11px"}}><Icon name = "linkify" style = {{margin: "0px"}}/></Button>}
                 </Grid.Column>
             </Grid.Row>
 

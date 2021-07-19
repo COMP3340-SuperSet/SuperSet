@@ -47,9 +47,11 @@ class UserController extends Controller
         return $sets;
     }
 
+
     public function update_image(Request $request)
     {
         $user = Auth::user();
+
         //return $request;
         error_log($request);
 

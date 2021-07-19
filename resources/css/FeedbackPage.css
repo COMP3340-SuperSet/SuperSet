@@ -1,5 +1,5 @@
 .ss-feedback-griddiv{
-    padding-top: 15vh;
+    padding-top: 10vh;
 }
 
 .ss-feedback-gridcolumn{
@@ -8,7 +8,7 @@
 }
 
 .ss-feedback-formdiv{
-    padding-top: 100px;
+    padding-top: 75px;
     text-align: center;
     align-items: center;
 }
@@ -32,3 +32,15 @@
     padding-top: 50px;
     padding-bottom: 25px;
 }
+
+.ss-feedback-checkbox{
+    margin: 10px;
+}
+
+.ss-feedback-emailtextarea{
+    border-style: groove;
+    padding: 1px;
+    background-color: black;
+    width: 100%;
+}
+
