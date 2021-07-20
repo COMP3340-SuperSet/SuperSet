@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum', 'owner')->delete('/set', [SetController::class
 //items
 Route::get('/items', [ItemController::class, 'index']);
 Route::get('/items/{itemid}', [ItemController::class, 'show']);
+Route::get('/set/{setid}/items', [SetController::class, 'getItems']);
 
 //items - protected
 Route::middleware('auth:sanctum', 'owner')->put('/item', [ItemController::class, 'update']);

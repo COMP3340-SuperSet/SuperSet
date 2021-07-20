@@ -26,10 +26,23 @@ class CreateSetsTable extends Migration
             $table->timestamps();
         });
 
-        Set::create(['userid' => '1', 'name' => 'Test Set 1', 'description' => 'Sample Description for Test Set 1.']);
-        Set::create(['userid' => '2', 'name' => 'Test Set 2', 'description' => 'Sample Description for Test Set 2.']);
-        Set::create(['userid' => '1', 'name' => 'Test Set 3', 'description' => 'Sample Description for Test Set 3.']);
-        Set::create(['userid' => '1', 'name' => 'Test Set 4', 'description' => 'Sample Description for Test Set 4.']);
+        $this->createTestData();
+    }
+
+    private function createTestData(){
+        Set::create(['userid' => '1', 'name' => 'Pokemon Cards', 'description' => 'Here is a bunch of pokemon cards']);
+        Set::create(['userid' => '1', 'name' => 'PC Build', 'description' => 'Sick gaming PC build']);
+        Set::create(['userid' => '1', 'name' => 'Cheescake', 'description' => 'Recipe for classic cheesecake']);
+        
+        
+        Set::create(['userid' => '2', 'name' => 'Summer wardrobe', 'description' => 'What I wear during summer']);
+        Set::create(['userid' => '2', 'name' => 'Winter wardrobe', 'description' => 'What I wear during winter']);
+        Set::create(['userid' => '2', 'name' => 'Fall wardrobe', 'description' => 'What I wear during Fall']);
+
+        Set::create(['userid' => '3', 'name' => 'Top 10 Songs', 'description' => 'Best songs ever made ever']);
+
+        Set::create(['userid' => '4', 'name' => 'Car Accessories', 'description' => 'The gadgets in my car']);
+        Set::create(['userid' => '4', 'name' => 'School notes', 'description' => 'Collection of notes or something']);
     }
 
     /**

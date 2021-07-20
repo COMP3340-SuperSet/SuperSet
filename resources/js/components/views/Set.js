@@ -20,10 +20,10 @@ function Set() {
             console.error("Error: " + error);
         });
 
-        axios.get(`/api/items/set/${setid}`).then((response) => {
+        axios.get(`/api/set/${setid}/items`).then((response) => {
             setSetItems(response.data);
         }).catch((error) => {
-            console.error("Error: " + error);
+            console.error("Items Error: " + error);
         });
 
         axios.get("/api/check").then((response) => {

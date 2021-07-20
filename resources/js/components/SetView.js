@@ -7,6 +7,7 @@ import { toast } from './Toast';
 import "../../css/SetView.css";
 
 import placeholderImage from "../../images/superset.png";
+import { redirect } from "../utils/redirect.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -84,13 +85,14 @@ const ItemViewDisplay = ({view, itemInfo}) => {
 
 const SetImagesDisplay = ({images}) => {
     let allSetImages = null;
-    if (images) images.map( (obj, index) =>  <Image key = {index} src = {obj} />);
-
+    if (images) allSetImages = images.map( (obj, index) =>  <Image key = {index} src = {obj} />);
+    
     return (
         <Segment>
-            <Image.Group size = "tiny">
-                {allSetImages} 
-            </Image.Group>
+           {!allSetImages ? <p>No set images</p> :  
+                            <Image.Group size = "tiny">
+                                {allSetImages}
+                            </Image.Group>}
         </Segment>
     );
 }
@@ -116,7 +118,7 @@ const SetView = ({set, items, currentUser}) => {
 
         toast("Copied set link to clipboard!", "success");
     }
-
+    
     return (
         <Grid centered stackable container columns = {1}>
             <Grid.Row>
@@ -131,13 +133,16 @@ const SetView = ({set, items, currentUser}) => {
 
             <Grid.Row>
                 <Grid.Column textAlign = "center" verticalAlign = "middle">
-                    <Header as = "h1">{set.name}</Header>
+                    <Header as = "h1">{set.name ? set.name : <span style = {{color: "grey"}}>Nameless set</span>}</Header>
+                    <Button style = {{position: "absolute", top: "0px", left: "0px"}} icon labelPosition = "left" onClick = {() => redirect('/user', [{key: "id", value: set.userid}])}>
+                        <Icon name = "left arrow"/> Back to profile
+                    </Button>
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
                 <Grid.Column textAlign = "center">
-                    <Header>{set.description}</Header>
+                    <Header>{set.description ? set.description : <span style = {{color: "grey"}}>No description</span>}</Header>
                 </Grid.Column>
             </Grid.Row>
 
@@ -149,16 +154,9 @@ const SetView = ({set, items, currentUser}) => {
 
             <Grid.Row >
                 <Grid.Column>
-                    { false && 
-                    <Dropdown text = "Sort" button>
-                        <Dropdown.Menu>
-                            <Dropdown.Item text = "A-Z" icon = "angle up" />
-                            <Dropdown.Item text = "A-Z" icon = "angle down" />
-                        </Dropdown.Menu>
-                    </Dropdown> }
                     <Button onClick = {() => setViewType(GRID_MODE)} icon primary = {viewType}><Icon name = "th"/></Button>
                     <Button onClick = {() => setViewType(LIST_MODE)} icon primary = {!viewType}><Icon name = "list"/></Button>
-                    <Input floated = "right" placeholder = "Search Items" />
+                    <Input placeholder = "Search Items" />
                 </Grid.Column>
             </Grid.Row>
 
