@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $userid = $request->userid;
         $user = User::find($userid);
-        $user->update($request->only(['name', 'bio']));
+        $user->update($request->only(['username', 'bio']));
         $user->save();
         return response()->json(['user' => $user], 201);
     }
