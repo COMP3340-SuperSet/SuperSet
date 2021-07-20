@@ -28,6 +28,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/check', [AuthController::class, 'check']);
+Route::middleware('auth:sanctum', 'owner')->post('/password', [AuthController::class, 'testPassword']);
+
 
 //user
 Route::get('/users', [UserController::class, 'index']);

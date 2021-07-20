@@ -146,4 +146,16 @@ class UserController extends Controller
             return response()->json(['message' => 'Error when deleting User.'], 400);
         }
     }
+
+    
+    public function testPassword(Request $request)
+    {
+        $credentials = $request->only('userid', 'password');
+
+        if (User::attempt($credentials)) {
+            return response()->json(['result' => true], 200);
+        }else{
+            return response()->json(['result' => false], 200);
+        }
+    }
 }

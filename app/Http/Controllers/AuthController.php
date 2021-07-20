@@ -30,6 +30,17 @@ class AuthController extends Controller
             ], 201);
         }
     }
+
+    public function testPassword(Request $request)
+    {
+        $credentials = $request->only('userid', 'password');
+        if (auth('web')->attempt($credentials)) {
+            return response()->json(['result' => true], 200);
+        }else{
+            return response()->json(['result' => false], 200);
+        }
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
