@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import Header from '../Header';
 import UserSettings from '../UserSettings';
+import Toast from '../Toast';
+import { redirect } from '../../utils/redirect';
 
 function Settings() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -11,6 +13,7 @@ function Settings() {
     useEffect(() =>{
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+            if (!response.data.user) redirect('/');
         });
     }, []);
 
@@ -20,6 +23,7 @@ function Settings() {
         <div>
             <Header currentUser = {currentUser}/>
             <UserSettings userInfo = {currentUser}/>
+            <Toast />
         </div>
     );
 }

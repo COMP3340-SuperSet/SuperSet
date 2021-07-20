@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Checkbox } from 'semantic-ui-react';
+import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Input } from 'semantic-ui-react';
 import { redirect } from "../utils/redirect";
 
 import Confirmation from "./Confirmation";
@@ -7,6 +7,7 @@ import Confirmation from "./Confirmation";
 import tmp_pic from "../../images/pfp_placeholder.png";
 import { uploadFile } from "../services/fileUpload";
 import axios from "axios";
+import { toast } from "./Toast";
 
 const UserSettings = ({userInfo}) => {
     const [image, setImage] = useState(null);
@@ -14,18 +15,16 @@ const UserSettings = ({userInfo}) => {
     const [imageid, setImageid] = useState((userInfo && userInfo.imageid) ? userInfo.imageid : tmp_pic);
     const [name, setName] = useState((userInfo && userInfo.username) ? userInfo.username : "");
     const [bio, setBio] = useState((userInfo && userInfo.bio) ? userInfo.bio : "");
-    const [pub, setPub] = useState(true);
+
+    const [toggleDel, setToggleDel] = useState(true);
+    const [delPass, setDelPass] = useState("");
 
     useEffect(() => {
         if (!userInfo) return;
         setName(userInfo.username);
-        setBio(userInfo.bio);
+        if (userInfo.bio) setBio(userInfo.bio);
         if (userInfo.imageid) setImageid(userInfo.imageid);
     }, [userInfo]);
-
-    useEffect(() => {
-        //console.log("uploaded image: ", image);
-    }, [image]);
 
     const onImageInput = (e) => {
         let uploadedFiles = e.target.files;
@@ -36,8 +35,6 @@ const UserSettings = ({userInfo}) => {
 
     const onSubmit = async () => {
         setName(name === "" ? userInfo.username : name);
-
-        console.log("Username");
 
         await axios.put(`/api/user/`, {
             userid: userInfo.userid,
@@ -54,14 +51,24 @@ const UserSettings = ({userInfo}) => {
         redirect(window.location.href);
     }
 
-    const onDeleteAccount = () => {
-        //delete account
+    const onDeleteAccount = async () => {
+        //check password {delPass}
+
+        //replace false with condition if password check passed
+        if (false){
+            await axios.delete(`/api/user/`, {
+                userid: userInfo.userid
+            });
+
+            redirect('/');
+        }
+        else{ toast("Incorrect password!", "error"); }
     }
 
     return (
         <Container>
             <Segment padded>
-                <Header as = 'h2' textAlign = "center">Settings</Header>
+                <Header as = 'h2' textAlign = "center">Profile</Header>
                 <Form>
                     <Grid container stackable>
                         <Grid.Row>
@@ -90,16 +97,6 @@ const UserSettings = ({userInfo}) => {
                                                 onChange = {(e) => setBio(e.target.value)} />
                                 </Segment>
                             </Grid.Column>    
-                        </Grid.Row>    
-                        <Grid.Row centered>
-                            <Grid.Column textAlign = "center">
-                                { (pub) ? <span>Profile shown</span> : <span>Profile hidden</span>}
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row centered>
-                            <Grid.Column textAlign = "center">
-                                <Checkbox toggle checked = {pub} onClick = {() => {setPub(!pub)}} />
-                            </Grid.Column>
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column textAlign = "center">
@@ -111,10 +108,23 @@ const UserSettings = ({userInfo}) => {
 
                 <Divider />
 
-                <Container textAlign = "center" style = {{margin: "50px 0 35px 0"}}>
-                    <Confirmation trigger = {<Button color = "red">Delete Account</Button>} 
-                                  text = "Are you sure you would like to delete your account? This action cannot be undone." 
-                                  onConfirm = {() => {onDeleteAccount()}} />
+                <Container textAlign = "center" style = {{margin: "50px auto 35px auto"}}>
+                    {(toggleDel) ? (<Button color = "red" onClick = {() => {setToggleDel(false)}}>Delete Account</Button>) : 
+                        (<Form>
+                            <Form.Group style = {{justifyContent: "center"}}>
+                                <Form.Field required width = {4}
+                                            control = "input"
+                                            placeholder = "Confirm your password"
+                                            value = {delPass}
+                                            onChange = {(e) => {setDelPass(e.target.value)}} />  
+
+                                <Confirmation trigger = {<Button color = "red">Confirm</Button>} 
+                                              text = "Are you sure you would like to delete your account? This action cannot be undone." 
+                                              onConfirm = {() => {onDeleteAccount()}} />
+                            
+                                <Button onClick = {() => {setToggleDel(true); setDelPass("");}}>Cancel</Button>
+                            </Form.Group>
+                        </Form>)}
                 </Container>
 
             </Segment>

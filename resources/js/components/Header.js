@@ -8,6 +8,7 @@ import logo from "../../images/superset.png";
 import logoFull from "../../images/supersetfull.png";
 import { redirect } from "../utils/redirect";
 import axios from "axios";
+import { toast } from "./Toast";
 
 const SearchInput = () => {
     const [loading, setLoading] = useState(false);
@@ -54,6 +55,7 @@ const SearchInput = () => {
             redirect("/user", [{key: "id", value: result.userid}]);
         }
     }
+    
 
     return (
         <Search category
@@ -80,6 +82,15 @@ const SSHeader = ({currentUser}) => {
 
     const [screenWidth, screenHeight] = screenSize;
 
+    const onLogOut = () => {
+        axios.post(`/api/logout`).then(() => {
+            redirect('/');
+        }).catch((error) => {
+            console.error(error);
+            toast("Failed to log out", "error");
+        });
+    }
+
     return (
         <Segment className="ss-header ">
             <Segment compact className = "ss-bg-grey no-margin">
@@ -98,10 +109,10 @@ const SSHeader = ({currentUser}) => {
                     <Dropdown.Menu direction = "left" >
                         {currentUser && <Dropdown.Item text = 'Profile' onClick={() => redirect('/user', [{key: "id", value: currentUser.userid}])} /> }
                         {currentUser && <Dropdown.Item text = 'Settings' onClick={() => redirect("/user/settings")} /> }
-                        {currentUser && <Dropdown.Item text = 'Log Out' /> }
+                        {currentUser && <Dropdown.Item text = 'Log Out' onClick = {() => {onLogOut()}} /> }
 
-                        {/*!currentUser && */<Dropdown.Item text = 'Log In' onClick={() => redirect('/login')} /> }
-                        {/*!currentUser && */<Dropdown.Item text = 'Sign Up' onClick={() => redirect('/register')} /> }
+                        {!currentUser && <Dropdown.Item text = 'Log In' onClick={() => redirect('/login')} /> }
+                        {!currentUser && <Dropdown.Item text = 'Sign Up' onClick={() => redirect('/register')} /> }
 
                         <Dropdown.Item text = 'Info' onClick={() => redirect('/about')} />
                     </Dropdown.Menu>

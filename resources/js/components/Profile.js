@@ -59,7 +59,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
     const [newSetName, setNewSetName] = useState("");
     const [displayType, setDisplayType] = useState(GRID_MODE);
     const [modalOpen, setModalOpen] = useState(false);
-    
+
     const copyLinkToProfile = () => {
         let temp = document.createElement('input');
         let linkToProfile = window.location.href;
@@ -78,7 +78,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
             <Grid.Column width = {5}>
                 <Segment padded = "very">
                     { userInfo && <div>
-                        <Image size = "small" src = {userInfo.imageid} circular centered/>
+                        <Image size = "small" src = {(userInfo.imageid) ? userInfo.imageid : tmp_pic} circular centered/>
                         <Header as = "h1" textAlign = "center" >{userInfo.username}</Header>
                         <Segment>
                             <Header as = "h3" textAlign = "center" >{userInfo.bio}</Header>

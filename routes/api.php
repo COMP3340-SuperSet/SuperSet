@@ -26,6 +26,7 @@ Route::get('/sets/search/{term}', [SearchController::class, 'searchSets']);
 //auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/check', [AuthController::class, 'check']);
 
 //user
