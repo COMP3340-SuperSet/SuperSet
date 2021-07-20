@@ -70,7 +70,7 @@ function Edit() {
 
             <Header currentUser={currentUser} />
 
-            <Grid centered columns={2}>
+            <Grid centered container>
                 <Grid.Column>
                     <SetDetails set={set} />
                     <Accordion fluid styled>
