@@ -8,6 +8,7 @@ import "../../css/Profile.css";
 import tmp_pic from "../../images/pfp_placeholder.png";
 import { update } from "lodash";
 import { redirect } from "../utils/redirect.js";
+import { getImagePath } from "../utils/imagePath.js";
 import axios from "axios";
 import { uploadFile } from "../services/fileUpload.js";
 import { toast } from "./Toast.js";
@@ -78,14 +79,16 @@ const Profile = ({userInfo, userSets, currentUser}) => {
             <Grid.Column width = {5}>
                 <Segment padded = "very">
                     { userInfo && <div>
-                        <Image size = "small" src = {(userInfo.imageid) ? userInfo.imageid : tmp_pic} circular centered/>
+                        <Image size = "small" src = {(userInfo.imageid) ? getImagePath('user', userInfo.imageid) : tmp_pic} circular centered/>
                         <Header as = "h1" textAlign = "center" >{userInfo.username}</Header>
-                        <Segment>
-                            <Header as = "h3" textAlign = "center" >{userInfo.bio}</Header>
+                        <Segment textAlign = "center">
+                            {userInfo.bio ? <Header as = "h3">{userInfo.bio}</Header> :
+                                            <p style = {{color: "grey"}}>No description</p>}
                         </Segment>
                         { currentUser && userInfo && currentUser.userid === userInfo.userid &&
                         <div style = {{width: "100%", textAlign: "center", marginTop: "60px"}}>
                             <Button icon onClick = {() => copyLinkToProfile()}><Icon name = "linkify"/></Button>
+                            <Button icon onClick = {() => redirect("/user/settings")}><Icon name = "setting"/></Button>
                         </div> }
                     </div>}
                 </Segment>

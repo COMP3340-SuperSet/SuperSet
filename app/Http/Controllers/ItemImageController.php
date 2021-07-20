@@ -25,7 +25,12 @@ class ItemImageController extends Controller
         try {
             if ($request->hasFile('image')) {
                 $imageid = (string) Str::uuid();
-                Storage::disk('local')->put('images/items/' . $imageid, $request->file('image'));
+                $path = Storage::disk('local')->put('images/items/' . $imageid, $request->file('image'));
+
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+                $directory = pathinfo($path, PATHINFO_DIRNAME);
+                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
                 return ItemImage::create([
                     'imageid' => $imageid,
                     'itemid' => $itemid
