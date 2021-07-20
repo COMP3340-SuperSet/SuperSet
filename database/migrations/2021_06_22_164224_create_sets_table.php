@@ -22,7 +22,7 @@ class CreateSetsTable extends Migration
             $table->integer('userid', false, true);
             $table->foreign('userid')->references('userid')->on('users');
             $table->string('name', 60);
-            $table->string('description')->nullable();
+            $table->string('description', 2048)->nullable();
             $table->timestamps();
         });
 

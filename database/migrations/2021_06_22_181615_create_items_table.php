@@ -21,7 +21,7 @@ class CreateItemsTable extends Migration
             $table->integer('setid', false, true);
             $table->foreign('setid')->references('setid')->on('sets');
             $table->string('name', 60);
-            $table->string('description');
+            $table->string('description', 2048);
             $table->timestamps();
         });
 
