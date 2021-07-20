@@ -22,7 +22,6 @@ const CreateNewSet = (name) => {
 }
 
 const SetsDisplay = ({displayMode, setInfo}) => {
-    console.log("Sets:", JSON.stringify(setInfo));
     if (displayMode === GRID_MODE){
         let allCards = setInfo.map( (obj) => 
             <Grid.Column key = {obj.setid}>
@@ -96,7 +95,8 @@ const Profile = ({userInfo, userSets, currentUser}) => {
 
             <Grid.Column width = {11}>
                 <Segment textAlign = "center">
-                    <Header as = "h1" className = "inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : name + "'s"} Sets</Header>
+                    { userInfo &&
+                        <Header as = "h1" className = "inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : userInfo.username + "'s"} Sets</Header>}
 
                     {currentUser && userInfo && currentUser.userid === userInfo.userid && 
                     <Modal  dimmer = "inverted"
