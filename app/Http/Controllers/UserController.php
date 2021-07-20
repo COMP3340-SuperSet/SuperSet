@@ -63,15 +63,12 @@ class UserController extends Controller
                 // }
 
                 $imageid = (string) Str::uuid();
-                //Storage::disk('local')->put('images/users/' . $imageid, $request->file('image'));
-                $file = Storage::disk('local')->put('images/users', $request->file('image'));
-                error_log('file: ');
+                $path = Storage::disk('local')->put('images/users', $request->file('image'));
 
-                error_log($file);
-
-                //$file = $request->file('image')->store('images/users/');
-
-
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+                $directory = pathinfo($path, PATHINFO_DIRNAME);
+                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+                $user->update(['imageid' => $imageid . '.' . $extension]);
                 $user->save();
             } else {
                 return response()->json(['error' => 'Could not find attached file.'], 400);
