@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['email' => 'admin@ss.ca', 'username' => 'admin', 'imageid' => '8fedbaec-0e34-46c0-bd94-28bca8ec6d40.png', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
+        User::create(['email' => 'admin@ss.ca', 'username' => 'admin', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
         User::create(['email' => 'stephen@stephen.com', 'username' => 'user', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
     }
 
