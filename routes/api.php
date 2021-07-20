@@ -39,8 +39,8 @@ Route::get('/user/role/{userid}', [AuthController::class, 'getRole']);
 
 Route::middleware('auth:sanctum', 'owner')->put('/user', [UserController::class, 'update']);
 Route::middleware('auth:sanctum', 'owner')->post('/user/image', [UserController::class, 'update_image']);
-Route::middleware('auth:sanctum')->delete('/user', [UserController::class, 'destroyUser']);
-
+Route::middleware('auth:sanctum', 'owner')->post('/delete/user', [UserController::class, 'destroyUser']);
+Route::middleware('auth:sanctum', 'owner')->post('/delete/user/image', [UserController::class, 'delete_image']);
 
 //sets
 Route::get('/sets', [SetController::class, 'index']);

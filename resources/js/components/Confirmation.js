@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Confirm } from 'semantic-ui-react';
 
-const Confirmation = ({trigger = (<Button>Show</Button>), onConfirm = () => {}, text = "Are you sure?", confirmText = "OK", cancelText = "Cancel"}) => {
+const Confirmation = ({trigger = (<Button>Show</Button>), onConfirm = () => {}, text = "Are you sure?", confirmText = "OK", cancelText = "Cancel", inline = false}) => {
     /*
         <Confirmation> is a customizable confirmation modal
 
@@ -20,13 +20,17 @@ const Confirmation = ({trigger = (<Button>Show</Button>), onConfirm = () => {}, 
 
             cancelText - string. Text to be displayed on cancel button
                 default: "Cancel"
+            
+            inline - boolean. If displayed trigger is inline or not
+                default: false
     */
     
     const [open, setOpen] = useState(false);
 
     return (
-        <div>
-            <div onClick = {() => setOpen(true)}> {trigger} </div>
+        <span>
+            {inline ? (<div style = {{display: "inline-block"}} onClick = {() => setOpen(true)}> {trigger} </div>) :
+                      (<div onClick = {() => setOpen(true)}> {trigger} </div>)}
             <Confirm size = "mini"
                      confirmButton = {confirmText}
                      cancelButton = {cancelText}
@@ -38,7 +42,7 @@ const Confirmation = ({trigger = (<Button>Show</Button>), onConfirm = () => {}, 
                         onConfirm();
                      }}
             />
-        </div>
+        </span>
     );
 }
 

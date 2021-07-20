@@ -5,7 +5,8 @@
  */
 export function getImagePath(type, filename) {
 
-    let str = window.location.hostname + '/storage';
+    //window.location.hostname +
+    let str = '/storage';
 
     switch (type) {
         case 'user':
