@@ -52,7 +52,7 @@ const LoginForm = () => {
                             <label>
                                 Username / Email
                             </label>
-                            <input id='username' placeholder="Username or Email" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input autofocus="autofocus" id='username' placeholder="Username or Email" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
                             <label>

@@ -57,14 +57,18 @@ class UserController extends Controller
             if ($request->hasFile('image')) {
 
                 //delete old image when updating
-                $oldImageid = $user->imageid;
-                if ($oldImageid) {
-                    Storage::disk('local')->delete('images/users/' . $oldImageid);
-                }
+                // $oldImageid = $user->imageid;
+                // if ($oldImageid) {
+                //     Storage::disk('local')->delete('images/users/' . $oldImageid);
+                // }
 
                 $imageid = (string) Str::uuid();
-                Storage::disk('local')->put('images/users/' . $imageid, $request->file('image'));
-                $user->update(['imageid' => $imageid]);
+                $path = Storage::disk('local')->put('images/users', $request->file('image'));
+
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+                $directory = pathinfo($path, PATHINFO_DIRNAME);
+                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+                $user->update(['imageid' => $imageid . '.' . $extension]);
                 $user->save();
             } else {
                 return response()->json(['error' => 'Could not find attached file.'], 400);
@@ -77,8 +81,6 @@ class UserController extends Controller
 
     public static function destroyUser(Request $request)
     {
-
-        //TODO:: delete user image from file system
 
         $userid = $request->userid;
 

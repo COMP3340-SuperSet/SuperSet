@@ -22,7 +22,12 @@ class SetImageController extends Controller
         try {
             if ($request->hasFile('image')) {
                 $imageid = (string) Str::uuid();
-                Storage::disk('local')->put('images/sets/' . $imageid, $request->file('image'));
+                $path = Storage::disk('local')->put('images/sets', $request->file('image'));
+
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+                $directory = pathinfo($path, PATHINFO_DIRNAME);
+                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
                 return SetImage::create([
                     'imageid' => $imageid,
                     'setid' => $setid
