@@ -63,13 +63,15 @@ class UserController extends Controller
                 // }
 
                 $imageid = (string) Str::uuid();
-                $path = Storage::disk('local')->put('images/users', $request->file('image'));
+                $path = Storage::disk('local')->put('public/users', $request->file('image'));
 
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
                 $directory = pathinfo($path, PATHINFO_DIRNAME);
                 Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
                 $user->update(['imageid' => $imageid . '.' . $extension]);
                 $user->save();
+                return response()->json(['user' => $user], 200);
             } else {
                 return response()->json(['error' => 'Could not find attached file.'], 400);
             }
@@ -104,7 +106,7 @@ class UserController extends Controller
         if ($imageid) {
             array_push($deletedImage, $imageid);
             $user->update(['imageid' => null]);
-            Storage::disk('local')->delete('images/users/' . $imageid);
+            Storage::disk('local')->delete('public/users/' . $imageid);
         }
 
         //delete the user

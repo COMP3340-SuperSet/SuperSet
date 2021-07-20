@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Input } from 'semantic-ui-react';
 import { redirect } from "../utils/redirect";
 
+import { getImagePath } from "../utils/imagePath";
+
 import Confirmation from "./Confirmation";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
@@ -26,6 +28,10 @@ const UserSettings = ({ userInfo }) => {
         if (userInfo.imageid) setImageid(userInfo.imageid);
     }, [userInfo]);
 
+    useEffect(() => {
+
+    }, [imageid]);
+
     const onImageInput = (e) => {
         let uploadedFiles = e.target.files;
 
@@ -33,43 +39,62 @@ const UserSettings = ({ userInfo }) => {
         if (uploadedFiles && uploadedFiles[0]) setImageid(URL.createObjectURL(uploadedFiles[0]));
     }
 
-    const onSubmit = async (event) => {
+    const onSubmit = (event) => {
+        event.preventDefault();
         setName(name === "" ? userInfo.username : name);
-
-        await axios.put(`/api/user/`, {
-            userid: userInfo.userid,
-            username: name,
-            bio: bio
-        });
 
         if (image) {
             var formData = new FormData();
             formData.append("image", image);
 
-            console.log("userid: ", userInfo.userid);
             formData.append("userid", userInfo.userid);
 
-            console.log(formData);
-
-            uploadFile('/api/user/image', formData);
+            //uploadFile('/api/user/image', formData);
+            axios.post('/api/user/image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log(response.data.user);
+                axios.put(`/api/user/`, {
+                    userid: userInfo.userid,
+                    username: name,
+                    bio: bio
+                }).then(response => {
+                    console.log("then: ", response.data.user);
+                    setImageid(response.data.user.imageid)
+                }).catch(error => {
+                    console.error(error);
+                });
+            }).catch(err => console.error(err));
+        } else {
+            axios.put(`/api/user/`, {
+                userid: userInfo.userid,
+                username: name,
+                bio: bio
+            }).then(response => {
+                console.log("then: ", response.data.user);
+                setImageid(response.data.user.imageid)
+            }).catch(error => {
+                console.error(error);
+            });
         }
 
-        redirect(window.location.href);
+
     }
 
     const onDeleteAccount = async () => {
 
         //check password {delPass}
-
         //replace false with condition if password check passed
-        if (false){
+        if (false) {
             await axios.delete(`/api/user/`, {
                 userid: userInfo.userid
             });
 
             redirect('/');
         }
-        else{ toast("Incorrect password!", "error"); }
+        else { toast("Incorrect password!", "error"); }
 
     }
 
@@ -81,7 +106,7 @@ const UserSettings = ({ userInfo }) => {
                     <Grid container stackable>
                         <Grid.Row>
                             <Grid.Column width={5} verticalAlign="middle">
-                                <Image src={imageid} circular centered size="small" />
+                                <Image src={getImagePath('user', imageid)} circular centered size="small" />
 
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
                                     <Button className="pfp-upload-button" id="pfp-upload-button"><label htmlFor="pfp-upload" className="pfp-upload-label">Upload</label></Button>
@@ -105,7 +130,7 @@ const UserSettings = ({ userInfo }) => {
                                         onChange={(e) => setBio(e.target.value)} />
                                 </Segment>
 
-                            </Grid.Column>    
+                            </Grid.Column>
 
                         </Grid.Row>
                         <Grid.Row centered>
