@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle } from "react";
 import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Input, Icon } from 'semantic-ui-react';
 import { redirect } from "../utils/redirect";
 
@@ -52,16 +52,13 @@ const UserSettings = ({ userInfo }) => {
     }
 
     const onSubmit = (event) => {
-        //event.preventDefault();
         setName(name === "" ? userInfo.username : name);
 
         if (image) {
             var formData = new FormData();
             formData.append("image", image);
-
             formData.append("userid", userInfo.userid);
 
-            //uploadFile('/api/user/image', formData);
             axios.post('/api/user/image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -96,18 +93,23 @@ const UserSettings = ({ userInfo }) => {
     }
 
     const onDeleteAccount = async () => {
-
-        //check password {delPass}
-        //replace false with condition if password check passed
-        if (false) {
-            await axios.delete(`/api/delete/user/`, {
-                userid: userInfo.userid
-            });
-
-            redirect('/');
-        }
-        else { toast("Incorrect password!", "error"); }
-
+        axios.post('/api/password', {
+            userid: userInfo.userid, 
+            password: delPass
+        }).then(response => {
+            let passwordGood =  response.data.result;
+            console.log('From Password Test: ', passwordGood);
+            if (passwordGood){
+                axios.post(`/api/delete/user/`, {
+                    userid: userInfo.userid
+                }).then(() => {
+                    redirect('/');
+                });
+            } else{ toast("Incorrect password!", "error"); }
+        }).catch(error => {
+            console.error(error);
+            toast("Something went wrong. Please try again", "error");
+        });
     }
 
     return (
@@ -164,7 +166,7 @@ const UserSettings = ({ userInfo }) => {
                                 (<Form>
                                     <Form.Group style = {{justifyContent: "center", marginBottom: "0"}}>
                                         <Form.Field required
-                                                    control = "input"
+                                                    control = "input" type = "password"
                                                     placeholder = "Confirm your password"
                                                     value = {delPass}
                                                     onChange = {(e) => {setDelPass(e.target.value)}} />  
