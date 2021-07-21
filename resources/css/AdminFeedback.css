@@ -7,3 +7,9 @@
     position: relative !important;
 
 }
+
+.ss-feedback-stats{
+    position: absolute !important;
+    top: 0px !important;
+    left: 0px !important;
+}
