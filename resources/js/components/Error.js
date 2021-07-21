@@ -2,10 +2,7 @@ import React, {useState} from 'react';
 import {Message} from 'semantic-ui-react'
 
 // receives error message and error body as props
-const Error = ({errorMessage, errorBody}) => {
-    const [message, setMessage] = useState(errorMessage)
-    const [body, setBody] = useState(errorBody)
-
+const Error = ({header, body}) => {
     /* Styling */
     const errorStyle = {
       textAlign: "center",
@@ -15,7 +12,7 @@ const Error = ({errorMessage, errorBody}) => {
 
 return (
 <Message negative style={errorStyle} size='small' >
-        <Message.Header>{message}</Message.Header>
+        <Message.Header>{header}</Message.Header>
           <p>{body}</p>
     </Message>
 );
