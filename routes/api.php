@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -92,3 +93,12 @@ Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingControl
 //feedback
 Route::post('/feedback', [FeedbackController::class, 'store']);
 Route::get('/feedback', [FeedbackController::class, 'index']);
+
+//reports
+Route::post('/report', [ReportController::class, 'store']);
+
+//reports - admin protected
+Route::middleware('auth:sanctum', 'admin:api')->get('/reports', [ReportController::class, 'index']);
+Route::middleware('auth:sanctum', 'admin:api')->get('/reports/{reportid}', [ReportController::class, 'show']);
+Route::middleware('auth:sanctum', 'admin:api')->delete('/report', [ReportController::class, 'destroy']);
+
