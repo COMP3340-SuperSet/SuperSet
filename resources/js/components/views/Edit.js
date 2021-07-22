@@ -18,6 +18,13 @@ function Edit() {
     const [openForm, setOpenForm] = useState(true);
 
     useEffect(() => {
+        let setid = new URL(window.location.href).searchParams.get("setid");
+        axios.get(`/api/sets/${setid}`).then((response) => {
+            setSet(response.data);
+        }).catch((error) => {
+            console.error("Error: " + error);
+        });
+
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
         });
@@ -25,6 +32,7 @@ function Edit() {
 
     useEffect(() => {
         console.log('current items list', items);
+        console.log('current set', set);
     }, [currentUser, set, items, selectedItem]);
 
     //todo: dont allow item to submit if item with same name already exists in set
