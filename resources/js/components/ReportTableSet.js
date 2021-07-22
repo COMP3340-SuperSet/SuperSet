@@ -54,7 +54,7 @@ const ReportTableSet = () => {
         );
     })
 
-    return(
+    return (
         <div>
             <Table stackable basic='very' celled fixed>
                 {renderedSetReports}

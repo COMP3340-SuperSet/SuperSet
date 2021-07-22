@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useImperativeHandle } from "react";
-import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Input, Icon } from 'semantic-ui-react';
+import React, { useState, useEffect } from "react";
+import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Icon } from 'semantic-ui-react';
+
 import { redirect } from "../utils/redirect";
 
 import { getImagePath } from "../utils/imagePath";
-
 import Confirmation from "./Confirmation";
-
 import tmp_pic from "../../images/pfp_placeholder.png";
-import { uploadFile } from "../services/fileUpload";
-import axios from "axios";
 import { toast } from "./Toast";
 
 const UserSettings = ({ userInfo }) => {
@@ -94,18 +91,18 @@ const UserSettings = ({ userInfo }) => {
 
     const onDeleteAccount = async () => {
         axios.post('/api/password', {
-            userid: userInfo.userid, 
+            userid: userInfo.userid,
             password: delPass
         }).then(response => {
-            let passwordGood =  response.data.result;
+            let passwordGood = response.data.result;
             console.log('From Password Test: ', passwordGood);
-            if (passwordGood){
+            if (passwordGood) {
                 axios.post(`/api/delete/user/`, {
                     userid: userInfo.userid
                 }).then(() => {
                     redirect('/');
                 });
-            } else{ toast("Incorrect password!", "error"); }
+            } else { toast("Incorrect password!", "error"); }
         }).catch(error => {
             console.error(error);
             toast("Something went wrong. Please try again", "error");
@@ -115,8 +112,8 @@ const UserSettings = ({ userInfo }) => {
     return (
         <Container>
             <Segment padded>
-                <Header as='h1' textAlign="center" style = {{margin: "10px 0"}}>Settings</Header>
-                <Form style = {{margin: "30px 0"}}>
+                <Header as='h1' textAlign="center" style={{ margin: "10px 0" }}>Settings</Header>
+                <Form style={{ margin: "30px 0" }}>
                     <Grid container stackable>
                         <Grid.Row>
                             <Grid.Column width={5} verticalAlign="middle">
@@ -125,11 +122,11 @@ const UserSettings = ({ userInfo }) => {
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
                                     <Button className="pfp-upload-button" id="pfp-upload-button"><label htmlFor="pfp-upload" className="pfp-upload-label">Upload</label></Button>
                                     <input id="pfp-upload" onChange={onImageInput} hidden type="file" accept=".jpg, .jpeg, .png" />
-                                    <Confirmation trigger = {<Button color = "red" icon><Icon name = "trash" /></Button>} 
-                                                  text = "Delete profile picture?" 
-                                                  onConfirm = {() => {onDeleteImage()}}
-                                                  confirmText = "Delete" 
-                                                  inline />
+                                    <Confirmation trigger={<Button color="red" icon><Icon name="trash" /></Button>}
+                                        text="Delete profile picture?"
+                                        onConfirm={() => { onDeleteImage() }}
+                                        confirmText="Delete"
+                                        inline />
                                 </div>
                             </Grid.Column>
                             <Grid.Column width={11}>
@@ -153,7 +150,7 @@ const UserSettings = ({ userInfo }) => {
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
                                 <Button color="green" onClick={onSubmit}>Save</Button>
-                                <Button onClick = {() => redirect('/user', [{key: "id", value: userInfo.userid}])}>Back to profile</Button>
+                                <Button onClick={() => redirect('/user', [{ key: "id", value: userInfo.userid }])}>Back to profile</Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -161,24 +158,24 @@ const UserSettings = ({ userInfo }) => {
 
                 <Divider />
 
-                <Segment  compact style = {{margin: "20px auto 0 auto"}}>
-                    {(toggleDel) ? (<Button color = "red" onClick = {() => {setToggleDel(false)}}>Delete Account</Button>) : 
-                                (<Form>
-                                    <Form.Group style = {{justifyContent: "center", marginBottom: "0"}}>
-                                        <Form.Field required
-                                                    control = "input" type = "password"
-                                                    placeholder = "Confirm your password"
-                                                    value = {delPass}
-                                                    onChange = {(e) => {setDelPass(e.target.value)}} />  
+                <Segment compact style={{ margin: "20px auto 0 auto" }}>
+                    {(toggleDel) ? (<Button color="red" onClick={() => { setToggleDel(false) }}>Delete Account</Button>) :
+                        (<Form>
+                            <Form.Group style={{ justifyContent: "center", marginBottom: "0" }}>
+                                <Form.Field required
+                                    control="input" type="password"
+                                    placeholder="Confirm your password"
+                                    value={delPass}
+                                    onChange={(e) => { setDelPass(e.target.value) }} />
 
-                                        <Confirmation trigger = {<Button color = "red">Confirm</Button>} 
-                                                    text = "Are you sure you would like to delete your account? This action cannot be undone." 
-                                                    confirmText = "Delete"
-                                                    onConfirm = {() => {onDeleteAccount()}} />
-                                    
-                                        <Button onClick = {() => {setToggleDel(true); setDelPass("");}}>Cancel</Button>
-                                    </Form.Group>
-                                </Form>)}
+                                <Confirmation trigger={<Button color="red">Confirm</Button>}
+                                    text="Are you sure you would like to delete your account? This action cannot be undone."
+                                    confirmText="Delete"
+                                    onConfirm={() => { onDeleteAccount() }} />
+
+                                <Button onClick={() => { setToggleDel(true); setDelPass(""); }}>Cancel</Button>
+                            </Form.Group>
+                        </Form>)}
                 </Segment>
             </Segment>
         </Container>

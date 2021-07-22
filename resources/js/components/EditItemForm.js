@@ -6,6 +6,8 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
   const [images, setImages] = useState([]);
+  const [suggestedImages, setSuggestedImages] = useState([]);
+  const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }, [selectedItem]);
 
   //rerender when the image list changes
-  useEffect(() => {}, [images]);
+  useEffect(() => { }, [images]);
 
   //when the 'clear' button is clicked, clear the form
   const onClear = () => {
@@ -51,17 +53,21 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
     document.getElementById('file').click();
   }
 
-  const renderedImages = images.map((image, index) => {
+  let renderedImages = images.map((image, index) => {
     const url = URL.createObjectURL(image);
     return (
       <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
-        <Image bordered 
-        className="grid-image"
-        src={url}
-        onClick={() => setSelectedImage(url)} />
+        <Image bordered
+          className="grid-image"
+          src={url}
+          onClick={() => setSelectedImage(url)} />
         <Button fluid size='mini'>Mini</Button>
       </Grid.Column>
     );
+  });
+
+  renderedImages += suggestedImages.map((image, index) => {
+    //custom logic for recommended images
   });
 
   return (
@@ -104,9 +110,9 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             images && images.length
               ?
               <Grid centered stackable doubling
-              columns="6"
-              style={{ margin: '0.25rem' }}>
-                  {renderedImages}
+                columns="6"
+                style={{ margin: '0.25rem' }}>
+                {renderedImages}
               </Grid>
               :
               null
@@ -115,7 +121,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Button basic onClick={() => onClear()}>Clear</Button>
         <Button floated="right" primary onClick={() => onSubmit()}>Save</Button>
       </Form>
-      <ImageOverlay imageURL={selectedImage} setImageURL={setSelectedImage}/>
+      <ImageOverlay imageURL={selectedImage} setImageURL={setSelectedImage} />
     </div >
   );
 }

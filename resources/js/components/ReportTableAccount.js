@@ -34,7 +34,7 @@ const ReportTableAccount = () => {
         return(
             <Table.Row key={account.reportid} className='ss-reporttableitem-row'>
                 <Table.Cell width={14}>
-                    <Image src={account.accountImage} inline rounded size='small' className='ss-reporttableitem-image'/>
+                    <Image src={account.accountImage} inline rounded size='small' className='ss-reporttableitem-image' />
                     <Header as='h2' image className='ss-reporttableitem-header'>
                         <Header.Content style={{margin:'10px'}}>
                             Place Account Name Here
@@ -54,7 +54,7 @@ const ReportTableAccount = () => {
         );
     })
 
-    return(
+    return (
         <div>
             <Table stackable basic='very' celled fixed>
                 {renderedAccountReports}

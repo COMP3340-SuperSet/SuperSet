@@ -4,7 +4,6 @@ import { Form, Button, Grid } from 'semantic-ui-react';
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
-import { toast } from './Toast';
 import ErrorMessage from './ErrorMessage';
 
 const LoginForm = () => {

@@ -3,7 +3,6 @@ import { Form, Button, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import { storeToken } from '../utils/localStorage';
 import { redirect } from '../utils/redirect';
-import { referer } from '../utils/redirect';
 import ErrorMessage from './ErrorMessage';
 
 const RegisterForm = () => {

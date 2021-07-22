@@ -55,7 +55,7 @@ const ReportTableItem = () => {
         );
     })
 
-    return(
+    return (
         <div>
             <Table stackable basic='very' celled fixed>
                 {renderedItemReports}
