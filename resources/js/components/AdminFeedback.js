@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Table, Header, Button} from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Table, Header, Button } from 'semantic-ui-react';
 import "../../css/AdminFeedback.css";
 
 
@@ -36,62 +36,57 @@ const TableInfo = [
     }
 ];
 
-function getContact(userFeedback, toggleView)
-{
+function getContact(userFeedback, toggleView) {
     let count = 0;
-    if(toggleView)
-    {
+    if (toggleView) {
         const renderedUserFeedback = userFeedback.map((feedback) => {
-            if(feedback.contact && !(feedback.email ===""))
-            {
+            if (feedback.contact && !(feedback.email === "")) {
                 count++;
                 console.log(count);
-                return(
+                return (
                     <Table.Row key={count} className='ss-adminfeedback-row'>
                         <Table.Cell width={14}>
                             <Header as='h2' className='ss-reporttableitem-header'>
-                                <Header.Content style={{margin:'10px'}}>
+                                <Header.Content style={{ margin: '10px' }}>
                                     {feedback.email}
-                                    <Header.Subheader>Contact: True <br/>Feedback Content: {feedback.content}</Header.Subheader>
+                                    <Header.Subheader>Contact: True <br />Feedback Content: {feedback.content}</Header.Subheader>
                                 </Header.Content>
                             </Header>
                         </Table.Cell>
                         <Table.Cell textAlign='center'>
-                            <Button.Group vertical>  
-                                <Button color='blue' content='Send E-mail'/>
-                                <Button color='red' content='Delete Feedback'/>
+                            <Button.Group vertical>
+                                <Button color='blue' content='Send E-mail' />
+                                <Button color='red' content='Delete Feedback' />
                             </Button.Group>
                         </Table.Cell>
                     </Table.Row>
                 );
             }
-            else
-            {
+            else {
                 return '';
             }
         })
 
         return renderedUserFeedback;
     }
-    else
-    {
-        
+    else {
+
         const renderedUserFeedback = userFeedback.map((feedback) => {
             count++;
             console.log(count);
-            return(
+            return (
                 <Table.Row key={count} className='ss-adminfeedback-row'>
                     <Table.Cell width={14}>
                         <Header as='h2' className='ss-reporttableitem-header'>
-                            <Header.Content style={{margin:'10px'}}>
+                            <Header.Content style={{ margin: '10px' }}>
                                 {feedback.email}
                                 <Header.Subheader>Feedback Content: {feedback.content}</Header.Subheader>
                             </Header.Content>
                         </Header>
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
-                        <Button.Group vertical>  
-                            <Button color='red' content='Delete Feedback'/>
+                        <Button.Group vertical>
+                            <Button color='red' content='Delete Feedback' />
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
@@ -102,19 +97,19 @@ function getContact(userFeedback, toggleView)
 }
 
 
-const AdminFeedback = ({allFeedback}) => {
-    
+const AdminFeedback = ({ allFeedback }) => {
+
     const [userFeedback, setUserFeedback] = useState(TableInfo);
     const [toggleView, setToggleView] = useState(false);
 
     const renderedUserFeedback = getContact(userFeedback, toggleView);
 
-    return(
-        
+    return (
+
         <div className="ss-feedback-divadmin">
-                <Button className='ss-feedback-togglebutton' onClick={() => {setToggleView(!toggleView)}}>
-                    Filter by Contact
-                </Button>
+            <Button className='ss-feedback-togglebutton' onClick={() => { setToggleView(!toggleView) }}>
+                Filter by Contact
+            </Button>
             <Table stackable basic='very' celled fixed>
                 {renderedUserFeedback}
             </Table>

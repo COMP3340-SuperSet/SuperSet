@@ -10,9 +10,9 @@ function Set() {
     const [set, setSet] = useState(null);
     const [setItems, setSetItems] = useState([]);
 
-    const [currentUser, setCurrentUser] = useState(null);    
+    const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() =>{        
+    useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/sets/${setid}`).then((response) => {
             setSet(response.data);
@@ -31,13 +31,13 @@ function Set() {
         });
     }, []);
 
-    useEffect(() =>{}, [set, setItems]);
-    useEffect(() =>{}, [currentUser]);
-    
+    useEffect(() => { }, [set, setItems]);
+    useEffect(() => { }, [currentUser]);
+
     return (
         <div>
-            <Header currentUser = {currentUser} />
-            <SetView set = {set} items = {setItems} currentUser = {currentUser} />
+            <Header currentUser={currentUser} />
+            <SetView set={set} items={setItems} currentUser={currentUser} />
             <Toast />
         </div>
     );
