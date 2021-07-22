@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Image, Grid, Segment } from 'semantic-ui-react';
 import ImageOverlay from './ImageOverlay';
+import SuggestedImages from './SuggestedImages';
 
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
@@ -61,7 +62,6 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
           className="grid-image"
           src={url}
           onClick={() => setSelectedImage(url)} />
-        <Button fluid size='mini'>Mini</Button>
       </Grid.Column>
     );
   });
@@ -93,13 +93,14 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Form.Field>
           <label>Images</label>
           <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
-            <Button basic onClick={() => onClickAddFiles()}>Add</Button>
+            <Button basic onClick={() => onClickAddFiles()} style={{padding: '0.5rem 1rem', marginRight: '1rem'}}>Add</Button>
             {
               images && images.length
                 ? <p>{images.length} Images Selected</p>
                 : <p>No Images Selected</p>
             }
           </Segment>
+          <SuggestedImages term={name}/>
           <input multiple hidden
             type="file"
             id="file"
