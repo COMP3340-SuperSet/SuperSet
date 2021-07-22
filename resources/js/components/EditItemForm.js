@@ -53,7 +53,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
     document.getElementById('file').click();
   }
 
-  const renderedImages = images.map((image, index) => {
+  let renderedImages = images.map((image, index) => {
     const url = URL.createObjectURL(image);
     return (
       <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>

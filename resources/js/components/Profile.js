@@ -19,7 +19,7 @@ const LIST_MODE = false;
 const CreateNewSet = (userid, name) => {
     axios.post('/api/set', { userid, name }).then(response => {
         console.log(response.data);
-        redirect('/edit/', [{key: 'setid', value: '1'}]);
+        redirect('/edit', [{key: 'setid', value: '1'}]);
     }).catch(error => {
         console.error(error);
     });
