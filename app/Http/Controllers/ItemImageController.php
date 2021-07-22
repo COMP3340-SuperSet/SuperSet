@@ -49,6 +49,11 @@ class ItemImageController extends Controller
         return ItemImage::find($imageid);
     }
 
+    public function getImages($itemid)
+    {
+        return ItemImage::where('itemid', '=', $itemid)->get();
+    }
+
     public function update(Request $request)
     {
         $imageid = $request->imageid;

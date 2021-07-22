@@ -67,8 +67,8 @@ Route::middleware('auth:sanctum', 'owner')->post('/item', [ItemController::class
 Route::middleware('auth:sanctum', 'owner')->delete('/item', [ItemController::class, 'destroyItem']);
 
 //setImage
-Route::get('/setImages', [SetImageController::class, 'index']);
-Route::get('/setImages/{imageid}', [SetImageController::class, 'show']);
+Route::get('/set/image/{imageid}', [SetImageController::class, 'show']);
+Route::get('/set/{setid}/images', [SetImageController::class, 'getImages']);
 
 //setImage - protected
 Route::middleware('auth:sanctum', 'owner')->put('/setImage', [SetImageController::class, 'update']);
@@ -76,8 +76,8 @@ Route::middleware('auth:sanctum', 'owner')->post('/setImage', [SetImageControlle
 Route::middleware('auth:sanctum', 'owner')->delete('/setImage', [SetImageController::class, 'destroySetImage']);
 
 //itemImage 
-Route::get('/itemImages', [ItemImageController::class, 'index']);
-Route::get('/itemImages/{imageid}', [ItemImageController::class, 'show']);
+Route::get('/item/images/{imageid}', [ItemImageController::class, 'show']);
+Route::get('/item/{itemid}/images', [ItemImageController::class, 'getImages']);
 
 //itemImage - protected
 Route::middleware('auth:sanctum', 'owner')->put('/itemImage', [ItemImageController::class, 'update']);
