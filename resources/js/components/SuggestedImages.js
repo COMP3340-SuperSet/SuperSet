@@ -16,7 +16,6 @@ const SuggestedImages = ({ term }) => {
 
     //rerender the component when new images are retrieved
     useEffect(() => {
-        console.error('images updated: ', images);
         setLoading(false);
     }, [images]);
 
@@ -27,11 +26,10 @@ const SuggestedImages = ({ term }) => {
         const getImages = () => {
             axios.get('https://api.unsplash.com/search/photos', {
                 headers: {
-                    Authorization: 'Client-ID fO9y0O3l6QVgv1XtEbfkegc_2CZl92enazQs9ayMzTs'
+                    Authorization: `Client-ID ${process.env.MIX_REACT_APP_UNSPLASH_PUBLIC}`
                 },
                 params: { query }
             }).then(response => {
-                console.log(response.data.results);
                 const tempResults = response.data.results.map(result => {
                     return result.urls.full;
                 });
