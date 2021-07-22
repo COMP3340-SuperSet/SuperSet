@@ -16,9 +16,13 @@ import { toast } from "./Toast.js";
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-const CreateNewSet = (name) => {
-    //send new set to database and get id
-    //redirect("/set", [{key: "id", value: newsetid}]);
+const CreateNewSet = (userid, name) => {
+    axios.post('/api/set', { userid, name }).then(response => {
+        console.log(response.data);
+        redirect('/edit/', [{key: 'setid', value: '1'}]);
+    }).catch(error => {
+        console.error(error);
+    });
 }
 
 const SetsDisplay = ({displayMode, setInfo}) => {
@@ -116,7 +120,7 @@ const Profile = ({userInfo, userSets, currentUser}) => {
                                     </Form.Field></Form>
                                 </Modal.Content>
                                 <Modal.Actions>
-                                    <Button onClick = {() => { CreateNewSet(newSetName); setModalOpen(false); }} positive>Create</Button>
+                                    <Button onClick = {() => { CreateNewSet(userInfo.userid, newSetName); setModalOpen(false); }} positive>Create</Button>
                                     <Button onClick = {() => setModalOpen(false)} negative >Cancel</Button>
                                 </Modal.Actions>
                     </Modal>}
