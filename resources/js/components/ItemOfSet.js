@@ -1,5 +1,4 @@
-import { Item, Button, Icon } from "semantic-ui-react";
-import React, { useState } from 'react';
+import React from 'react';
 
 const ItemOfSet = () => {
   return (

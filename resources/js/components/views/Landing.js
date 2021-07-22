@@ -8,18 +8,18 @@ import InstructionsCarousel from '../InstructionsCarousel';
 function Landing() {
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
         });
     }, []);
 
-    useEffect(() =>{}, [currentUser]);
+    useEffect(() => { }, [currentUser]);
 
     return (
         <div>
-            <Header currentUser = {currentUser}/>
-            <InstructionsCarousel images={[]}/>
+            <Header currentUser={currentUser} />
+            <InstructionsCarousel images={[]} />
         </div>
     );
 }

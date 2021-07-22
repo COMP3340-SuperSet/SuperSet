@@ -8,9 +8,9 @@ function Feedback() {
 
     return (
         <div>
-            <Header currentUser = {null}/>
+            <Header currentUser={null} />
             <FeedbackForm />
-            <Toast/>
+            <Toast />
         </div>
     );
 }

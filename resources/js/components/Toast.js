@@ -23,22 +23,22 @@ const defaultOptions = {
  * toast(message, type): Toast with theme = type, default options
  * toast(message, type, options): Custom message and theme. options overwrites and adds to defaultOptions object.
  */
- export function toast(message, type, options) {
-    if(!message){
-        console.error('Cannot create Toast without a message');  
+export function toast(message, type, options) {
+    if (!message) {
+        console.error('Cannot create Toast without a message');
         return;
     }
 
     //if type is empty or invalid, defaults to dark
-    if(!type || !t[type]) type = 'dark';
+    if (!type || !t[type]) type = 'dark';
 
     //overwrites default options with any input by user
-    const tempOptions = {...defaultOptions};
+    const tempOptions = { ...defaultOptions };
 
-    if(options){
+    if (options) {
         const keys = [...Object.keys(options)];
 
-        for(let i = 0; i < keys.length; i++){
+        for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             tempOptions[keys] = options[key];
         }

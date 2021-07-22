@@ -10,8 +10,8 @@ function User() {
     const [user, setUser] = useState(null);
     const [userSets, setUserSets] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
-    
-    useEffect(() =>{
+
+    useEffect(() => {
         let userid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/user/${userid}`).then((response) => {
             setUser(response.data);
@@ -19,7 +19,7 @@ function User() {
         }).catch((error) => {
             console.error("User Error: " + error);
         });
-        
+
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
             //console.log("Sets retrieved: " + JSON.stringify(response));
@@ -33,18 +33,18 @@ function User() {
         });
     }, []);
 
-    useEffect(() =>{ 
+    useEffect(() => {
         //console.log("User from useeffect:", user );
     }, [user, userSets]);
 
-    useEffect(() =>{
+    useEffect(() => {
         //console.log("[From User useEffect] User logged in: " + JSON.stringify(currentUser));
     }, [currentUser]);
 
     return (
         <div>
-            <Header currentUser = {currentUser}/>
-            <Profile userInfo = {user} userSets = {userSets} currentUser = {currentUser} />
+            <Header currentUser={currentUser} />
+            <Profile userInfo={user} userSets={userSets} currentUser={currentUser} />
             <Toast />
         </div>
     );

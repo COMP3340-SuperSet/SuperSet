@@ -8,17 +8,17 @@ import AdminPages from '../AdminPages';
 function Admin() {
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
         });
     }, []);
 
-    useEffect(() =>{}, [currentUser]);
+    useEffect(() => { }, [currentUser]);
 
     return (
         <div>
-            <Header currentUser = {currentUser}/>
+            <Header currentUser={currentUser} />
             <AdminPages />
         </div>
     );

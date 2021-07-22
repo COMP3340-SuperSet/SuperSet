@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 
-import FileUpload from '../FileUpload';
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
