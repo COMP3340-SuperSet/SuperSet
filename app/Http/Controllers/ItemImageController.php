@@ -58,6 +58,11 @@ class ItemImageController extends Controller
         return $itemImage;
     }
 
+    public function getImages($itemid)
+    {
+        return ItemImage::where('itemid', '=', $itemid)->get();
+    }
+
     public static function destroyItemImage(Request $request)
     {
         $imageid = $request->imageid;
