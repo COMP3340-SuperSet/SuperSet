@@ -3,20 +3,18 @@ import React, { useState } from 'react';
 import { Modal, Button, Grid, Form, TextArea } from "semantic-ui-react";
 import "../../css/BanModal.css";
 
-const BanModal = ({ trigger, userid }) => {
+const BanModal = ({ trigger, userid, reportid }) => {
 
     // Use to determine when the modal is open or closed  
     const [open, setOpen] = useState(false);
 
     const [banReason, setBanReason] = useState('');
 
-    const submitBanReason = (userid) => {
+    const submitBanReason = (userid, reportid) => {
         setOpen(false);
-        axios.post(`/api/delete/user`, 
-        {
-            userid: userid,
-            banUser: true
-        }).then().catch()
+        axios.post(`/api/delete/report`,{reportid: reportid})
+
+        axios.post(`/api/delete/user`, {userid: userid, banUser: true})
     }
 
     return (
@@ -45,7 +43,7 @@ const BanModal = ({ trigger, userid }) => {
 
             <Modal.Actions>
                 <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid)}> Ban Account </Button>
+                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
             </Modal.Actions>
         </Modal>
     );

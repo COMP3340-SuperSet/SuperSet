@@ -19,12 +19,11 @@ function getReportedUser(users, reports){
         {
             users.forEach(user => {
                 if(report.resourceid == user.userid){
-                    console.log(user.imageid);
                     tempArray.push(
                         {
                             reportid: report.reportid,
                             userid: user.userid, 
-                            imageid: (user.imageid != null) ? user.imageid : tmp_pic, 
+                            imageid: tmp_pic, 
                             username: user.username, 
                             bio: user.bio
                         });
@@ -48,7 +47,7 @@ function getReportedUser(users, reports){
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
                             <Button color='red' content='Delete Report' onClick={()=>{onReportDelete(reportInformation.reportid)}}/>
-                            <BanModal userid={reportInformation.userid} trigger={<Button color='red' content='Ban Account'/>}/>
+                            <BanModal userid={reportInformation.userid} reportid={reportInformation.reportid} trigger={<Button color='red' content='Ban Account'/>}/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
@@ -61,24 +60,26 @@ const ReportTableAccount = () => {
     const [reports, setReports] = useState([]);
     const [users, setUsers] = useState([]);
 
+    useEffect(()=>{}, [reports, users]);
+
     useEffect(()=>
     {
         axios.get(`/api/reports`).then((response)=>{
             setReports(response.data);
         })
-
         axios.get(`/api/users`).then((response)=>{
             setUsers(response.data);
         })
     }, []);
-
 
     const renderedAccountReports = getReportedUser(users, reports);
 
     return (
         <div>
             <Table stackable basic='very' celled fixed>
-                {renderedAccountReports}
+                <thead>
+                    {renderedAccountReports}
+                </thead>
             </Table>
         </div>
     );

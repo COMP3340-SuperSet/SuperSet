@@ -18,7 +18,7 @@ function getReportedItems(items, reports){
         if(report.type == 2)
         {
             items.forEach(item => {
-                if(report.resourceid == item.itemid){tempArray.push({reportid: report.reportid,itemid: item.itemid, name: item.name, description: item.description});
+                if(report.resourceid == item.itemid){tempArray.push({reportid: report.reportid, setid: item.setid,itemid: item.itemid, name: item.name, description: item.description});
             }})
         }});
 
@@ -39,7 +39,7 @@ function getReportedItems(items, reports){
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
                             <Button color='red' content='Delete Report' onClick={()=>{onReportDelete(reportInformation.reportid)}}/>
-                            <BanModal trigger={<Button color='red' content='Ban Account'/>}/>
+                            <BanModal reportid={reportInformation.reportid} trigger={<Button color='red' content='Ban Account'/>}/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
@@ -51,6 +51,7 @@ const ReportTableItem = () => {
 
     const [reports, setReports] = useState([]);
     const [items, setItems] = useState([]);
+    const [sets, setSets] = useState([]);
     
     useEffect(()=>
     {
@@ -61,6 +62,10 @@ const ReportTableItem = () => {
             axios.get(`/api/items`).then((response)=>{
                 setItems(response.data);
             })
+
+            axios.get(`/api/items`).then((response)=>{
+                setItems(response.data);
+            })
         }, []);
 
     const renderedItemReports = getReportedItems(items, reports);
@@ -68,7 +73,9 @@ const ReportTableItem = () => {
     return (
         <div>
             <Table stackable basic='very' celled fixed>
-                {renderedItemReports}
+                <thead>
+                    {renderedItemReports}
+                </thead>
             </Table>
         </div>
     );

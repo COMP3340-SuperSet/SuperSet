@@ -8,10 +8,10 @@ import ReportTable from "./ReportLog";
 const AdminPages = () => {
 
     const panes = [
-        { menuItem: 'View Instructions', render: () => <Tab.Pane><AdminInstructions /></Tab.Pane> },
-        { menuItem: 'View Statistics', render: () => <Tab.Pane><StatisticsPage /></Tab.Pane> },
-        { menuItem: 'View Reports', render: () => <Tab.Pane><ReportTable /></Tab.Pane> },
-        { menuItem: 'View Feedback', render: () => <Tab.Pane><AdminFeedback allFeedback={[]} /></Tab.Pane> }
+        { menuItem: 'View Instructions', render: () => <Tab.Pane><AdminInstructions/></Tab.Pane> },
+        { menuItem: 'View Statistics', render: () => <Tab.Pane><StatisticsPage/></Tab.Pane> },
+        { menuItem: 'View Reports', render: () => <Tab.Pane><ReportTable/></Tab.Pane> },
+        { menuItem: 'View Feedback', render: () => <Tab.Pane><AdminFeedback/></Tab.Pane> }
     ]
 
     return (

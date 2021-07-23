@@ -17,17 +17,10 @@ function onFeedbackDelete(feedbackid)
     axios.post('/api/delete/feedback', {feedbackid}).then(response=>{}).catch(err=>console.log(err));
 }
 
-function onContact(email)
-{
-    // Logic to send e-mail to user
-}
-
 function getContact(userFeedback, toggleView)
 {
-    console.log(userFeedback.length);
     if(userFeedback.length != 0)
     {
-        console.log("In If Statement");
         if(toggleView)
         {
             const renderedUserFeedback = userFeedback.map((feedback) => {
@@ -49,7 +42,6 @@ function getContact(userFeedback, toggleView)
                             </Table.Cell>
                             <Table.Cell textAlign='center'>
                                 <Button.Group vertical>  
-                                    <Button color='blue' content='Send E-mail' onClick={()=>{onContact(feedback.email)}}/>
                                     <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
                                 </Button.Group>
                             </Table.Cell>
