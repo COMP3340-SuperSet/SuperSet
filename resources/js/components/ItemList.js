@@ -31,12 +31,8 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
   else renderedList = items.map(item => {
     if (!item) return;
     return (
-      // <Table.Cell textAlign="center"><Button icon onClick={() => { onEdit(item) }}><Icon name="edit"></Icon></Button></Table.Cell>
-      // <Table.Cell textAlign="center"><Button icon onClick={() => { onDelete(item) }}><Icon name="trash"></Icon></Button></Table.Cell>
-      <List.Item
-        className="hoverable"
-        key={item.name}
-      >
+      <List.Item className="hoverable"
+                key={item.name} >
         <List.Content floated='right'>
           <Button icon onClick={() => { onEdit(item) }}><Icon name="edit"></Icon></Button>
           <Button icon onClick={() => { onDelete(item) }}><Icon name="trash"></Icon></Button>

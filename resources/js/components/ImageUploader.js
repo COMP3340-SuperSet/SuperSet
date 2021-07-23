@@ -4,7 +4,7 @@ import ImageOverlay from './ImageOverlay';
 
 import { getImagePath } from '../utils/imagePath';
 
-const ImageUploader = ({ images, updateImages }) => {
+const ImageUploader = ({ inputid = "file", images, updateImages, onDeleteImage }) => {
     const [overlayImage, setOverlayImage] = useState(null);
 
     const onFileChange = (event) => {
@@ -12,11 +12,12 @@ const ImageUploader = ({ images, updateImages }) => {
     }
     
     const onClickAddFiles = () => {
-        document.getElementById('file').click();
+        document.getElementById(inputid).click();
     }
     
     console.log("Images :", images);
     let renderedImages = images.map((image, index) => {
+        if (!image) return;
         let url;
         if ("imageid" in image) url = getImagePath('set', image.imageid);
         else url = URL.createObjectURL(image.payload);
@@ -26,23 +27,29 @@ const ImageUploader = ({ images, updateImages }) => {
                     className="grid-image"
                     src={url}
                     onClick={() => setOverlayImage(url)} />
+                <Button icon onClick = {() => {onDeleteImage(image.id)}} attached = "bottom" color = "red"><Icon name = "trash"/></Button>
             </Grid.Column>
         );
     });
+
+    let imageCount = 0;
+    for (let i = 0; i < images.length; i++){
+        if (images[i]) imageCount++;
+    }
 
     return (
         <div>
             <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
                 <Button basic onClick={() => onClickAddFiles()}>Add</Button>
                 {
-                    images && images.length
-                        ? <p>{images.length} Images Selected</p>
+                    images && imageCount > 0
+                        ? <p>{imageCount} Images Selected</p>
                         : <p>No Images Selected</p>
                 }
             </Segment>
             <input multiple hidden
                 type="file"
-                id="file"
+                id={inputid}
                 name="file"
                 accept="image/*"
                 onChange={(e) => onFileChange(e)} />

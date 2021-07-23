@@ -18,14 +18,7 @@ function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
 
-    const [itemidCounter, setItemidCounter] = useState(1);
-    const [itemidHash, setItemidHash] = useState({});
-    
-    const [items, setItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
-
-    const [setImages, setSetImages] = useState([]);
-    const [itemImages, setItemImages] = useState([]);
 
     const [itemEnt, setItemEnt] = useState(ent);    
     const [setImagesEnt, setSetImagesEnt] = useState(ent); 
@@ -139,6 +132,14 @@ function Edit() {
         setEnt(tempEnt);
     }
 
+    function count (ent){
+        let count = 0;
+        for(let i = 0; i < ent.elements.length; i++){
+            if(ent.elements[i]) count++;
+        }
+        return count;
+    }
+
     function deleteEnt(ent, setEnt, hashid) {
         const tempEnt = {...ent};
         tempEnt.elements[hashid] = null;
@@ -208,30 +209,7 @@ function Edit() {
     const onDeleteItem = (item) => {
         deleteEnt(itemEnt, setItemEnt, item.id);
     }
-
-    const onSubmitSetImages = () => {
-
-    }
-
-    const onDeleteSetImages = () => {
-
-    }
-
-    const onSubmitItemImages = (hashId, newItemImages) => {
-        /*let temp = null;
-        if (itemidHash[hashId]) temp = [...itemImages.filter((image) => image.itemid != itemidHash[hashId])];
-        else temp = [...itemImages];*/
-
-    }
-
-    const onDeleteItemImages = (images) => {
-
-    }
-
-    const findIndex = (hashid) => {
-        return items.findIndex((item) => item && item.hashid && item.hashid === hashid);
-    }
-
+    
     const onSubmitSet = () => {
         console.log("Submitting:", decode(itemEnt));
     }
@@ -242,9 +220,7 @@ function Edit() {
 
     return (
         <div>
-
             <Header currentUser={currentUser} />
-
             <Grid centered container>
                 <Grid.Column>
                     <SetDetails set={set} updateSet={setSet}
@@ -261,8 +237,8 @@ function Edit() {
                                 selectedItem={selectedItem}
                                 setSelectedItem={item => setSelectedItem(item)}
                                 onSubmitItem={onSubmitItem} 
-                                itemImages={itemImages}
-                                setItemImages={itemImages => setSelectedItemImages(itemImages)}/>
+                                itemImages={itemImagesEnt}
+                                setItemImagesEnt={setItemImagesEnt}/>
                         </Accordion.Content>
                     </Accordion>
                     <ItemList

@@ -37,6 +37,13 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
     return tempCount;
   }
 
+  function deleteEnt(ent, setEnt, hashid) {
+      const tempEnt = {...ent};
+      tempEnt.elements[hashid] = null;
+      tempEnt.hash[hashid] = null;
+      setEnt(tempEnt);
+  }
+
   const onChangeDescription = (event) => {
     event.preventDefault();
     setDescription(event.target.value);
@@ -62,9 +69,10 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
 
   const onUploadImages = (files) => {
     insertAsList(setImagesEnt, setSetImagesEnt, files);
-    /*files.forEach(file => {
-      insert(setImagesEnt, setSetImagesEnt, file);
-    });*/
+  }
+
+  const onDeleteImage = (id) => {
+    deleteEnt(setImagesEnt, setSetImagesEnt, id);
   }
 
   return (
@@ -95,7 +103,7 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
             ></textarea>
           </Form.Field>
         </Form>
-        <ImageUploader images={setImagesEnt.elements} updateImages={(files) => { onUploadImages(files) }} />
+        <ImageUploader images={setImagesEnt.elements} updateImages={onUploadImages} onDeleteImage = {onDeleteImage} />
       </Card.Content>
     </Card>
   );
