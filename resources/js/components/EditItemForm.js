@@ -5,7 +5,6 @@ import ImageUploader from './ImageUploader';
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem, itemImages, setItemImages }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
-  const [hashid, setHashid] = useState(selectedItem && selectedItem.hashid ? selectedItem.hashid : null);
 
   const [images, setImages] = useState([]);
 
@@ -20,15 +19,10 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem, itemImages,
       if (selectedItem.description) {
         setDescription(selectedItem.description);
       }
-      if (selectedItem.hashid) {
-        setHashid(selectedItem.hashid);
-        setImages(itemImages.filter(image => image.hashid == selectedItem.hashid));
-      }
     } else {
       setName('');
       setDescription('');
       setImages([]);
-      setHashid(null);
     }
   }, [selectedItem]);
 
@@ -40,22 +34,21 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem, itemImages,
   const onClear = () => {
     setName('');
     setDescription('');
-    setHashid(null);
     setSelectedItem(null);
     setImages([]);
   }
 
   const onSubmit = () => {
     const tempItem = {
-      hashid,
       name,
       description
     };
+    if (selectedItem && "id" in selectedItem) {
+      tempItem["id"] = selectedItem.id;
+    } 
     setName('');
     setDescription('');
-    setHashid(null);
-
-    onSubmitItem(tempItem, images);
+    onSubmitItem(tempItem);
   }
 
   return (

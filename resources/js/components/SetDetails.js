@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Form, Segment } from "semantic-ui-react";
+import ImageUploader from './ImageUploader';
 
-const SetDetails = ({ set = null, updateSet = () => {}, imageList = null, updateImageList = () => {} }) => {
+const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetImagesEnt }) => {
   const [name, setName] = useState((set && set.name) ? set.name : '');
   const [description, setDescription] = useState((set && set.description) ? set.description : '');
-
-  const [images, setImages] = useState((imageList) ? imageList : []);
 
   useEffect(() => {
     updateSet({
@@ -16,24 +15,27 @@ const SetDetails = ({ set = null, updateSet = () => {}, imageList = null, update
   }, [name, description]);
 
   useEffect(() => {
-    if (set){
+    if (set) {
       setName(set.name);
       setDescription(set.description);
     }
   }, [set]);
 
-  useEffect(() => {
-    updateImageList(
-      //image data
-      null
-    );
-  }, [images]);
+  function insertAsList(ent, setEnt, payloadList) {
+    const tempEnt = { ...ent };
 
-  useEffect(() => {
-    if (imageList){
-      setImages(imageList);
-    }
-  }, [imageList]);
+    payloadList.forEach(payload => {
+      tempEnt.elements[tempEnt.count] = {
+        id: tempEnt.count++,
+        payload
+      }
+    });
+
+    const tempCount = tempEnt.count - 1;
+
+    setEnt(tempEnt);
+    return tempCount;
+  }
 
   const onChangeDescription = (event) => {
     event.preventDefault();
@@ -57,18 +59,14 @@ const SetDetails = ({ set = null, updateSet = () => {}, imageList = null, update
     desc.style.height = height + 'px';
   }
 
-  let renderedImages = images.map((image, index) => {
-    const url = URL.createObjectURL(image);
-    return (
-      <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
-        <Image bordered
-          className="grid-image"
-          src={url}
-          onClick={() => setSelectedImage(url)} />
-      </Grid.Column>
-    );
-  });
-  
+
+  const onUploadImages = (files) => {
+    insertAsList(setImagesEnt, setSetImagesEnt, files);
+    /*files.forEach(file => {
+      insert(setImagesEnt, setSetImagesEnt, file);
+    });*/
+  }
+
   return (
     <Card fluid>
       <Card.Content>
@@ -84,7 +82,7 @@ const SetDetails = ({ set = null, updateSet = () => {}, imageList = null, update
           </Form.Field>
         </Form>
         <Form>
-          <Form.Field style = {{marginTop: "12px"}}>
+          <Form.Field style={{ marginTop: "12px" }}>
             <textarea
               style={{ border: 'none', resize: 'none', overflow: 'hidden', margin: 'none', padding: '0.25rem' }}
               spellCheck="false"
@@ -97,15 +95,7 @@ const SetDetails = ({ set = null, updateSet = () => {}, imageList = null, update
             ></textarea>
           </Form.Field>
         </Form>
-        <Segment style = {{marginTop: "12px"}}>
-          { (images && images.length > 0) ?
-              <Grid centered stackable doubling
-                columns="6"
-                style={{ margin: '0.25rem' }}>
-                {renderedImages}
-              </Grid> :
-              <p>No Images on display</p>}
-        </Segment>
+        <ImageUploader images={setImagesEnt.elements} updateImages={(files) => { onUploadImages(files) }} />
       </Card.Content>
     </Card>
   );

@@ -29,6 +29,7 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
     );
   }
   else renderedList = items.map(item => {
+    if (!item) return;
     return (
       // <Table.Cell textAlign="center"><Button icon onClick={() => { onEdit(item) }}><Icon name="edit"></Icon></Button></Table.Cell>
       // <Table.Cell textAlign="center"><Button icon onClick={() => { onDelete(item) }}><Icon name="trash"></Icon></Button></Table.Cell>

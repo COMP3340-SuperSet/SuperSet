@@ -8,21 +8,28 @@ import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
 import ItemList from '../ItemList';
 
+const ent = {
+    elements: [],
+    count: 0,
+    hash: []
+};
+
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
+    const [set, setSet] = useState(null);
 
     const [itemidCounter, setItemidCounter] = useState(1);
-
     const [itemidHash, setItemidHash] = useState({});
-    //const [setImageidHash, setSetImageidHash] = useState({});
-
-    const [set, setSet] = useState(null);
+    
     const [items, setItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
 
     const [setImages, setSetImages] = useState([]);
     const [itemImages, setItemImages] = useState([]);
-    const [selectedItemImages, setSelectedItemImages] = useState([]);
+
+    const [itemEnt, setItemEnt] = useState(ent);    
+    const [setImagesEnt, setSetImagesEnt] = useState(ent); 
+    const [itemImagesEnt, setItemImagesEnt] = useState(ent);   
 
     const [openForm, setOpenForm] = useState(true);
 
@@ -44,109 +51,170 @@ function Edit() {
 
         //item information
         axios.get(`/api/set/${setid}/items`).then((response) => {
-            //setItems(response.data);
-            let tmpItemidCounter = itemidCounter;
-            let tmpHashids = {};
-            let tmpItems = [];
-            response.data.forEach((item) => {
-                tmpHashids["" + tmpItemidCounter] = item.itemid;
-                item["hashid"] = tmpItemidCounter;
-                tmpItems.push(item);
-                tmpItemidCounter++;
+            let tmp = response.data;
+
+            const elems = [];
+            const hashes = [];
+
+            tmp.forEach(item => {
+                elems.push(item);
+                hashes.push(item.itemid);
             });
 
-            setItemidCounter(tmpItemidCounter);
-            setItemidHash(tmpHashids);
-            setItems(tmpItems);
+            elems.forEach((elem, index) => {
+                elem.id = index;
+            });
+
+            encode(itemEnt, setItemEnt, elems, hashes);
+
         }).catch((error) => {
             console.error("Items Error: " + error);
         });
 
         //set images
-        /*
+        
         axios.get(`/api/set/${setid}/images`).then((response) => {
-            let temp = response.data;
+            let tmp = response.data;
             
-            //loop through images and add hashids
+            const elems = [];
+            const hashes = [];
+
+            tmp.forEach(elem => {
+                elems.push(elem);
+                hashes.push(elem.setid);
+            });
+
+            elems.forEach((elem, index) => {
+                elem.id = index;
+            });
+
+            encode(setImagesEnt, setSetImagesEnt, elems, hashes);
 
             console.log("set images:", temp);
-            //setSetImages(response.data);
         }).catch(error => {
             console.error(error);
         });
-        */
+        
         //item images
         
     }, []);
 
     useEffect(() => { }, [currentUser]);
-
-    useEffect(() => { }, [selectedItem]);
-
+    
     useEffect(() => {
         console.log('current set', set);
     }, [set]);
-
+    
     useEffect(() => {
-        console.log('current items list', items);
-    }, [items]);
+        console.log('current items', itemEnt);
+    }, [itemEnt]);
 
-    useEffect(() => { 
-        //console.log('hash table updated:', JSON.stringify(itemidHash));
-    }, [itemidHash]);
+    function encode(ent, setEnt, elems, hashes) {
+        const tempEnt = { ...ent };
+        tempEnt.elements = elems;
+        tempEnt.hash = hashes;
+        tempEnt.count = elems.length;
 
-    const onSubmitItem = (item, images) => {
-        const tempItems = [...items];
-        let tempImages = [];
-        let hashedImages = [];
-        console.log("All images before hash: ", hashedImages);
+        setEnt(tempEnt);
+        return tempEnt.count;
+    }
 
-        for (let i = 0; i < images.length; i++) {
-            hashedImages[i] = {
-                hashid: item.hashid,
-                file: images[i]
-            };
-        }
-
-        //console.log("All images: ", JSON.stringify(hashedImages));
-
-        let ind = -1;
-        let newHash = null;
-        ind = findIndex(item.hashid);
-        if (ind === -1) {
-            newHash = {};
-            newHash["" + itemidCounter] = null;
-            item["hashid"] = itemidCounter;
+    function insert(ent, setEnt, payload) {
+        const tempEnt = {...ent};
+        tempEnt.elements[tempEnt.count] = {
+            id: tempEnt.count,
+            ...payload
+        };
         
-            tempImages = [...itemImages, ...hashedImages];
+        const tempCount = tempEnt.count;
+        tempEnt.count = tempCount + 1;
 
-            tempItems.push(item);
-            setItemidCounter(itemidCounter+1);
-        } else {
-            tempItems[ind] = item;
-            
-            tempImages = [...itemImages.filter((image) => image.hashid != hashId), ...hashedImages];
+        setEnt(tempEnt);
+        return tempCount;
+    }
+
+    function edit(ent, setEnt, hashid, payload) {
+        const tempEnt = {...ent};
+        tempEnt.elements[hashid] = payload;
+        setEnt(tempEnt);
+    }
+
+    function deleteEnt(ent, setEnt, hashid) {
+        const tempEnt = {...ent};
+        tempEnt.elements[hashid] = null;
+        tempEnt.hash[hashid] = null;
+        setEnt(tempEnt);
+    }
+
+    function split(ent) {
+        const len = ent.hash.length;
+
+        const db = [];
+        const ne = [];
+
+        for (let i = 0; i < ent.elements.length; i++) {
+            if (!ent.elements[i]) continue;
+            if (i < len) {
+                db.push({
+                    id: i,
+                    payload: ent.elements[i]
+                });
+            } else {
+                ne.push({
+                    id: i,
+                    payload: ent.elements[i]
+                });
+            }
         }
+        return [db, ne];
+    }
 
-        setItemImages([...tempImages]);
-        setItems(tempItems);
+    function decode(ent) {
+        const len = ent.hash.length;
+
+        const db = [];
+        const ne = [];
+
+        for (let i = 0; i < ent.elements.length; i++) {
+            if (!ent.elements[i]) continue;
+            if (i < len) {
+                db.push({
+                    id: ent.hash[i],
+                    payload: ent.elements[i]
+                });
+            } else {
+                ne.push({
+                    id: i,
+                    payload: ent.elements[i]
+                });
+            }
+        }
+        return [db, ne];
+    }
+
+    const onSubmitItem = (item) => {
+        if ("id" in item) {
+            console.log('submitting item first if', item);
+            edit(itemEnt, setItemEnt, item.id, item);
+        }
+        else {
+            console.log('submitting item else', item);
+            insert(itemEnt, setItemEnt, item);
+        }
+        
         setSelectedItem(null);
-        
-        if (newHash !== null){
-            setItemidHash({
-                ...itemidHash,
-                ...newHash
-            });
-        }
     }
 
     const onDeleteItem = (item) => {
-        const index = findIndex(item.hashid);
-        const tempItems = [...items];
-        tempItems.splice(index, 1);
-        setItems(tempItems);
+        deleteEnt(itemEnt, setItemEnt, item.id);
+    }
 
-        setItemImages([...itemImages.filter(image => image.hashid == item.hashid)]);
+    const onSubmitSetImages = () => {
+
+    }
+
+    const onDeleteSetImages = () => {
+
     }
 
     const onSubmitItemImages = (hashId, newItemImages) => {
@@ -165,79 +233,7 @@ function Edit() {
     }
 
     const onSubmitSet = () => {
-        //todo:
-        
-        //send set [done, check]
-        console.log("Sending set: ", JSON.stringify(set));
-        /*
-        axios.put(`/api/set`, {
-            ...set
-        }).then(response => {
-            console.log("Successfully sent set: ", JSON.stringify(resposne.data));
-        }).catch(error => {
-            console.error(error);
-        });
-        
-        */
-        
-        //send set images
-
-
-
-        //send items [done, check] and images
-        let temp = [...items];
-        for (let hash in itemidHash){
-            let item = temp.find(elem => elem.hashid == hash );
-
-            //if (item) console.log("Name, Hashid, Itemid | ", item.name, item.hashid, hash);
-            
-            if (item && !itemidHash[hash]){
-                console.log("Creating new item: ", item.name, itemidHash[hash]);
-                /*
-                axios.post(`/api/item`, {
-                    name: item.name,
-                    description: item.description
-                }).then(response => {
-                    console.log("Successfully created item: ", JSON.stringify(resposne.data));
-                }).catch(error => {
-                    console.error(error);
-                });
-                */
-            }
-            else if (!item && itemidHash[hash]){
-                console.log("Deleting item from id: ", itemidHash[hash]);
-                /*
-                axios.delete(`/api/item`, {
-                    itemid: itemidHash[hash]
-                }).then(response => {
-                    console.log("Successfully destroyed item: ", JSON.stringify(resposne.data));
-                }).catch(error => {
-                    console.error(error);
-                });
-                */
-            }
-            else{
-                console.log("Updating item: ", item.name, itemidHash[hash]);
-                /*
-                axios.put(`/api/item`, {
-                    itemid: tmpItemid,
-                    name: item.name,
-                    description: item.description
-                }).then(response => {
-                    console.log("Successfully created item: ", JSON.stringify(resposne.data));
-                }).catch(error => {
-                    console.error(error);
-                });
-                */
-            }
-
-            //send item images
-
-
-        };
-
-        //redirect [done]
-        //redirect('/set', [{key: "id", value: "set.setid"}]);
+        console.log("Submitting:", decode(itemEnt));
     }
 
     const onDiscardChanges = () => {
@@ -252,7 +248,7 @@ function Edit() {
             <Grid centered container>
                 <Grid.Column>
                     <SetDetails set={set} updateSet={setSet}
-                                imageList={setImages} updateImageList={setSetImages}/>
+                                setImagesEnt={setImagesEnt} setSetImagesEnt={setSetImagesEnt}/>
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -270,8 +266,8 @@ function Edit() {
                         </Accordion.Content>
                     </Accordion>
                     <ItemList
-                        items={items}
-                        onSelectItem={item => {setSelectedItem(item); setSelectedItemImages(itemImages);}}
+                        items={itemEnt.elements}
+                        onSelectItem={item => setSelectedItem(item)}
                         onDeleteItem={item => onDeleteItem(item)}
                     />
                     <Divider />

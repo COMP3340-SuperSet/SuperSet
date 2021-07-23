@@ -2,20 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { List, Button, Icon, Form, Segment, Grid, Image } from "semantic-ui-react";
 import ImageOverlay from './ImageOverlay';
 
+import { getImagePath } from '../utils/imagePath';
 
 const ImageUploader = ({ images, updateImages }) => {
     const [overlayImage, setOverlayImage] = useState(null);
 
     const onFileChange = (event) => {
-        updateImages([...images, ...event.target.files]);
+        updateImages([...event.target.files]);
     }
     
     const onClickAddFiles = () => {
         document.getElementById('file').click();
     }
     
+    console.log("Images :", images);
     let renderedImages = images.map((image, index) => {
-        const url = URL.createObjectURL(image);
+        let url;
+        if ("imageid" in image) url = getImagePath('set', image.imageid);
+        else url = URL.createObjectURL(image.payload);
         return (
             <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
                 <Image bordered
