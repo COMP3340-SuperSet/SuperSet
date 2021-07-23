@@ -93,6 +93,7 @@ Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingControl
 //feedback
 Route::post('/feedback', [FeedbackController::class, 'store']);
 Route::get('/feedback', [FeedbackController::class, 'index']);
+Route::post('/delete/feedback', [FeedbackController::class, 'destroy']);
 
 //reports
 Route::post('/report', [ReportController::class, 'store']);
@@ -101,4 +102,3 @@ Route::post('/report', [ReportController::class, 'store']);
 Route::middleware('auth:sanctum', 'admin:api')->get('/reports', [ReportController::class, 'index']);
 Route::middleware('auth:sanctum', 'admin:api')->get('/reports/{reportid}', [ReportController::class, 'show']);
 Route::middleware('auth:sanctum', 'admin:api')->post('/delete/report', [ReportController::class, 'destroy']);
-
