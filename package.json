@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "chart.js": "^3.4.0",
+        "env-cmd": "^10.1.0",
         "react-chartjs-2": "^3.0.3",
         "react-medium-image-zoom": "^4.3.4",
         "react-redux": "^7.2.4",
