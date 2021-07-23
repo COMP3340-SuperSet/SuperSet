@@ -14,5 +14,6 @@ class Set extends Model
         'userid',
         'name',
         'description',
+        'imageid'
     ];
 }

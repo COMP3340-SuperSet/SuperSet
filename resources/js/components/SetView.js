@@ -103,7 +103,7 @@ const SetView = ({ set, items, currentUser }) => {
     if (!set) { set = { name: "Set name", description: "Description" }; }
 
     const editSet = () => {
-        if (set) redirect('/edit', [{key: 'setid', value: set.setid}]);
+        if (set) redirect('/item', [{key: 'id', value: set.setid}]);
     }
 
     const copyLinkToSet = () => {

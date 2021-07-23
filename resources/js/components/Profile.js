@@ -17,7 +17,7 @@ const LIST_MODE = false;
 const CreateNewSet = (userid, name) => {
     axios.post('/api/set', { userid, name }).then(response => {
         console.log(response.data);
-        redirect('/edit', [{key: 'setid', value: '1'}]);
+        redirect('/item', [{key: 'id', value: response.data.setid}]);
     }).catch(error => {
         console.error(error);
     });

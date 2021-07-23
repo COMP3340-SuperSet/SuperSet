@@ -22,13 +22,15 @@ class CreateItemsTable extends Migration
             $table->foreign('setid')->references('setid')->on('sets');
             $table->string('name', 60);
             $table->string('description', 2048);
+            $table->string('imageid', 41)->nullable()->unique();
             $table->timestamps();
         });
 
         $this->createTestData();
     }
 
-    private function createTestData(){
+    private function createTestData()
+    {
         Item::create(['setid' => '1', 'name' => 'Bulbasaur', 'description' => 'Grass type leaf dino thing']);
         Item::create(['setid' => '1', 'name' => 'Charmander', 'description' => 'Fire type salamander']);
         Item::create(['setid' => '1', 'name' => 'Squirtle', 'description' => 'Water type turtle']);
