@@ -3,56 +3,68 @@ import React, {useState, useEffect} from 'react';
 import {Table, Image, Header, Button} from "semantic-ui-react";
 import "../../css/ReportTableItem.css";
 import BanModal from './BanModal';
+import tmp_pic from "../../images/pfp_placeholder.png";
 
-const ReportTableAccount = () => {
+function onReportDelete(reportid)
+{
+    axios.post('/api/delete/report', {reportid}).then(response=>{}).catch(err=>console.log(err));
+}
 
-    const [reportedAccounts, setReportedAccounts] = useState([]);
+function getReportedUser(users, reports){
 
-    useEffect(()=>{
+    let tempArray = [];
 
-        let accountReportsArr= [];
+    reports.forEach(report =>{
+        if(report.type == 0)
+        {
+            users.forEach(user => {
+                if(report.resourceid == user.userid){tempArray.push({reportid: report.reportid ,userid: user.userid, username: user.username, bio: user.bio});
+            }})
+        }});
 
-        axios.get(`/api/reports`).then(response=>{
-            
-            for(let report of response.data)
-            {
-                switch(report.type)
-                {
-                    case 0:
-                        accountReportsArr.push(report);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            setReportedAccounts(accountReportsArr);
-        }).catch(error=>{
-            console.error('Error: ' + error);
-        });}, []);
-
-    const renderedAccountReports = reportedAccounts.map((account) => {
+    return(tempArray.map((reportInformation=>{
         return(
-            <Table.Row key={account.reportid} className='ss-reporttableitem-row'>
-                <Table.Cell width={14}>
-                    <Image src={account.accountImage} inline rounded size='small' className='ss-reporttableitem-image' />
-                    <Header as='h2' image className='ss-reporttableitem-header'>
-                        <Header.Content style={{margin:'10px'}}>
-                            Place Account Name Here
-                            <Header.Subheader>
-                                Place Account Description Here
-                            </Header.Subheader>
-                        </Header.Content>
-                    </Header>
-                </Table.Cell>
-                <Table.Cell textAlign='center'>
-                    <Button.Group vertical>  
-                        <Button color='red' content='Delete Report'/>
-                        <BanModal trigger={<Button color='red' content='Ban Account'/>}/>
-                    </Button.Group>
-                </Table.Cell>
-            </Table.Row>
-        );
-    })
+                <Table.Row key={reportInformation.reportid} className='ss-reporttableitem-row'>
+                    <Table.Cell width={14}>
+                        <Image src={tmp_pic} inline rounded size='small' className='ss-reporttableitem-image'/>
+                        <Header as='h2' image className='ss-reporttableitem-header'>
+                            <Header.Content style={{margin:'10px'}}>
+                                {reportInformation.username}
+                                <Header.Subheader>
+                                    {reportInformation.bio}
+                                </Header.Subheader>
+                            </Header.Content>
+                        </Header>
+                    </Table.Cell>
+                    <Table.Cell textAlign='center'>
+                        <Button.Group vertical>  
+                            <Button color='red' content='Delete Report' onClick={()=>{onReportDelete(reportInformation.reportid)}}/>
+                            <BanModal trigger={<Button color='red' content='Ban Account'/>}/>
+                        </Button.Group>
+                    </Table.Cell>
+                </Table.Row>
+            );
+    })));
+}
+
+const ReportTableAccount = ({onReportDelete}) => {
+
+    const [reports, setReports] = useState([]);
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>
+    {
+        axios.get(`/api/reports`).then((response)=>{
+            setReports(response.data);
+        })
+
+        axios.get(`/api/users`).then((response)=>{
+            setUsers(response.data);
+        })
+    }, []);
+
+
+    const renderedAccountReports = getReportedUser(users, reports);
 
     return (
         <div>

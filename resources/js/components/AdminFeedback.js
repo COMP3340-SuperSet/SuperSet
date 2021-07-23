@@ -3,10 +3,9 @@ import { Table, Header, Button } from 'semantic-ui-react';
 
 import "../../css/AdminFeedback.css";
 
-function onDelete(feedbackid)
+function onFeedbackDelete(feedbackid)
 {
-    // Logic to delete from database when button is pressed
-    // axios.post().then(response=>{}).catch(error=>{});
+    axios.post('/api/delete/feedback', {feedbackid}).then(response=>{}).catch(err=>console.log(err));
 }
 
 function onContact(email)
@@ -38,7 +37,7 @@ function getContact(userFeedback, toggleView)
                         <Table.Cell textAlign='center'>
                             <Button.Group vertical>  
                                 <Button color='blue' content='Send E-mail' onClick={()=>{onContact(feedback.email)}}/>
-                                <Button color='red' content='Delete Feedback' onClick={()=>{onDelete(feedback.feedbackid)}}/>
+                                <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
                             </Button.Group>
                         </Table.Cell>
                     </Table.Row>
