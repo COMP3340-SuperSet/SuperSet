@@ -1,10 +1,9 @@
-
-import React, {useState} from 'react';
-import {Modal, Button, Grid} from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Modal, Button, Grid } from "semantic-ui-react";
 import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 
-const ItemModal = ({item, modalTrigger = <Button>Modal</Button>}) => {
+const ItemModal = ({ item, modalTrigger = <Button>Modal</Button> }) => {
     /*
     * Input: --itemImages, itemName, itemDescription--
     * Description: The purpose of this functional component is to house the 
@@ -14,9 +13,9 @@ const ItemModal = ({item, modalTrigger = <Button>Modal</Button>}) => {
 
     // Use to determine when the modal is open or closed  
     const [modalOpen, setModalOpen] = useState(false);
-    
-    return(
-        <Modal  
+
+    return (
+        <Modal
             onClose={() => setModalOpen(false)}
             onOpen={() => setModalOpen(true)}
             open={modalOpen}
@@ -27,7 +26,7 @@ const ItemModal = ({item, modalTrigger = <Button>Modal</Button>}) => {
                 <Modal.Content image>
                     <Grid.Row>
                         <Grid.Column className="ss-itemmodal-images">
-                            <ItemCarousel itemImages={[]}/>
+                            <ItemCarousel itemImages={[]} />
                         </Grid.Column>
 
                         <Modal.Description>
@@ -36,8 +35,8 @@ const ItemModal = ({item, modalTrigger = <Button>Modal</Button>}) => {
                                 <p>{item.description}</p>
                             </Grid.Column>
                         </Modal.Description>
-                        </Grid.Row>
-            </Modal.Content>
+                    </Grid.Row>
+                </Modal.Content>
             </Grid>
 
             <Modal.Actions>

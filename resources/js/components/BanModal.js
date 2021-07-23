@@ -1,9 +1,9 @@
 
-import React, {useState} from 'react';
-import {Modal, Button, Grid, Form, TextArea} from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Modal, Button, Grid, Form, TextArea } from "semantic-ui-react";
 import "../../css/BanModal.css";
 
-const BanModal = ({trigger}) => {
+const BanModal = ({ trigger }) => {
 
     // Use to determine when the modal is open or closed  
     const [open, setOpen] = useState(false);
@@ -14,9 +14,9 @@ const BanModal = ({trigger}) => {
         setOpen(false);
         // Logic to send to user email
     }
-    
-    return(
-        <Modal  
+
+    return (
+        <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
@@ -29,13 +29,13 @@ const BanModal = ({trigger}) => {
                         <Grid.Column>
                             <Form>
                                 <Form.TextArea
-                                onChange={(e, {value}) => setBanReason(value)}
-                                className='ss-banmodal-formfield'
-                                placeholder='Reason for ban: '
+                                    onChange={(e, { value }) => setBanReason(value)}
+                                    className='ss-banmodal-formfield'
+                                    placeholder='Reason for ban: '
                                 />
                             </Form>
                         </Grid.Column>
-                        </Grid.Row>
+                    </Grid.Row>
                 </Modal.Content>
             </Grid>
 

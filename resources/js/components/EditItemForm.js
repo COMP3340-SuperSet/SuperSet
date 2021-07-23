@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Image, Grid, Segment } from 'semantic-ui-react';
 import ImageOverlay from './ImageOverlay';
+import SuggestedImages from './SuggestedImages';
 
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
   const [images, setImages] = useState([]);
+  const [suggestedImages, setSuggestedImages] = useState([]);
+  const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }, [selectedItem]);
 
   //rerender when the image list changes
-  useEffect(() => {}, [images]);
+  useEffect(() => { }, [images]);
 
   //when the 'clear' button is clicked, clear the form
   const onClear = () => {
@@ -51,17 +54,20 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
     document.getElementById('file').click();
   }
 
-  const renderedImages = images.map((image, index) => {
+  let renderedImages = images.map((image, index) => {
     const url = URL.createObjectURL(image);
     return (
       <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
-        <Image bordered 
-        className="grid-image"
-        src={url}
-        onClick={() => setSelectedImage(url)} />
-        <Button fluid size='mini'>Mini</Button>
+        <Image bordered
+          className="grid-image"
+          src={url}
+          onClick={() => setSelectedImage(url)} />
       </Grid.Column>
     );
+  });
+
+  renderedImages += suggestedImages.map((image, index) => {
+    //custom logic for recommended images
   });
 
   return (
@@ -87,13 +93,14 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Form.Field>
           <label>Images</label>
           <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
-            <Button basic onClick={() => onClickAddFiles()}>Add</Button>
+            <Button basic onClick={() => onClickAddFiles()} style={{padding: '0.5rem 1rem', marginRight: '1rem'}}>Add</Button>
             {
               images && images.length
                 ? <p>{images.length} Images Selected</p>
                 : <p>No Images Selected</p>
             }
           </Segment>
+          <SuggestedImages term={name}/>
           <input multiple hidden
             type="file"
             id="file"
@@ -104,9 +111,9 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             images && images.length
               ?
               <Grid centered stackable doubling
-              columns="6"
-              style={{ margin: '0.25rem' }}>
-                  {renderedImages}
+                columns="6"
+                style={{ margin: '0.25rem' }}>
+                {renderedImages}
               </Grid>
               :
               null
@@ -115,7 +122,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Button basic onClick={() => onClear()}>Clear</Button>
         <Button floated="right" primary onClick={() => onSubmit()}>Save</Button>
       </Form>
-      <ImageOverlay imageURL={selectedImage} setImageURL={setSelectedImage}/>
+      <ImageOverlay imageURL={selectedImage} setImageURL={setSelectedImage} />
     </div >
   );
 }

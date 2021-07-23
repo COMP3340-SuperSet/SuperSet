@@ -10,11 +10,11 @@ const ImageOverlay = ({ imageURL, setImageURL }) => {
             className="image-overlay"
             onClick={() => setImageURL(null)}>
             <div className="image-container">
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Image
-                    style={{display: 'inline-block', height: 'auto', width: 'auto'}}
-                    src={imageURL}
-                    className="overlayed-image" />
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Image
+                        style={{ display: 'inline-block', height: 'auto', width: 'auto' }}
+                        src={imageURL}
+                        className="overlayed-image" />
                 </div>
             </div>
         </div>

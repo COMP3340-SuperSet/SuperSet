@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, {useState, useEffect} from 'react';
-import {Table, Header, Button, Rating, Statistic} from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Table, Header, Button } from 'semantic-ui-react';
+
 import "../../css/AdminFeedback.css";
 
 function onFeedbackDelete(feedbackid)
@@ -24,7 +24,7 @@ function getContact(userFeedback, toggleView)
                     <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
                         <Table.Cell width={14}>
                             <Header as='h2' className='ss-reporttableitem-header'>
-                                <Header.Content style={{margin:'10px'}}>
+                                <Header.Content style={{ margin: '10px' }}>
                                     {feedback.email}
                                     <Header.Subheader>
                                         Contact: True <br/>
@@ -43,23 +43,21 @@ function getContact(userFeedback, toggleView)
                     </Table.Row>
                 );
             }
-            else
-            {
+            else {
                 return '';
             }
         })
 
         return renderedUserFeedback;
     }
-    else
-    {
-        
+    else {
+
         const renderedUserFeedback = userFeedback.map((feedback) => {
             return(
                 <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
                     <Table.Cell width={14}>
                         <Header as='h2' className='ss-reporttableitem-header'>
-                            <Header.Content style={{margin:'10px'}}>
+                            <Header.Content style={{ margin: '10px' }}>
                                 {feedback.email}
                                 <Header.Subheader>
                                     Feedback Content: {feedback.content} <br/>
@@ -80,7 +78,6 @@ function getContact(userFeedback, toggleView)
     }
 }
 
-
 const AdminFeedback = () => {
     
     const [userFeedback, setUserFeedback] = useState([]);
@@ -96,8 +93,8 @@ const AdminFeedback = () => {
 
     const renderedUserFeedback = getContact(userFeedback, toggleView);
 
-    return(
-        
+    return (
+
         <div className="ss-feedback-divadmin">
             <Statistic horizontal size='mini' className="ss-feedback-stats">
                 <Statistic.Value>{userFeedback.length}</Statistic.Value>

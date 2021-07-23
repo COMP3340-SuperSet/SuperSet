@@ -66,7 +66,7 @@ const ReportTableAccount = ({onReportDelete}) => {
 
     const renderedAccountReports = getReportedUser(users, reports);
 
-    return(
+    return (
         <div>
             <Table stackable basic='very' celled fixed>
                 {renderedAccountReports}

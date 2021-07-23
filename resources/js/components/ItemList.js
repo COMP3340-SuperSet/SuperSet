@@ -1,7 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
-import ItemOfSet from './ItemOfSet';
-import { List, Item, Button, Icon } from "semantic-ui-react";
+import { List, Button, Icon } from "semantic-ui-react";
 
 const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
 
@@ -17,11 +15,11 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
   }
 
   let renderedList;
-  if(!items.length){
+  if (!items.length) {
     renderedList = (
       <List.Item
-        style={{textAlign: 'center'}}
-        >
+        style={{ textAlign: 'center' }}
+      >
         <List.Content >
           <List.Header>
             This set has no Items

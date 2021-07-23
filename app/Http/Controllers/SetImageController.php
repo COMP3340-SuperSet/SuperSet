@@ -55,6 +55,11 @@ class SetImageController extends Controller
         return $setImage;
     }
 
+    public function getImages($setid)
+    {
+        return SetImage::where('setid', '=', $setid)->get();
+    }
+
     public static function destroySetImage(Request $request)
     {
         $imageid = $request->imageid;

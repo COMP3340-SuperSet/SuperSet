@@ -65,7 +65,7 @@ const ReportTableItem = () => {
 
     const renderedItemReports = getReportedItems(items, reports);
 
-    return(
+    return (
         <div>
             <Table stackable basic='very' celled fixed>
                 {renderedItemReports}
