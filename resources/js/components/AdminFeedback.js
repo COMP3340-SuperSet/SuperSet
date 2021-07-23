@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table, Header, Button, Statistic, Rating } from 'semantic-ui-react';
 import "../../css/AdminFeedback.css";
 
@@ -100,7 +100,7 @@ function getContact(userFeedback, toggleView)
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
-                            <Button color='red' content='Delete Feedback'/>
+                            <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
@@ -115,14 +115,28 @@ const AdminFeedback = () => {
     
     const [userFeedback, setUserFeedback] = useState([]);
     const [toggleView, setToggleView] = useState(false);
+    const isCurrent = useRef(true);
+
+    
+    useEffect(()=>{
+        return () => {
+            console.log("Unmounted Feedback Table");
+            isCurrent.current = false;
+        };
+    }, []);
 
     useEffect(()=>{
         axios.get(`/api/feedback`).then(response=>{
-            setUserFeedback(response.data);
+            setTimeout(()=>{
+                if(isCurrent.current)
+                {
+                    setUserFeedback(response.data);
+                }
+            }, 1000);
         }).catch(error=>{
-            console.log("Error:" + error);
+        console.log("Error:" + error);
         });
-    }, []);
+    }, [userFeedback]);
 
     const renderedUserFeedback = getContact(userFeedback, toggleView);
 
@@ -137,7 +151,9 @@ const AdminFeedback = () => {
                 Filter by Contact
             </Button>
             <Table stackable basic='very' celled fixed>
-                {renderedUserFeedback}
+                <thead>
+                    {renderedUserFeedback}
+                </thead>
             </Table>
         </div>
     );

@@ -26,25 +26,19 @@ const BanModal = ({ trigger, userid, reportid }) => {
         >
             <Modal.Header>Banning Account</Modal.Header>
             <Grid centered stackable columns={3}>
-                <Modal.Content>
+                <Modal.Content className="ss-banmodal-content">
                     <Grid.Row>
                         <Grid.Column>
                             <Form>
-                                <Form.TextArea
-                                    onChange={(e, { value }) => setBanReason(value)}
-                                    className='ss-banmodal-formfield'
-                                    placeholder='Reason for ban: '
-                                />
+                                <h1>Are You Sure?</h1>
+                                <br/>
+                                <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
+                                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
                             </Form>
                         </Grid.Column>
                     </Grid.Row>
                 </Modal.Content>
             </Grid>
-
-            <Modal.Actions>
-                <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
-            </Modal.Actions>
         </Modal>
     );
 
