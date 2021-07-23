@@ -1,5 +1,9 @@
-.ss-banmodal-formfield{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    width: 30vw;
+.ss-banmodal-modalactions
+{
+    left:100px !important;
+}
+
+.ss-banmodal-content
+{
+    margin: 20px !important;
 }

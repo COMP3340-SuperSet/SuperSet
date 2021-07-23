@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Table, Image, Header, Button} from "semantic-ui-react";
 import "../../css/ReportTableItem.css";
 import BanModal from './BanModal';
@@ -59,16 +59,32 @@ const ReportTableAccount = () => {
 
     const [reports, setReports] = useState([]);
     const [users, setUsers] = useState([]);
+    const isCurrent = useRef(true);
 
-    useEffect(()=>{}, [reports, users]);
+    useEffect(()=>{
+        return () => {
+            console.log("Unmounted Account Table");
+            isCurrent.current = false;
+        };
+    }, []);
 
     useEffect(()=>
     {
         axios.get(`/api/reports`).then((response)=>{
-            setReports(response.data);
+            setTimeout(()=>{
+                if(isCurrent.current)
+                {
+                    setReports(response.data);
+                }
+            }, 1000);
         })
         axios.get(`/api/users`).then((response)=>{
-            setUsers(response.data);
+            setTimeout(()=>{
+                if(isCurrent.current)
+                {
+                    setUsers(response.data);
+                }
+            }, 1000);       
         })
     }, []);
 

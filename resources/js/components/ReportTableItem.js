@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Table, Image, Header, Button} from "semantic-ui-react";
 import "../../css/ReportTableItem.css";
 import BanModal from './BanModal';
@@ -52,19 +52,33 @@ const ReportTableItem = () => {
     const [reports, setReports] = useState([]);
     const [items, setItems] = useState([]);
     const [sets, setSets] = useState([]);
+    const isCurrent = useRef(true);
+
+    useEffect(()=>{
+        return () => {
+            console.log("Unmounted Item Table");
+            isCurrent.current = false;
+        };
+    }, []);
     
     useEffect(()=>
     {
             axios.get(`/api/reports`).then((response)=>{
-                setReports(response.data);
+                setTimeout(()=>{
+                    if(isCurrent.current)
+                    {
+                        setReports(response.data);
+                    }
+                }, 1000);
             })
     
             axios.get(`/api/items`).then((response)=>{
-                setItems(response.data);
-            })
-
-            axios.get(`/api/items`).then((response)=>{
-                setItems(response.data);
+                setTimeout(()=>{
+                    if(isCurrent.current)
+                    {
+                        setItems(response.data);
+                    }
+                }, 1000);
             })
         }, []);
 
