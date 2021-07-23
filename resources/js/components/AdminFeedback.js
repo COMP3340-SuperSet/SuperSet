@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Table, Header, Button } from 'semantic-ui-react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { Table, Header, Button, Statistic, Rating } from 'semantic-ui-react';
 
 import "../../css/AdminFeedback.css";
 
@@ -68,7 +69,7 @@ function getContact(userFeedback, toggleView)
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
-                            <Button color='red' content='Delete Feedback' onClick={()=>{onDelete(feedback.feedbackid)}}/>
+                            <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
