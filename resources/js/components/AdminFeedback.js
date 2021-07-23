@@ -1,8 +1,16 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Table, Header, Button, Statistic, Rating } from 'semantic-ui-react';
-
 import "../../css/AdminFeedback.css";
+
+let template = 
+[
+    {
+        feedbackid: 1,
+        email: "TemplateFeedback@email.ca",
+        rating: 5
+    }
+];
 
 function onFeedbackDelete(feedbackid)
 {
@@ -16,11 +24,48 @@ function onContact(email)
 
 function getContact(userFeedback, toggleView)
 {
-    if(toggleView)
+    console.log(userFeedback.length);
+    if(userFeedback.length != 0)
     {
-        const renderedUserFeedback = userFeedback.map((feedback) => {
-            if(feedback.contact && !(feedback.email ===""))
-            {
+        console.log("In If Statement");
+        if(toggleView)
+        {
+            const renderedUserFeedback = userFeedback.map((feedback) => {
+                if(feedback.contact && !(feedback.email ===""))
+                {
+                    return(
+                        <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
+                            <Table.Cell width={14}>
+                                <Header as='h2' className='ss-reporttableitem-header'>
+                                    <Header.Content style={{ margin: '10px' }}>
+                                        {feedback.email}
+                                        <Header.Subheader>
+                                            Contact: True <br/>
+                                            Feedback Content: {feedback.content} <br/> 
+                                            <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/> 
+                                        </Header.Subheader>
+                                    </Header.Content>
+                                </Header>
+                            </Table.Cell>
+                            <Table.Cell textAlign='center'>
+                                <Button.Group vertical>  
+                                    <Button color='blue' content='Send E-mail' onClick={()=>{onContact(feedback.email)}}/>
+                                    <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
+                                </Button.Group>
+                            </Table.Cell>
+                        </Table.Row>
+                    );
+                }
+                else {
+                    return '';
+                }
+            })
+
+            return renderedUserFeedback;
+        }
+        else 
+        {
+            const renderedUserFeedback = userFeedback.map((feedback) => {
                 return(
                     <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
                         <Table.Cell width={14}>
@@ -28,32 +73,26 @@ function getContact(userFeedback, toggleView)
                                 <Header.Content style={{ margin: '10px' }}>
                                     {feedback.email}
                                     <Header.Subheader>
-                                        Contact: True <br/>
-                                        Feedback Content: {feedback.content} <br/> 
-                                        <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/> 
-                                    </Header.Subheader>
+                                        Feedback Content: {feedback.content} <br/>
+                                        <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/>
+                                        </Header.Subheader>
                                 </Header.Content>
                             </Header>
                         </Table.Cell>
                         <Table.Cell textAlign='center'>
                             <Button.Group vertical>  
-                                <Button color='blue' content='Send E-mail' onClick={()=>{onContact(feedback.email)}}/>
                                 <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
                             </Button.Group>
                         </Table.Cell>
                     </Table.Row>
                 );
-            }
-            else {
-                return '';
-            }
-        })
-
-        return renderedUserFeedback;
+            })
+            return renderedUserFeedback;
+        }
     }
-    else {
-
-        const renderedUserFeedback = userFeedback.map((feedback) => {
+    else
+    {
+        const renderedUserFeedback = template.map((feedback) => {
             return(
                 <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
                     <Table.Cell width={14}>
@@ -69,12 +108,13 @@ function getContact(userFeedback, toggleView)
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
-                            <Button color='red' content='Delete Feedback' onClick={()=>{onFeedbackDelete(feedback.feedbackid)}}/>
+                            <Button color='red' content='Delete Feedback'/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
             );
-        })
+        });
+
         return renderedUserFeedback;
     }
 }

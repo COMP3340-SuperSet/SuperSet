@@ -1,18 +1,22 @@
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Grid, Form, TextArea } from "semantic-ui-react";
 import "../../css/BanModal.css";
 
-const BanModal = ({ trigger }) => {
+const BanModal = ({ trigger, userid }) => {
 
     // Use to determine when the modal is open or closed  
     const [open, setOpen] = useState(false);
 
     const [banReason, setBanReason] = useState('');
 
-    const submitBanReason = () => {
+    const submitBanReason = (userid) => {
         setOpen(false);
-        // Logic to send to user email
+        axios.post(`/api/delete/user`, 
+        {
+            userid: userid,
+            banUser: true
+        }).then().catch()
     }
 
     return (
@@ -41,7 +45,7 @@ const BanModal = ({ trigger }) => {
 
             <Modal.Actions>
                 <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                <Button className='ss-banmodal-modalactions' color='red' onClick={submitBanReason}> Ban Account </Button>
+                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid)}> Ban Account </Button>
             </Modal.Actions>
         </Modal>
     );
