@@ -48,7 +48,6 @@ class UserController extends Controller
         return $sets;
     }
 
-
     public function update_image(Request $request)
     {
         $user = User::find($request->userid);
@@ -56,20 +55,11 @@ class UserController extends Controller
         try {
             if ($request->hasFile('image')) {
 
-                //delete old image when updating
-                // $oldImageid = $user->imageid;
-                // if ($oldImageid) {
-                //     Storage::disk('local')->delete('images/users/' . $oldImageid);
-                // }
-
-                
-
                 $imageid = (string) Str::uuid();
                 $path = Storage::disk('local')->put('public/users', $request->file('image'));
                 if ($path) {
                     Storage::disk('local')->delete('public/users/' . $user->imageid);
-                }
-                else{
+                } else {
                     return response()->json(['error' => 'Unable to update image.'], 500);
                 }
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
@@ -79,8 +69,7 @@ class UserController extends Controller
                 $user->update(['imageid' => $imageid . '.' . $extension]);
                 $user->save();
                 return response()->json(['user' => $user], 200);
-            }
-            else {
+            } else {
                 return response()->json(['error' => 'Could not find attached file.'], 400);
             }
         } catch (Exception $e) {
@@ -93,8 +82,8 @@ class UserController extends Controller
         $user = User::find($request->userid);
         //return response()->json(['user' => $user], 200);
 
-        try{
-            if ($user->imageid){
+        try {
+            if ($user->imageid) {
                 $imageid = $user->imageid;
 
                 Storage::disk('local')->delete('public/users/' . $imageid);
@@ -103,7 +92,7 @@ class UserController extends Controller
             }
 
             return response()->json(['user' => $user], 200);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json(['error' => 'Error deleting image.'], 500);
         }
     }
@@ -112,6 +101,7 @@ class UserController extends Controller
     {
 
         $userid = $request->userid;
+        $banUser = $request->banUser;
 
         $user = User::find($userid);
         if (!$user) {
@@ -136,8 +126,14 @@ class UserController extends Controller
             Storage::disk('local')->delete('public/users/' . $imageid);
         }
 
-        //delete the user
-        $result = User::destroy($userid);
+        //ban or delete the user
+        if ($banUser) {
+            $user->update(['role' => 3]);
+            return response()->json(['message' => 'user ' . $user->username . ' was banned.', 'userImage' => $deletedImage, 'role' => $user->role], 200);
+        } else {
+            //ban the user
+            $result = User::destroy($userid);
+        }
 
         //if user was successfully deleted / else
         if ($result) {
@@ -147,14 +143,13 @@ class UserController extends Controller
         }
     }
 
-    
     public function testPassword(Request $request)
     {
         $credentials = $request->only('userid', 'password');
 
         if (User::attempt($credentials)) {
             return response()->json(['result' => true], 200);
-        }else{
+        } else {
             return response()->json(['result' => false], 200);
         }
     }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Icon } from 'semantic-ui-react';
+import axios from 'axios';
 
 import { redirect } from "../utils/redirect";
 
@@ -85,7 +86,6 @@ const UserSettings = ({ userInfo }) => {
                 console.error(error);
             });
         }
-
         redirect("/user/settings");
     }
 

@@ -10,19 +10,19 @@ import { redirect } from '../../utils/redirect';
 function Settings() {
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
             if (!response.data.user) redirect('/');
         });
     }, []);
 
-    useEffect(() =>{}, [currentUser]);
+    useEffect(() => { }, [currentUser]);
 
     return (
         <div>
-            <Header currentUser = {currentUser}/>
-            <UserSettings userInfo = {currentUser}/>
+            <Header currentUser={currentUser} />
+            <UserSettings userInfo={currentUser} />
             <Toast />
         </div>
     );
