@@ -40,7 +40,7 @@ function getReportedSets(sets, reports){
                     <Table.Cell textAlign='center'>
                         <Button.Group vertical>  
                             <Button color='red' content='Delete Report' onClick={()=>{onReportDelete(reportInformation.reportid)}}/>
-                            <BanModal trigger={<Button color='red' content='Ban Account'/>}/>
+                            <BanModal userid={reportInformation.userid} reportid={reportInformation.reportid} trigger={<Button color='red' content='Ban Account'/>}/>
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
@@ -69,7 +69,9 @@ const ReportTableSet = () => {
     return (
         <div>
             <Table stackable basic='very' celled fixed>
-                {renderedSetReports}
+                <thead>
+                    {renderedSetReports}
+                </thead>
             </Table>
         </div>
     );
