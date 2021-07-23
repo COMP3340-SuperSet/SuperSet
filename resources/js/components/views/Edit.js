@@ -20,9 +20,9 @@ function Edit() {
 
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const [itemEnt, setItemEnt] = useState(ent);    
-    const [setImagesEnt, setSetImagesEnt] = useState(ent); 
-    const [itemImagesEnt, setItemImagesEnt] = useState(ent);   
+    const [itemEnt, setItemEnt] = useState(ent);
+    const [setImagesEnt, setSetImagesEnt] = useState(ent);
+    const [itemImagesEnt, setItemImagesEnt] = useState(ent);
 
     const [openForm, setOpenForm] = useState(true);
 
@@ -32,9 +32,9 @@ function Edit() {
             setCurrentUser(response.data.user);
         });
 
-        
+
         let setid = new URL(window.location.href).searchParams.get("setid");
-        
+
         //set information
         axios.get(`/api/sets/${setid}`).then((response) => {
             setSet(response.data);
@@ -65,10 +65,10 @@ function Edit() {
         });
 
         //set images
-        
+
         axios.get(`/api/set/${setid}/images`).then((response) => {
             let tmp = response.data;
-            
+
             const elems = [];
             const hashes = [];
 
@@ -87,17 +87,17 @@ function Edit() {
         }).catch(error => {
             console.error(error);
         });
-        
+
         //item images
-        
+
     }, []);
 
     useEffect(() => { }, [currentUser]);
-    
+
     useEffect(() => {
         console.log('current set', set);
     }, [set]);
-    
+
     useEffect(() => {
         console.log('current items', itemEnt);
     }, [itemEnt]);
@@ -113,12 +113,12 @@ function Edit() {
     }
 
     function insert(ent, setEnt, payload) {
-        const tempEnt = {...ent};
+        const tempEnt = { ...ent };
         tempEnt.elements[tempEnt.count] = {
             id: tempEnt.count,
             ...payload
         };
-        
+
         const tempCount = tempEnt.count;
         tempEnt.count = tempCount + 1;
 
@@ -127,21 +127,21 @@ function Edit() {
     }
 
     function edit(ent, setEnt, hashid, payload) {
-        const tempEnt = {...ent};
+        const tempEnt = { ...ent };
         tempEnt.elements[hashid] = payload;
         setEnt(tempEnt);
     }
 
-    function count (ent){
+    function count(ent) {
         let count = 0;
-        for(let i = 0; i < ent.elements.length; i++){
-            if(ent.elements[i]) count++;
+        for (let i = 0; i < ent.elements.length; i++) {
+            if (ent.elements[i]) count++;
         }
         return count;
     }
 
     function deleteEnt(ent, setEnt, hashid) {
-        const tempEnt = {...ent};
+        const tempEnt = { ...ent };
         tempEnt.elements[hashid] = null;
         tempEnt.hash[hashid] = null;
         setEnt(tempEnt);
@@ -202,14 +202,14 @@ function Edit() {
             console.log('submitting item else', item);
             insert(itemEnt, setItemEnt, item);
         }
-        
+
         setSelectedItem(null);
     }
 
     const onDeleteItem = (item) => {
         deleteEnt(itemEnt, setItemEnt, item.id);
     }
-    
+
     const onSubmitSet = () => {
         console.log("Submitting:", decode(itemEnt));
     }
@@ -224,7 +224,7 @@ function Edit() {
             <Grid centered container>
                 <Grid.Column>
                     <SetDetails set={set} updateSet={setSet}
-                                setImagesEnt={setImagesEnt} setSetImagesEnt={setSetImagesEnt}/>
+                        setImagesEnt={setImagesEnt} setSetImagesEnt={setSetImagesEnt} />
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -236,9 +236,9 @@ function Edit() {
                             <EditItemForm
                                 selectedItem={selectedItem}
                                 setSelectedItem={item => setSelectedItem(item)}
-                                onSubmitItem={onSubmitItem} 
+                                onSubmitItem={onSubmitItem}
                                 itemImages={itemImagesEnt}
-                                setItemImagesEnt={setItemImagesEnt}/>
+                                setItemImagesEnt={setItemImagesEnt} />
                         </Accordion.Content>
                     </Accordion>
                     <ItemList

@@ -34,7 +34,7 @@ class ItemController extends Controller
     public function update(Request $request)
     {
         $itemid = $request->itemid;
-        $item = Item::first($itemid);
+        $item = Item::find($itemid);
         $item->update($request->all());
         return $item;
     }
@@ -94,7 +94,7 @@ class ItemController extends Controller
         //TODO :: delete item images from file system
 
         $itemid = $request->itemid;
-
+        error_log("error" . $request->itemid);
         //check if item exists
         $item = Item::find($itemid);
 
@@ -102,11 +102,8 @@ class ItemController extends Controller
             return response()->json(['message' => 'Item not found.'], 404);
         }
 
-        //get list of item images pointing to this item
-
-
         //deleted item images array for detailed response
-        $deletedImages = [];
+        $deletedImage = [];
         $imageid = $item->itemid;
         if ($imageid) {
             array_push($deletedImage, $imageid);
@@ -119,7 +116,7 @@ class ItemController extends Controller
 
         //if item was successfully deleted / else
         if ($result) {
-            return response()->json(['itemid' => $itemid, 'itemImages' => $deletedImages], 200);
+            return response()->json(['itemid' => $itemid, 'itemImages' => $deletedImage], 200);
         } else {
             return response()->json(['message' => 'Error when deleting item.'], 400);
         }

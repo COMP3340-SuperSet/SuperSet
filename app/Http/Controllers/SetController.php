@@ -38,7 +38,7 @@ class SetController extends Controller
     public function update(Request $request)
     {
         $setid = $request->setid;
-        $set = Set::first($setid);
+        $set = Set::find($setid);
         $set->update($request->all());
         return $set;
     }

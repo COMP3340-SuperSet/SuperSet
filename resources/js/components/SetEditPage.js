@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button, Accordion, Grid, Icon, Divider, Form, Segment, Image, List, Card, Input } from 'semantic-ui-react';
+import { getImagePath } from "../utils/imagePath";
 import { redirect } from "../utils/redirect";
+
 
 import { toast } from "./Toast";
 
@@ -44,9 +46,10 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
     useEffect(() => {
         if (items) {
             let temp = [];
+            let tempCounter = allItemsCount;
             items.forEach(element => {
                 temp.push({
-                    hashid: allItemsCount,
+                    hashid: tempCounter,
                     item: element,
                     db: true,
                     image: {
@@ -54,9 +57,10 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                         file: null
                     }
                 });
-                setAllItemsCount(allItemsCount + 1);
+                tempCounter++;
             });
 
+            setAllItemsCount(tempCounter);
             setAllItems(temp);
         }
     }, [items]);
@@ -64,6 +68,10 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
     useEffect(() => {
         console.log("Description: ", setDescription);
     }, [setDescription]);
+
+    useEffect(() => {
+        console.log("AllItems: ", allItems);
+    }, [allItems]);
 
     const onClear = () => {
         setCurrentItem(emptyItem);
@@ -105,10 +113,10 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
         onClear();
     }
 
-    const onSubmitSet = () => {
+    const onSubmitSet = async () => {
         //update set
 
-        axios.put(`/api/set`, {
+        await axios.put(`/api/set`, {
             setid: set.setid,
             name: setName,
             description: setDescription
@@ -133,7 +141,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
             }
             else if (!setImage.file && !setImage.imageid) {
                 //delete iamge in db
-                axios.post('/delete/set/image', {
+                axios.post('/api/delete/set/image', {
                     setid: set.setid
                 }).then(resposne => {
                     console.log("Set image deleted response:", response);
@@ -142,12 +150,15 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                 });
             }
 
-            items.forEach(item => {
+            allItems.forEach(item => {
+
                 if (!item.db) {
                     //new item
+                    console.log('New Item', item);
                     axios.post(`/api/item`, {
                         name: item.item.name,
-                        description: item.item.description
+                        description: item.item.description,
+                        setid: set.setid
                     }).then(response => {
                         console.log("Added item response:", response);
 
@@ -166,21 +177,27 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                             });
                         }
                     }).catch(error => {
+                        console.log("errorrrerererr");
                         console.log(error);
                     });
                 }
+
                 else if (item.db && item.hashid === -1) {
                     //deleting item (first image, then item)
                     axios.post(`/api/delete/item/image`, {
                         itemid: item.item.itemid
                     }).then(response => {
-                        axios.delete(`/api/item`, {
+                        console.log("Item image deleted:", response);
+
+                        axios.post(`/api/delete/item`, {
                             itemid: item.item.itemid
                         }).then(response => {
                             console.log("Deleted item response:", response);
                         }).catch(error => {
+                            console.log("ITEMID: ", item.item.itemid);
                             console.log(error);
                         });
+
                     }).catch(error => {
                         console.log(error);
                     });
@@ -193,8 +210,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                         description: item.item.description
                     }).then(response => {
                         console.log("Updated item response:", response);
-
-                        if (item.image.file){
+                        if (item.image.file) {
                             var formData = new FormData();
                             formData.append("image", item.image.file);
                             formData.append("itemid", item.item.itemid);
@@ -207,17 +223,34 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                             }).catch(error => {
                                 console.log(error);
                             });
+                        } else if (!item.image.file && !item.image.imageid) {
+                            axios.post(`/api/delete/item/image`, {
+                                itemid: item.item.itemid
+                            }).then(response => {
+                                console.log("Item image deleted:", response);
+                            }).catch(error => {
+                                console.log(error);
+                            });
                         }
 
                     }).catch(error => {
                         console.error(error);
                     });
+
                 }
             });
 
         }).catch(error => {
             console.log(error);
         });
+
+        console.log('Waiting... Redirecting');
+
+        redirect("/set", [{
+            key: "id",
+            value: set.setid
+        }]);
+
     }
 
     const onChangeDescription = (event) => {
@@ -243,7 +276,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
     }
 
     let renderedSetImage = null;
-    if (setImage && setImage.imageid) renderedSetImage = setImage.imageid;
+    if (setImage && setImage.imageid) renderedSetImage = getImagePath('set', setImage.imageid);
     else if (setImage && setImage.file) renderedSetImage = URL.createObjectURL(setImage.file);
 
     let delButtonSet = renderedSetImage ? <Button icon
@@ -253,7 +286,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
 
 
     let renderedItemImage = null;
-    if (currentItem.image.imageid) renderedItemImage = currentItem.image.imageid;
+    if (currentItem.image.imageid) renderedItemImage = getImagePath('item', currentItem.image.imageid);
     else if (currentItem.image.file) renderedItemImage = URL.createObjectURL(currentItem.image.file);
 
     let delButtonItem = renderedItemImage ? <Button icon

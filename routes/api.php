@@ -53,7 +53,7 @@ Route::get('/user/sets/{userid}', [SetController::class, 'getUserSets']);
 //sets - protected
 Route::middleware('auth:sanctum', 'owner')->put('/set', [SetController::class, 'update']);
 Route::middleware('auth:sanctum', 'owner')->post('/set', [SetController::class, 'store']);
-Route::middleware('auth:sanctum', 'owner')->delete('/set', [SetController::class, 'destroySet']);
+Route::middleware('auth:sanctum', 'owner')->post('/delete/set', [SetController::class, 'destroySet']);
 Route::middleware('auth:sanctum', 'owner')->post('/set/image', [SetController::class, 'update_image']);
 Route::middleware('auth:sanctum', 'owner')->post('/delete/set/image', [SetController::class, 'delete_image']);
 
@@ -65,7 +65,7 @@ Route::get('/set/{setid}/items', [SetController::class, 'getItems']);
 //items - protected
 Route::middleware('auth:sanctum', 'owner')->put('/item', [ItemController::class, 'update']);
 Route::middleware('auth:sanctum', 'owner')->post('/item', [ItemController::class, 'store']);
-Route::middleware('auth:sanctum', 'owner')->delete('/item', [ItemController::class, 'destroyItem']);
+Route::middleware('auth:sanctum', 'owner')->post('/delete/item', [ItemController::class, 'destroyItem']);
 Route::middleware('auth:sanctum', 'owner')->post('/item/image', [ItemController::class, 'update_image']);
 Route::middleware('auth:sanctum', 'owner')->post('/delete/item/image', [ItemController::class, 'delete_image']);
 
