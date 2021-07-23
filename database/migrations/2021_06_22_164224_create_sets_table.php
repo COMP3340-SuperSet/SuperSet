@@ -23,18 +23,20 @@ class CreateSetsTable extends Migration
             $table->foreign('userid')->references('userid')->on('users');
             $table->string('name', 60);
             $table->string('description', 2048)->nullable();
+            $table->string('imageid', 41)->nullable()->unique();
             $table->timestamps();
         });
 
         $this->createTestData();
     }
 
-    private function createTestData(){
+    private function createTestData()
+    {
         Set::create(['userid' => '1', 'name' => 'Pokemon Cards', 'description' => 'Here is a bunch of pokemon cards']);
         Set::create(['userid' => '1', 'name' => 'PC Build', 'description' => 'Sick gaming PC build']);
         Set::create(['userid' => '1', 'name' => 'Cheescake', 'description' => 'Recipe for classic cheesecake']);
-        
-        
+
+
         Set::create(['userid' => '2', 'name' => 'Summer wardrobe', 'description' => 'What I wear during summer']);
         Set::create(['userid' => '2', 'name' => 'Winter wardrobe', 'description' => 'What I wear during winter']);
         Set::create(['userid' => '2', 'name' => 'Fall wardrobe', 'description' => 'What I wear during Fall']);

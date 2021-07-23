@@ -93,14 +93,14 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Form.Field>
           <label>Images</label>
           <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
-            <Button basic onClick={() => onClickAddFiles()} style={{padding: '0.5rem 1rem', marginRight: '1rem'}}>Add</Button>
+            <Button basic onClick={() => onClickAddFiles()} style={{ padding: '0.5rem 1rem', marginRight: '1rem' }}>Add</Button>
             {
               images && images.length
                 ? <p>{images.length} Images Selected</p>
                 : <p>No Images Selected</p>
             }
           </Segment>
-          <SuggestedImages term={name}/>
+          <SuggestedImages term={name} />
           <input multiple hidden
             type="file"
             id="file"

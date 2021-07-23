@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Set;
 use App\Models\Item;
-use App\Models\SetImage;
-use App\Models\ItemImage;
 use App\Models\User;
 
 class Owner
@@ -102,7 +100,7 @@ class Owner
                 //check all tables for userid w/ imageid
                 $userid = User::where('imageid', '=', $request->imageid)->first()->userid;
                 if (!$userid) {
-                    $setid = SetImage::where('imageid', '=', $request->imageid)->first()->setid;
+                    $setid = Set::where('imageid', '=', $request->imageid)->first()->setid;
                     $set = Set::find($setid);
                     if (!$set) {
                         return response()->json(['error' => "Set does not exist for image {$request->imageid}"], 400);
@@ -110,7 +108,7 @@ class Owner
                     $userid = $set->userid;
                 }
                 if (!$userid) {
-                    $itemid = ItemImage::where('imageid', '=', $request->imageid)->first()->itemid;
+                    $itemid = Item::where('imageid', '=', $request->imageid)->first()->itemid;
                     $setid = Item::find($itemid)->setid;
                     $userid = Set::find($setid)->userid;
                 }
