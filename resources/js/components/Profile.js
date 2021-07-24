@@ -43,8 +43,8 @@ const SetsDisplay = ({ displayMode, setInfo }) => {
             <Table celled selectable>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell width={1} textAlign="center">Items</Table.HeaderCell>
-                        <Table.HeaderCell width={3} textAlign="center">Set Name</Table.HeaderCell>
+                        {false && <Table.HeaderCell width={1} textAlign="center">Items</Table.HeaderCell>}
+                        <Table.HeaderCell width={4} textAlign="center">Set Name</Table.HeaderCell>
                         <Table.HeaderCell width={12} textAlign="center">Description</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>

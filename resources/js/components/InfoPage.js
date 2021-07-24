@@ -8,6 +8,7 @@ import "../../css/InfoPage.css";
 
 import signUpImg from "../../images/InfoImgs/signup.png";
 import logInImg from "../../images/InfoImgs/login.png";
+import { property } from "lodash";
 
 const ABOUT = 0;
 const DOC_AUTH = 1;
@@ -15,6 +16,7 @@ const DOC_PROFILE = 2;
 const DOC_SETS = 3;
 const DOC_ITEMS = 4;
 const DOC_SEARCH = 5;
+const FEEDBACK = 6;
 const VIDEO_TUTORIAL = 8;
 
 const InfoH1 = (props) => {
@@ -26,17 +28,18 @@ const InfoH1 = (props) => {
 }
 
 const InfoText = (props) => {
+    let textStyle = { fontSize: "16px" };
+    if (props.centered) { textStyle.textAlign = "center"; }
     return (
-        <p style={{ fontSize: "16px" }}>
+        <p style={textStyle}>
             {props.children}
         </p>
     );
 }
 
 const InfoLink = ({ text = "", loc = "/about" }) => {
-    return (
-        <a className="info-link" onClick={() => redirect(loc)}>{text}</a>
-    );
+    if (loc === "null") return (<a className="info-link">{text}</a>);
+    return (<a className="info-link" onClick={() => redirect(loc)}>{text}</a>);
 }
 
 const AboutSection = () => {
@@ -120,7 +123,7 @@ const DocsAuthSection = () => {
             <InfoH1>Log Out</InfoH1>
             <InfoText>
                 In order to log out, simply click on the dropdown menu at the right end of the header and select &nbsp;
-                <InfoLink text="Log Out" loc="" />. <br />
+                <InfoLink text="Log Out" loc="null" />. <br />
                 You will then be redirected to the landing page and you will no longer be logged in.
             </InfoText>
         </Segment>
@@ -186,8 +189,8 @@ const DocsSetsSection = () => {
             <InfoText>
                 To edit a set, first click on your desired set you want to edit from your profile. This will bring you to your set's
                 information page. From here, click the <Button icon ><Icon name="pencil" /></Button> pencil button and you will be
-                redirected to the set editing page. <br />
-                On this set editing page, you may update your set's name, description, images and items. <br />
+                redirected to the set editing page. <br /> <br />
+                On this set editing page, you may update your set's name, description, image and items.
                 See the Items tab in our documentation to get more information about managing items.
             </InfoText>
 
@@ -195,9 +198,9 @@ const DocsSetsSection = () => {
 
             <InfoH1>Deleting Sets</InfoH1>
             <InfoText>
-                Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking the
-                [delete button? icon?]. You will be prompted with a confirmation box if you truly want to delete the set,
-                and clicking [confirm] will delete your set data and it will be removed from the database. (So be careful!)<br />
+                Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking
+                the <Button color="red">Delete set</Button> button. You will be prompted with a confirmation box if you truly want to delete the set,
+                and confirming will delete your set data and it will be removed from the database. (So be careful!)<br />
                 After deleting a set, you will be redirected back to your profile page.
             </InfoText>
 
@@ -216,24 +219,33 @@ const DocsSetsSection = () => {
 const DocsItemsSection = () => {
     return (
         <Segment padded="very" id="about-docs-items">
+            <InfoText centered>
+                While on the set editing page, the user may add, edit, or delete items.
+            </InfoText>
 
             <InfoH1>Creating Items</InfoH1>
             <InfoText>
-
+                To create an item, fill out the information for the item in the "Create an item" dropdown box. Once
+                the name is inputted, the user will be allowed to add that item to their set by clicking
+                the <Button primary>Save</Button> button. The description and image are optional.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Editing Items</InfoH1>
             <InfoText>
-
+                In order to edit an existing item from the item list, click on the <Button icon><Icon name="edit" /></Button> edit
+                button to bring that item's information into the item creation form. The user may now change that item's information however
+                they would like, and then hit the <Button primary>Save</Button> button to save their changes.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Deleting Items</InfoH1>
             <InfoText>
-
+                To delete an item, simply click the <Button icon><Icon name="trash" /></Button> delete button on that item in the list of items
+                below the form. The user is then prompted if they truly wish to delete that item, and upon confirming the item is deleted.
+                Be careful, this action cannot be undone.
             </InfoText>
         </Segment>
     );
@@ -244,11 +256,23 @@ const DocsSearchSection = () => {
         <Segment padded="very" id="about-docs-search">
             <InfoH1>Search for profiles and sets</InfoH1>
             <InfoText>
-                SuperSet allows you to find and view other users' profiles and sets. <br />
+                SuperSet allows you to find and view other users' profiles and sets. <br /> <br />
                 You can do this by selecting the search bar on the page header and typing what you want to search
                 for. The system will search the database and display the output below the search bar. You could be
-                presented with a number of users and/or sets that matched with your search input. <br />
+                presented with a number of users and/or sets that matched with your search input. 
                 Clicking on any of these will bring you to their respective viewing pages.
+            </InfoText>
+        </Segment>
+    );
+}
+
+const FeedbackSection = () => {
+    return (
+        <Segment padded="very" id="about-docs-search">
+            <InfoH1>Submit feedback</InfoH1>
+            <InfoText centered>
+                Want to submit feedback to the developers? Please do so on  
+                our <Button icon onClick = {() => redirect('/feedback')}> <Icon name = "file text"/> Feedback</Button> page. 
             </InfoText>
         </Segment>
     );
@@ -270,6 +294,7 @@ const InfoSection = ({ section }) => {
         case DOC_SETS: return <DocsSetsSection />;
         case DOC_ITEMS: return <DocsItemsSection />;
         case DOC_SEARCH: return <DocsSearchSection />;
+        case FEEDBACK: return <FeedbackSection />;
         case VIDEO_TUTORIAL: return <VideoTutorialSection />;
         default: return null;
     }
@@ -303,6 +328,11 @@ const InfoPage = () => {
                         </Menu.Item>
                         <Menu.Item className="no-hover" active={activeItem === DOC_SEARCH} onClick={() => setActiveItem(DOC_SEARCH)} >
                             <span><Icon rotated='clockwise' name='level up' />Search</span>
+                        </Menu.Item>
+
+                        <Menu.Item header>Feedback</Menu.Item>
+                        <Menu.Item className="no-hover" active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
+                            <span ><Icon rotated='clockwise' name='level up' />Submit feedback</span>
                         </Menu.Item>
 
                         <Menu.Item header>Tutorial</Menu.Item>
