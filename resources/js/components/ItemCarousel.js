@@ -21,7 +21,7 @@ const ItemCarousel = ({ itemImages }) => {
 
     return (
         <div className="ss-instructions-location">
-            <Grid centered stackable columns={3}>
+            <Grid centered stackable >
                 <Grid.Column>
                     <Container className="ss-instructions-container">
                         <ImageSlider setPercent={setPercent} itemImages={itemImages} pageOffset={pageOffset} setPageOffset={setPageOffset} />

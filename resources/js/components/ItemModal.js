@@ -20,26 +20,22 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button> }) => {
             onOpen={() => setModalOpen(true)}
             open={modalOpen}
             trigger={modalTrigger}
+            size = "small"
         >
-            <Modal.Header className="ss-itemmodal-modalheader">Item View: {item.name}</Modal.Header>
-            <Grid centered stackable columns={3}>
-                <Modal.Content image>
-                    <Grid.Row>
-                        <Grid.Column className="ss-itemmodal-images">
-                            <ItemCarousel itemImages={[]} />
-                        </Grid.Column>
 
-                        <Modal.Description>
-                            <Grid.Column className="ss-itemmodal-description">
-                                <hr></hr>
-                                <p>{item.description}</p>
-                            </Grid.Column>
-                        </Modal.Description>
-                    </Grid.Row>
-                </Modal.Content>
-            </Grid>
+            <Modal.Header style = {{textAlign: "center", fontSize: "26px"}}>{item.name}</Modal.Header>
+            <Modal.Content>
+                <Grid.Row style ={{paddingBottom: "12px", textAlign: "center", fontSize: "20px"}}>
+                    <p>{item.description}</p>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <ItemCarousel itemImages={[]} />
+                    </Grid.Column>
+                </Grid.Row>
+            </Modal.Content>
 
-            <Modal.Actions>
+            <Modal.Actions style={{ textAlign: "center" }}>
                 <Button color='blue' onClick={() => setModalOpen(false)}> Back </Button>
             </Modal.Actions>
         </Modal>
