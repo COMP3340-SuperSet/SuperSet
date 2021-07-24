@@ -11,7 +11,7 @@ const SetCard = ({ id, count = 1, name, description, image = null }) => {
                 <Card.Header>{name}</Card.Header>
                 <Card.Description>{description}</Card.Description>
             </Card.Content>
-            <Card.Content extra textAlign="center">{count}</Card.Content>
+            {false && <Card.Content extra textAlign="center">{count}</Card.Content>}
         </Card>
     );
 }
