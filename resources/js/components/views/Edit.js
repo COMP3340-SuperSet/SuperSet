@@ -7,211 +7,66 @@ import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
 import ItemList from '../ItemList';
-
-const ent = {
-    elements: [],
-    count: 0,
-    hash: []
-};
+import { getUser, getSet, getItems, getSetImages } from '../../services/user';
 
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
 
+    const [openForm, setOpenForm] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const [itemEnt, setItemEnt] = useState(ent);
-    const [setImagesEnt, setSetImagesEnt] = useState(ent);
-    const [itemImagesEnt, setItemImagesEnt] = useState(ent);
+    const [setImages_db, setSetImages_db] = useState([]);
+    const [setImages_new, setSetImages_new] = useState([]);
 
-    const [openForm, setOpenForm] = useState(true);
+    const [items_db, setItems_db] = useState([]);
+    const [items_new, setItems_new] = useState([]);
+
+    const [itemImages_db, setItemImages_db] = useState([]);
+    const [itemImages_new, setItemImages_new] = useState([]);
 
     useEffect(() => {
-        //get session user
-        axios.get("/api/check").then((response) => {
-            setCurrentUser(response.data.user);
-        });
-
-
         let setid = new URL(window.location.href).searchParams.get("setid");
 
-        //set information
-        axios.get(`/api/sets/${setid}`).then((response) => {
-            setSet(response.data);
-        }).catch((error) => {
-            console.error("Error: " + error);
-        });
-
-        //item information
-        axios.get(`/api/set/${setid}/items`).then((response) => {
-            let tmp = response.data;
-
-            const elems = [];
-            const hashes = [];
-
-            tmp.forEach(item => {
-                elems.push(item);
-                hashes.push(item.itemid);
-            });
-
-            elems.forEach((elem, index) => {
-                elem.id = index;
-            });
-
-            encode(itemEnt, setItemEnt, elems, hashes);
-
-        }).catch((error) => {
-            console.error("Items Error: " + error);
-        });
-
-        //set images
-
-        axios.get(`/api/set/${setid}/images`).then((response) => {
-            let tmp = response.data;
-
-            const elems = [];
-            const hashes = [];
-
-            tmp.forEach(elem => {
-                elems.push(elem);
-                hashes.push(elem.setid);
-            });
-
-            elems.forEach((elem, index) => {
-                elem.id = index;
-            });
-
-            encode(setImagesEnt, setSetImagesEnt, elems, hashes);
-
-            console.log("set images:", temp);
-        }).catch(error => {
-            console.error(error);
-        });
-
-        //item images
-
+        async function getSetInfo() {
+            setCurrentUser(await getUser());
+            setSet(await getSet(setid));
+            setItems_db([...await getItems(setid)]);
+            setSetImages_db([...await getSetImages(setid)]);
+        }
+        getSetInfo();
     }, []);
 
-    useEffect(() => { }, [currentUser]);
+    useEffect(() => {
+        console.log('currentUser: ', currentUser);
+    }, [currentUser]);
 
     useEffect(() => {
-        console.log('current set', set);
+        console.log('set: ', set);
     }, [set]);
 
     useEffect(() => {
-        console.log('current items', itemEnt);
-    }, [itemEnt]);
+        console.log('items: ', items_db);
+    }, [items_db]);
 
-    function encode(ent, setEnt, elems, hashes) {
-        const tempEnt = { ...ent };
-        tempEnt.elements = elems;
-        tempEnt.hash = hashes;
-        tempEnt.count = elems.length;
-
-        setEnt(tempEnt);
-        return tempEnt.count;
-    }
-
-    function insert(ent, setEnt, payload) {
-        const tempEnt = { ...ent };
-        tempEnt.elements[tempEnt.count] = {
-            id: tempEnt.count,
-            ...payload
-        };
-
-        const tempCount = tempEnt.count;
-        tempEnt.count = tempCount + 1;
-
-        setEnt(tempEnt);
-        return tempCount;
-    }
-
-    function edit(ent, setEnt, hashid, payload) {
-        const tempEnt = { ...ent };
-        tempEnt.elements[hashid] = payload;
-        setEnt(tempEnt);
-    }
-
-    function count(ent) {
-        let count = 0;
-        for (let i = 0; i < ent.elements.length; i++) {
-            if (ent.elements[i]) count++;
-        }
-        return count;
-    }
-
-    function deleteEnt(ent, setEnt, hashid) {
-        const tempEnt = { ...ent };
-        tempEnt.elements[hashid] = null;
-        tempEnt.hash[hashid] = null;
-        setEnt(tempEnt);
-    }
-
-    function split(ent) {
-        const len = ent.hash.length;
-
-        const db = [];
-        const ne = [];
-
-        for (let i = 0; i < ent.elements.length; i++) {
-            if (!ent.elements[i]) continue;
-            if (i < len) {
-                db.push({
-                    id: i,
-                    payload: ent.elements[i]
-                });
-            } else {
-                ne.push({
-                    id: i,
-                    payload: ent.elements[i]
-                });
-            }
-        }
-        return [db, ne];
-    }
-
-    function decode(ent) {
-        const len = ent.hash.length;
-
-        const db = [];
-        const ne = [];
-
-        for (let i = 0; i < ent.elements.length; i++) {
-            if (!ent.elements[i]) continue;
-            if (i < len) {
-                db.push({
-                    id: ent.hash[i],
-                    payload: ent.elements[i]
-                });
-            } else {
-                ne.push({
-                    id: i,
-                    payload: ent.elements[i]
-                });
-            }
-        }
-        return [db, ne];
-    }
+    useEffect(() => {
+        console.log('setImages: ', setImages_db);
+    }, [setImages_db]);
 
     const onSubmitItem = (item) => {
-        if ("id" in item) {
-            console.log('submitting item first if', item);
-            edit(itemEnt, setItemEnt, item.id, item);
-        }
-        else {
-            console.log('submitting item else', item);
-            insert(itemEnt, setItemEnt, item);
-        }
+        if('itemid' in item){
 
-        setSelectedItem(null);
+        }else{
+            
+        }
     }
 
-    const onDeleteItem = (item) => {
-        deleteEnt(itemEnt, setItemEnt, item.id);
+    const onDeleteItem = () => {
+
     }
 
     const onSubmitSet = () => {
-        console.log("Submitting:", decode(itemEnt));
+
     }
 
     const onDiscardChanges = () => {
@@ -223,8 +78,7 @@ function Edit() {
             <Header currentUser={currentUser} />
             <Grid centered container>
                 <Grid.Column>
-                    <SetDetails set={set} updateSet={setSet}
-                        setImagesEnt={setImagesEnt} setSetImagesEnt={setSetImagesEnt} />
+                    <SetDetails set={set} updateSet={setSet} />
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -235,20 +89,19 @@ function Edit() {
                         <Accordion.Content active={openForm}>
                             <EditItemForm
                                 selectedItem={selectedItem}
-                                setSelectedItem={item => setSelectedItem(item)}
+                                setSelectedItem={setSelectedItem}
                                 onSubmitItem={onSubmitItem}
-                                itemImages={itemImagesEnt}
-                                setItemImagesEnt={setItemImagesEnt} />
+                                itemImages={[]}
+                            />
                         </Accordion.Content>
                     </Accordion>
                     <ItemList
-                        items={itemEnt.elements}
-                        onSelectItem={item => setSelectedItem(item)}
-                        onDeleteItem={item => onDeleteItem(item)}
+                        items={[ items_db, items_new]}
+                        onSelectItem={setSelectedItem}
+                        onDeleteItem={onDeleteItem}
                     />
                     <Divider />
-                    <div
-                        style={{ textAlign: 'right' }}>
+                    <div style={{ textAlign: 'right' }}>
                         <Button secondary onClick={() => onDiscardChanges()}>Discard Changes</Button>
                         <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
                     </div>

@@ -4,7 +4,7 @@ import ImageOverlay from './ImageOverlay';
 
 import { getImagePath } from '../utils/imagePath';
 
-const ImageUploader = ({ inputid = "file", images, updateImages, onDeleteImage }) => {
+const ImageUploader = ({ inputid = "file", images = [], updateImages, onDeleteImage }) => {
     const [overlayImage, setOverlayImage] = useState(null);
 
     const onFileChange = (event) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Form, Segment } from "semantic-ui-react";
 import ImageUploader from './ImageUploader';
 
-const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetImagesEnt }) => {
+const SetDetails = ({ set = null, updateSet = () => { }}) => {
   const [name, setName] = useState((set && set.name) ? set.name : '');
   const [description, setDescription] = useState((set && set.description) ? set.description : '');
 
@@ -20,29 +20,6 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
       setDescription(set.description);
     }
   }, [set]);
-
-  function insertAsList(ent, setEnt, payloadList) {
-    const tempEnt = { ...ent };
-
-    payloadList.forEach(payload => {
-      tempEnt.elements[tempEnt.count] = {
-        id: tempEnt.count++,
-        payload
-      }
-    });
-
-    const tempCount = tempEnt.count - 1;
-
-    setEnt(tempEnt);
-    return tempCount;
-  }
-
-  function deleteEnt(ent, setEnt, hashid) {
-      const tempEnt = {...ent};
-      tempEnt.elements[hashid] = null;
-      tempEnt.hash[hashid] = null;
-      setEnt(tempEnt);
-  }
 
   const onChangeDescription = (event) => {
     event.preventDefault();
@@ -66,13 +43,12 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
     desc.style.height = height + 'px';
   }
 
-
   const onUploadImages = (files) => {
-    insertAsList(setImagesEnt, setSetImagesEnt, files);
+    //insertAsList(setImagesEnt, setSetImagesEnt, files);
   }
 
   const onDeleteImage = (id) => {
-    deleteEnt(setImagesEnt, setSetImagesEnt, id);
+   // deleteEnt(setImagesEnt, setSetImagesEnt, id);
   }
 
   return (
@@ -103,7 +79,7 @@ const SetDetails = ({ set = null, updateSet = () => { }, setImagesEnt, setSetIma
             ></textarea>
           </Form.Field>
         </Form>
-        <ImageUploader images={setImagesEnt.elements} updateImages={onUploadImages} onDeleteImage = {onDeleteImage} />
+        <ImageUploader images={[]} updateImages={onUploadImages} onDeleteImage = {onDeleteImage} />
       </Card.Content>
     </Card>
   );
