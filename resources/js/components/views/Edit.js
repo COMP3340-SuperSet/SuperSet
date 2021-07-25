@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
-import axios from 'axios';
 
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
 import ItemList from '../ItemList';
-import { getUser, getSet, getItems, getSetImages } from '../../services/user';
+import { getUser, getSet, getItems, getSetImages, getItemImages } from '../../services/user';
 
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
+    useEffect(() => console.log('currentUser: ', currentUser), [currentUser]);
+    useEffect(() => console.log('set: ', set), [set]);
 
     const [openForm, setOpenForm] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
+    useEffect(() => console.log('selectedITem updated!!!!: ', selectedItem), [selectedItem]);
 
     const [setImages_db, setSetImages_db] = useState([]);
     const [setImages_new, setSetImages_new] = useState([]);
 
+    //const selectedSuggestedSetImages state
+    useEffect(() => console.log('setImages: ', setImages_db, setImages_new), [setImages_db, setImages_new]);
+
     const [items_db, setItems_db] = useState([]);
     const [items_new, setItems_new] = useState([]);
+    useEffect(() => console.log('items: ', items_db, items_new), [items_db, items_new]);
 
-    const [itemImages_db, setItemImages_db] = useState([]);
-    const [itemImages_new, setItemImages_new] = useState([]);
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("setid");
@@ -31,38 +35,82 @@ function Edit() {
         async function getSetInfo() {
             setCurrentUser(await getUser());
             setSet(await getSet(setid));
-            setItems_db([...await getItems(setid)]);
             setSetImages_db([...await getSetImages(setid)]);
+
+            //getting items and assigning their item images
+            const tempItems = [...await getItems(setid)];
+            let ind = 0;
+            for await (const item of tempItems) {
+                tempItems[ind].images_db = await getItemImages(item.itemid);
+                tempItems[ind].images_new = [];
+                ind++;
+            }
+            setItems_db(tempItems);
         }
         getSetInfo();
     }, []);
 
-    useEffect(() => {
-        console.log('currentUser: ', currentUser);
-    }, [currentUser]);
-
-    useEffect(() => {
-        console.log('set: ', set);
-    }, [set]);
-
-    useEffect(() => {
-        console.log('items: ', items_db);
-    }, [items_db]);
-
-    useEffect(() => {
-        console.log('setImages: ', setImages_db);
-    }, [setImages_db]);
-
     const onSubmitItem = (item) => {
-        if('itemid' in item){
-
-        }else{
-            
+        let temp;
+        if ('itemid' in item) {
+            temp = [...items_db];
+            const ind = findIndexWithKeyValue(temp, 'itemid', item.itemid);
+            temp[ind] = item;
+            setItems_db(temp);
+        } else {
+            temp = [...items_new];
+            if (selectedItem) {
+                const ind = findIndexWithKeyValue(temp, 'name', selectedItem.name);
+                temp[ind] = item;
+            } else temp.push(item);
+            setItems_new(temp);
         }
     }
 
-    const onDeleteItem = () => {
+    const onDeleteItem = (item) => {
 
+        let temp;
+        if ('itemid' in item) {
+            temp = [...items_db];
+            const ind = findIndexWithKeyValue(temp, 'itemid', item.itemid);
+            temp.splice(ind, 1);
+            setItems_db(temp);
+        } else {
+            temp = [...items_new];
+            const ind = findIndexWithKeyValue(temp, 'name', item.name);
+            temp.splice(ind, 1);
+            setItems_new(temp);
+        }
+    }
+
+    const findIndexWithKeyValue = (list, key, value) => {
+        return list.findIndex(elem => elem[key] === value);
+    }
+
+    const uploadSetImages = (files) => {
+        setSetImages_new([...setImages_new, ...files]);
+    }
+
+    const onSelectUnsplashImageSet = (urls) => {
+        setSetImages_new([...setImages_new, { urls }]);
+    }
+
+    const deleteSetImage = (index) => {
+        let temp;
+        if (index < setImages_db.length) {
+            temp = [...setImages_db];
+            temp.splice(index, 1);
+            setSetImages_db(temp);
+            return;
+        }
+
+        if (index < setImages_db.length + setImages_new.length) {
+            index -= setImages_db.length;
+            temp = [...setImages_new];
+            temp.splice(index, 1);
+            setSetImages_new(temp);
+            return;
+        }
     }
 
     const onSubmitSet = () => {
@@ -78,7 +126,13 @@ function Edit() {
             <Header currentUser={currentUser} />
             <Grid centered container>
                 <Grid.Column>
-                    <SetDetails set={set} updateSet={setSet} />
+                    <SetDetails
+                        set={set}
+                        updateSet={setSet}
+                        images={[setImages_db, setImages_new]}
+                        onUploadImages={uploadSetImages}
+                        onSelectUnsplashImage={onSelectUnsplashImageSet}
+                        onDeleteImage={deleteSetImage} />
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -91,12 +145,11 @@ function Edit() {
                                 selectedItem={selectedItem}
                                 setSelectedItem={setSelectedItem}
                                 onSubmitItem={onSubmitItem}
-                                itemImages={[]}
                             />
                         </Accordion.Content>
                     </Accordion>
                     <ItemList
-                        items={[ items_db, items_new]}
+                        items={[items_db, items_new]}
                         onSelectItem={setSelectedItem}
                         onDeleteItem={onDeleteItem}
                     />

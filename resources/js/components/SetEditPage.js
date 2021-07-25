@@ -121,8 +121,6 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
             name: setName,
             description: setDescription
         }).then(response => {
-            console.log("Set updated response:", response);
-
             if (setImage.file) {
                 //uploaded image update in db
                 var formData = new FormData();
@@ -243,8 +241,6 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
         }).catch(error => {
             console.log(error);
         });
-
-        console.log('Waiting... Redirecting');
 
         redirect("/set", [{
             key: "id",

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, Button, Icon } from "semantic-ui-react";
 
 const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
-  const [items_db, items_new] = [items[0], items[1]];
+  const [items_merged, setItems_merged] = useState([...items[0], ...items[1]]);
+
+  useEffect(() => {
+    setItems_merged([...items[0], ...items[1]]);
+  }, [items]);
 
   let renderedList;
-  if (!(items_db.length + items_new.length)) {
+  if (!items_merged.length) {
     renderedList = (
       <List.Item
         style={{ textAlign: 'center' }}
@@ -19,12 +23,12 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
     );
   }
 
-  else renderedList = [...items_db, ...items_new].map(item => {
+  else renderedList = items_merged.map((item, index) => {
     if (!item) return;
     return (
       <List.Item
         className="hoverable"
-        key={item.name} >
+        key={index} >
         <List.Content floated='right'>
           <Button icon onClick={() => onSelectItem(item) }><Icon name="edit"></Icon></Button>
           <Button icon onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>

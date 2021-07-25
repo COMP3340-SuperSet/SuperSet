@@ -34,3 +34,12 @@ export async function getSetImages(setid) {
         console.error(error);
     }
 }
+
+export async function getItemImages(itemid) {
+    try {
+        const response = await axios.get(`/api/item/${itemid}/images`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}

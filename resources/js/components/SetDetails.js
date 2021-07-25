@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Form, Segment } from "semantic-ui-react";
+import { Card, Form } from "semantic-ui-react";
+import ImageList from './ImageList';
 import ImageUploader from './ImageUploader';
+import SuggestedImages from './SuggestedImages';
 
-const SetDetails = ({ set = null, updateSet = () => { }}) => {
+const SetDetails = ({ set, updateSet, onUploadImages, onSelectUnsplashImage, onDeleteImage, images }) => {
+  const images_merged = [...images[0], ...images[1]];
   const [name, setName] = useState((set && set.name) ? set.name : '');
   const [description, setDescription] = useState((set && set.description) ? set.description : '');
 
@@ -15,10 +18,9 @@ const SetDetails = ({ set = null, updateSet = () => { }}) => {
   }, [name, description]);
 
   useEffect(() => {
-    if (set) {
-      setName(set.name);
-      setDescription(set.description);
-    }
+    if (!set) return;
+    if (set.name) setName(set.name);
+    if (set.description) setDescription(set.description);
   }, [set]);
 
   const onChangeDescription = (event) => {
@@ -41,14 +43,6 @@ const SetDetails = ({ set = null, updateSet = () => { }}) => {
       + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
     desc.style.height = height + 'px';
-  }
-
-  const onUploadImages = (files) => {
-    //insertAsList(setImagesEnt, setSetImagesEnt, files);
-  }
-
-  const onDeleteImage = (id) => {
-   // deleteEnt(setImagesEnt, setSetImagesEnt, id);
   }
 
   return (
@@ -79,7 +73,9 @@ const SetDetails = ({ set = null, updateSet = () => { }}) => {
             ></textarea>
           </Form.Field>
         </Form>
-        <ImageUploader images={[]} updateImages={onUploadImages} onDeleteImage = {onDeleteImage} />
+        <ImageUploader onUploadImages={onUploadImages} formID="set-image-uploader" imageCount={images_merged.length} />
+        <SuggestedImages term={name} onSelectImage={onSelectUnsplashImage} />
+        <ImageList images={images_merged} onDeleteImage={onDeleteImage} />
       </Card.Content>
     </Card>
   );

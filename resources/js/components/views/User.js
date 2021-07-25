@@ -15,30 +15,25 @@ function User() {
         let userid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/user/${userid}`).then((response) => {
             setUser(response.data);
-            //console.log("User: " + JSON.stringify(response));
         }).catch((error) => {
             console.error("User Error: " + error);
         });
 
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
-            //console.log("Sets retrieved: " + JSON.stringify(response));
         }).catch((error) => {
             console.error("Sets Error: " + error);
         });
 
         axios.get("/api/check").then((response) => {
-            //console.log("getUser response: " + JSON.stringify(response.data.user));
             setCurrentUser(response.data.user);
         });
     }, []);
 
     useEffect(() => {
-        //console.log("User from useeffect:", user );
     }, [user, userSets]);
 
     useEffect(() => {
-        //console.log("[From User useEffect] User logged in: " + JSON.stringify(currentUser));
     }, [currentUser]);
 
     return (

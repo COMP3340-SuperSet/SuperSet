@@ -36,7 +36,6 @@ const LoginForm = () => {
                 storeToken(response.data.token);
                 redirect(fetchReferer() ? fetchReferer() : '/');
             }).catch(error => {
-                console.error(error.response.data);
                 setErrors(error.response.data.errors);
             });
         });
