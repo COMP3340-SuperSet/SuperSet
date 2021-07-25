@@ -143,17 +143,17 @@ const DocsProfileSection = () => {
 
             <InfoH1>Editing Profile</InfoH1>
             <InfoText>
-                Once you are on your profile page, you may edit your profile by clicking the <Button icon ><Icon name="pencil" /></Button> pencil
+                Once you are on your profile page, you may edit your profile by clicking the <Button icon className = "no-hover"><Icon name="pencil" /></Button> pencil
                 icon on top of your profile card. Once you click this button, the card displaying your information will allow you to edit
                 it and make changes. You may change your profile picture, username, and description when editing your profile. <br />
-                Once you are finished editing your profile, click the <Button>Save</Button> button to save your changes.
+                Once you are finished editing your profile, click the <Button className = "no-hover">Save</Button> button to save your changes.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Sharing Profile</InfoH1>
             <InfoText>
-                Once you are on your profile page, you may share your profile by clicking the <Button icon ><Icon name="linkify" /></Button> link
+                Once you are on your profile page, you may share your profile by clicking the <Button icon className = "no-hover"><Icon name="linkify" /></Button> link
                 button. This will copy the link to your profile that you may share with others. When others view your profile, they will see your
                 profile card and all of your sets on display.
             </InfoText>
@@ -167,7 +167,7 @@ const DocsSetsSection = () => {
             <InfoH1>Viewing Sets</InfoH1>
             <InfoText>
                 Once you are viewing your profile, you may see all of your sets. Your sets can be displayed in two modes: &nbsp;
-                <Button icon ><Icon name="th" /></Button> Grid and <Button icon ><Icon name="list" /></Button> List.
+                <Button icon className = "no-hover"><Icon name="th" /></Button> Grid and <Button icon className = "no-hover"><Icon name="list" /></Button> List.
                 The default view will be grid mode. To switch view modes simply click on the icon representing each view on the
                 right of the controls section at the top of the set view. <br />
                 To view any individual set, click on the set respresented by a card in grid view, and a row in list view. This will
@@ -178,9 +178,9 @@ const DocsSetsSection = () => {
 
             <InfoH1>Creating Sets</InfoH1>
             <InfoText>
-                To create a set first navigate to your profile. Then click on the <Button icon ><Icon name="plus" /></Button> plus
+                To create a set first navigate to your profile. Then click on the <Button icon className = "no-hover"><Icon name="plus" /></Button> plus
                 button in the controls sections and you will be prompted to enter a name for your new set. After entering your name,
-                clicking the <Button positive>Create</Button> button will redirect you to the set editing page with your new blank set. <br />
+                clicking the <Button positive className = "no-hover">Create</Button> button will redirect you to the set editing page with your new blank set. <br />
             </InfoText>
 
             <Divider />
@@ -188,7 +188,7 @@ const DocsSetsSection = () => {
             <InfoH1>Editing Sets</InfoH1>
             <InfoText>
                 To edit a set, first click on your desired set you want to edit from your profile. This will bring you to your set's
-                information page. From here, click the <Button icon ><Icon name="pencil" /></Button> pencil button and you will be
+                information page. From here, click the <Button icon className = "no-hover"><Icon name="pencil" /></Button> pencil button and you will be
                 redirected to the set editing page. <br /> <br />
                 On this set editing page, you may update your set's name, description, image and items.
                 See the Items tab in our documentation to get more information about managing items.
@@ -199,7 +199,7 @@ const DocsSetsSection = () => {
             <InfoH1>Deleting Sets</InfoH1>
             <InfoText>
                 Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking
-                the <Button color="red">Delete set</Button> button. You will be prompted with a confirmation box if you truly want to delete the set,
+                the <Button color="red" className = "no-hover">Delete set</Button> button. You will be prompted with a confirmation box if you truly want to delete the set,
                 and confirming will delete your set data and it will be removed from the database. (So be careful!)<br />
                 After deleting a set, you will be redirected back to your profile page.
             </InfoText>
@@ -208,7 +208,7 @@ const DocsSetsSection = () => {
 
             <InfoH1>Sharing Sets</InfoH1>
             <InfoText>
-                To share any of your sets, first navigate to the set's view page. Then click the <Button icon ><Icon name="linkify" /></Button> link
+                To share any of your sets, first navigate to the set's view page. Then click the <Button icon className = "no-hover"><Icon name="linkify" /></Button> link
                 button at the top of your set. This will copy the link to your set, and you may share this link with others. When others view your set,
                 they will see all of the information you do when viewing it.
             </InfoText>
@@ -227,23 +227,23 @@ const DocsItemsSection = () => {
             <InfoText>
                 To create an item, fill out the information for the item in the "Create an item" dropdown box. Once
                 the name is inputted, the user will be allowed to add that item to their set by clicking
-                the <Button primary>Save</Button> button. The description and image are optional.
+                the <Button primary className = "no-hover">Save</Button> button. The description and image are optional.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Editing Items</InfoH1>
             <InfoText>
-                In order to edit an existing item from the item list, click on the <Button icon><Icon name="edit" /></Button> edit
+                In order to edit an existing item from the item list, click on the <Button icon className = "no-hover"><Icon name="edit" /></Button> edit
                 button to bring that item's information into the item creation form. The user may now change that item's information however
-                they would like, and then hit the <Button primary>Save</Button> button to save their changes.
+                they would like, and then hit the <Button primary className = "no-hover">Save</Button> button to save their changes.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Deleting Items</InfoH1>
             <InfoText>
-                To delete an item, simply click the <Button icon><Icon name="trash" /></Button> delete button on that item in the list of items
+                To delete an item, simply click the <Button icon className = "no-hover"><Icon name="trash" /></Button> delete button on that item in the list of items
                 below the form. The user is then prompted if they truly wish to delete that item, and upon confirming the item is deleted.
                 Be careful, this action cannot be undone.
             </InfoText>
@@ -272,7 +272,7 @@ const FeedbackSection = () => {
             <InfoH1>Submit feedback</InfoH1>
             <InfoText centered>
                 Want to submit feedback to the developers? Please do so on  
-                our <Button icon onClick = {() => redirect('/feedback')}> <Icon name = "file text"/> Feedback</Button> page. 
+                our <Button icon onClick = {() => redirect('/feedback')} > <Icon name = "file text"/> Feedback</Button> page. 
             </InfoText>
         </Segment>
     );
@@ -307,36 +307,36 @@ const InfoPage = () => {
         <Grid columns={2} stackable padded>
             <Grid.Column width={3} >
                 <Segment padded basic>
-                    <Menu vertical fluid borderless pointing secondary>
+                    <Menu vertical fluid secondary>
                         <Menu.Item header>About</Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === ABOUT} onClick={() => setActiveItem(ABOUT)} >
+                        <Menu.Item active={activeItem === ABOUT} onClick={() => setActiveItem(ABOUT)} >
                             <span ><Icon rotated='clockwise' name='level up' />About SuperSet</span>
                         </Menu.Item>
 
                         <Menu.Item header>Documentation</Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === DOC_AUTH} onClick={() => setActiveItem(DOC_AUTH)} >
+                        <Menu.Item active={activeItem === DOC_AUTH} onClick={() => setActiveItem(DOC_AUTH)} >
                             <span><Icon rotated='clockwise' name='level up' />Authentication</span>
                         </Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === DOC_PROFILE} onClick={() => setActiveItem(DOC_PROFILE)} >
+                        <Menu.Item  active={activeItem === DOC_PROFILE} onClick={() => setActiveItem(DOC_PROFILE)} >
                             <span><Icon rotated='clockwise' name='level up' />Profile</span>
                         </Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === DOC_SETS} onClick={() => setActiveItem(DOC_SETS)} >
+                        <Menu.Item  active={activeItem === DOC_SETS} onClick={() => setActiveItem(DOC_SETS)} >
                             <span><Icon rotated='clockwise' name='level up' />Sets</span>
                         </Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === DOC_ITEMS} onClick={() => setActiveItem(DOC_ITEMS)} >
+                        <Menu.Item  active={activeItem === DOC_ITEMS} onClick={() => setActiveItem(DOC_ITEMS)} >
                             <span><Icon rotated='clockwise' name='level up' />Items</span>
                         </Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === DOC_SEARCH} onClick={() => setActiveItem(DOC_SEARCH)} >
+                        <Menu.Item  active={activeItem === DOC_SEARCH} onClick={() => setActiveItem(DOC_SEARCH)} >
                             <span><Icon rotated='clockwise' name='level up' />Search</span>
                         </Menu.Item>
 
                         <Menu.Item header>Feedback</Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
+                        <Menu.Item  active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
                             <span ><Icon rotated='clockwise' name='level up' />Submit feedback</span>
                         </Menu.Item>
 
                         <Menu.Item header>Tutorial</Menu.Item>
-                        <Menu.Item className="no-hover" active={activeItem === VIDEO_TUTORIAL} onClick={() => setActiveItem(VIDEO_TUTORIAL)} >
+                        <Menu.Item  active={activeItem === VIDEO_TUTORIAL} onClick={() => setActiveItem(VIDEO_TUTORIAL)} >
                             <span><Icon rotated='clockwise' name='level up' />Video Tutorial</span>
                         </Menu.Item>
                     </Menu>

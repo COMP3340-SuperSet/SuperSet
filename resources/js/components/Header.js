@@ -114,6 +114,8 @@ const SSHeader = ({ currentUser }) => {
                         {!currentUser && <Dropdown.Item text='Log In' onClick={() => redirect('/login')} />}
                         {!currentUser && <Dropdown.Item text='Sign Up' onClick={() => redirect('/register')} />}
 
+                        <Dropdown.Divider />
+
                         <Dropdown.Item text = 'Feedback' onClick={() => redirect('/feedback')} />
                         <Dropdown.Item text = 'Info' onClick={() => redirect('/about')} />
 
