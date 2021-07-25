@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Form, Header, Rating, Button, Checkbox } from "semantic-ui-react";
+import { Grid, Form, Header, Rating, Button, Checkbox, Icon } from "semantic-ui-react";
 import "../../css/FeedbackPage.css";
 import { toast } from './Toast'
 
@@ -34,12 +34,13 @@ const FeedbackForm = () => {
 
     return (
         <div className='ss-feedback-div'>
-            <Header icon='clipboard' as="h2" content='Website Feedback' />
+
             <div className='ss-feedback-griddiv'>
                 <Grid centered stackable columns={3}>
                     <Grid.Row>
                         <Grid.Column className='ss-feedback-gridcolumn'>
-                            <div className="ss-feedback-formdiv">
+                            <Header as="h1" style={{ textAlign: "center", marginTop: "35px" }} ><Icon name="clipboard" /> Website Feedback</Header>
+                            <div className="ss-feedback-formdiv" style = {{marginTop: "20px"}}>
                                 <Header content="What is on your mind?" className='ss-feedback-header' />
                                 <Form className="ss-feedback-form">
                                     <Form.TextArea
