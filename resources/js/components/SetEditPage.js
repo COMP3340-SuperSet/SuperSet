@@ -164,7 +164,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                 }
                             }).then(response => {
                             }).catch(error => {
-                                console.(error);
+                                console.error(error);
                             });
                         }
                     }).catch(error => {
