@@ -1,20 +1,25 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { Modal, Button, Grid, Form, TextArea } from "semantic-ui-react";
-import "../../css/BanModal.css";
+import { Modal, Button, Grid } from "semantic-ui-react";
+import axios from 'axios';
+
+import { toast } from './Toast';
 
 const BanModal = ({ trigger, userid, reportid }) => {
 
     // Use to determine when the modal is open or closed  
     const [open, setOpen] = useState(false);
 
-    const [banReason, setBanReason] = useState('');
+    //const [banReason, setBanReason] = useState('');
 
     const submitBanReason = (userid, reportid) => {
         setOpen(false);
-        axios.post(`/api/delete/report`,{reportid: reportid})
+        axios.post(`/api/delete/report`, { reportid: reportid })
 
-        axios.post(`/api/delete/user`, {userid: userid, banUser: true})
+        axios.post(`/api/delete/user`, { userid: userid, banUser: true }).then(() => {
+            toast("Successfully banned user", "success");
+        }).catch((err) => {
+            toast("Server error while banning user: " + error, "error");
+        });
     }
 
     return (
@@ -26,15 +31,13 @@ const BanModal = ({ trigger, userid, reportid }) => {
         >
             <Modal.Header>Banning Account</Modal.Header>
             <Grid centered stackable columns={3}>
-                <Modal.Content className="ss-banmodal-content">
+                <Modal.Content style={{ margin: "20px" }} >
                     <Grid.Row>
                         <Grid.Column>
-                            <Form>
-                                <h1>Are You Sure?</h1>
-                                <br/>
-                                <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                                <Button className='ss-banmodal-modalactions' color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
-                            </Form>
+                            <h1 className = "ss-text-primary">Are you sure you would like to ban this user?</h1>
+                            <br />
+                            <Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>
+                            <Button color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Modal.Content>

@@ -1,13 +1,11 @@
 
 import React, { useState } from 'react';
 import { Grid, Button, Container, Progress, Image } from "semantic-ui-react";
-import "../../css/Instructions.css";
-import "../../css/Title.css";
-import logoFull from "../../images/supersetfull.png";
 
-import Title from './Title'
 import ImageSlider from "./ImageSlider";
 import { redirect } from '../utils/redirect';
+
+import logoFull from "../../images/supersetfull.png";
 
 const InstructionsCarousel = ({ images }) => {
     /*
@@ -31,8 +29,6 @@ const InstructionsCarousel = ({ images }) => {
                     <Grid.Column>
                         <Image src={logoFull} style={{ margin: "30px 0" }} />
                         <Container textAlign="center"><p className="ss-title-subtitle">How it works</p></Container>
-
-                        {false && <Title title={"SuperSet"} subtitle={"How it Works"} />}
                         <Container className="ss-instructions-container">
                             <ImageSlider setPercent={setPercent} itemImages={images} pageOffset={pageOffset} setPageOffset={setPageOffset} />
                         </Container>

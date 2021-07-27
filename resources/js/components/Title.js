@@ -3,6 +3,8 @@ import { Header, Image } from "semantic-ui-react";
 import logo from "../../images/superset.png";
 import "../../css/Title.css";
 
+// not in use 
+
 const Title = ({ title, subtitle }) => {
     return (
         <Fragment>

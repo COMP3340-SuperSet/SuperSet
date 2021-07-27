@@ -1,40 +1,14 @@
 import React, { useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Dropdown, Input, Table, Image, Container } from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } from 'semantic-ui-react';
+
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
-import { toast } from './Toast';
 
-import "../../css/SetView.css";
-
-import placeholderImage from "../../images/superset.png";
 import { redirect } from "../utils/redirect.js";
+import { toast } from './Toast';
 
 const GRID_MODE = true;
 const LIST_MODE = false;
-
-//unsure how this structure will look like later, but we can change the code that parses this accordingly
-var set = {
-    id: 1,
-    name: "set name",
-    description: "description",
-    images: [placeholderImage, placeholderImage],
-    itemList: [{
-        itemId: 2634,
-        itemName: "item name 1",
-        itemDescription: "item description 1",
-        itemImages: [null]
-    }, {
-        itemId: 2346,
-        itemName: "item name 2",
-        itemDescription: "item description 2",
-        itemImages: [null]
-    }, {
-        itemId: 2214,
-        itemName: "item name 3",
-        itemDescription: "item description 3",
-        itemImages: [null]
-    }]
-};
 
 const ItemViewDisplay = ({ view, itemInfo }) => {
     if (itemInfo === null) return null;
@@ -42,9 +16,9 @@ const ItemViewDisplay = ({ view, itemInfo }) => {
         let AllCards = itemInfo.map((obj) =>
             <Grid.Column key={obj.itemid}>
                 <ItemModal item={obj} modalTrigger={
-                    <Button fluid className="basic-button">
+                    <Container fluid className="basic-button">
                         <ItemCard name={obj.name} count={5} description={obj.description} image={null} />
-                    </Button>} />
+                    </Container>} />
             </Grid.Column>);
 
         return (
@@ -55,15 +29,9 @@ const ItemViewDisplay = ({ view, itemInfo }) => {
     }
     else {
         let AllCells = itemInfo.map((obj) =>
-            <Table.Row key={obj.itemid}>
-                <Table.Cell style={{ padding: "0" }}>
-                    <ItemModal item={obj} modalTrigger={
-                        <Button fluid className="basic-button padded-cell-button">{obj.name}</Button>} />
-                </Table.Cell>
-                <Table.Cell style={{ padding: "0" }}>
-                    <ItemModal item={obj} modalTrigger={
-                        <Button fluid className="basic-button padded-cell-button">{obj.description}</Button>} />
-                </Table.Cell>
+            <Table.Row className = "hoverable" key={obj.itemid}>
+                <ItemModal item={obj} modalTrigger={ <Table.Cell textAlign="center">{obj.name}</Table.Cell>} />
+                <ItemModal item={obj} modalTrigger={ <Table.Cell textAlign="center">{obj.description}</Table.Cell>} />
             </Table.Row>);
 
         return (
@@ -88,8 +56,8 @@ const SetImagesDisplay = ({ images }) => {
     if (images) allSetImages = images.map((obj, index) => <Image key={index} src={obj} />);
 
     return (
-        <Segment>
-            {!allSetImages ? <p>No set images</p> :
+        <Segment className = "ss-segment-primary">
+            {!allSetImages ? <p className = "ss-text-light">No set images</p> :
                 <Image.Group size="tiny">
                     {allSetImages}
                 </Image.Group>}
@@ -133,7 +101,8 @@ const SetView = ({ set, items, currentUser }) => {
 
             <Grid.Row>
                 <Grid.Column textAlign="center" verticalAlign="middle">
-                    <Header as="h1">{set.name ? set.name : <span style={{ color: "grey" }}>Nameless set</span>}</Header>
+                    <Header as="h1" className = "ss-text-primary">{set.name ? set.name : <p className = "ss-text-light">Nameless set</p>}</Header>
+                    
                     <Button style={{ position: "absolute", top: "0px", left: "0px" }} icon labelPosition="left" onClick={() => redirect('/user', [{ key: "id", value: set.userid }])}>
                         <Icon name="left arrow" /> Back to profile
                     </Button>
@@ -142,7 +111,7 @@ const SetView = ({ set, items, currentUser }) => {
 
             <Grid.Row>
                 <Grid.Column textAlign="center">
-                    <Header>{set.description ? set.description : <span style={{ color: "grey" }}>No description</span>}</Header>
+                    <Header className = "ss-text-secondary">{set.description ? set.description : <span className = "ss-text-light">No description</span>}</Header>
                 </Grid.Column>
             </Grid.Row>
 
@@ -161,9 +130,9 @@ const SetView = ({ set, items, currentUser }) => {
             </Grid.Row>
 
             <Grid.Row>
-                <Container fluid textAlign="center">
+                <Segment textAlign="center" className = "ss-segment-primary">
                     <ItemViewDisplay view={viewType} itemInfo={items} />
-                </Container>
+                </Segment>
             </Grid.Row>
         </Grid>
     );

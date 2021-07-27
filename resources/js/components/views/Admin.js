@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from "../Header";
 import AdminPages from '../AdminPages';
+import Toast from '../Toast';
 
 function Admin() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -20,6 +21,7 @@ function Admin() {
         <div>
             <Header currentUser={currentUser} />
             <AdminPages />
+            <Toast />
         </div>
     );
 }

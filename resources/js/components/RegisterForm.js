@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button, Grid } from 'semantic-ui-react';
 import axios from 'axios';
+
 import { storeToken } from '../utils/localStorage';
 import { redirect } from '../utils/redirect';
+
 import ErrorMessage from './ErrorMessage';
 
 const RegisterForm = () => {
@@ -39,31 +41,23 @@ const RegisterForm = () => {
         });
     }
 
-
     return (
-
         <Grid container centered style={{ marginTop: "50px" }}>
             <Grid.Row>
                 <Grid.Column width={12}>
                     <Form onSubmit={(e) => onRegisterSubmit(e)} size="large">
                         <Form.Field>
-                            <label>
-                                Username
-                            </label>
+                            <label className = "ss-text-primary"> Username </label>
                             <ErrorMessage errors={errors} type='username'></ErrorMessage>
                             <input required id='username' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
-                            <label>
-                                Email
-                            </label>
+                            <label className = "ss-text-primary"> Email </label>
                             <ErrorMessage errors={errors} type='email'></ErrorMessage>
                             <input required id='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
-                            <label>
-                                Password
-                            </label>
+                            <label className = "ss-text-primary"> Password </label>
                             <ErrorMessage errors={errors} type='password'></ErrorMessage>
                             <input required id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>

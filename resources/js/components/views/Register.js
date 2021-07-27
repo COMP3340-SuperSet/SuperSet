@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 
 import Header from '../Header';
 import RegisterForm from '../RegisterForm';
+import Toast from '../Toast';
 
 function Register() {
     return (
         <div>
             <Header currentUser={null} />
             <RegisterForm />
+            <Toast />
         </div>
     );
 }

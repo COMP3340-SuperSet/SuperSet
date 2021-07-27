@@ -1,9 +1,11 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button, Grid } from 'semantic-ui-react';
+import axios from 'axios';
+
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
+
 import ErrorMessage from './ErrorMessage';
 
 const LoginForm = () => {
@@ -48,15 +50,11 @@ const LoginForm = () => {
                 <Grid.Column width={12}>
                     <Form onSubmit={(e) => onLoginSubmit(e)} size="large">
                         <Form.Field>
-                            <label>
-                                Username / Email
-                            </label>
-                            <input autofocus="autofocus" id='username' placeholder="Username or Email" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <label className = "ss-text-primary"> Username / Email </label>
+                            <input autoFocus="autoFocus" id='username' placeholder="Username or Email" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
-                            <label>
-                                Password
-                            </label>
+                            <label className = "ss-text-primary"> Password </label>
                             <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>
                         <ErrorMessage errors={errors} type='login'></ErrorMessage>
