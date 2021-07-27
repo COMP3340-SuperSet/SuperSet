@@ -10,7 +10,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
   const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
 
-  useEffect(() => {}), [itemImages_db, itemImages_new]);
+  useEffect(() => {}, [itemImages_db, itemImages_new]);
   const [suggestedImages, setSuggestedImages] = useState([]);
   const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
 

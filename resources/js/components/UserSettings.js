@@ -8,7 +8,6 @@ import { getImagePath } from "../utils/imagePath";
 import Confirmation from "./Confirmation";
 import tmp_pic from "../../images/pfp_placeholder.png";
 import { toast } from "./Toast";
-import axios from "axios";
 
 const UserSettings = ({ userInfo }) => {
     const [image, setImage] = useState(null);
