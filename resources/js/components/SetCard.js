@@ -6,7 +6,7 @@ import { redirect } from "../utils/redirect";
 const SetCard = ({ id, count = 1, name, description, image = null }) => {
     return (
         <Card centered link onClick={() => { redirect("/set", [{ key: "id", value: id }]) }} className = "ss-card">
-            <Image src={image} />
+            <Image src={image} style = {{maxHeight: "200px"}} />
             <Card.Content textAlign="center">
                 <Card.Header className = "ss-text-primary" >{name}</Card.Header>
                 { description ?

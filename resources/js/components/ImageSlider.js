@@ -49,7 +49,7 @@ const ImageSlider = ({ itemImages, setPercent, setPageOffset, pageOffset }) => {
             {itemImages.map((slide, index) => {
                 return (
                     <div className={`ss-imageslider-slide ${index === current ? 'slide active' : 'slide'}`} key={index} >
-                        {index === current && (<Image className={"ss-imageslider-image"} centered src={slide} size='large' />)}
+                        {index === current && (<Image className="ss-imageslider-image" centered src={slide} size='large' />)}
                     </div>
                 );
             })}

@@ -7,44 +7,40 @@ import Profile from '../Profile';
 import Toast from '../Toast';
 
 function User() {
-    const [user, setUser] = useState(null);
-    const [userSets, setUserSets] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
 
+    const [user, setUser] = useState(null);
+    const [userSets, setUserSets] = useState([]);
+    const [setImages, setSetImages] = useState([]);
+
     useEffect(() => {
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
+
         let userid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/user/${userid}`).then((response) => {
             setUser(response.data);
-            //console.log("User: " + JSON.stringify(response));
         }).catch((error) => {
             console.error("User Error: " + error);
         });
 
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
-            //console.log("Sets retrieved: " + JSON.stringify(response));
+
+            //get set images
+
         }).catch((error) => {
             console.error("Sets Error: " + error);
         });
-
-        axios.get("/api/check").then((response) => {
-            //console.log("getUser response: " + JSON.stringify(response.data.user));
-            setCurrentUser(response.data.user);
-        });
     }, []);
 
-    useEffect(() => {
-        //console.log("User from useeffect:", user );
-    }, [user, userSets]);
-
-    useEffect(() => {
-        //console.log("[From User useEffect] User logged in: " + JSON.stringify(currentUser));
-    }, [currentUser]);
+    useEffect(() => { }, [currentUser, user, userSets, setImages]);
 
     return (
         <div>
             <Header currentUser={currentUser} />
-            <Profile userInfo={user} userSets={userSets} currentUser={currentUser} />
+            <Profile userInfo={user} userSets={userSets} setImages={setImages} currentUser={currentUser} />
             <Toast />
         </div>
     );
