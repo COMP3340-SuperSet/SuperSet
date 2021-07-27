@@ -88,7 +88,7 @@ const SSHeader = ({ currentUser }) => {
             if (response.data.value !== "0"){ setHeaderLogo(logoFullGrey); }
         });
     }, []);
-
+    
     const onLogOut = () => {
         axios.post(`/api/logout`).then(() => {
             redirect('/');
@@ -120,6 +120,8 @@ const SSHeader = ({ currentUser }) => {
 
                         {!currentUser && <Dropdown.Item text='Log In' onClick={() => redirect('/login')} />}
                         {!currentUser && <Dropdown.Item text='Sign Up' onClick={() => redirect('/register')} />}
+
+                        {currentUser && currentUser.role === 1 && <Dropdown.Item text='Admin' onClick={() => redirect('/admin')} />}
 
                         <Dropdown.Divider />
 

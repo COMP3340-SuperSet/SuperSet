@@ -4,13 +4,13 @@ import { List, Button, Icon } from "semantic-ui-react";
 const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
 
   const onEdit = (item) => {
-    console.log('clicked', item);
+    //console.log('clicked', item);
     onSelectItem(item);
   }
 
 
   const onDelete = (item) => {
-    console.log('deleting ', item);
+    //console.log('deleting ', item);
     onDeleteItem(item);
   }
 

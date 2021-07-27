@@ -90,7 +90,7 @@ const ReportTableSet = () => {
 
     useEffect(() => {
         return () => {
-            console.log("Unmounted Set Table");
+            //console.log("Unmounted Set Table");
             isCurrent.current = false;
         };
     }, []);
