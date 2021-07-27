@@ -10,6 +10,8 @@ import { getImagePath } from "../utils/imagePath.js";
 import { toast } from "./Toast.js";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
+import Confirmation from "./Confirmation.js";
+import { makeReport } from "../utils/makeReport.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -79,6 +81,12 @@ const Profile = ({ userInfo, userSets, currentUser }) => {
         <Grid divided padded stackable columns={2} >
             <Grid.Column width={5}>
                 <Segment padded="very" className="ss-segment-primary">
+                    {userInfo && !(currentUser && currentUser.userid === userInfo.userid) &&
+                        <Confirmation style={{ textAlign: "center", marginBottom: "18px" }}
+                            trigger={<Button icon color="red"><Icon name="flag" /> Report</Button>}
+                            onConfirm={() => { makeReport('user', userInfo.userid) }}
+                            text="Are you sure you would like to report this user?" />}
+
                     {userInfo && <div>
                         <Image size="small" src={(userInfo.imageid) ? getImagePath('user', userInfo.imageid) : tmp_pic} circular centered />
                         <Header as="h1" textAlign="center" className="ss-text-primary">{userInfo.username}</Header>
@@ -91,6 +99,8 @@ const Profile = ({ userInfo, userSets, currentUser }) => {
                                 <Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>
                                 <Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>
                             </div>} </div>}
+
+
                 </Segment>
             </Grid.Column>
 

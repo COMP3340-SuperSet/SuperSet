@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from '../Header';
 import SetView from '../SetView';
 import Toast from '../Toast';
+import { redirect } from '../../utils/redirect';
 
 function Set() {
     const [set, setSet] = useState(null);
@@ -14,6 +15,7 @@ function Set() {
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("id");
+        if (!setid || setid == 0) redirect('/');
         axios.get(`/api/sets/${setid}`).then((response) => {
             setSet(response.data);
         }).catch((error) => {
