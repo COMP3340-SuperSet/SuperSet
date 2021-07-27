@@ -1,51 +1,85 @@
 import React, { useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Dropdown, Input, Table, Image, Container } from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } from 'semantic-ui-react';
+
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
-import { toast } from './Toast';
+import Confirmation from "./Confirmation.js";
 
-import "../../css/SetView.css";
-
-import placeholderImage from "../../images/superset.png";
 import { redirect } from "../utils/redirect.js";
+import { toast } from './Toast';
+import { makeReport } from '../utils/makeReport';
 
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-//unsure how this structure will look like later, but we can change the code that parses this accordingly
-var set = {
-    id: 1,
-    name: "set name",
-    description: "description",
-    images: [placeholderImage, placeholderImage],
-    itemList: [{
-        itemId: 2634,
-        itemName: "item name 1",
-        itemDescription: "item description 1",
-        itemImages: [null]
-    }, {
-        itemId: 2346,
-        itemName: "item name 2",
-        itemDescription: "item description 2",
-        itemImages: [null]
-    }, {
-        itemId: 2214,
-        itemName: "item name 3",
-        itemDescription: "item description 3",
-        itemImages: [null]
-    }]
+import set1 from "../../images/temp/set1.jpg";
+import item1 from "../../images/temp/item1.jpg";
+import item2 from "../../images/temp/item2.jpg";
+import item3 from "../../images/temp/item3.jpg";
+import item4 from "../../images/temp/item4.jpg";
+
+const tempset = {
+    setid: 10,
+    userid: 1,
+    name: "Wardrobe",
+    description: "Different outfits for different seasons"
 };
 
-const ItemViewDisplay = ({ view, itemInfo }) => {
+const tempitems = [
+    {
+        itemid: 34,
+        setid: 10,
+        name: "Fall, Casual",
+        description: "White sweatshirt, grey/blue jeans, sneakers"
+    }, {
+        itemid: 35,
+        setid: 10,
+        name: "Spring and Summer, fancy",
+        description: "Short sleeved white shirt, short jeans, sandals"
+    }, {
+        itemid: 36,
+        setid: 10,
+        name: "Winter, casual",
+        description: "Sweater, jeans, boots"
+    }, {
+        itemid: 37,
+        setid: 10,
+        name: "Winter, casual",
+        description: "Red sweater, undershirt, checkered pants, boots"
+    }
+];
+
+const tempimgs = [
+    {
+        itemid: 34,
+        imageid: item1
+    }, {
+        itemid: 35,
+        imageid: item2
+    }, {
+        itemid: 36,
+        imageid: item3
+    }, {
+        itemid: 37,
+        imageid: item4
+    }
+];
+
+const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => {
     if (itemInfo === null) return null;
     if (view === GRID_MODE) {
-        let AllCards = itemInfo.map((obj) =>
-            <Grid.Column key={obj.itemid}>
-                <ItemModal item={obj} modalTrigger={
-                    <Button fluid className="basic-button">
-                        <ItemCard name={obj.name} count={5} description={obj.description} image={null} />
-                    </Button>} />
-            </Grid.Column>);
+        let AllCards = itemInfo.map((obj) => {
+            let imgs = [];
+            (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(imgObj.imageid); });
+
+            return (
+                <Grid.Column key={obj.itemid}>
+                    <ItemModal item={obj} showReport={showReport} images={imgs} modalTrigger={
+                        <Container fluid className="basic-button">
+                            <ItemCard name={obj.name} count={5} description={obj.description} image={imgs[0]} />
+                        </Container>} />
+                </Grid.Column>)
+        });
 
         return (
             <Grid stackable container columns={5}>
@@ -54,24 +88,23 @@ const ItemViewDisplay = ({ view, itemInfo }) => {
         );
     }
     else {
-        let AllCells = itemInfo.map((obj) =>
-            <Table.Row key={obj.itemid}>
-                <Table.Cell style={{ padding: "0" }}>
-                    <ItemModal item={obj} modalTrigger={
-                        <Button fluid className="basic-button padded-cell-button">{obj.name}</Button>} />
-                </Table.Cell>
-                <Table.Cell style={{ padding: "0" }}>
-                    <ItemModal item={obj} modalTrigger={
-                        <Button fluid className="basic-button padded-cell-button">{obj.description}</Button>} />
-                </Table.Cell>
-            </Table.Row>);
+        let AllCells = itemInfo.map((obj) => {
+            let imgs = [];
+            (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(imgObj.imageid); });
+
+            return (
+                <Table.Row className="hoverable" key={obj.itemid}>
+                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style = {{paddingLeft: "18px"}}>{obj.name}</Table.Cell>} />
+                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style = {{paddingLeft: "18px"}}>{obj.description ? obj.description : <p className = "ss-text-light">No description</p>}</Table.Cell>} />
+                </Table.Row>)
+        });
 
         return (
-            <Table celled selectable>
+            <Table celled selectable fixed>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell width={3} textAlign="center">Item Name</Table.HeaderCell>
-                        <Table.HeaderCell width={12} textAlign="center">Description</Table.HeaderCell>
+                        <Table.HeaderCell textAlign="center">Item Name</Table.HeaderCell>
+                        <Table.HeaderCell textAlign="center">Description</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -88,23 +121,21 @@ const SetImagesDisplay = ({ images }) => {
     if (images) allSetImages = images.map((obj, index) => <Image key={index} src={obj} />);
 
     return (
-        <Segment>
-            {!allSetImages ? <p>No set images</p> :
-                <Image.Group size="tiny">
+        <Segment className="ss-segment-primary">
+            {!allSetImages || !images.length ? <p className="ss-text-light">No set images</p> :
+                <Image.Group size="medium">
                     {allSetImages}
                 </Image.Group>}
         </Segment>
     );
 }
 
-const SetView = ({ set, items, currentUser }) => {
+const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) => {
     const [viewType, setViewType] = useState(GRID_MODE);
 
     if (!set) { set = { name: "Set name", description: "Description" }; }
 
-    const editSet = () => {
-        if (set) redirect('/edit', [{key: 'setid', value: set.setid}]);
-    }
+    const editSet = () => { if (set) redirect('/edit', [{ key: 'setid', value: set.setid }]); }
 
     const copyLinkToSet = () => {
         let temp = document.createElement('input');
@@ -119,6 +150,14 @@ const SetView = ({ set, items, currentUser }) => {
         toast("Copied set link to clipboard!", "success");
     }
 
+    /*
+    made landing_gif3 using these, remove on deployment
+
+    set = tempset;
+    items = tempitems;
+    itemImages = tempimgs;
+    setImages = [set1];
+    */
     return (
         <Grid centered stackable container columns={1}>
             <Grid.Row>
@@ -133,22 +172,30 @@ const SetView = ({ set, items, currentUser }) => {
 
             <Grid.Row>
                 <Grid.Column textAlign="center" verticalAlign="middle">
-                    <Header as="h1">{set.name ? set.name : <span style={{ color: "grey" }}>Nameless set</span>}</Header>
+                    <Header as="h1" className="ss-text-primary">{set.name ? set.name : <p className="ss-text-light">Nameless set</p>}</Header>
+
                     <Button style={{ position: "absolute", top: "0px", left: "0px" }} icon labelPosition="left" onClick={() => redirect('/user', [{ key: "id", value: set.userid }])}>
                         <Icon name="left arrow" /> Back to profile
                     </Button>
+
+                    {!(currentUser && set && currentUser.userid === set.userid) &&
+                        <Confirmation style={{ position: "absolute", top: "0px", right: "0px" }}
+                            trigger={<Button icon color="red"><Icon name="flag" /> Report</Button>}
+                            onConfirm={() => { makeReport('set', set.setid) }}
+                            text="Are you sure you would like to report this set?" />}
+
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
                 <Grid.Column textAlign="center">
-                    <Header>{set.description ? set.description : <span style={{ color: "grey" }}>No description</span>}</Header>
+                    <Header className="ss-text-secondary">{set.description ? set.description : <span className="ss-text-light">No description</span>}</Header>
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row>
                 <Container fluid textAlign="center">
-                    <SetImagesDisplay images={null} />
+                    <SetImagesDisplay images={setImages} />
                 </Container>
             </Grid.Row>
 
@@ -161,9 +208,9 @@ const SetView = ({ set, items, currentUser }) => {
             </Grid.Row>
 
             <Grid.Row>
-                <Container fluid textAlign="center">
-                    <ItemViewDisplay view={viewType} itemInfo={items} />
-                </Container>
+                <Segment textAlign="center" className="ss-segment-primary">
+                    <ItemViewDisplay view={viewType} itemInfo={items} itemImages={itemImages} showReport={!(currentUser && set && currentUser.userid === set.userid)} />
+                </Segment>
             </Grid.Row>
         </Grid>
     );

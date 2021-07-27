@@ -1,18 +1,41 @@
-
 import React, { useState } from 'react';
-import { Modal, Button, Grid, Form, TextArea } from "semantic-ui-react";
-import "../../css/BanModal.css";
+import { Modal, Button, Grid } from "semantic-ui-react";
+import axios from 'axios';
 
-const BanModal = ({ trigger }) => {
+import { toast } from './Toast';
+
+const BanModal = ({ trigger, userid, reportid, onBan = () => { }, item_setid = 0 }) => {
 
     // Use to determine when the modal is open or closed  
     const [open, setOpen] = useState(false);
 
-    const [banReason, setBanReason] = useState('');
+    //const [banReason, setBanReason] = useState('');
 
-    const submitBanReason = () => {
+    const submitBanReason = (userid, reportid) => {
         setOpen(false);
-        // Logic to send to user email
+        axios.post(`/api/delete/report`, { reportid: reportid })
+
+        if (item_setid) {
+            axios.get(`/api/sets/${item_setid}`).then(response => {
+                let item_userid = response.data.userid;
+                axios.post(`/api/delete/user`, { userid: item_userid, banUser: true }).then(() => {
+                    toast("Successfully banned user", "success");
+                    onBan();
+                }).catch((err) => {
+                    toast("Server error while banning user: " + err, "error");
+                });
+            }).catch(err => {
+                toast("Server error while banning user: " + err, "error");
+            });
+        }
+        else {
+            axios.post(`/api/delete/user`, { userid: userid, banUser: true }).then(() => {
+                toast("Successfully banned user", "success");
+                onBan();
+            }).catch((err) => {
+                toast("Server error while banning user: " + err, "error");
+            });
+        }
     }
 
     return (
@@ -24,25 +47,17 @@ const BanModal = ({ trigger }) => {
         >
             <Modal.Header>Banning Account</Modal.Header>
             <Grid centered stackable columns={3}>
-                <Modal.Content>
+                <Modal.Content style={{ margin: "20px" }} >
                     <Grid.Row>
                         <Grid.Column>
-                            <Form>
-                                <Form.TextArea
-                                    onChange={(e, { value }) => setBanReason(value)}
-                                    className='ss-banmodal-formfield'
-                                    placeholder='Reason for ban: '
-                                />
-                            </Form>
+                            <h1 className="ss-text-primary">Are you sure you would like to ban this user?</h1>
+                            <br />
+                            <Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>
+                            <Button color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Modal.Content>
             </Grid>
-
-            <Modal.Actions>
-                <Button className='ss-banmodal-modalactions' color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                <Button className='ss-banmodal-modalactions' color='red' onClick={submitBanReason}> Ban Account </Button>
-            </Modal.Actions>
         </Modal>
     );
 

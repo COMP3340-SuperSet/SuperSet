@@ -1,9 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
+        "dev": "env-cmd -f .env npm run development",
         "development": "mix",
-        "watch": "mix watch",
+        "watch": "env-cmd -f .env mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "chart.js": "^3.4.0",
+        "env-cmd": "^10.1.0",
         "react-chartjs-2": "^3.0.3",
         "react-medium-image-zoom": "^4.3.4",
         "react-redux": "^7.2.4",

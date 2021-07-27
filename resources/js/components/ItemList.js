@@ -3,11 +3,11 @@ import { List, Button, Icon } from "semantic-ui-react";
 
 const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
   const [items_merged, setItems_merged] = useState([...items[0], ...items[1]]);
-
+  
   useEffect(() => {
     setItems_merged([...items[0], ...items[1]]);
   }, [items]);
-
+  
   let renderedList;
   if (!items_merged.length) {
     renderedList = (

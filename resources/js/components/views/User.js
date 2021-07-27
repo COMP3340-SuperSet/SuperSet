@@ -7,11 +7,17 @@ import Profile from '../Profile';
 import Toast from '../Toast';
 
 function User() {
-    const [user, setUser] = useState(null);
-    const [userSets, setUserSets] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
 
+    const [user, setUser] = useState(null);
+    const [userSets, setUserSets] = useState([]);
+    const [setImages, setSetImages] = useState([]);
+
     useEffect(() => {
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
+
         let userid = new URL(window.location.href).searchParams.get("id");
         axios.get(`/api/user/${userid}`).then((response) => {
             setUser(response.data);
@@ -21,25 +27,19 @@ function User() {
 
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
+            //get set images
+
         }).catch((error) => {
             console.error("Sets Error: " + error);
         });
-
-        axios.get("/api/check").then((response) => {
-            setCurrentUser(response.data.user);
-        });
     }, []);
 
-    useEffect(() => {
-    }, [user, userSets]);
-
-    useEffect(() => {
-    }, [currentUser]);
+    useEffect(() => { }, [currentUser, user, userSets, setImages]);
 
     return (
         <div>
             <Header currentUser={currentUser} />
-            <Profile userInfo={user} userSets={userSets} currentUser={currentUser} />
+            <Profile userInfo={user} userSets={userSets} setImages={setImages} currentUser={currentUser} />
             <Toast />
         </div>
     );

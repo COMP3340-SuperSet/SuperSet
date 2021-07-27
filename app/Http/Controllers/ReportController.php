@@ -23,12 +23,11 @@ class ReportController extends Controller
 
         $report = $request->all();
 
-        //todo: auth::check not working.
+        /*todo: auth::check not working.
 
         if(Auth::check()){
-            return response()->json(['message' => 'here'], 200);
             array_push($report, ['reporterid' => Auth::user()->userid]);
-        }
+        }*/
 
         return Report::create($report);
     }

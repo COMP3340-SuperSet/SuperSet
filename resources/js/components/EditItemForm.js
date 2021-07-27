@@ -69,7 +69,6 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
     temp.description = description;
     temp.images_db = itemImages_db;
     temp.images_new = itemImages_new;
-
     onSubmitItem(temp);
     clearForm();
   }

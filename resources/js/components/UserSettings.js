@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from "react";
 import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Icon } from 'semantic-ui-react';
 
@@ -26,15 +27,15 @@ const UserSettings = ({ userInfo }) => {
         if (userInfo.imageid) setImageid(getImagePath('user', userInfo.imageid));
     }, [userInfo]);
 
-    useEffect(() => {
-
-    }, [imageid]);
+    useEffect(() => { }, [imageid]);
 
     const onImageInput = (e) => {
         let uploadedFiles = e.target.files;
-
-        setImage(uploadedFiles[0]);
-        if (uploadedFiles && uploadedFiles[0]) setImageid(URL.createObjectURL(uploadedFiles[0]));
+        if (!uploadedFiles.length) setImageid(null);
+        else {
+            setImage(uploadedFiles[0]);
+            if (uploadedFiles && uploadedFiles[0]) setImageid(URL.createObjectURL(uploadedFiles[0]));
+        }
     }
 
     const onDeleteImage = () => {
@@ -82,7 +83,6 @@ const UserSettings = ({ userInfo }) => {
                 console.error(error);
             });
         }
-
         redirect("/user/settings");
     }
 
@@ -107,16 +107,18 @@ const UserSettings = ({ userInfo }) => {
 
     return (
         <Container>
-            <Segment padded>
-                <Header as='h1' textAlign="center" style={{ margin: "10px 0" }}>Settings</Header>
+            <Segment padded className="ss-segment-primary">
+                <Header as='h1' style={{ margin: "10px 0", textAlign: "center" }} className="ss-text-primary">Settings</Header>
                 <Form style={{ margin: "30px 0" }}>
                     <Grid container stackable>
                         <Grid.Row>
                             <Grid.Column width={5} verticalAlign="middle">
-                                <Image src={imageid} circular centered size="small" />
+                                <Image src={imageid ? imageid : tmp_pic} circular centered size="small" />
 
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
-                                    <Button className="pfp-upload-button" id="pfp-upload-button"><label htmlFor="pfp-upload" className="pfp-upload-label">Upload</label></Button>
+                                    <Button style = {{paddingLeft: "0", paddingRight: "0"}} id="pfp-upload-button">
+                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style = {{padding: ".78571429em 1.5em"}}>Upload</label>
+                                    </Button>
                                     <input id="pfp-upload" onChange={onImageInput} hidden type="file" accept=".jpg, .jpeg, .png" />
                                     <Confirmation trigger={<Button color="red" icon><Icon name="trash" /></Button>}
                                         text="Delete profile picture?"
@@ -126,7 +128,7 @@ const UserSettings = ({ userInfo }) => {
                                 </div>
                             </Grid.Column>
                             <Grid.Column width={11}>
-                                <Segment>
+                                <Segment className="ss-segment-secondary">
                                     <Form.Field required
                                         label="Username"
                                         control="input"
@@ -134,12 +136,14 @@ const UserSettings = ({ userInfo }) => {
                                         onChange={(e) => setName(e.target.value)}
                                         style={{ textAlign: "center", fontSize: "22px", padding: "8px" }}
                                         size="large" />
-                                    <Divider />
-                                    <Form.Field label="Description"
-                                        control="textarea"
-                                        rows={3}
-                                        value={bio}
-                                        onChange={(e) => setBio(e.target.value)} />
+                                    <div style={{ marginTop: "24px" }}>
+                                        <Form.Field label="Description" className="no-resize"
+                                            control="textarea"
+                                            rows={4}
+                                            value={bio}
+                                            onChange={(e) => setBio(e.target.value)} />
+                                    </div>
+
                                 </Segment>
                             </Grid.Column>
                         </Grid.Row>
@@ -154,7 +158,7 @@ const UserSettings = ({ userInfo }) => {
 
                 <Divider />
 
-                <Segment compact style={{ margin: "20px auto 0 auto" }}>
+                <Segment compact style={{ margin: "20px auto 0 auto" }} className="ss-segment-secondary">
                     {(toggleDel) ? (<Button color="red" onClick={() => { setToggleDel(false) }}>Delete Account</Button>) :
                         (<Form>
                             <Form.Group style={{ justifyContent: "center", marginBottom: "0" }}>

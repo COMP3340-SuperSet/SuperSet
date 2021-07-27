@@ -1,113 +1,154 @@
-import React, { useState } from 'react';
-import { Table, Header, Button } from 'semantic-ui-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Header, Button, Statistic, Rating, Divider, Segment, Grid, Container } from 'semantic-ui-react';
+import axios from 'axios';
 
-import "../../css/AdminFeedback.css";
+let template =
+    [
+        {
+            feedbackid: 1,
+            email: "TemplateFeedback@email.ca",
+            rating: 4
+        }
+    ];
 
-function onDelete(feedbackid)
-{
-    // Logic to delete from database when button is pressed
-    // axios.post().then(response=>{}).catch(error=>{});
+function onFeedbackDelete(feedbackid) {
+    axios.post('/api/delete/feedback', { feedbackid }).then(response => { }).catch(err => console.log(err));
 }
 
-function onContact(email)
-{
-    // Logic to send e-mail to user
-}
+function getContact(userFeedback, toggleView) {
+    if (userFeedback.length != 0) {
+        if (toggleView) {
+            const renderedUserFeedback = userFeedback.map((feedback) => {
+                if (feedback.contact && !(feedback.email === "")) {
+                    return (
+                        <Table.Row key={feedback.feedbackid} >
+                            <Table.Cell width={14}>
+                                <Header as='h2' className='ss-reporttableitem-header'>
+                                    <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
+                                        {feedback.email}
+                                        <Header.Subheader className="ss-text-secondary">
+                                            Contact: True <br />
+                                            Feedback Content: {feedback.content} <br />
+                                            <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating} />
+                                        </Header.Subheader>
+                                    </Header.Content>
+                                </Header>
+                            </Table.Cell>
+                            <Table.Cell textAlign='center'>
+                                <Button.Group vertical>
+                                    <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
+                                </Button.Group>
+                            </Table.Cell>
+                        </Table.Row>
+                    );
+                }
+                else {
+                    return '';
+                }
+            })
 
-function getContact(userFeedback, toggleView)
-{
-    if(toggleView)
-    {
-        const renderedUserFeedback = userFeedback.map((feedback) => {
-            if(feedback.contact && !(feedback.email ===""))
-            {
-                return(
-                    <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
+            return renderedUserFeedback;
+        }
+        else {
+            const renderedUserFeedback = userFeedback.map((feedback) => {
+                return (
+                    <Table.Row key={feedback.feedbackid} >
                         <Table.Cell width={14}>
-                            <Header as='h2' className='ss-reporttableitem-header'>
-                                <Header.Content style={{ margin: '10px' }}>
+                            <Header as='h2'>
+                                <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
                                     {feedback.email}
-                                    <Header.Subheader>
-                                        Contact: True <br/>
-                                        Feedback Content: {feedback.content} <br/> 
-                                        <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/> 
+                                    <Header.Subheader className="ss-text-secondary">
+                                        Feedback Content: {feedback.content} <br />
+                                        <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating} />
                                     </Header.Subheader>
                                 </Header.Content>
                             </Header>
                         </Table.Cell>
                         <Table.Cell textAlign='center'>
-                            <Button.Group vertical>  
-                                <Button color='blue' content='Send E-mail' onClick={()=>{onContact(feedback.email)}}/>
-                                <Button color='red' content='Delete Feedback' onClick={()=>{onDelete(feedback.feedbackid)}}/>
+                            <Button.Group vertical>
+                                <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
                             </Button.Group>
                         </Table.Cell>
                     </Table.Row>
                 );
-            }
-            else {
-                return '';
-            }
-        })
-
-        return renderedUserFeedback;
+            })
+            return renderedUserFeedback;
+        }
     }
     else {
-
-        const renderedUserFeedback = userFeedback.map((feedback) => {
-            return(
-                <Table.Row key={feedback.feedbackid} className='ss-adminfeedback-row'>
-                    <Table.Cell width={14}>
+        const renderedUserFeedback = template.map((feedback) => {
+            return (
+                <Table.Row key={feedback.feedbackid}>
+                    <Table.Cell>
                         <Header as='h2' className='ss-reporttableitem-header'>
-                            <Header.Content style={{ margin: '10px' }}>
+                            <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
                                 {feedback.email}
-                                <Header.Subheader>
-                                    Feedback Content: {feedback.content} <br/>
+                                <Header.Subheader className="ss-text-secondary">
+                                    Feedback Content: {feedback.content} <br />
                                     <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/>
-                                    </Header.Subheader>
+                                </Header.Subheader>
                             </Header.Content>
                         </Header>
                     </Table.Cell>
-                    <Table.Cell textAlign='center'>
-                        <Button.Group vertical>  
-                            <Button color='red' content='Delete Feedback' onClick={()=>{onDelete(feedback.feedbackid)}}/>
+                    <Table.Cell textAlign='right'>
+                        <Button.Group vertical>
+                            <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
                         </Button.Group>
                     </Table.Cell>
                 </Table.Row>
             );
-        })
+        });
+
         return renderedUserFeedback;
     }
 }
 
 const AdminFeedback = () => {
-    
+
     const [userFeedback, setUserFeedback] = useState([]);
     const [toggleView, setToggleView] = useState(false);
+    const isCurrent = useRef(true);
 
-    useEffect(()=>{
-        axios.get(`/api/feedback`).then(response=>{
-            setUserFeedback(response.data);
-        }).catch(error=>{
-            console.error(error);
-        });
+
+    useEffect(() => {
+        return () => {
+            //console.log("Unmounted Feedback Table");
+            isCurrent.current = false;
+        };
     }, []);
+    useEffect(() => {
+        axios.get(`/api/feedback`).then(response => {
+            setTimeout(() => {
+                if (isCurrent.current) {
+                    setUserFeedback(response.data);
+                }
+            }, 1000);
+        }).catch(error => {
+            console.log("Error:" + error);
+        });
+    }, [userFeedback]);
 
     const renderedUserFeedback = getContact(userFeedback, toggleView);
 
     return (
+        <Container fluid style={{ padding: "12px 12px 0 12px" }}>
+            <Grid style={{ padding: "0 12px" }}>
+                <Grid.Column floated='left' verticalAlign="middle" width={4}>
+                    <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length}/>
+                </Grid.Column>
+                <Grid.Column floated='right' verticalAlign="middle" width={4} textAlign="right">
+                    <Button onClick={() => { setToggleView(!toggleView) }}>Filter by Contact</Button>
+                </Grid.Column>
+            </Grid>
 
-        <div className="ss-feedback-divadmin">
-            <Statistic horizontal size='mini' className="ss-feedback-stats">
-                <Statistic.Value>{userFeedback.length}</Statistic.Value>
-                <Statistic.Label>Feedback Reports</Statistic.Label>
-            </Statistic>
-            <Button className='ss-feedback-togglebutton' onClick={() => {setToggleView(!toggleView)}}>
-                Filter by Contact
-            </Button>
-            <Table stackable basic='very' celled fixed>
-                {renderedUserFeedback}
-            </Table>
-        </div>
+            <Divider style={{ marginTop: "24px" }} />
+
+            <Segment padded basic>
+                <Table stackable basic='very' fixed>
+                    {renderedUserFeedback}
+                </Table>
+            </Segment>
+        </Container>
     );
 }
 

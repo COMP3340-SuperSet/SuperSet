@@ -1,9 +1,0 @@
-
-.info-link:hover{
-    cursor: pointer !important;
-}
-
-.no-hover:hover{
-    cursor: default !important;
-    background: none !important;
-}

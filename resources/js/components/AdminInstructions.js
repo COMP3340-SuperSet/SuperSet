@@ -1,21 +1,18 @@
 import React from 'react';
-import { Table } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+
 import AdminCarousel from './AdminCarousel';
-import "../../css/AdminInstructions.css";
+
+import info_theme from "../../images/admin_info_theme.jpg";
+import info_nav from "../../images/admin_info_nav.jpg";
 
 const AdminInstructions = () => {
     return (
-        <div className="ss-admininstructions-div">
-            <Table stackable basic='very' celled fixed>
-                <Table.Row verticaalign='middle' className='ss-reporttableitem-row'>
-                    <Table.Cell verticalalign="middle" textAlign='center' width={14}>
-                        <div className="ss-admininstructions-innerdiv">
-                            <AdminCarousel images={[]} />
-                        </div>
-                    </Table.Cell>
-                </Table.Row>
-            </Table>
-        </div>
+        <Grid centered>
+            <Grid.Column textAlign = "center" style = {{padding: "50px 0"}}>
+                <AdminCarousel images={[info_nav, info_theme]} />
+            </Grid.Column>
+        </Grid>
     );
 }
 
