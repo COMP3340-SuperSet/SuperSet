@@ -3,26 +3,37 @@ import { Table, Image, Header, Button } from "semantic-ui-react";
 import axios from "axios";
 
 import BanModal from './BanModal';
+import Confirmation from './Confirmation';
+
+import { getImagePath } from "../utils/imagePath";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
+import { redirect } from '../utils/redirect';
+import { toast } from './Toast';
 
 function onReportDelete(reportid) {
-    axios.post('/api/delete/report', { reportid }).then(response => { }).catch(err => console.log(err));
+    axios.post('/api/delete/report', { reportid }).then(response => {
+        toast("Report deleted!", "success");
+    }).catch(err => {
+        console.log(err);
+        toast("Error deleting report", "error");
+    });
 }
 
 function getReportedUser(users, reports) {
+    const [deleted, setDeleted] = useState([]);
 
     let tempArray = [];
 
     reports.forEach(report => {
         if (report.type == 0) {
             users.forEach(user => {
-                if (report.resourceid == user.userid) {
+                if (report.resourceid == user.userid && !(deleted.find(elem => elem === report.reportid))) {
                     tempArray.push(
                         {
                             reportid: report.reportid,
                             userid: user.userid,
-                            imageid: tmp_pic,
+                            imageid: user.imageid,
                             username: user.username,
                             bio: user.bio
                         });
@@ -36,28 +47,46 @@ function getReportedUser(users, reports) {
             return (
                 <Table.Row key={reportInformation.reportid}>
                     <Table.Cell width={14}>
-                        <Image src={reportInformation.imageid} inline rounded size='small' style = {{margin: "20px"}} />
-                        <Header as='h2' image>
-                            <Header.Content style={{ margin: '10px' }}  className = "ss-text-primary">
-                                {reportInformation.username}
-                                <Header.Subheader className = "ss-text-secondary">
-                                    {reportInformation.bio ?? <p className = "ss-text-light">No bio</p>}
+                        <Image src={reportInformation.imageid ? getImagePath('user', reportInformation.imageid) : tmp_pic}
+                            circular
+                            size='small'
+                            style={{ margin: "20px", display: "inline-block" }} />
+                        <Header image>
+                            <Header.Content style={{ margin: '10px', marginTop: "0" }} className="ss-text-primary">
+                                <h2>{reportInformation.username}</h2>
+                                <Header.Subheader className="ss-text-secondary">
+                                    {reportInformation.bio ?? <span className="ss-text-light">No bio</span>}
+                                </Header.Subheader>
+                                <Header.Subheader>
+                                    <Button style={{ marginTop: "12px" }} onClick={() => {
+                                        redirect('/user', [{ key: "id", value: reportInformation.userid }]);
+                                    }}>Go to profile</Button>
                                 </Header.Subheader>
                             </Header.Content>
                         </Header>
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
-                        <Button.Group vertical>
-                            <Button color='red' content='Delete Report' onClick={() => { onReportDelete(reportInformation.reportid) }} />
-                            <BanModal userid={reportInformation.userid} reportid={reportInformation.reportid} trigger={<Button color='red' content='Ban Account' />} />
-                        </Button.Group>
+                        <Confirmation style={{ marginBottom: "14px" }}
+                            trigger={<Button color='red' content='Delete Report' />}
+                            onConfirm={() => {
+                                onReportDelete(reportInformation.reportid);
+                                setDeleted([reportInformation.reportid, ...deleted]);
+                            }}
+                            text="Remove this report?"
+                        />
+                        <BanModal userid={reportInformation.userid}
+                            reportid={reportInformation.reportid}
+                            trigger={<Button color='red' content='Ban Account' />}
+                            onBan = {() => {
+                                setDeleted([reportInformation.reportid, ...deleted]);
+                            }} />
                     </Table.Cell>
                 </Table.Row>
             );
         })));
     }
-    else{
-        return <p className = "ss-text-light" style = {{textAlign: "center"}}>No reports</p>;
+    else {
+        return <tr><td colSpan="2" className="ss-text-light" style={{ textAlign: "center" }}>No reports</td></tr>;
     }
 }
 
@@ -96,9 +125,9 @@ const ReportTableAccount = () => {
     return (
         <div>
             <Table stackable basic='very' celled fixed>
-                <thead>
+                <Table.Body>
                     {renderedAccountReports}
-                </thead>
+                </Table.Body>
             </Table>
         </div>
     );
