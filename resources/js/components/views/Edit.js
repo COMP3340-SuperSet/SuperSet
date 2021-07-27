@@ -31,8 +31,8 @@ function Edit() {
     }, []);
 
     useEffect(() => {
-        console.log('current items list', items);
-        console.log('current set', set);
+        //console.log('current items list', items);
+        //console.log('current set', set);
     }, [currentUser, set, items, selectedItem]);
 
     //todo: dont allow item to submit if item with same name already exists in set

@@ -41,7 +41,7 @@ const UserSettings = ({ userInfo }) => {
         axios.post(`/api/delete/user/image`, {
             userid: userInfo.userid
         }).then((response) => {
-            console.log("delete image response:", response.data.user);
+            //console.log("delete image response:", response.data.user);
         }).catch((error) => {
             console.error(error);
         });
@@ -62,13 +62,13 @@ const UserSettings = ({ userInfo }) => {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                console.log(response.data.user);
+                //console.log(response.data.user);
                 axios.put(`/api/user/`, {
                     userid: userInfo.userid,
                     username: name,
                     bio: bio
                 }).then(response => {
-                    console.log("then: ", response.data.user);
+                    //console.log("then: ", response.data.user);
                     setImageid(response.data.user.imageid)
                 }).catch(error => {
                     console.error(error);
@@ -80,7 +80,7 @@ const UserSettings = ({ userInfo }) => {
                 username: name,
                 bio: bio
             }).then(response => {
-                console.log("then: ", response.data.user);
+                //console.log("then: ", response.data.user);
                 setImageid(response.data.user.imageid)
             }).catch(error => {
                 console.error(error);
@@ -95,7 +95,7 @@ const UserSettings = ({ userInfo }) => {
             password: delPass
         }).then(response => {
             let passwordGood = response.data.result;
-            console.log('From Password Test: ', passwordGood);
+            //console.log('From Password Test: ', passwordGood);
             if (passwordGood) {
                 axios.post(`/api/delete/user/`, {
                     userid: userInfo.userid

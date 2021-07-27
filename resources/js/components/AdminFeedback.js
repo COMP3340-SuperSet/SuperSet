@@ -112,7 +112,7 @@ const AdminFeedback = () => {
 
     useEffect(() => {
         return () => {
-            console.log("Unmounted Feedback Table");
+            //console.log("Unmounted Feedback Table");
             isCurrent.current = false;
         };
     }, []);

@@ -92,7 +92,7 @@ const ReportTableItem = () => {
 
     useEffect(() => {
         return () => {
-            console.log("Unmounted Item Table");
+            //console.log("Unmounted Item Table");
             isCurrent.current = false;
         };
     }, []);
