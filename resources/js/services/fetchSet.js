@@ -8,7 +8,7 @@ export async function getUser() {
     }
 }
 
-export async function getSet(setid){
+export async function getSet(setid) {
     try {
         const response = await axios.get(`/api/sets/${setid}`);
         return response.data;
@@ -17,7 +17,7 @@ export async function getSet(setid){
     }
 }
 
-export async function getItems(setid){
+export async function getItems(setid) {
     try {
         const response = await axios.get(`/api/set/${setid}/items`);
         return response.data;
@@ -43,3 +43,4 @@ export async function getItemImages(itemid) {
         console.error(error);
     }
 }
+

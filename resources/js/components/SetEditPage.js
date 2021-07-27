@@ -66,11 +66,9 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
     }, [items]);
 
     useEffect(() => {
-        console.log("Description: ", setDescription);
     }, [setDescription]);
 
     useEffect(() => {
-        console.log("AllItems: ", allItems);
     }, [allItems]);
 
     const onClear = () => {
@@ -132,9 +130,8 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(response => {
-                    console.log("Set image updated response:", response);
                 }).catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
             }
             else if (!setImage.file && !setImage.imageid) {
@@ -142,9 +139,8 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                 axios.post('/api/delete/set/image', {
                     setid: set.setid
                 }).then(resposne => {
-                    console.log("Set image deleted response:", response);
                 }).catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
             }
 
@@ -152,13 +148,11 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
 
                 if (!item.db) {
                     //new item
-                    console.log('New Item', item);
                     axios.post(`/api/item`, {
                         name: item.item.name,
                         description: item.item.description,
                         setid: set.setid
                     }).then(response => {
-                        console.log("Added item response:", response);
 
                         if (item.image.file) {
                             var formData = new FormData();
@@ -169,14 +163,12 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                     'Content-Type': 'multipart/form-data'
                                 }
                             }).then(response => {
-                                console.log("Added item image response:", response);
                             }).catch(error => {
-                                console.log(error);
+                                console.(error);
                             });
                         }
                     }).catch(error => {
-                        console.log("errorrrerererr");
-                        console.log(error);
+                        console.error(error);
                     });
                 }
 
@@ -185,19 +177,15 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                     axios.post(`/api/delete/item/image`, {
                         itemid: item.item.itemid
                     }).then(response => {
-                        console.log("Item image deleted:", response);
-
                         axios.post(`/api/delete/item`, {
                             itemid: item.item.itemid
                         }).then(response => {
-                            console.log("Deleted item response:", response);
                         }).catch(error => {
-                            console.log("ITEMID: ", item.item.itemid);
-                            console.log(error);
+                            console.error(error);
                         });
 
                     }).catch(error => {
-                        console.log(error);
+                        console.error(error);
                     });
                 }
                 else {
@@ -207,7 +195,6 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                         name: item.item.name,
                         description: item.item.description
                     }).then(response => {
-                        console.log("Updated item response:", response);
                         if (item.image.file) {
                             var formData = new FormData();
                             formData.append("image", item.image.file);
@@ -217,17 +204,15 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                     'Content-Type': 'multipart/form-data'
                                 }
                             }).then(response => {
-                                console.log("Updated item image response:", response);
                             }).catch(error => {
-                                console.log(error);
+                                console.error(error);
                             });
                         } else if (!item.image.file && !item.image.imageid) {
                             axios.post(`/api/delete/item/image`, {
                                 itemid: item.item.itemid
                             }).then(response => {
-                                console.log("Item image deleted:", response);
                             }).catch(error => {
-                                console.log(error);
+                                console.error(error);
                             });
                         }
 
@@ -239,7 +224,7 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
             });
 
         }).catch(error => {
-            console.log(error);
+            console.error(error);
         });
 
         redirect("/set", [{

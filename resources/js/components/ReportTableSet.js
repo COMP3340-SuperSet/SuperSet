@@ -27,7 +27,7 @@ const ReportTableSet = () => {
             }
             setReportedSets(setReportsArr);
         }).catch(error=>{
-            console.error('Error: ' + error);
+            console.error(error);
         });}, []);
 
     const renderedSetReports = reportedSets.map((set) => {

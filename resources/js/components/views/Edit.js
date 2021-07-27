@@ -6,28 +6,31 @@ import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
 import ItemList from '../ItemList';
-import { getUser, getSet, getItems, getSetImages, getItemImages } from '../../services/user';
+import { getUser, getSet, getItems, getSetImages, getItemImages } from '../../services/fetchSet';
+import { redirect } from '../../utils/redirect';
+import { onSubmitSetUpdate } from '../../services/postSetEdit';
+import Confirmation from '../Confirmation';
+import Toast, { toast } from '../Toast';
 
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
-    useEffect(() => console.log('currentUser: ', currentUser), [currentUser]);
-    useEffect(() => console.log('set: ', set), [set]);
+    useEffect(() => {}, [currentUser]);
+    useEffect(() => {}, [set]);
 
     const [openForm, setOpenForm] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
-    useEffect(() => console.log('selectedITem updated!!!!: ', selectedItem), [selectedItem]);
+    useEffect(() => {}, [selectedItem]);
 
     const [setImages_db, setSetImages_db] = useState([]);
     const [setImages_new, setSetImages_new] = useState([]);
 
     //const selectedSuggestedSetImages state
-    useEffect(() => console.log('setImages: ', setImages_db, setImages_new), [setImages_db, setImages_new]);
+    useEffect(() => {}, [setImages_db, setImages_new]);
 
     const [items_db, setItems_db] = useState([]);
     const [items_new, setItems_new] = useState([]);
-    useEffect(() => console.log('items: ', items_db, items_new), [items_db, items_new]);
-
+    useEffect(() => {}, [items_db, items_new]);
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("setid");
@@ -113,12 +116,17 @@ function Edit() {
         }
     }
 
-    const onSubmitSet = () => {
-
+    //submit everything to db
+    const onSubmitSet = async () => {
+        onSubmitSetUpdate(set, [setImages_db, setImages_new], [items_db, items_new]);
     }
 
-    const onDiscardChanges = () => {
-        //todo: redirect the user back to referer
+    //todo: redirect the user back to referer
+    const onCancelEdit = () => {
+        redirect("/user", [{
+            key: "id",
+            value: set.userid
+        }]);
     }
 
     return (
@@ -154,12 +162,16 @@ function Edit() {
                         onDeleteItem={onDeleteItem}
                     />
                     <Divider />
-                    <div style={{ textAlign: 'right' }}>
-                        <Button secondary onClick={() => onDiscardChanges()}>Discard Changes</Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Confirmation
+                        trigger={<Button basic>Cancel</Button>}
+                        onConfirm={onCancelEdit}
+                        text="Are you sure? You will lose all of your changes."/>
                         <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
                     </div>
                 </Grid.Column>
             </Grid>
+            <Toast/>
         </div>
     );
 }

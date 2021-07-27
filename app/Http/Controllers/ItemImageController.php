@@ -19,25 +19,50 @@ class ItemImageController extends Controller
     public function store(Request $request)
     {
         $itemid = $request->itemid;
-        if (!$itemid) return response()->json(['message' => 'Must include itemid as attribute in body.'], 400);
-        if (!Item::find($itemid)) return response()->json(['message' => 'Item not found'], 404);
-
+        error_log('HERE: ' . json_encode($request->all()));
         try {
             if ($request->hasFile('image')) {
-                $imageid = (string) Str::uuid();
-                $path = Storage::disk('local')->put('images/items/' . $imageid, $request->file('image'));
 
+                $imageid = (string) Str::uuid();
+                $path = Storage::disk('local')->put('public/items', $request->file('image'));
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
                 $directory = pathinfo($path, PATHINFO_DIRNAME);
-                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
+                Storage::disk('local')->move($path, $directory . '/' . $imageid . '.' . $extension);
 
                 return ItemImage::create([
-                    'imageid' => $imageid,
+                    'imageid' => $imageid . '.' . $extension,
                     'itemid' => $itemid
                 ]);
             } else {
-                return response()->json(['error' => 'Could not find attached file.'], 404);
+                return response()->json(['error' => 'Could not find attached file.'], 400);
             }
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error uploading file.'], 500);
+        }
+    }
+
+    public function unsplash(Request $request)
+    {
+        $itemid = $request->itemid;
+        try {
+            //Context required for file_get_contents()
+            $opts = array('http' => array('header' => "User-Agent:MyAgent/1.0\r\n"));
+            $context = stream_context_create($opts);
+            $file = file_get_contents($request->download, false, $context);
+            error_log('HERE: ' . json_encode($request->all()));
+            //generate imageid
+            $imageid = (string) Str::uuid();
+            $filename =  $imageid . '.jpg';
+
+            //store image
+            $path = Storage::disk('local')->put('public/items/' . $filename, $file);
+
+            //create entry
+            return ItemImage::create([
+                'imageid' => $filename,
+                'itemid' => $itemid
+            ]);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error uploading file.'], 500);
         }

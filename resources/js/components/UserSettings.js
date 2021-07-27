@@ -41,7 +41,6 @@ const UserSettings = ({ userInfo }) => {
         axios.post(`/api/delete/user/image`, {
             userid: userInfo.userid
         }).then((response) => {
-            console.log("delete image response:", response.data.user);
         }).catch((error) => {
             console.error(error);
         });

@@ -28,7 +28,7 @@ const ReportTableItem = () => {
             }
             setReportedItems(itemReportsArr);
         }).catch(error=>{
-            console.error('Error: ' + error);
+            console.error(error);
         });}, []);
 
     const renderedItemReports = reportedItems.map((item) => {

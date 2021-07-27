@@ -12,7 +12,13 @@ const ImageList = ({ images, onDeleteImage }) => {
         const tempImage = {};
 
         if ('imageid' in image) {
-            tempImage.display = getImagePath('set', image.imageid);
+            if ('itemid' in image) {
+                tempImage.display = getImagePath('item', image.imageid);
+            } else if ('setid' in image) {
+                tempImage.display = getImagePath('set', image.imageid);
+            } else {
+                tempImage.display = getImagePath('user', image.imageid);
+            }
             tempImage.onClick = tempImage.display;
         }
 
@@ -49,7 +55,7 @@ const ImageList = ({ images, onDeleteImage }) => {
                 style={{ margin: '0.25rem' }}>
                 {renderedImages}
             </Grid>
-            <ImageOverlay imageURL={overlayed} setImageURL={setOverlayed}/>
+            <ImageOverlay imageURL={overlayed} setImageURL={setOverlayed} />
         </div>
 
     );

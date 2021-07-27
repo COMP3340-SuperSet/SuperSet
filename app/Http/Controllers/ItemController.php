@@ -36,6 +36,7 @@ class ItemController extends Controller
         $itemid = $request->itemid;
         $item = Item::find($itemid);
         $item->update($request->all());
+        $item->save();
         return $item;
     }
 
@@ -90,35 +91,12 @@ class ItemController extends Controller
 
     public static function destroyItem(Request $request)
     {
-
-        //TODO :: delete item images from file system
-
-        $itemid = $request->itemid;
-        error_log("error" . $request->itemid);
-        //check if item exists
-        $item = Item::find($itemid);
+        $item = Item::find($request->itemid);
 
         if (!$item) {
             return response()->json(['message' => 'Item not found.'], 404);
         }
 
-        //deleted item images array for detailed response
-        $deletedImage = [];
-        $imageid = $item->itemid;
-        if ($imageid) {
-            array_push($deletedImage, $imageid);
-            $item->update(['imageid' => null]);
-            Storage::disk('local')->delete('public/items/' . $imageid);
-        }
-
-        //destroy item
-        $result = Item::destroy($itemid);
-
-        //if item was successfully deleted / else
-        if ($result) {
-            return response()->json(['itemid' => $itemid, 'itemImages' => $deletedImage], 200);
-        } else {
-            return response()->json(['message' => 'Error when deleting item.'], 400);
-        }
+        return Item::destroy($item->itemid);
     }
 }

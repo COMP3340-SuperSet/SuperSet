@@ -27,7 +27,7 @@ const ReportTableAccount = () => {
             }
             setReportedAccounts(accountReportsArr);
         }).catch(error=>{
-            console.error('Error: ' + error);
+            console.error(error);
         });}, []);
 
     const renderedAccountReports = reportedAccounts.map((account) => {

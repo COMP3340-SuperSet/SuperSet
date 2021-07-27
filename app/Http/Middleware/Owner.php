@@ -8,8 +8,10 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Set;
+use App\Models\SetImage;
 use App\Models\Item;
 use App\Models\User;
+
 
 class Owner
 {
@@ -97,15 +99,23 @@ class Owner
 
             if (array_key_exists("imageid", $properties)) {
 
-                //check all tables for userid w/ imageid
-                $userid = User::where('imageid', '=', $request->imageid)->first()->userid;
+                $userid = null;
+                $user = User::firstWhere('imageid', $request->imageid);
+
+                if($user){
+                    $userid = $user->userid;
+                }
+
                 if (!$userid) {
-                    $setid = Set::where('imageid', '=', $request->imageid)->first()->setid;
-                    $set = Set::find($setid);
-                    if (!$set) {
-                        return response()->json(['error' => "Set does not exist for image {$request->imageid}"], 400);
-                    }
-                    $userid = $set->userid;
+                    $setid = null;
+                    $setImage = SetImage::firstWhere('imageid', $request->imageid);
+                    if($setImage){
+                        $setid = $setImage->setid;
+                        $userid = User::find($set->userid)->userid;
+                    } 
+                    // else {
+                    //     return response()->json(['error' => "Set does not exist for image {$request->imageid}"], 400);
+                    // }
                 }
                 if (!$userid) {
                     $itemid = Item::where('imageid', '=', $request->imageid)->first()->itemid;

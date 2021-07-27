@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->integer('itemid', true, true);
             $table->integer('setid', false, true);
-            $table->foreign('setid')->references('setid')->on('sets');
+            $table->foreign('setid')->references('setid')->on('sets')->onDelete('cascade');;
             $table->string('name', 60);
             $table->string('description', 2048);
             $table->timestamps();

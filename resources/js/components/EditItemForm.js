@@ -10,7 +10,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
   const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
 
-  useEffect(() => console.log('itemImages: ', itemImages_db, itemImages_new), [itemImages_db, itemImages_new]);
+  useEffect(() => {}), [itemImages_db, itemImages_new]);
   const [suggestedImages, setSuggestedImages] = useState([]);
   const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
 
@@ -31,7 +31,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSelectUnsplashImage = (urls) => {
-    setItemImages_new([...itemImages_new, {urls}]);
+    setItemImages_new([...itemImages_new, { urls }]);
   }
 
   const deleteItemImage = (index) => {
@@ -97,7 +97,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         <Form.Field>
           <label>Images</label>
           <ImageUploader onUploadImages={uploadItemImages} imageCount={itemImages_db.length + itemImages_new.length} formID="item-image-uploader" />
-          <SuggestedImages term={name} onSelectImage={onSelectUnsplashImage}/>
+          <SuggestedImages term={name} onSelectImage={onSelectUnsplashImage} />
         </Form.Field>
         <ImageList images={[...itemImages_db, ...itemImages_new]} onDeleteImage={deleteItemImage} />
         <Button basic onClick={() => clearForm()}>Clear</Button>

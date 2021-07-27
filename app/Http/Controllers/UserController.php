@@ -62,8 +62,6 @@ class UserController extends Controller
                 //     Storage::disk('local')->delete('images/users/' . $oldImageid);
                 // }
 
-                
-
                 $imageid = (string) Str::uuid();
                 $path = Storage::disk('local')->put('public/users', $request->file('image'));
                 if ($path) {

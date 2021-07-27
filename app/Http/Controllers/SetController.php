@@ -104,11 +104,8 @@ class SetController extends Controller
 
     public static function destroySet(Request $request)
     {
-
-        //TODO :: delete set images from file system
         $setid = $request->setid;
 
-        //check if set exists
         $set = Set::find($setid);
         if (!$set) {
             return response()->json(['message' => 'Set not found.'], 404);
@@ -131,8 +128,6 @@ class SetController extends Controller
             $set->update(['imageid' => null]);
             Storage::disk('local')->delete('public/sets/' . $imageid);
         }
-
-
         //delete the set
         $result = Set::destroy($setid);
 

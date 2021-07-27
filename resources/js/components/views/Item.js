@@ -34,11 +34,9 @@ const Item = () => {
     }, []);
 
     useEffect(() => {
-        console.log("Set: ", JSON.stringify(set));
     }, [set]);
 
     useEffect(() => {
-        console.log("Items: ", JSON.stringify(items));
     }, [items]);
 
     useEffect(() => { }, [currentUser]);

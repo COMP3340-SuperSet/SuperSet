@@ -19,17 +19,19 @@ class SetImageController extends Controller
     public function store(Request $request)
     {
         $setid = $request->setid;
+        error_log('HERE: ' . json_encode($request->all()));
         try {
             if ($request->hasFile('image')) {
-                $imageid = (string) Str::uuid();
-                $path = Storage::disk('local')->put('images/sets', $request->file('image'));
 
+                $imageid = (string) Str::uuid();
+                $path = Storage::disk('local')->put('public/sets', $request->file('image'));
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
                 $directory = pathinfo($path, PATHINFO_DIRNAME);
-                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
+                Storage::disk('local')->move($path, $directory . '/' . $imageid . '.' . $extension);
 
                 return SetImage::create([
-                    'imageid' => $imageid,
+                    'imageid' => $imageid . '.' . $extension,
                     'setid' => $setid
                 ]);
             } else {
@@ -39,6 +41,34 @@ class SetImageController extends Controller
             return response()->json(['error' => 'Error uploading file.'], 500);
         }
     }
+
+    public function unsplash(Request $request)
+    {
+        $setid = $request->setid;
+        try {
+            //Context required for file_get_contents()
+            $opts = array('http' => array('header' => "User-Agent:MyAgent/1.0\r\n"));
+            $context = stream_context_create($opts);
+            $file = file_get_contents($request->download, false, $context);
+            error_log('HERE: ' . json_encode($request->all()));
+            error_log('HERE: ' . json_encode($request->all()));
+            //generate imageid
+            $imageid = (string) Str::uuid();
+            $filename =  $imageid . '.jpg';
+
+            //store image
+            $path = Storage::disk('local')->put('public/sets/' . $filename, $file);
+
+            //create entry
+            return SetImage::create([
+                'imageid' => $filename,
+                'setid' => $setid
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error uploading file.'], 500);
+        }
+    }
+
 
     public function show($imageid)
     {

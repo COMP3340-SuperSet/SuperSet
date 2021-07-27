@@ -32,7 +32,9 @@ const SuggestedImages = ({ term, onSelectImage }) => {
             }).then(response => {
                 const tempResults = response.data.results.map(result => {
                     const urls = result.urls;
+                    urls.download_location = result.links.download_location;
                     urls.download = result.links.download;
+                    urls.download = urls.full;
                     return urls;
                 });
                 setImages(tempResults);
@@ -63,6 +65,7 @@ const SuggestedImages = ({ term, onSelectImage }) => {
             </Grid.Column>
         );
     });
+    
     else renderedImages = ( //TODO: style
         <div>No Results Found</div>
     );

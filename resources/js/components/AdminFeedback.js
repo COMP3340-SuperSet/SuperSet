@@ -88,7 +88,7 @@ const AdminFeedback = () => {
         axios.get(`/api/feedback`).then(response=>{
             setUserFeedback(response.data);
         }).catch(error=>{
-            console.log("Error:" + error);
+            console.error(error);
         });
     }, []);
 
