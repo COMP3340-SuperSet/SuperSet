@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { Menu, Segment, Icon, Grid, Header, List, Image, Divider, Button } from "semantic-ui-react";
 
 import { redirect } from "../utils/redirect";
-//import axios from "axios";
-
-import "../../css/InfoPage.css";
 
 import signUpImg from "../../images/InfoImgs/signup.png";
 import logInImg from "../../images/InfoImgs/login.png";
-import { property } from "lodash";
 
 const ABOUT = 0;
 const DOC_AUTH = 1;
@@ -21,7 +17,7 @@ const VIDEO_TUTORIAL = 8;
 
 const InfoH1 = (props) => {
     return (
-        <Header as="h1" textAlign="center" style={{ marginBottom: "24px" }}>
+        <Header as="h1" textAlign="center" style={{ marginBottom: "24px" }} className="ss-text-primary">
             {props.children}
         </Header>
     );
@@ -31,20 +27,20 @@ const InfoText = (props) => {
     let textStyle = { fontSize: "16px" };
     if (props.centered) { textStyle.textAlign = "center"; }
     return (
-        <p style={textStyle}>
+        <p style={textStyle} className="ss-text-primary">
             {props.children}
         </p>
     );
 }
 
 const InfoLink = ({ text = "", loc = "/about" }) => {
-    if (loc === "null") return (<a className="info-link">{text}</a>);
-    return (<a className="info-link" onClick={() => redirect(loc)}>{text}</a>);
+    if (loc === "null") return (<a className="hoverable ss-link">{text}</a>);
+    return (<a className="hoverable ss-link" onClick={() => redirect(loc)}>{text}</a>);
 }
 
 const AboutSection = () => {
     return (
-        <Segment padded="very" id="about-about">
+        <Segment padded="very" id="about-about" className="ss-segment-primary">
             <InfoH1>SuperSet</InfoH1>
             <InfoText>
                 SuperSet is a platform for all of your sets. Do you have a PC build you want to track?
@@ -63,31 +59,36 @@ const AboutSection = () => {
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'><InfoText>Brandon Klassen</InfoText></List.Header>
+                        <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
+                                     href="https://github.com/BoKlassen" target="_blank">Brandon Klassen</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'><InfoText>Stephen Sarkis-Wiebe</InfoText></List.Header>
+                        <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
+                            href = "https://github.com/Stephen-SW" target = "_blank">Stephen Sarkis-Wiebe</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'><InfoText>Brett Shepley</InfoText></List.Header>
+                        <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
+                            href = "https://github.com/BrettShepley11" target = "_blank">Brett Shepley</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'><InfoText>Ruturaj Darji</InfoText></List.Header>
+                        <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
+                            href = "https://github.com/Ru-Two" target = "_blank">Ruturaj Darji</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'><InfoText>Shane Tracey </InfoText></List.Header>
+                        <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
+                            href = "https://github.com/ShaneTracey7" target = "_blank">Shane Tracey </a>
                     </List.Content>
                 </List.Item>
             </List>
@@ -97,7 +98,7 @@ const AboutSection = () => {
 
 const DocsAuthSection = () => {
     return (
-        <Segment padded="very" id="about-docs-auth">
+        <Segment padded="very" id="about-docs-auth" className="ss-segment-primary">
             <InfoH1>Sign Up</InfoH1>
             <InfoText>
                 In order to sign up, first click on the dropdown menu at the right end of the header and select &nbsp;
@@ -132,7 +133,7 @@ const DocsAuthSection = () => {
 
 const DocsProfileSection = () => {
     return (
-        <Segment padded="very" id="about-docs-profile">
+        <Segment padded="very" id="about-docs-profile" className="ss-segment-primary">
             <InfoH1>Viewing Profile</InfoH1>
             <InfoText>
                 In order to view your profile once you are authenticated, simply click on the dropdown menu at the right end of the header and select &nbsp;
@@ -143,17 +144,17 @@ const DocsProfileSection = () => {
 
             <InfoH1>Editing Profile</InfoH1>
             <InfoText>
-                Once you are on your profile page, you may edit your profile by clicking the <Button icon className = "no-hover"><Icon name="pencil" /></Button> pencil
+                Once you are on your profile page, you may edit your profile by clicking the <Button icon className="no-hover"><Icon name="pencil" /></Button> pencil
                 icon on top of your profile card. Once you click this button, the card displaying your information will allow you to edit
                 it and make changes. You may change your profile picture, username, and description when editing your profile. <br />
-                Once you are finished editing your profile, click the <Button className = "no-hover">Save</Button> button to save your changes.
+                Once you are finished editing your profile, click the <Button className="no-hover" positive>Save</Button> button to save your changes.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Sharing Profile</InfoH1>
             <InfoText>
-                Once you are on your profile page, you may share your profile by clicking the <Button icon className = "no-hover"><Icon name="linkify" /></Button> link
+                Once you are on your profile page, you may share your profile by clicking the <Button icon className="no-hover"><Icon name="linkify" /></Button> link
                 button. This will copy the link to your profile that you may share with others. When others view your profile, they will see your
                 profile card and all of your sets on display.
             </InfoText>
@@ -163,11 +164,11 @@ const DocsProfileSection = () => {
 
 const DocsSetsSection = () => {
     return (
-        <Segment padded="very" id="about-docs-sets">
+        <Segment padded="very" id="about-docs-sets" className="ss-segment-primary">
             <InfoH1>Viewing Sets</InfoH1>
             <InfoText>
                 Once you are viewing your profile, you may see all of your sets. Your sets can be displayed in two modes: &nbsp;
-                <Button icon className = "no-hover"><Icon name="th" /></Button> Grid and <Button icon className = "no-hover"><Icon name="list" /></Button> List.
+                <Button icon className="no-hover"><Icon name="th" /></Button> Grid and <Button icon className="no-hover"><Icon name="list" /></Button> List.
                 The default view will be grid mode. To switch view modes simply click on the icon representing each view on the
                 right of the controls section at the top of the set view. <br />
                 To view any individual set, click on the set respresented by a card in grid view, and a row in list view. This will
@@ -178,9 +179,9 @@ const DocsSetsSection = () => {
 
             <InfoH1>Creating Sets</InfoH1>
             <InfoText>
-                To create a set first navigate to your profile. Then click on the <Button icon className = "no-hover"><Icon name="plus" /></Button> plus
+                To create a set first navigate to your profile. Then click on the <Button icon className="no-hover"><Icon name="plus" /></Button> plus
                 button in the controls sections and you will be prompted to enter a name for your new set. After entering your name,
-                clicking the <Button positive className = "no-hover">Create</Button> button will redirect you to the set editing page with your new blank set. <br />
+                clicking the <Button positive className="no-hover">Create</Button> button will redirect you to the set editing page with your new blank set. <br />
             </InfoText>
 
             <Divider />
@@ -188,7 +189,7 @@ const DocsSetsSection = () => {
             <InfoH1>Editing Sets</InfoH1>
             <InfoText>
                 To edit a set, first click on your desired set you want to edit from your profile. This will bring you to your set's
-                information page. From here, click the <Button icon className = "no-hover"><Icon name="pencil" /></Button> pencil button and you will be
+                information page. From here, click the <Button icon className="no-hover"><Icon name="pencil" /></Button> pencil button and you will be
                 redirected to the set editing page. <br /> <br />
                 On this set editing page, you may update your set's name, description, image and items.
                 See the Items tab in our documentation to get more information about managing items.
@@ -199,7 +200,7 @@ const DocsSetsSection = () => {
             <InfoH1>Deleting Sets</InfoH1>
             <InfoText>
                 Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking
-                the <Button color="red" className = "no-hover">Delete set</Button> button. You will be prompted with a confirmation box if you truly want to delete the set,
+                the <Button color="red" className="no-hover">Delete set</Button> button. You will be prompted with a confirmation box if you truly want to delete the set,
                 and confirming will delete your set data and it will be removed from the database. (So be careful!)<br />
                 After deleting a set, you will be redirected back to your profile page.
             </InfoText>
@@ -208,7 +209,7 @@ const DocsSetsSection = () => {
 
             <InfoH1>Sharing Sets</InfoH1>
             <InfoText>
-                To share any of your sets, first navigate to the set's view page. Then click the <Button icon className = "no-hover"><Icon name="linkify" /></Button> link
+                To share any of your sets, first navigate to the set's view page. Then click the <Button icon className="no-hover"><Icon name="linkify" /></Button> link
                 button at the top of your set. This will copy the link to your set, and you may share this link with others. When others view your set,
                 they will see all of the information you do when viewing it.
             </InfoText>
@@ -218,7 +219,7 @@ const DocsSetsSection = () => {
 
 const DocsItemsSection = () => {
     return (
-        <Segment padded="very" id="about-docs-items">
+        <Segment padded="very" id="about-docs-items" className="ss-segment-primary">
             <InfoText centered>
                 While on the set editing page, the user may add, edit, or delete items.
             </InfoText>
@@ -227,23 +228,23 @@ const DocsItemsSection = () => {
             <InfoText>
                 To create an item, fill out the information for the item in the "Create an item" dropdown box. Once
                 the name is inputted, the user will be allowed to add that item to their set by clicking
-                the <Button primary className = "no-hover">Save</Button> button. The description and image are optional.
+                the <Button primary className="no-hover">Save</Button> button. The description and image are optional.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Editing Items</InfoH1>
             <InfoText>
-                In order to edit an existing item from the item list, click on the <Button icon className = "no-hover"><Icon name="edit" /></Button> edit
+                In order to edit an existing item from the item list, click on the <Button icon className="no-hover"><Icon name="edit" /></Button> edit
                 button to bring that item's information into the item creation form. The user may now change that item's information however
-                they would like, and then hit the <Button primary className = "no-hover">Save</Button> button to save their changes.
+                they would like, and then hit the <Button primary className="no-hover">Save</Button> button to save their changes.
             </InfoText>
 
             <Divider />
 
             <InfoH1>Deleting Items</InfoH1>
             <InfoText>
-                To delete an item, simply click the <Button icon className = "no-hover"><Icon name="trash" /></Button> delete button on that item in the list of items
+                To delete an item, simply click the <Button icon className="no-hover"><Icon name="trash" /></Button> delete button on that item in the list of items
                 below the form. The user is then prompted if they truly wish to delete that item, and upon confirming the item is deleted.
                 Be careful, this action cannot be undone.
             </InfoText>
@@ -253,13 +254,13 @@ const DocsItemsSection = () => {
 
 const DocsSearchSection = () => {
     return (
-        <Segment padded="very" id="about-docs-search">
+        <Segment padded="very" id="about-docs-search" className="ss-segment-primary">
             <InfoH1>Search for profiles and sets</InfoH1>
             <InfoText>
                 SuperSet allows you to find and view other users' profiles and sets. <br /> <br />
                 You can do this by selecting the search bar on the page header and typing what you want to search
                 for. The system will search the database and display the output below the search bar. You could be
-                presented with a number of users and/or sets that matched with your search input. 
+                presented with a number of users and/or sets that matched with your search input.
                 Clicking on any of these will bring you to their respective viewing pages.
             </InfoText>
         </Segment>
@@ -268,11 +269,11 @@ const DocsSearchSection = () => {
 
 const FeedbackSection = () => {
     return (
-        <Segment padded="very" id="about-docs-search">
+        <Segment padded="very" id="about-docs-search" className="ss-segment-primary">
             <InfoH1>Submit feedback</InfoH1>
             <InfoText centered>
-                Want to submit feedback to the developers? Please do so on  
-                our <Button icon onClick = {() => redirect('/feedback')} > <Icon name = "file text"/> Feedback</Button> page. 
+                Want to submit feedback to the developers? Please do so on
+                our <Button icon onClick={() => redirect('/feedback')} > <Icon name="file text" /> Feedback</Button> page.
             </InfoText>
         </Segment>
     );
@@ -280,7 +281,7 @@ const FeedbackSection = () => {
 
 const VideoTutorialSection = () => {
     return (
-        <Segment padded="very" id="about-video-tutorial">
+        <Segment padded="very" id="about-video-tutorial" className="ss-segment-primary">
             <InfoH1>Video Tutorial</InfoH1>
         </Segment>
     );
@@ -306,41 +307,39 @@ const InfoPage = () => {
     return (
         <Grid columns={2} stackable padded>
             <Grid.Column width={3} >
-                <Segment padded basic>
-                    <Menu vertical fluid secondary>
-                        <Menu.Item header>About</Menu.Item>
-                        <Menu.Item active={activeItem === ABOUT} onClick={() => setActiveItem(ABOUT)} >
-                            <span ><Icon rotated='clockwise' name='level up' />About SuperSet</span>
-                        </Menu.Item>
+                <Menu vertical fluid secondary style={{ marginLeft: "6px" }} className = "ss-info-menu">
+                    <Menu.Item header>About</Menu.Item>
+                    <Menu.Item active={activeItem === ABOUT} onClick={() => setActiveItem(ABOUT)} >
+                        <span ><Icon rotated='clockwise' name='level up' />About SuperSet</span>
+                    </Menu.Item>
 
-                        <Menu.Item header>Documentation</Menu.Item>
-                        <Menu.Item active={activeItem === DOC_AUTH} onClick={() => setActiveItem(DOC_AUTH)} >
-                            <span><Icon rotated='clockwise' name='level up' />Authentication</span>
-                        </Menu.Item>
-                        <Menu.Item  active={activeItem === DOC_PROFILE} onClick={() => setActiveItem(DOC_PROFILE)} >
-                            <span><Icon rotated='clockwise' name='level up' />Profile</span>
-                        </Menu.Item>
-                        <Menu.Item  active={activeItem === DOC_SETS} onClick={() => setActiveItem(DOC_SETS)} >
-                            <span><Icon rotated='clockwise' name='level up' />Sets</span>
-                        </Menu.Item>
-                        <Menu.Item  active={activeItem === DOC_ITEMS} onClick={() => setActiveItem(DOC_ITEMS)} >
-                            <span><Icon rotated='clockwise' name='level up' />Items</span>
-                        </Menu.Item>
-                        <Menu.Item  active={activeItem === DOC_SEARCH} onClick={() => setActiveItem(DOC_SEARCH)} >
-                            <span><Icon rotated='clockwise' name='level up' />Search</span>
-                        </Menu.Item>
+                    <Menu.Item header>Documentation</Menu.Item>
+                    <Menu.Item active={activeItem === DOC_AUTH} onClick={() => setActiveItem(DOC_AUTH)} >
+                        <span><Icon rotated='clockwise' name='level up' />Authentication</span>
+                    </Menu.Item>
+                    <Menu.Item active={activeItem === DOC_PROFILE} onClick={() => setActiveItem(DOC_PROFILE)} >
+                        <span><Icon rotated='clockwise' name='level up' />Profile</span>
+                    </Menu.Item>
+                    <Menu.Item active={activeItem === DOC_SETS} onClick={() => setActiveItem(DOC_SETS)} >
+                        <span><Icon rotated='clockwise' name='level up' />Sets</span>
+                    </Menu.Item>
+                    <Menu.Item active={activeItem === DOC_ITEMS} onClick={() => setActiveItem(DOC_ITEMS)} >
+                        <span><Icon rotated='clockwise' name='level up' />Items</span>
+                    </Menu.Item>
+                    <Menu.Item active={activeItem === DOC_SEARCH} onClick={() => setActiveItem(DOC_SEARCH)} >
+                        <span><Icon rotated='clockwise' name='level up' />Search</span>
+                    </Menu.Item>
 
-                        <Menu.Item header>Feedback</Menu.Item>
-                        <Menu.Item  active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
-                            <span ><Icon rotated='clockwise' name='level up' />Submit feedback</span>
-                        </Menu.Item>
+                    <Menu.Item header>Feedback</Menu.Item>
+                    <Menu.Item active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
+                        <span ><Icon rotated='clockwise' name='level up' />Submit feedback</span>
+                    </Menu.Item>
 
-                        <Menu.Item header>Tutorial</Menu.Item>
-                        <Menu.Item  active={activeItem === VIDEO_TUTORIAL} onClick={() => setActiveItem(VIDEO_TUTORIAL)} >
-                            <span><Icon rotated='clockwise' name='level up' />Video Tutorial</span>
-                        </Menu.Item>
-                    </Menu>
-                </Segment>
+                    <Menu.Item header>Tutorial</Menu.Item>
+                    <Menu.Item active={activeItem === VIDEO_TUTORIAL} onClick={() => setActiveItem(VIDEO_TUTORIAL)} >
+                        <span><Icon rotated='clockwise' name='level up' />Video Tutorial</span>
+                    </Menu.Item>
+                </Menu>
             </Grid.Column>
 
             <Grid.Column width={13}>

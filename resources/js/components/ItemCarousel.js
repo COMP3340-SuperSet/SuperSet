@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Grid, Button, Container, Progress } from "semantic-ui-react";
-import "../../css/Instructions.css";
+
 import ImageSlider from "./ImageSlider";
 
 const ItemCarousel = ({ itemImages }) => {

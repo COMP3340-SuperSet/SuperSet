@@ -1,29 +1,30 @@
 import React from 'react';
-import { Grid, Tab } from "semantic-ui-react";
+import { Segment, Tab } from "semantic-ui-react";
+
 import AdminInstructions from './AdminInstructions';
 import AdminFeedback from './AdminFeedback';
-import StatisticsPage from './StatisticsPage';
 import ReportTable from "./ReportLog";
+import AdminThemeSetting from './AdminThemeSetting';
+
+
+/*
+import StatisticsPage from './StatisticsPage';
+ not in use: { menuItem: 'View Statistics', render: () => <Tab.Pane><StatisticsPage /></Tab.Pane> },
+*/
 
 const AdminPages = () => {
 
     const panes = [
-        { menuItem: 'View Instructions', render: () => <Tab.Pane><AdminInstructions/></Tab.Pane> },
-        { menuItem: 'View Statistics', render: () => <Tab.Pane><StatisticsPage/></Tab.Pane> },
-        { menuItem: 'View Reports', render: () => <Tab.Pane><ReportTable/></Tab.Pane> },
-        { menuItem: 'View Feedback', render: () => <Tab.Pane><AdminFeedback/></Tab.Pane> }
+        { menuItem: 'Instructions', render: () => <Tab.Pane><AdminInstructions /></Tab.Pane> },
+        { menuItem: 'Reports', render: () => <Tab.Pane><ReportTable /></Tab.Pane> },
+        { menuItem: 'Feedback', render: () => <Tab.Pane><AdminFeedback /></Tab.Pane> },
+        { menuItem: 'Site Themes', render: () => <Tab.Pane><AdminThemeSetting /></Tab.Pane> }
     ]
 
     return (
-        <div>
-            <div className='ss-adminpages-div'>
-                <Grid centered stackable divided='vertically'>
-                    <Grid.Row columns={1}>
-                        <Tab panes={panes} />
-                    </Grid.Row>
-                </Grid>
-            </div>
-        </div>
+            <Segment basic padded>
+                <Tab panes={panes}  className = "ss-tab" />
+            </Segment>
     );
 }
 

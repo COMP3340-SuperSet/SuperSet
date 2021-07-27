@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { Grid, Segment, Header, Image, Icon, Button, Table, Form, Modal } from "semantic-ui-react";
+import axios from "axios";
+
 import SetCard from "./SetCard.js";
 import SetCell from "./SetCell.js";
-import { Grid, Segment, Header, Image, Icon, Button, Table, TextArea, Form, Input, Modal } from "semantic-ui-react";
 
-import "../../css/Profile.css";
-
-import tmp_pic from "../../images/pfp_placeholder.png";
 import { redirect } from "../utils/redirect.js";
 import { getImagePath } from "../utils/imagePath.js";
-import axios from "axios";
 import { toast } from "./Toast.js";
+
+import tmp_pic from "../../images/pfp_placeholder.png";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -17,7 +17,7 @@ const LIST_MODE = false;
 const CreateNewSet = (userid, name) => {
     axios.post('/api/set', { userid, name }).then(response => {
         console.log(response.data);
-        redirect('/edit', [{key: 'setid', value: '1'}]);
+        redirect('/edit', [{ key: 'setid', value: '1' }]);
     }).catch(error => {
         console.error(error);
     });
@@ -27,7 +27,7 @@ const SetsDisplay = ({ displayMode, setInfo }) => {
     if (displayMode === GRID_MODE) {
         let allCards = setInfo.map((obj) =>
             <Grid.Column key={obj.setid}>
-                <SetCard id={obj.setid} name={obj.name} count={4} description={obj.description} />
+                <SetCard id={obj.setid} name={obj.name} count={null} description={obj.description} />
             </Grid.Column>);
 
         return (
@@ -37,7 +37,7 @@ const SetsDisplay = ({ displayMode, setInfo }) => {
         );
     }
     else {
-        let allCells = setInfo.map((obj) => <SetCell key={obj.setid} id={obj.setid} name={obj.name} count={4} description={obj.description} />);
+        let allCells = setInfo.map((obj) => <SetCell key={obj.setid} id={obj.setid} name={obj.name} count={null} description={obj.description} />);
 
         return (
             <Table celled selectable>
@@ -78,27 +78,26 @@ const Profile = ({ userInfo, userSets, currentUser }) => {
     return (
         <Grid divided padded stackable columns={2} >
             <Grid.Column width={5}>
-                <Segment padded="very">
+                <Segment padded="very" className="ss-segment-primary">
                     {userInfo && <div>
                         <Image size="small" src={(userInfo.imageid) ? getImagePath('user', userInfo.imageid) : tmp_pic} circular centered />
-                        <Header as="h1" textAlign="center" >{userInfo.username}</Header>
-                        <Segment textAlign="center">
-                            {userInfo.bio ? <Header as="h3">{userInfo.bio}</Header> :
-                                <p style={{ color: "grey" }}>No description</p>}
+                        <Header as="h1" textAlign="center" className="ss-text-primary">{userInfo.username}</Header>
+                        <Segment textAlign="center" className="ss-segment-secondary">
+                            {userInfo.bio ? <Header as="h3" className="ss-text-secondary">{userInfo.bio}</Header> :
+                                <p className="ss-text-light">No description</p>}
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
                                 <Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>
                                 <Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>
-                            </div>}
-                    </div>}
+                            </div>} </div>}
                 </Segment>
             </Grid.Column>
 
             <Grid.Column width={11}>
-                <Segment textAlign="center">
+                <Segment textAlign="center" className="ss-segment-primary">
                     {userInfo &&
-                        <Header as="h1" className="inline ss-grey" >{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : userInfo.username + "'s"} Sets</Header>}
+                        <Header as="h1" className="inline ss-text-primary">{(currentUser && userInfo && currentUser.userid === userInfo.userid) ? "My" : userInfo.username + "'s"} Sets</Header>}
 
                     {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                         <Modal dimmer="inverted"
@@ -127,7 +126,7 @@ const Profile = ({ userInfo, userSets, currentUser }) => {
                     <Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>
                 </Segment>
 
-                <Segment padded>
+                <Segment padded className="ss-segment-primary">
                     <SetsDisplay displayMode={displayType} setInfo={userSets} />
                 </Segment>
             </Grid.Column>

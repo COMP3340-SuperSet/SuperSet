@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Confirm } from 'semantic-ui-react';
 
-const Confirmation = ({ trigger = (<Button>Show</Button>), onConfirm = () => { }, text = "Are you sure?", confirmText = "OK", cancelText = "Cancel", inline = false }) => {
+const Confirmation = ({ disabled = false, style, trigger = (<Button>Show</Button>), onConfirm = () => { }, text = "Are you sure?", confirmText = "OK", cancelText = "Cancel", inline = false }) => {
     /*
         <Confirmation> is a customizable confirmation modal
 
@@ -29,8 +29,8 @@ const Confirmation = ({ trigger = (<Button>Show</Button>), onConfirm = () => { }
 
     return (
         <span>
-            {inline ? (<div style={{ display: "inline-block" }} onClick={() => setOpen(true)}> {trigger} </div>) :
-                (<div onClick={() => setOpen(true)}> {trigger} </div>)}
+            {inline ? (<div style={{ display: "inline-block", ...style }} onClick={() => {if (!disabled) setOpen(true)}}> {trigger} </div>) :
+                (<div style={style} onClick={() => {if (!disabled) setOpen(true)}}> {trigger} </div>)}
             <Confirm size="mini"
                 confirmButton={confirmText}
                 cancelButton={cancelText}
@@ -39,7 +39,7 @@ const Confirmation = ({ trigger = (<Button>Show</Button>), onConfirm = () => { }
                 onCancel={() => setOpen(false)}
                 onConfirm={() => {
                     setOpen(false);
-                    onConfirm();
+                    if (!disabled) onConfirm();
                 }}
             />
         </span>

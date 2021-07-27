@@ -26,9 +26,7 @@ const UserSettings = ({ userInfo }) => {
         if (userInfo.imageid) setImageid(getImagePath('user', userInfo.imageid));
     }, [userInfo]);
 
-    useEffect(() => {
-
-    }, [imageid]);
+    useEffect(() => { }, [imageid]);
 
     const onImageInput = (e) => {
         let uploadedFiles = e.target.files;
@@ -111,8 +109,8 @@ const UserSettings = ({ userInfo }) => {
 
     return (
         <Container>
-            <Segment padded>
-                <Header as='h1' textAlign="center" style={{ margin: "10px 0" }}>Settings</Header>
+            <Segment padded className="ss-segment-primary">
+                <Header as='h1' style={{ margin: "10px 0", textAlign: "center" }} className="ss-text-primary">Settings</Header>
                 <Form style={{ margin: "30px 0" }}>
                     <Grid container stackable>
                         <Grid.Row>
@@ -130,7 +128,7 @@ const UserSettings = ({ userInfo }) => {
                                 </div>
                             </Grid.Column>
                             <Grid.Column width={11}>
-                                <Segment>
+                                <Segment className="ss-segment-secondary">
                                     <Form.Field required
                                         label="Username"
                                         control="input"
@@ -138,12 +136,14 @@ const UserSettings = ({ userInfo }) => {
                                         onChange={(e) => setName(e.target.value)}
                                         style={{ textAlign: "center", fontSize: "22px", padding: "8px" }}
                                         size="large" />
-                                    <Divider />
-                                    <Form.Field label="Description"
-                                        control="textarea"
-                                        rows={3}
-                                        value={bio}
-                                        onChange={(e) => setBio(e.target.value)} />
+                                    <div style={{ marginTop: "24px" }}>
+                                        <Form.Field label="Description" className = "no-resize"
+                                            control="textarea"
+                                            rows={4}
+                                            value={bio}
+                                            onChange={(e) => setBio(e.target.value)} />
+                                    </div>
+
                                 </Segment>
                             </Grid.Column>
                         </Grid.Row>
@@ -158,7 +158,7 @@ const UserSettings = ({ userInfo }) => {
 
                 <Divider />
 
-                <Segment compact style={{ margin: "20px auto 0 auto" }}>
+                <Segment compact style={{ margin: "20px auto 0 auto" }} className = "ss-segment-secondary">
                     {(toggleDel) ? (<Button color="red" onClick={() => { setToggleDel(false) }}>Delete Account</Button>) :
                         (<Form>
                             <Form.Group style={{ justifyContent: "center", marginBottom: "0" }}>
