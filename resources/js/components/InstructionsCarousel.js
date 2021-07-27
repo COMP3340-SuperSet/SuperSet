@@ -25,19 +25,22 @@ const InstructionsCarousel = ({ images }) => {
     return (
         <div>
             <div className="ss-instructions-location">
-                <Grid centered stackable columns={3}>
-                    <Grid.Column>
-                        <Image src={logoFull} style={{ margin: "30px 0" }} />
-                        <Container textAlign="center"><p className="ss-title-subtitle">How it works</p></Container>
+                <Grid centered stackable>
+                    <Grid.Column width={8} style={{ textAlign: "center" }}>
+                        <Image src={logoFull} style={{ margin: "30px auto 6px auto" }} size="large" />
+                        <Container textAlign="center">
+                            <p className="ss-title-subtitle" style={{ paddingBottom: "0" }}>How it works</p>
+                            <p className="ss-text-primary" style={{ marginBottom: "14px", fontSize: "16px" }}>Create and manage organized sets of items</p>
+                        </Container>
                         <Container className="ss-instructions-container">
                             <ImageSlider setPercent={setPercent} itemImages={images} pageOffset={pageOffset} setPageOffset={setPageOffset} />
                         </Container>
-                        <Progress percent={percent} style={{ marginTop: '10px' }}></Progress>
+                        <Progress percent={percent} style={{ marginBottom: "6px" }}></Progress>
                         <Button.Group fluid>
-                            <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />
-                            <Button content="Get Started" className="ss-instructions-button" attached="bottom" onClick={() => redirect('/register')} />
+                            <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />  
                             <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)} />
                         </Button.Group>
+                        <Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')} />
                     </Grid.Column>
                 </Grid>
             </div>

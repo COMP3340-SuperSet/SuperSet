@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, Image } from 'semantic-ui-react';
 
-const ItemCard = ({ name, description, images = [null] }) => {
+const ItemCard = ({ name, description, image = null }) => {
     return (
         <Card centered link className = "ss-card" role = "a">
-            <Image src={images[0]} />
+            <Image src={image} style = {{maxHeight: "200px"}} />
             <Card.Content textAlign="center">
                 <Card.Header className = "ss-text-primary">{name}</Card.Header>
                 { description ?

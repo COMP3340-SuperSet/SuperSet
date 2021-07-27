@@ -4,14 +4,14 @@ import axios from "axios";
 
 import SetCard from "./SetCard.js";
 import SetCell from "./SetCell.js";
+import Confirmation from "./Confirmation.js";
 
 import { redirect } from "../utils/redirect.js";
 import { getImagePath } from "../utils/imagePath.js";
 import { toast } from "./Toast.js";
+import { makeReport } from "../utils/makeReport.js";
 
 import tmp_pic from "../../images/pfp_placeholder.png";
-import Confirmation from "./Confirmation.js";
-import { makeReport } from "../utils/makeReport.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -25,12 +25,20 @@ const CreateNewSet = (userid, name) => {
     });
 }
 
-const SetsDisplay = ({ displayMode, setInfo }) => {
+const SetsDisplay = ({ displayMode, setInfo, setImages }) => {
     if (displayMode === GRID_MODE) {
-        let allCards = setInfo.map((obj) =>
-            <Grid.Column key={obj.setid}>
-                <SetCard id={obj.setid} name={obj.name} count={null} description={obj.description} />
-            </Grid.Column>);
+        let allCards = setInfo.map((obj) => {
+            let img = null; 
+            if (setImages && setImages.length) {
+                const tmp = setImages.find(elem => {elem.setid === obj.setid});
+                if (tmp) img = tmp.imageid;
+            }
+            if (!img) img = null;
+            return (
+                <Grid.Column key={obj.setid}>
+                    <SetCard id={obj.setid} name={obj.name} image = {img} description={obj.description} />
+                </Grid.Column>);
+        });
 
         return (
             <Grid stackable container columns={4}>
@@ -59,7 +67,7 @@ const SetsDisplay = ({ displayMode, setInfo }) => {
     }
 }
 
-const Profile = ({ userInfo, userSets, currentUser }) => {
+const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
     const [newSetName, setNewSetName] = useState("");
     const [displayType, setDisplayType] = useState(GRID_MODE);
     const [modalOpen, setModalOpen] = useState(false);
@@ -137,7 +145,7 @@ const Profile = ({ userInfo, userSets, currentUser }) => {
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">
-                    <SetsDisplay displayMode={displayType} setInfo={userSets} />
+                    <SetsDisplay displayMode={displayType} setInfo={userSets} setImages={setImages} />
                 </Segment>
             </Grid.Column>
         </Grid>

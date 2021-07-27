@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, Container } from "semantic-ui-react";
 import "../../css/ItemSlider.css";
 
-const ImageSlider = ({ itemImages, setPercent, setPageOffset, pageOffset }) => {
+const ImageSlider = ({ size = "large", itemImages, setPercent, setPageOffset, pageOffset }) => {
     /*
     * Input: --Array of images/gifs, setPercent, setPageOffset, and pageOffset--
     * Description: The purpose of this functional component is to display a carousel of 
@@ -49,7 +49,7 @@ const ImageSlider = ({ itemImages, setPercent, setPageOffset, pageOffset }) => {
             {itemImages.map((slide, index) => {
                 return (
                     <div className={`ss-imageslider-slide ${index === current ? 'slide active' : 'slide'}`} key={index} >
-                        {index === current && (<Image className={"ss-imageslider-image"} centered src={slide} size='large' />)}
+                        {index === current && (<Image className="ss-imageslider-image" centered src={slide} size={size} />)}
                     </div>
                 );
             })}

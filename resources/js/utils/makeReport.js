@@ -7,7 +7,7 @@ export function makeReport(type, resourceid){
         case 'user':
             axios.post(`/api/report`, {
                 type: 0,
-                resourceid
+                resourceid: resourceid
             }).then((response) => {
                 toast('Successfully reported user!', "success");
             }).catch((err) => {
@@ -18,7 +18,7 @@ export function makeReport(type, resourceid){
         case 'set':
             axios.post(`/api/report`, {
                 type: 1,
-                resourceid
+                resourceid: resourceid
             }).then(() => {
                 toast('Successfully reported set!', "success");
             }).catch(() => {
@@ -29,7 +29,7 @@ export function makeReport(type, resourceid){
         case 'item':
             axios.post(`/api/report`, {
                 type: 2,
-                resourceid
+                resourceid: resourceid
             }).then(() => {
                 toast('Successfully reported item!', "success");
             }).catch(() => {
