@@ -54,7 +54,6 @@ class UserController extends Controller
 
         try {
             if ($request->hasFile('image')) {
-
                 $imageid = (string) Str::uuid();
                 $path = Storage::disk('local')->put('public/users', $request->file('image'));
                 if ($path) {

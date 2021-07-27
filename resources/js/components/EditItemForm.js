@@ -1,74 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Image, Grid, Segment } from 'semantic-ui-react';
-import ImageOverlay from './ImageOverlay';
+import { Button, Form } from 'semantic-ui-react';
+import ImageList from './ImageList';
+import ImageUploader from './ImageUploader';
 import SuggestedImages from './SuggestedImages';
 
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
-  const [images, setImages] = useState([]);
+  const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
+  const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
+
+  useEffect(() => {}), [itemImages_db, itemImages_new]);
   const [suggestedImages, setSuggestedImages] = useState([]);
   const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    if (selectedItem) {
-      if (selectedItem.name) {
-        setName(selectedItem.name);
-      }
-      if (selectedItem.description) {
-        setDescription(selectedItem.description);
-      }
-    } else {
-      setName('');
-      setDescription('');
-    }
+    if (!selectedItem) {
+      clearForm();
+      return;
+    };
+
+    if (selectedItem.name) setName(selectedItem.name);
+    if (selectedItem.description) setDescription(selectedItem.description);
+    if (selectedItem.images_db) setItemImages_db(selectedItem.images_db);
+    if (selectedItem.images_new) setItemImages_new(selectedItem.images_new);
   }, [selectedItem]);
 
-  //rerender when the image list changes
-  useEffect(() => { }, [images]);
+  const uploadItemImages = (files) => {
+    setItemImages_new([...itemImages_new, ...files]);
+  }
+
+  const onSelectUnsplashImage = (urls) => {
+    setItemImages_new([...itemImages_new, { urls }]);
+  }
+
+  const deleteItemImage = (index) => {
+    let temp;
+    if (index < itemImages_db.length) {
+      temp = [...itemImages_db];
+      temp.splice(index, 1);
+      setItemImages_db(temp);
+      return;
+    }
+
+    if (index < itemImages_db.length + itemImages_new.length) {
+      index -= itemImages_db.length;
+      temp = [...itemImages_new];
+      temp.splice(index, 1);
+      setItemImages_new(temp);
+      return;
+    }
+  }
 
   //when the 'clear' button is clicked, clear the form
-  const onClear = () => {
+  const clearForm = () => {
     setName('');
     setDescription('');
     setSelectedItem(null);
-  }
-
-  //when the user presses the 'ok' button in the file browse window
-  const onFileChange = (event) => {
-    setImages([...images, ...event.target.files]);
+    setItemImages_db([]);
+    setItemImages_new([]);
+    //setImages(ent);
   }
 
   const onSubmit = () => {
-    const tempItem = {
-      name,
-      description
-    };
-    setName('');
-    setDescription('');
-    onSubmitItem(tempItem);
+    if (!name) return;
+    const temp = { ...selectedItem };
+    temp.name = name;
+    temp.description = description;
+    temp.images_db = itemImages_db;
+    temp.images_new = itemImages_new;
+    onSubmitItem(temp);
+    clearForm();
   }
-
-  const onClickAddFiles = () => {
-    document.getElementById('file').click();
-  }
-
-  let renderedImages = images.map((image, index) => {
-    const url = URL.createObjectURL(image);
-    return (
-      <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
-        <Image bordered
-          className="grid-image"
-          src={url}
-          onClick={() => setSelectedImage(url)} />
-      </Grid.Column>
-    );
-  });
-
-  renderedImages += suggestedImages.map((image, index) => {
-    //custom logic for recommended images
-  });
 
   return (
     <div>
@@ -92,37 +95,13 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         </Form.Field>
         <Form.Field>
           <label>Images</label>
-          <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
-            <Button basic onClick={() => onClickAddFiles()} style={{padding: '0.5rem 1rem', marginRight: '1rem'}}>Add</Button>
-            {
-              images && images.length
-                ? <p>{images.length} Images Selected</p>
-                : <p>No Images Selected</p>
-            }
-          </Segment>
-          <SuggestedImages term={name}/>
-          <input multiple hidden
-            type="file"
-            id="file"
-            name="file"
-            accept="image/*"
-            onChange={(e) => onFileChange(e)} />
-          {
-            images && images.length
-              ?
-              <Grid centered stackable doubling
-                columns="6"
-                style={{ margin: '0.25rem' }}>
-                {renderedImages}
-              </Grid>
-              :
-              null
-          }
+          <ImageUploader onUploadImages={uploadItemImages} imageCount={itemImages_db.length + itemImages_new.length} formID="item-image-uploader" />
+          <SuggestedImages term={name} onSelectImage={onSelectUnsplashImage} />
         </Form.Field>
-        <Button basic onClick={() => onClear()}>Clear</Button>
+        <ImageList images={[...itemImages_db, ...itemImages_new]} onDeleteImage={deleteItemImage} />
+        <Button basic onClick={() => clearForm()}>Clear</Button>
         <Button floated="right" primary onClick={() => onSubmit()}>Save</Button>
       </Form>
-      <ImageOverlay imageURL={selectedImage} setImageURL={setSelectedImage} />
     </div >
   );
 }

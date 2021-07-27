@@ -116,7 +116,6 @@ const AdminFeedback = () => {
             isCurrent.current = false;
         };
     }, []);
-
     useEffect(() => {
         axios.get(`/api/feedback`).then(response => {
             setTimeout(() => {

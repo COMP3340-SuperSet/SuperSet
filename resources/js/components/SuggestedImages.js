@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Accordion, Segment, Grid, Image, Icon, Loader } from 'semantic-ui-react';
 
 //todo: debounce search
-const SuggestedImages = ({ term }) => {
+const SuggestedImages = ({ term, onSelectImage }) => {
     if (!term) return null;
 
     const [query, setQuery] = useState('');
@@ -31,7 +31,11 @@ const SuggestedImages = ({ term }) => {
                 params: { query }
             }).then(response => {
                 const tempResults = response.data.results.map(result => {
-                    return result.urls.full;
+                    const urls = result.urls;
+                    urls.download_location = result.links.download_location;
+                    urls.download = result.links.download;
+                    urls.download = urls.full;
+                    return urls;
                 });
                 setImages(tempResults);
             }).catch(error => {
@@ -48,15 +52,20 @@ const SuggestedImages = ({ term }) => {
         }
     }, [query]);
 
+    const onSelectSuggestedImage = () => {
+
+    };
+
     //map image urls to Image component to be rendered
     let renderedImages;
-    if (images.length) renderedImages = images.map(url => {
+    if (images.length) renderedImages = images.map(urls => {
         return (
-            <Grid.Column key={url} style={{ padding: '0.25rem' }}>
-                <Image src={`${url}&w=200&h=200&fit=crop`} />
+            <Grid.Column key={urls.full} style={{ padding: '0.25rem' }}>
+                <Image src={urls.thumb} onClick={() => onSelectImage(urls)}/>
             </Grid.Column>
         );
     });
+    
     else renderedImages = ( //TODO: style
         <div>No Results Found</div>
     );

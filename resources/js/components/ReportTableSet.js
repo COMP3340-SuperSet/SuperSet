@@ -114,7 +114,6 @@ const ReportTableSet = () => {
     }, []);
 
     const renderedSetReports = getReportedSets(sets, reports);
-
     return (
         <div>
             <Table stackable basic='very' celled fixed>

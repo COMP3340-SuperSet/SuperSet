@@ -27,7 +27,6 @@ function User() {
 
         axios.get(`/api/user/sets/${userid}`).then((response) => {
             setUserSets(response.data);
-
             //get set images
 
         }).catch((error) => {

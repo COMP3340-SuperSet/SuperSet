@@ -28,7 +28,7 @@ const SearchInput = () => {
                 setResults(temp);
                 setLoading(false);
             }).catch((error) => {
-                console.error("Error: " + error);
+                console.error(error);
             });
         }
 

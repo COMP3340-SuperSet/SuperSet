@@ -20,7 +20,7 @@ class CreateSetsTable extends Migration
         Schema::create('sets', function (Blueprint $table) {
             $table->integer('setid', true, true);
             $table->integer('userid', false, true);
-            $table->foreign('userid')->references('userid')->on('users');
+            $table->foreign('userid')->references('userid')->on('users')->onDelete('cascade');
             $table->string('name', 60);
             $table->string('description', 2048)->nullable();
             $table->timestamps();
