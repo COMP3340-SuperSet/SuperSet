@@ -3,19 +3,21 @@ import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } f
 
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
+import Confirmation from "./Confirmation.js";
 
 import { redirect } from "../utils/redirect.js";
 import { toast } from './Toast';
+import { makeReport } from '../utils/makeReport';
 
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-const ItemViewDisplay = ({ view, itemInfo }) => {
+const ItemViewDisplay = ({ view, itemInfo, showReport = false }) => {
     if (itemInfo === null) return null;
     if (view === GRID_MODE) {
         let AllCards = itemInfo.map((obj) =>
             <Grid.Column key={obj.itemid}>
-                <ItemModal item={obj} modalTrigger={
+                <ItemModal item={obj} showReport = {showReport} modalTrigger={
                     <Container fluid className="basic-button">
                         <ItemCard name={obj.name} count={5} description={obj.description} image={null} />
                     </Container>} />
@@ -106,6 +108,13 @@ const SetView = ({ set, items, currentUser }) => {
                     <Button style={{ position: "absolute", top: "0px", left: "0px" }} icon labelPosition="left" onClick={() => redirect('/user', [{ key: "id", value: set.userid }])}>
                         <Icon name="left arrow" /> Back to profile
                     </Button>
+
+                    {!(currentUser && set && currentUser.userid === set.userid) &&
+                        <Confirmation style={{ position: "absolute", top: "0px", right: "0px" }}
+                            trigger={<Button icon color="red"><Icon name="flag" /> Report</Button>}
+                            onConfirm={() => { makeReport('set', set.setid) }}
+                            text="Are you sure you would like to report this set?" />}
+
                 </Grid.Column>
             </Grid.Row>
 
@@ -131,7 +140,7 @@ const SetView = ({ set, items, currentUser }) => {
 
             <Grid.Row>
                 <Segment textAlign="center" className = "ss-segment-primary">
-                    <ItemViewDisplay view={viewType} itemInfo={items} />
+                    <ItemViewDisplay view={viewType} itemInfo={items} showReport = {!(currentUser && set && currentUser.userid === set.userid)} />
                 </Segment>
             </Grid.Row>
         </Grid>
