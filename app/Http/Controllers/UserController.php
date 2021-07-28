@@ -35,11 +35,10 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $userid = $request->userid;
-        $user = User::find($userid);
-        $user->update($request->only(['username', 'bio']));
+        $user = User::find($request->userid);
+        $user->update(['username' => $request->username, 'bio' => $request->bio]);
         $user->save();
-        return response()->json(['user' => $user], 201);
+        return $user;
     }
 
     public function getSets(Request $request, $userid)
