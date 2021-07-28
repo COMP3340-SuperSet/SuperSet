@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Header, Button, Statistic, Rating, Divider, Segment, Grid, Container } from 'semantic-ui-react';
-import axios from 'axios';
+import { Table, Header, Button, Statistic, Rating, Divider, Segment, Grid, Container, Popup } from 'semantic-ui-react';
+import Confirmation from './Confirmation';
 
-let template =
-    [
-        {
-            feedbackid: 1,
-            email: "TemplateFeedback@email.ca",
-            rating: 4
-        }
-    ];
+import axios from 'axios';
+import { toast } from './Toast';
 
 function onFeedbackDelete(feedbackid) {
-    axios.post('/api/delete/feedback', { feedbackid }).then(response => { }).catch(err => console.log(err));
+    axios.post('/api/delete/feedback', { feedbackid }).then(response => {
+        toast("Feedback deleted!", "success");
+     }).catch(err => {
+        console.log(err);
+        toast("Error deleting feedback", "error");
+     });
 }
 
 function getContact(userFeedback, toggleView) {
+    const [deleted, setDeleted] = useState([]);
+
     if (userFeedback.length != 0) {
         if (toggleView) {
             const renderedUserFeedback = userFeedback.map((feedback) => {
-                if (feedback.contact && !(feedback.email === "")) {
+                if (feedback.contact && !(feedback.email === "") && !(deleted.find(elem => elem === feedback.feedbackid))) {
                     return (
                         <Table.Row key={feedback.feedbackid} >
                             <Table.Cell width={14}>
@@ -35,9 +36,20 @@ function getContact(userFeedback, toggleView) {
                                 </Header>
                             </Table.Cell>
                             <Table.Cell textAlign='center'>
-                                <Button.Group vertical>
-                                    <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
-                                </Button.Group>
+                                <Confirmation style={{ marginBottom: "14px"}}
+                                    trigger={
+                                        <Popup 
+                                            content="Remove from database" 
+                                            position="bottom center" 
+                                            trigger={<Button color='red' content='Delete Feedback'/>}
+                                        />
+                                    }
+                                    onConfirm={() => { 
+                                        onFeedbackDelete(feedback.feedbackid);
+                                        setDeleted(feedback.feedbackid, ...deleted);
+                                    }}
+                                    text="Remove this feedback"
+                                />   
                             </Table.Cell>
                         </Table.Row>
                     );
@@ -65,9 +77,20 @@ function getContact(userFeedback, toggleView) {
                             </Header>
                         </Table.Cell>
                         <Table.Cell textAlign='center'>
-                            <Button.Group vertical>
-                                <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
-                            </Button.Group>
+                            <Confirmation style={{ marginBottom: "14px"}}
+                                    trigger={
+                                        <Popup 
+                                            content="Remove from database" 
+                                            position="bottom center" 
+                                            trigger={<Button color='red' content='Delete Feedback'/>}
+                                        />
+                                    }
+                                onConfirm={() => { 
+                                    onFeedbackDelete(feedback.feedbackid);
+                                    setDeleted(feedback.feedbackid, ...deleted);
+                                }}
+                                text="Remove this feedback"
+                            />
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -75,31 +98,9 @@ function getContact(userFeedback, toggleView) {
             return renderedUserFeedback;
         }
     }
-    else {
-        const renderedUserFeedback = template.map((feedback) => {
-            return (
-                <Table.Row key={feedback.feedbackid}>
-                    <Table.Cell>
-                        <Header as='h2' className='ss-reporttableitem-header'>
-                            <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
-                                {feedback.email}
-                                <Header.Subheader className="ss-text-secondary">
-                                    Feedback Content: {feedback.content} <br />
-                                    <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/>
-                                </Header.Subheader>
-                            </Header.Content>
-                        </Header>
-                    </Table.Cell>
-                    <Table.Cell textAlign='right'>
-                        <Button.Group vertical>
-                            <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
-                        </Button.Group>
-                    </Table.Cell>
-                </Table.Row>
-            );
-        });
-
-        return renderedUserFeedback;
+    else 
+    {
+        return <tr><td colSpan="2" className="ss-text-light" style={{ textAlign: "center" }}>No feedback</td></tr>;
     }
 }
 
@@ -112,7 +113,6 @@ const AdminFeedback = () => {
 
     useEffect(() => {
         return () => {
-            //console.log("Unmounted Feedback Table");
             isCurrent.current = false;
         };
     }, []);
@@ -137,7 +137,11 @@ const AdminFeedback = () => {
                     <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length}/>
                 </Grid.Column>
                 <Grid.Column floated='right' verticalAlign="middle" width={4} textAlign="right">
-                    <Button onClick={() => { setToggleView(!toggleView) }}>Filter by Contact</Button>
+                    <Popup
+                        content="Change displayed feedback"
+                        position="bottom center"
+                        trigger={<Button onClick={() => { setToggleView(!toggleView) }}>Filter by Contact</Button>}
+                    />
                 </Grid.Column>
             </Grid>
 
@@ -145,7 +149,10 @@ const AdminFeedback = () => {
 
             <Segment padded basic>
                 <Table stackable basic='very' fixed>
-                    {renderedUserFeedback}
+                    
+                    <Table.Body>
+                        {renderedUserFeedback}
+                    </Table.Body>
                 </Table>
             </Segment>
         </Container>
