@@ -18,7 +18,7 @@ class CreateItemImagesTable extends Migration
         Schema::create('item_images', function (Blueprint $table) {
             $table->string('imageid', 41)->nullable()->unique();
             $table->integer('itemid', false, true);
-            $table->foreign('itemid')->references('itemid')->on('items')->onDelete('cascade');;
+            $table->foreign('itemid')->references('itemid')->on('items')->onDelete('cascade');
             $table->timestamps();
         });
 

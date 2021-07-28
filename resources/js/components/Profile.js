@@ -25,12 +25,13 @@ const CreateNewSet = (userid, name) => {
 }
 
 const SetsDisplay = ({ displayMode, setInfo, setImages }) => {
+    
     if (displayMode === GRID_MODE) {
         let allCards = setInfo.map((obj) => {
             let img = null; 
             if (setImages && setImages.length) {
-                const tmp = setImages.find(elem => {elem.setid === obj.setid});
-                if (tmp) img = tmp.imageid;
+                const tmp = setImages.find(elem => elem.setid === obj.setid);
+                if (tmp && tmp.imageid) img = getImagePath('set', tmp.imageid);
             }
             if (!img) img = null;
             return (

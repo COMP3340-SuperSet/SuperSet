@@ -28,24 +28,54 @@ function Set() {
             setSet(response.data);
 
             //get set images
+            axios.get(`/api/set/${setid}/images`).then(response => {
+                //console.log("set images:", response.data);
+                setSetImages(response.data);
+            }).catch(err => {
+                console.error(err)
+            });
 
         }).catch((error) => {
             console.error("Sets Error: " + error);
         });
 
-        axios.get(`/api/set/${setid}/items`).then((response) => {
-            setSetItems(response.data);
+        const getItems = async () => {
+            await axios.get(`/api/set/${setid}/items`).then(async (response) => {
+                let temp = response.data;
+                for await (const item of temp) {
+                    //get item images
+                    await axios.get(`/api/item/${item.itemid}/images`).then(response => {
+                        item.images = [...response.data];
+                    }).catch(err => {
+                        console.error(err);
+                    });
+                }
+                setSetItems(temp);
+            }).catch((error) => {
+                console.error("Items Error: " + error);
+            });
+        }
 
-            //get item images
-
-        }).catch((error) => {
-            console.error("Items Error: " + error);
-        });
+        getItems();
     }, []);
 
     useEffect(() => { }, [currentUser]);
     useEffect(() => { /*console.log("Current set: ", set);*/ }, [set]);
-    useEffect(() => { /*console.log("Current items: ", setItems);*/ }, [setItems]);
+    useEffect(() => {
+        //console.log("Current items: ", setItems);
+
+        if (!setItems || !setItems.length) return;
+
+        let tempImages = [];
+        for (let i = 0; i < setItems.length; i++) {
+            if (setItems[i].images) tempImages = [...tempImages, ...setItems[i].images];
+        }
+
+        if (tempImages.length) setItemImages(tempImages);
+
+    }, [setItems]);
+
+    useEffect(() => { /*console.log("Current item images: ", itemImages); */ }, [itemImages]);
 
     return (
         <div>
