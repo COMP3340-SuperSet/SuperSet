@@ -62,7 +62,7 @@ async function uploadSetImages(setid, images) {
                 formData.append("image", image);
                 formData.append("setid", setid);
 
-                axios.post('/api/set/image', formData, {
+                await axios.post('/api/set/image', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -112,14 +112,18 @@ async function uploadItems(setid, items) {
         //put
         for await (const item of items_db) {
             if(!item.description) item.description = '';
-            axios.post('/api/item/update', { name: item.name, description: item.description });
-            uploadItemImages(item.itemid, [item.images_db, item.images_new]);
+            await axios.post('/api/item/update', { name: item.name, description: item.description });
+            await uploadItemImages(item.itemid, [item.images_db, item.images_new]);
         }
 
         for await (const item of items_new) {
             //post new item (await! new itemid is needed, and needs to be returned)
-            axios.post('/api/item', {
-                ...item, setid
+            if(!item.description) item.description = '';
+            console.error('Posting Item: ', item);
+            await axios.post('/api/item', {
+                setid: setid,
+                name: item.name,
+                description: item.description
             }).then(response => {
                 const itemid = response.data.itemid;
                 uploadItemImages(itemid, [item.images_db, item.images_new]);

@@ -20,10 +20,12 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'description' => 'string'
+            'name' => 'required|string'
         ]);
-        return Item::create($request->all());
+        $properties = $request->all();
+        if(!$properties['description']) $properties['description'] = '';
+        $result = Item::create($properties);
+        return $result;
     }
 
     public function show($itemid)
