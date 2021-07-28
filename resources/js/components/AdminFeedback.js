@@ -5,22 +5,20 @@ import Confirmation from './Confirmation';
 import axios from 'axios';
 import { toast } from './Toast';
 
-function onFeedbackDelete(feedbackid) {
-    axios.post('/api/delete/feedback', { feedbackid }).then(response => {
-        toast("Feedback deleted!", "success");
-     }).catch(err => {
-        console.log(err);
-        toast("Error deleting feedback", "error");
-     });
-}
-
 function getContact(userFeedback, toggleView) {
     const [deleted, setDeleted] = useState([]);
+    const onFeedbackDelete = (feedbackid) => {
+        axios.post('/api/delete/feedback', { feedbackid }).then(response => { 
+            toast("Successfully deleted feedback", "success");
+            setDeleted([...deleted, feedbackid]);
+        }).catch(err => {console.error(err); toast("Error deleting feedback", "error");});
+    }
 
     if (userFeedback.length != 0) {
         if (toggleView) {
             const renderedUserFeedback = userFeedback.map((feedback) => {
-                if (feedback.contact && !(feedback.email === "") && !(deleted.find(elem => elem === feedback.feedbackid))) {
+                if (feedback.contact && !(feedback.email === "" && !(deleted.find(elem => elem === feedback.feedbackid)))) {
+
                     return (
                         <Table.Row key={feedback.feedbackid} >
                             <Table.Cell width={14}>
@@ -28,7 +26,7 @@ function getContact(userFeedback, toggleView) {
                                     <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
                                         {feedback.email}
                                         <Header.Subheader className="ss-text-secondary">
-                                            Contact: True <br />
+                                            Contact: {feedback.email} <br />
                                             Feedback Content: {feedback.content} <br />
                                             <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating} />
                                         </Header.Subheader>
@@ -53,9 +51,6 @@ function getContact(userFeedback, toggleView) {
                             </Table.Cell>
                         </Table.Row>
                     );
-                }
-                else {
-                    return '';
                 }
             })
 
@@ -134,7 +129,7 @@ const AdminFeedback = () => {
         <Container fluid style={{ padding: "12px 12px 0 12px" }}>
             <Grid style={{ padding: "0 12px" }}>
                 <Grid.Column floated='left' verticalAlign="middle" width={4}>
-                    <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length}/>
+                    <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length} />
                 </Grid.Column>
                 <Grid.Column floated='right' verticalAlign="middle" width={4} textAlign="right">
                     <Popup
@@ -149,7 +144,6 @@ const AdminFeedback = () => {
 
             <Segment padded basic>
                 <Table stackable basic='very' fixed>
-                    
                     <Table.Body>
                         {renderedUserFeedback}
                     </Table.Body>
