@@ -5,13 +5,13 @@
     /* define colors */
 
     --dark1: #017284;
-    --dark2: white;
+    --dark2: #36D6EF;
 
     --blue1: #001B48;
     --blue2: #02457A;
     --blue2-2: #0B5997;
-    --blue3: #018ABE;
-    --blue4: #97CADB;
+    --blue3: #201878;
+    --blue4: black;
     --blue5: #D6E8EE;
 
     --grey1: #464C55;

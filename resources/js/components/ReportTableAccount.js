@@ -98,7 +98,7 @@ const ReportTableAccount = () => {
 
     useEffect(() => {
         return () => {
-            //console.log("Unmounted Account Table");
+
             isCurrent.current = false;
         };
     }, []);
