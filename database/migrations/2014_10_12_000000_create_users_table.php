@@ -29,17 +29,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        $this->createTestData();
-    }
-
-    private function createTestData()
-    {
-        User::create(['email' => 'admin@ss.ca', 'username' => 'admin', 'password' => Hash::make('password'), 'password_confirmation' => 'password', 'role' => '1']);
-        User::create(['email' => 'stephen@stephen.com', 'username' => 'Stephen', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
-        User::create(['email' => 'user@ss.ca', 'username' => 'Laura', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
-        User::create(['email' => 'another@ss.ca', 'username' => 'Allison', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
-        User::create(['email' => 'tim@ss.ca', 'username' => 'Timothy', 'password' => Hash::make('password'), 'password_confirmation' => 'password']);
     }
 
     /**

@@ -84,9 +84,14 @@ const SSHeader = ({ currentUser }) => {
     const [screenWidth, screenHeight] = screenSize;
 
     useEffect(() => {
-        axios.get(`/api/settings/theme`).then(response => {
-            if (response.data.value !== "0"){ setHeaderLogo(logoFullGrey); }
-        });
+        try{
+            axios.get(`/api/settings/theme`).then(response => {
+                if (response.data.value !== "0"){ setHeaderLogo(logoFullGrey); }
+            });
+        }catch(error){
+            throw error;
+        }
+        
     }, []);
     
     const onLogOut = () => {

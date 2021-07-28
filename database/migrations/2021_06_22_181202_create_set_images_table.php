@@ -22,7 +22,6 @@ class CreateSetImagesTable extends Migration
             $table->foreign('setid')->references('setid')->on('sets')->onDelete('cascade');
             $table->timestamps();
         });
-
     }
 
     /**

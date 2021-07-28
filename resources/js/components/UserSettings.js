@@ -66,7 +66,8 @@ const UserSettings = ({ userInfo }) => {
                     username: name,
                     bio: bio
                 }).then(response => {
-                    setImageid(response.data.user.imageid)
+                    setImageid(response.data.user.imageid);
+                    redirect("/user/settings");
                 }).catch(error => {
                     console.error(error);
                 });
@@ -77,12 +78,12 @@ const UserSettings = ({ userInfo }) => {
                 username: name,
                 bio: bio
             }).then(response => {
-                setImageid(response.data.user.imageid)
+                setImageid(response.data.user.imageid);
+                redirect("/user/settings");
             }).catch(error => {
                 console.error(error);
             });
         }
-        redirect("/user/settings");
     }
 
     const onDeleteAccount = async () => {
