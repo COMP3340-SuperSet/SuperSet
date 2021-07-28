@@ -14,8 +14,6 @@
     --blue4: #97CADB;
     --blue5: #D6E8EE;
 
-    
-
     --grey1: #464C55;
 
     /* background */
