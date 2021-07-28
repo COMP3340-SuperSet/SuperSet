@@ -111,6 +111,7 @@ async function uploadItems(setid, items) {
 
         //put
         for await (const item of items_db) {
+            if(!item.description) item.description = '';
             axios.post('/api/item/update', { name: item.name, description: item.description });
             uploadItemImages(item.itemid, [item.images_db, item.images_new]);
         }
