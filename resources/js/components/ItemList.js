@@ -31,7 +31,7 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
         key={index} >
         <List.Content floated='right'>
           <Button icon onClick={() => onSelectItem(item) }><Icon name="edit"></Icon></Button>
-          <Button icon onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>
+          <Button icon color = "red" onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>
         </List.Content>
         <List.Content>
           <List.Header as='a'>{item.name}</List.Header>
