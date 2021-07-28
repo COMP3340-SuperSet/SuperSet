@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Button } from "semantic-ui-react";
+import { Popup, Grid, Button } from "semantic-ui-react";
 import axios from 'axios';
 
 import { redirect } from "../utils/redirect";
 import Confirmation from "./Confirmation";
+import { toast } from './Toast';
 
 const onSetTheme = (theme) => {
     axios.put('/api/settings', {
         setting: "theme",
         value: theme
     }).then(() => {
-        redirect('/admin');
+        toast("Theme Changed", "success");
+        setTimeout(()=>{
+            redirect('/admin');
+        }, 1000);
     }).catch(err => {
         console.error(err);
+        toast("Error changing theme", "error");
     });
 }
 
@@ -51,7 +56,13 @@ const AdminThemeSetting = () => {
                 <ColorBlock color="#2875A8" />
 
                 <Confirmation style={{ marginTop: "20px" }}
-                    trigger={<Button>Set Theme</Button>}
+                    trigger={
+                        <Popup
+                            content='Change theme for all users'
+                            position='bottom center'
+                            trigger={<Button>Set Theme</Button>}
+                        />
+                    }
                     onConfirm={() => { onSetTheme("0"); }}
                     text="Set site theme to default?" 
                     disabled = {(currentTheme === "0")} />
@@ -64,7 +75,13 @@ const AdminThemeSetting = () => {
                 <ColorBlock color="#018ABE" />
 
                 <Confirmation style={{ marginTop: "20px" }}
-                    trigger={<Button>Set Theme</Button>}
+                    trigger={
+                        <Popup
+                        content='Change theme for all users'
+                        position='bottom center'
+                        trigger={<Button>Set Theme</Button>}
+                        />
+                    }
                     onConfirm={() => { onSetTheme("1"); }}
                     text="Set site theme to second theme?" 
                     disabled = {(currentTheme === "1")}  />
@@ -77,7 +94,13 @@ const AdminThemeSetting = () => {
                 <ColorBlock color="#201878" />
 
                 <Confirmation style={{ marginTop: "20px" }}
-                    trigger={<Button>Set Theme</Button>}
+                    trigger={
+                        <Popup
+                        content='Change theme for all users'
+                        position='bottom center'
+                        trigger={<Button>Set Theme</Button>}
+                        />
+                    }
                     onConfirm={() => { onSetTheme("2"); }}
                     text="Set site theme to third theme?" 
                     disabled = {(currentTheme === "2")}  />
