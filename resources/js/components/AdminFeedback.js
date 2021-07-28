@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Table, Header, Button, Statistic, Rating, Divider, Segment, Grid, Container } from 'semantic-ui-react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 let template =
     [
@@ -11,15 +12,22 @@ let template =
         }
     ];
 
-function onFeedbackDelete(feedbackid) {
-    axios.post('/api/delete/feedback', { feedbackid }).then(response => { }).catch(err => console.log(err));
-}
+
 
 function getContact(userFeedback, toggleView) {
+    const [deleted, setDeleted] = useState([]);
+
+    const onFeedbackDelete = (feedbackid) => {
+        axios.post('/api/delete/feedback', { feedbackid }).then(response => { 
+            toast("Successfully deleted feedback", "success");
+            setDeleted([...deleted, feedbackid]);
+        }).catch(err => console.error(err));
+    }
+
     if (userFeedback.length != 0) {
         if (toggleView) {
             const renderedUserFeedback = userFeedback.map((feedback) => {
-                if (feedback.contact && !(feedback.email === "")) {
+                if (feedback.contact && !(feedback.email === "" && !(deleted.find(elem => elem === feedback.feedbackid)))) {
                     return (
                         <Table.Row key={feedback.feedbackid} >
                             <Table.Cell width={14}>
@@ -27,7 +35,7 @@ function getContact(userFeedback, toggleView) {
                                     <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
                                         {feedback.email}
                                         <Header.Subheader className="ss-text-secondary">
-                                            Contact: True <br />
+                                            Contact: {feedback.email} <br />
                                             Feedback Content: {feedback.content} <br />
                                             <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating} />
                                         </Header.Subheader>
@@ -41,9 +49,6 @@ function getContact(userFeedback, toggleView) {
                             </Table.Cell>
                         </Table.Row>
                     );
-                }
-                else {
-                    return '';
                 }
             })
 
@@ -75,32 +80,8 @@ function getContact(userFeedback, toggleView) {
             return renderedUserFeedback;
         }
     }
-    else {
-        const renderedUserFeedback = template.map((feedback) => {
-            return (
-                <Table.Row key={feedback.feedbackid}>
-                    <Table.Cell>
-                        <Header as='h2' className='ss-reporttableitem-header'>
-                            <Header.Content style={{ margin: '10px' }} className="ss-text-primary">
-                                {feedback.email}
-                                <Header.Subheader className="ss-text-secondary">
-                                    Feedback Content: {feedback.content} <br />
-                                    <Rating disabled={true} maxRating={feedback.rating} rating={feedback.rating}/>
-                                </Header.Subheader>
-                            </Header.Content>
-                        </Header>
-                    </Table.Cell>
-                    <Table.Cell textAlign='right'>
-                        <Button.Group vertical>
-                            <Button color='red' content='Delete Feedback' onClick={() => { onFeedbackDelete(feedback.feedbackid) }} />
-                        </Button.Group>
-                    </Table.Cell>
-                </Table.Row>
-            );
-        });
-
-        return renderedUserFeedback;
-    }
+    return null;
+    
 }
 
 const AdminFeedback = () => {
@@ -134,7 +115,7 @@ const AdminFeedback = () => {
         <Container fluid style={{ padding: "12px 12px 0 12px" }}>
             <Grid style={{ padding: "0 12px" }}>
                 <Grid.Column floated='left' verticalAlign="middle" width={4}>
-                    <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length}/>
+                    <Statistic horizontal size='mini' label="Feedback Reports" value={userFeedback.length} />
                 </Grid.Column>
                 <Grid.Column floated='right' verticalAlign="middle" width={4} textAlign="right">
                     <Button onClick={() => { setToggleView(!toggleView) }}>Filter by Contact</Button>
@@ -145,7 +126,9 @@ const AdminFeedback = () => {
 
             <Segment padded basic>
                 <Table stackable basic='very' fixed>
-                    {renderedUserFeedback}
+                    <Table.Body>
+                        {renderedUserFeedback}
+                    </Table.Body>
                 </Table>
             </Segment>
         </Container>
