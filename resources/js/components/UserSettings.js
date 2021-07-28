@@ -48,7 +48,7 @@ const UserSettings = ({ userInfo }) => {
         redirect("/user/settings");
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         setName(name === "" ? userInfo.username : name);
 
         if (image) {
@@ -56,34 +56,23 @@ const UserSettings = ({ userInfo }) => {
             formData.append("image", image);
             formData.append("userid", userInfo.userid);
 
-            axios.post('/api/user/image', formData, {
+            await axios.post('/api/user/image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }).then(response => {
-                axios.put(`/api/user/`, {
-                    userid: userInfo.userid,
-                    username: name,
-                    bio: bio
-                }).then(response => {
-                    setImageid(response.data.user.imageid);
-                    redirect("/user/settings");
-                }).catch(error => {
-                    console.error(error);
-                });
-            }).catch(err => console.error(err));
-        } else {
-            axios.put(`/api/user/`, {
-                userid: userInfo.userid,
-                username: name,
-                bio: bio
-            }).then(response => {
-                setImageid(response.data.user.imageid);
-                redirect("/user/settings");
-            }).catch(error => {
-                console.error(error);
             });
         }
+
+        axios.put(`/api/user/`, {
+            userid: userInfo.userid,
+            username: name,
+            bio: bio
+        }).then(response => {
+            redirect("/user/settings");
+        }).catch(error => {
+            console.error(error);
+        });
+
     }
 
     const onDeleteAccount = async () => {
@@ -116,8 +105,8 @@ const UserSettings = ({ userInfo }) => {
                                 <Image src={imageid ? imageid : tmp_pic} circular centered size="small" />
 
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
-                                    <Button style = {{paddingLeft: "0", paddingRight: "0"}} id="pfp-upload-button">
-                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style = {{padding: ".78571429em 1.5em"}}>Upload</label>
+                                    <Button style={{ paddingLeft: "0", paddingRight: "0" }} id="pfp-upload-button">
+                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style={{ padding: ".78571429em 1.5em" }}>Upload</label>
                                     </Button>
                                     <input id="pfp-upload" onChange={onImageInput} hidden type="file" accept=".jpg, .jpeg, .png" />
                                     <Confirmation trigger={<Button color="red" icon><Icon name="trash" /></Button>}
