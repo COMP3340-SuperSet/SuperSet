@@ -23,7 +23,6 @@ class CreateSetImagesTable extends Migration
             $table->timestamps();
         });
 
-        SetImage::create(['setid' => '1', 'imageid' => '44926229-0fe5-4262-bcd1-d4bfe20348cb.webp']);
     }
 
     /**

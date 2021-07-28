@@ -39,7 +39,7 @@ const ImageList = ({ images, onDeleteImage }) => {
         if (!image) return;
         return (
             <Grid.Column className="image-wrapper" key={index} style={{ padding: '0.25rem' }}>
-                <Image bordered
+                <Image bordered centered
                     className="grid-image"
                     src={image.display}
                     onClick={() => setOverlayed(images[index].urls.full)} />

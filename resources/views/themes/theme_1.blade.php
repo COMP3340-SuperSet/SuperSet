@@ -126,17 +126,17 @@ div[role=button]:hover, button.button:hover{ background-color: var(--ss-button-b
 
 /* Special Buttons */
 
-button.blue, button.primary{ background-color: var(--ss-button-primary-bg) !important; color: var(--ss-button-primary-text);}
-button.blue:hover, button.primary:hover{ background-color: var(--ss-button-primary-bg-hover) !important; }
+div[role=button].blue, button.blue, button.primary{ background-color: var(--ss-button-primary-bg) !important; color: var(--ss-button-primary-text);}
+div[role=button].blue:hover, button.blue:hover, button.primary:hover{ background-color: var(--ss-button-primary-bg-hover) !important; }
 
-button.secondary{ background-color: var(--ss-button-secondary-bg) !important; color: var(--ss-button-secondary-text);}
-button.secondary:hover{ background-color: var(--ss-button-secondary-bg-hover) !important; }
+div[role=button].secondary, button.secondary{ background-color: var(--ss-button-secondary-bg) !important; color: var(--ss-button-secondary-text);}
+div[role=button].secondary:hover, button.secondary:hover{ background-color: var(--ss-button-secondary-bg-hover) !important; }
 
-button.green, button.positive{ background-color: var(--ss-button-positive-bg) !important; color: var(--ss-button-positive-text);}
-button.green:hover, button.positive:hover{ background-color: var(--ss-button-positive-bg-hover) !important; }
+div[role=button].green, button.green, button.positive{ background-color: var(--ss-button-positive-bg) !important; color: var(--ss-button-positive-text);}
+div[role=button].green:hover, button.green:hover, button.positive:hover{ background-color: var(--ss-button-positive-bg-hover) !important; }
 
-button.red, button.negative{ background-color: var(--ss-button-negative-bg) !important; color: var(--ss-button-negative-text);}
-button.red:hover, button.negative:hover{ background-color: var(--ss-button-negative-bg-hover) !important; }
+div[role=button].red, button.red, button.negative{ background-color: var(--ss-button-negative-bg) !important; color: var(--ss-button-negative-text);}
+div[role=button].red:hover, button.red:hover, button.negative:hover{ background-color: var(--ss-button-negative-bg-hover) !important; }
 
 button.basic, button.basic:hover{ background: none !important; }
 

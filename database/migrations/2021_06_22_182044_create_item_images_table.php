@@ -22,7 +22,6 @@ class CreateItemImagesTable extends Migration
             $table->timestamps();
         });
 
-        ItemImage::create(['itemid' => '1', 'imageid' => '55a3c888-57e4-4834-af44-fa9a9b27e8b9.jpg']);
     }
 
     /**
