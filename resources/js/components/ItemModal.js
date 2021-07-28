@@ -4,6 +4,7 @@ import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 import Confirmation from './Confirmation';
 import { makeReport } from '../utils/makeReport';
+import { getImagePath } from '../utils/imagePath';
 
 const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], showReport = false }) => {
     /*

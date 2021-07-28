@@ -86,9 +86,11 @@ Route::middleware('auth:sanctum', 'owner')->post('/item/image', [ItemImageContro
 Route::middleware('auth:sanctum', 'owner')->post('/item/image/unsplash', [ItemImageController::class, 'unsplash']);
 Route::middleware('auth:sanctum', 'owner')->post('/item/image/delete', [ItemImageController::class, 'destroyItemImage']);
 
+//settings
+Route::get('/settings', [SettingController::class, 'index']);
+Route::get('/settings/{setting}', [SettingController::class, 'show']);
+
 //settings - protected
-Route::middleware('auth:sanctum', 'admin:api')->get('/settings', [SettingController::class, 'index']);
-Route::middleware('auth:sanctum', 'admin:api')->get('/settings/{setting}', [SettingController::class, 'show']);
 Route::middleware('auth:sanctum', 'admin:api')->post('/settings', [SettingController::class, 'store']);
 Route::middleware('auth:sanctum', 'admin:api')->put('/settings', [SettingController::class, 'update']);
 

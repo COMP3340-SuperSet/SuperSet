@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } from 'semantic-ui-react';
 
 import ItemCard from './ItemCard.js';
@@ -8,6 +8,7 @@ import Confirmation from "./Confirmation.js";
 import { redirect } from "../utils/redirect.js";
 import { toast } from './Toast';
 import { makeReport } from '../utils/makeReport';
+import { getImagePath } from "../utils/imagePath.js";
 
 const GRID_MODE = true;
 const LIST_MODE = false;
@@ -66,12 +67,13 @@ const tempimgs = [
 ];
 
 const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => {
+
     if (itemInfo === null) return null;
     if (view === GRID_MODE) {
         let AllCards = itemInfo.map((obj) => {
             let imgs = [];
-            (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(imgObj.imageid); });
-
+            (itemImages.filter(elem => elem && obj && elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(getImagePath('item', imgObj.imageid)); });
+            
             return (
                 <Grid.Column key={obj.itemid}>
                     <ItemModal item={obj} showReport={showReport} images={imgs} modalTrigger={
@@ -90,12 +92,12 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
     else {
         let AllCells = itemInfo.map((obj) => {
             let imgs = [];
-            (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(imgObj.imageid); });
+            (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(getImagePath('item', imgObj.imageid)); });
 
             return (
                 <Table.Row className="hoverable" key={obj.itemid}>
-                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style = {{paddingLeft: "18px"}}>{obj.name}</Table.Cell>} />
-                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style = {{paddingLeft: "18px"}}>{obj.description ? obj.description : <p className = "ss-text-light">No description</p>}</Table.Cell>} />
+                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style={{ paddingLeft: "18px" }}>{obj.name}</Table.Cell>} />
+                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style={{ paddingLeft: "18px" }}>{obj.description ? obj.description : <p className="ss-text-light">No description</p>}</Table.Cell>} />
                 </Table.Row>)
         });
 
@@ -118,7 +120,11 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
 
 const SetImagesDisplay = ({ images }) => {
     let allSetImages = null;
-    if (images) allSetImages = images.map((obj, index) => <Image key={index} src={obj} />);
+    if (images) allSetImages = images.map((obj, index) => {
+        let img = null;
+        if (obj && obj.imageid) img = getImagePath('set', obj.imageid);
+        return (<Image key={index} src={img} />);
+    });
 
     return (
         <Segment className="ss-segment-primary">
@@ -131,6 +137,7 @@ const SetImagesDisplay = ({ images }) => {
 }
 
 const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) => {
+    
     const [viewType, setViewType] = useState(GRID_MODE);
 
     if (!set) { set = { name: "Set name", description: "Description" }; }

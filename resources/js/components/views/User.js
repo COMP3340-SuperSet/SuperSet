@@ -25,16 +25,47 @@ function User() {
             console.error("User Error: " + error);
         });
 
-        axios.get(`/api/user/sets/${userid}`).then((response) => {
-            setUserSets(response.data);
-            //get set images
+        const getSetImages = async () => {
+            await axios.get(`/api/user/sets/${userid}`).then(async (response) => {
+                let temp = response.data;
+                for await (const set of temp) {
+                    //get set images
+                    await axios.get(`/api/set/${set.setid}/images`).then(response => {
+                        //console.log("set images:", response.data);
+                        set.images = [...response.data];
+                    }).catch(err => {
+                        console.error(err)
+                    });
+                }
+                //console.log(temp);
+                setUserSets(temp);
+            }).catch((error) => {
+                console.error("Sets Error: " + error);
+            });
+        }
 
-        }).catch((error) => {
-            console.error("Sets Error: " + error);
-        });
+        getSetImages();
+
     }, []);
 
-    useEffect(() => { }, [currentUser, user, userSets, setImages]);
+    useEffect(() => { }, [currentUser, user]);
+
+    useEffect(() => {
+        //console.log("Set images: ", setImages);
+    }, [setImages]);
+
+    useEffect(() => { 
+        //console.log("User sets:", userSets);
+
+        if (!userSets || !userSets.length) return;
+
+        let tempImages = [];
+        for (let i = 0; i < userSets.length; i++){
+            if (userSets[i].images) tempImages = [...tempImages, ...userSets[i].images];
+        }
+        
+        if (tempImages.length) setSetImages(tempImages);
+    }, [userSets]);
 
     return (
         <div>

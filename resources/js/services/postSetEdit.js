@@ -1,15 +1,20 @@
 import axios from 'axios';
 import { getSetImages, getItems, getItemImages } from './fetchSet';
 import { redirect } from '../utils/redirect';
+import { toast } from '../components/Toast';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
     await updateSet(set);
     await uploadSetImages(set.setid, setImages);
     await uploadItems(set.setid, items);
-    redirect("/set", [{
-        key: "id",
-        value: set.setid
-    }]);
+    toast("Redirecting you...");
+    setTimeout(() => {
+        redirect("/set", [{
+            key: "id",
+            value: set.setid
+        }]);
+    }, 3000);
+
 }
 
 async function updateSet(set) {
@@ -142,6 +147,11 @@ async function uploadItemImages(itemid, images) {
     try {
         const [images_db, images_new] = [images[0], images[1]];
         const del = await differenceOfItemImages(itemid, images_db);
+
+        //delete setImage by imageid
+        for await (const imageid of del) {
+            axios.post('/api/item/image/delete', { itemid, imageid });
+        }
 
         for await (const image of images_new) {
             if ('urls' in image) {//download from unsplash (on backend?)
