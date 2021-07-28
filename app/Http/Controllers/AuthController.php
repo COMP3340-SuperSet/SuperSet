@@ -92,12 +92,18 @@ class AuthController extends Controller
         if ($email) {
             if (Auth::attempt(['email' => $request->username, 'password' => $request->password])) {
                 $user = User::where('email', '=', $email)->first();
-                if($user->role == 3) return response()->json(['message' => 'User Banned'], 401);
+                if($user->role == 3) {
+                    return errorResponse(
+                        'Invalid Credentials',
+                        ["login" => ["User Banned."]],
+                        401
+                    );
+                }
                 $token = $user->createToken('access_token')->plainTextToken;
                 return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
             } else {
                 return errorResponse(
-                    'Invalid Credentmials',
+                    'Invalid Credentials',
                     ["login" => ["Email and Password do not match."]],
                     401
                 );
@@ -107,7 +113,13 @@ class AuthController extends Controller
         else {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                 $user = User::where('username', '=', $request->username)->first();
-                if($user->role == 3) return response()->json(['message' => 'User Banned'], 401);
+                if($user->role == 3) {
+                    return errorResponse(
+                        'Invalid Credentials',
+                        ["login" => ["User Banned."]],
+                        401
+                    );
+                }
                 $token = $user->createToken('access_token')->plainTextToken;
                 return response()->json(['message' => 'Login successful', 'access_token' => $token], 200);
             } else {

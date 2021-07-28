@@ -210,7 +210,7 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
                 <Grid.Column>
                     <Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>
                     <Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>
-                    <Input placeholder="Search Items" />
+                    {false && <Input placeholder="Search Items" />}
                 </Grid.Column>
             </Grid.Row>
 
