@@ -17,7 +17,8 @@ class FeedbackController extends Controller
         $request->validate([
             'content' => 'required|string',
             'rating' => 'required|integer',
-            'contact' => 'required|boolean',
+            'contact' => 'boolean',
+            'email' => 'string'
         ]);
         return Feedback::create($request->all());
     }

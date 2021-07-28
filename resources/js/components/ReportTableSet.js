@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Image, Header, Button } from "semantic-ui-react";
+import { Table, Header, Button, Popup } from "semantic-ui-react";
 import axios from "axios";
 
 
@@ -51,16 +51,26 @@ function getReportedSets(sets, reports) {
                                     {reportInformation.description ?? <p className="ss-text-light">No description</p>}
                                 </Header.Subheader>
                                 <Header.Subheader>
-                                    <Button style={{ marginTop: "12px" }} onClick={() => {
-                                        redirect('/set', [{ key: "id", value: reportInformation.setid }]);
-                                    }}>Go to set</Button>
+                                    <Popup
+                                        content='View entire set'
+                                        position='bottom center'
+                                        trigger={
+                                            <Button style={{ marginTop: "12px" }} onClick={() => {
+                                                redirect('/set', [{ key: "id", value: reportInformation.setid }]);
+                                            }}>Go to set</Button>}
+                                    />
                                 </Header.Subheader>
                             </Header.Content>
                         </Header>
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Confirmation style={{ marginBottom: "14px" }}
-                            trigger={<Button color='red' content='Delete Report' />}
+                            trigger={
+                                <Popup
+                                content='Remove from database'
+                                position='top center'
+                                trigger={<Button color='red' content='Delete Report' />}
+                                />}
                             onConfirm={() => {
                                 onReportDelete(reportInformation.reportid);
                                 setDeleted([reportInformation.reportid, ...deleted]);
@@ -68,7 +78,12 @@ function getReportedSets(sets, reports) {
                             text="Remove this report?" />
                         <BanModal userid={reportInformation.userid}
                             reportid={reportInformation.reportid}
-                            trigger={<Button color='red' content='Ban Account' />}
+                            trigger={
+                                <Popup
+                                content='Remove from database'
+                                position='bottom center'
+                                trigger={<Button color='red' content='Ban Account' />}
+                                />}
                             onBan={() => {
                                 setDeleted([reportInformation.reportid, ...deleted]);
                             }} />
