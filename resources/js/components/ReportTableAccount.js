@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Image, Header, Button } from "semantic-ui-react";
+import { Table, Image, Header, Button, Popup } from "semantic-ui-react";
 import axios from "axios";
 
 import BanModal from './BanModal';
@@ -58,16 +58,29 @@ function getReportedUser(users, reports) {
                                     {reportInformation.bio ?? <span className="ss-text-light">No bio</span>}
                                 </Header.Subheader>
                                 <Header.Subheader>
-                                    <Button style={{ marginTop: "12px" }} onClick={() => {
-                                        redirect('/user', [{ key: "id", value: reportInformation.userid }]);
-                                    }}>Go to profile</Button>
+                                    <Popup
+                                    content='View entire profile'
+                                    position='bottom center'
+                                    trigger={
+                                        <Button style={{ marginTop: "12px" }} onClick={() => {
+                                            redirect('/user', [{ key: "id", value: reportInformation.userid }]);
+                                        }}>
+                                            Go to profile
+                                        </Button>}
+                                    />
                                 </Header.Subheader>
                             </Header.Content>
                         </Header>
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Confirmation style={{ marginBottom: "14px" }}
-                            trigger={<Button color='red' content='Delete Report' />}
+                            trigger={
+                                <Popup
+                                content='Remove from database'
+                                position='top center'
+                                trigger={<Button color='red' content='Delete Report' />}
+                                />
+                            }
                             onConfirm={() => {
                                 onReportDelete(reportInformation.reportid);
                                 setDeleted([reportInformation.reportid, ...deleted]);
@@ -76,7 +89,13 @@ function getReportedUser(users, reports) {
                         />
                         <BanModal userid={reportInformation.userid}
                             reportid={reportInformation.reportid}
-                            trigger={<Button color='red' content='Ban Account' />}
+                            trigger={
+                                <Popup
+                                content='Remove from database'
+                                position='bottom center'
+                                trigger={<Button color='red' content='Ban Account' />}
+                                />
+                            }
                             onBan = {() => {
                                 setDeleted([reportInformation.reportid, ...deleted]);
                             }} />
