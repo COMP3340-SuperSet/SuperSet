@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Segment, Header, Image, Icon, Button, Table, Form, Modal } from "semantic-ui-react";
+import { Grid, Segment, Header, Image, Icon, Button, Table, Form, Modal, Popup } from "semantic-ui-react";
 import axios from "axios";
 
 import SetCard from "./SetCard.js";
@@ -104,8 +104,8 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
-                                <Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>
-                                <Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>
+                              <Popup content="Copy Link to Profile" trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}/>
+                              <Popup content="Go to User Settings" trigger= {<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}/>
                             </div>} </div>}
 
 
@@ -124,7 +124,8 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onClose={() => setModalOpen(false)}
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
-                            trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}>
+                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}>
+                            
 
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
@@ -140,8 +141,9 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             </Modal.Actions>
                         </Modal>}
 
-                    <Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>
-                    <Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>
+                    <Popup content="Display Sets in a List" trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}/>
+                    <Popup content="Display Sets in a Grid" trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}/>
+
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">
