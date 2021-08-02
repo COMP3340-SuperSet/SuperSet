@@ -403,10 +403,27 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                 <List.Item className="hoverable"
                                     key={index} >
                                     <List.Content floated='right'>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                                        <Popup 
+                                            content="Edit Item" 
+                                            trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}
+                                            />
+                                        <Popup 
+                                            content="Delete Item" 
+                                            trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}
+                                            />
+=======
+>>>>>>> Stashed changes
 
                                         <Popup content="Edit Item" trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}/>
                                         <Popup content="Delete Item" trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}/>
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> 5431b7724062080490edbae67075a9772c1fec39
+>>>>>>> Stashed changes
                                     </List.Content>
                                     <List.Content>
                                         <List.Header as='a'>{item.item.name}</List.Header>

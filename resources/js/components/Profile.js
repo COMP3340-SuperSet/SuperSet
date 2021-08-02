@@ -104,8 +104,24 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
+<<<<<<< Updated upstream
                               <Popup content="Copy Link to Profile" trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}/>
                               <Popup content="Go to User Settings" trigger= {<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}/>
+=======
+<<<<<<< HEAD
+                                <Popup 
+                                    content="Copy Link to Profile" 
+                                    trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}
+                                 />
+                                <Popup 
+                                    content="User Settings" 
+                                    trigger={<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}
+                                    />
+=======
+                              <Popup content="Copy Link to Profile" trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}/>
+                              <Popup content="Go to User Settings" trigger= {<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}/>
+>>>>>>> 5431b7724062080490edbae67075a9772c1fec39
+>>>>>>> Stashed changes
                             </div>} </div>}
 
 
@@ -124,7 +140,16 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onClose={() => setModalOpen(false)}
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
+<<<<<<< Updated upstream
                             trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}>
+=======
+<<<<<<< HEAD
+                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}
+                            >
+=======
+                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}>
+>>>>>>> 5431b7724062080490edbae67075a9772c1fec39
+>>>>>>> Stashed changes
                             
 
                             <Modal.Header>Enter your set's name</Modal.Header>
@@ -140,10 +165,27 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                                 <Button onClick={() => setModalOpen(false)} negative >Cancel</Button>
                             </Modal.Actions>
                         </Modal>}
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                    <Popup 
+                        content="Display Sets in a List" 
+                        trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}
+                        />
+                    <Popup 
+                        content="Display Sets in a Grid" 
+                        trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}
+                        />
+=======
+>>>>>>> Stashed changes
 
                     <Popup content="Display Sets in a List" trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}/>
                     <Popup content="Display Sets in a Grid" trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}/>
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> 5431b7724062080490edbae67075a9772c1fec39
+>>>>>>> Stashed changes
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">
