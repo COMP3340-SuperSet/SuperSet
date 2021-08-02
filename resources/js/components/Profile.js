@@ -129,7 +129,6 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
                             trigger={<Popup content='Create a Set' trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}>
-                            {/*tooltips */}
                             
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
@@ -144,12 +143,8 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                                 <Button onClick={() => setModalOpen(false)} negative >Cancel</Button>
                             </Modal.Actions>
                         </Modal>}
-                    {/*tooltips */}
-                    <Popup content='Display Sets in a List' 
-                    trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}/>
-                    {/*tooltips */}
-                    <Popup content='Display Sets in a Grid' 
-                    trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}/>
+                    <Popup content='Display Sets in a List' trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}/>
+                    <Popup content='Display Sets in a Grid' trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}/>
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">

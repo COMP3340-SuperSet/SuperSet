@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Button, Accordion, Grid, Icon, Divider, Form, Segment, Image, List, Card, Input } from 'semantic-ui-react';
+import { Button, Accordion, Grid, Icon, Divider, Form, Segment, Image, List, Card, Input, Popup } from 'semantic-ui-react';
 import { getImagePath } from "../utils/imagePath";
 import { redirect } from "../utils/redirect";
 
@@ -403,12 +403,8 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                 <List.Item className="hoverable"
                                     key={index} >
                                     <List.Content floated='right'>
-                                        {/*tooltips */}
-                                        <Popup content='Edit Item' 
-                                            trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}/>
-                                        {/*tooltips */}
-                                        <Popup content='Delete Item' 
-                                            trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}/>
+                                        <Popup content="Edit Item" trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}/>
+                                        <Popup content="Delete Item" trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}/>
                                     </List.Content>
                                     <List.Content>
                                         <List.Header as='a'>{item.item.name}</List.Header>
