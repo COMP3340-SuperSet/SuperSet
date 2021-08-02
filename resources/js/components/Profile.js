@@ -104,8 +104,12 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
-                                <Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>
-                                <Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>
+                                {/*tooltips */}
+                                <Popup content='Copy Link to Profile' 
+                                    trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}/>
+                                {/*tooltips */}
+                                <Popup content='User Settings' 
+                                    trigger={<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}/>
                             </div>} </div>}
 
 
@@ -124,8 +128,9 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onClose={() => setModalOpen(false)}
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
-                            trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}>
-
+                            trigger={<Popup content='Create a Set' trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}>
+                            {/*tooltips */}
+                            
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
                                 <Form><Form.Field required>
@@ -139,9 +144,12 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                                 <Button onClick={() => setModalOpen(false)} negative >Cancel</Button>
                             </Modal.Actions>
                         </Modal>}
-
-                    <Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>
-                    <Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>
+                    {/*tooltips */}
+                    <Popup content='Display Sets in a List' 
+                    trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}/>
+                    {/*tooltips */}
+                    <Popup content='Display Sets in a Grid' 
+                    trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}/>
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">

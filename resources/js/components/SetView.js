@@ -170,10 +170,13 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
-
+                        <Popup content='Edit Set' 
+                        trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}/>}
+                        {/*tooltips */}
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
+                        <Popup content='Copy Link to Set' 
+                            trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}/>}
+                        {/*tooltips */}
                 </Grid.Column>
             </Grid.Row>
 
@@ -208,8 +211,12 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
-                    <Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>
-                    <Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>
+                    {/*tooltips */}
+                    <Popup content='Display Sets in a Grid' 
+                        trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}/>
+                    {/*tooltips */}
+                    <Popup content='Display Sets in a List' 
+                        trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}/>
                     <Input placeholder="Search Items" />
                 </Grid.Column>
             </Grid.Row>
