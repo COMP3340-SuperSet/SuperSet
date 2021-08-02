@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup } from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup} from 'semantic-ui-react';
 
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
@@ -170,29 +170,15 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
-<<<<<<< Updated upstream
-                        <Popup content="Edit Set" trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}/>}
-                    {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup content="Copy Link to Set" trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}/>}
-=======
-<<<<<<< HEAD
                         <Popup 
                             content="Edit Set" 
                             trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
-                            />}
-                        
+                            />}    
                     {currentUser && set && currentUser.userid === set.userid &&
                         <Popup 
                             content="Copy Link to Set" 
                             trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
                             />}
-    
-=======
-                        <Popup content="Edit Set" trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}/>}
-                    {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup content="Copy Link to Set" trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}/>}
->>>>>>> 5431b7724062080490edbae67075a9772c1fec39
->>>>>>> Stashed changes
                 </Grid.Column>
             </Grid.Row>
 
@@ -227,9 +213,6 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
                     <Popup 
                         content="Display Sets in a Grid" 
                         trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}
@@ -238,16 +221,6 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
                         content="Display Sets in a List" 
                         trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}
                         />
-=======
->>>>>>> Stashed changes
-
-                    <Popup content="Display Sets in a Grid" trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}/>
-                    <Popup content="Display Sets in a List" trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}/>
-
-<<<<<<< Updated upstream
-=======
->>>>>>> 5431b7724062080490edbae67075a9772c1fec39
->>>>>>> Stashed changes
                     <Input placeholder="Search Items" />
                 </Grid.Column>
             </Grid.Row>
