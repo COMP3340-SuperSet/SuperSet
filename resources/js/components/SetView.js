@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup } from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } from 'semantic-ui-react';
 
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
@@ -170,9 +170,10 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup content="Edit Set" trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}/>}
+                        <Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
+
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup content="Copy Link to Set" trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}/>}
+                        <Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
                 </Grid.Column>
             </Grid.Row>
 
@@ -207,10 +208,8 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
-
-                    <Popup content="Display Sets in a Grid" trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}/>
-                    <Popup content="Display Sets in a List" trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}/>
-
+                    <Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>
+                    <Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>
                     <Input placeholder="Search Items" />
                 </Grid.Column>
             </Grid.Row>
