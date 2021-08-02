@@ -403,8 +403,10 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                 <List.Item className="hoverable"
                                     key={index} >
                                     <List.Content floated='right'>
+
                                         <Popup content="Edit Item" trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}/>
                                         <Popup content="Delete Item" trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}/>
+
                                     </List.Content>
                                     <List.Content>
                                         <List.Header as='a'>{item.item.name}</List.Header>

@@ -171,10 +171,8 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
                         <Popup content="Edit Set" trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}/>}
-                        
                     {currentUser && set && currentUser.userid === set.userid &&
                         <Popup content="Copy Link to Set" trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}/>}
-    
                 </Grid.Column>
             </Grid.Row>
 
@@ -209,8 +207,10 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
+
                     <Popup content="Display Sets in a Grid" trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}/>
                     <Popup content="Display Sets in a List" trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}/>
+
                     <Input placeholder="Search Items" />
                 </Grid.Column>
             </Grid.Row>
