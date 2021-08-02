@@ -151,8 +151,7 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}
                         />
                     <Popup 
-                        content="Display Sets in a Grid"
-                        open
+                        content="Display Sets in a Grid" 
                         trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}
                         />
                 </Segment>
