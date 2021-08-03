@@ -68,7 +68,10 @@ const tempimgs = [
 
 const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => {
 
-    if (itemInfo === null) return null;
+    if (!itemInfo) return null;
+    
+    if (!itemInfo.length) return (<p className = "ss-text-light" >No items in this set</p>);
+
     if (view === GRID_MODE) {
         let AllCards = itemInfo.map((obj) => {
             let imgs = [];
@@ -82,7 +85,7 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
                         </Container>} />
                 </Grid.Column>)
         });
-
+        
         return (
             <Grid stackable container columns={5}>
                 {AllCards}
@@ -123,7 +126,7 @@ const SetImagesDisplay = ({ images }) => {
     if (images) allSetImages = images.map((obj, index) => {
         let img = null;
         if (obj && obj.imageid) img = getImagePath('set', obj.imageid);
-        return (<Image key={index} src={img} />);
+        return (<Image key={index} src={img} style = {{height: "200px", width: "200px", objectFit: "cover"}} />);
     });
 
     return (
@@ -221,7 +224,7 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
                         content="Display Sets in a List" 
                         trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}
                         />
-                    <Input placeholder="Search Items" />
+                    {false && <Input placeholder="Search Items" />}
                 </Grid.Column>
             </Grid.Row>
 
