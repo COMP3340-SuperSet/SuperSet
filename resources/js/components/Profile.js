@@ -131,7 +131,7 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
 
-                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon ><Icon name="plus" /></Button>}/>}
+                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon onClick = {() => setModalOpen(true)}><Icon name="plus" /></Button>}/>}
                             >
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
