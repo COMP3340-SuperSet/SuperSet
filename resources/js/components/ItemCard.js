@@ -4,7 +4,7 @@ import { Card, Image } from 'semantic-ui-react';
 const ItemCard = ({ name, description, image = null }) => {
     return (
         <Card centered link style = {{width: "200px"}} className = "ss-card" role = "a">
-            <Image src={image} style = {{height: "200px", width: "200px", objectFit: "cover"}} />
+            {image && <Image src={image} style = {{height: "200px", width: "200px", objectFit: "cover"}} />}
             <Card.Content textAlign="center">
                 <Card.Header className = "ss-text-primary">{name}</Card.Header>
                 { description ?
