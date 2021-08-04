@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button, Grid, Icon } from "semantic-ui-react";
-import "../../css/ItemModal.css";
-import ItemCarousel from './ItemCarousel';
+
+import Carousel from './Carousel';
 import Confirmation from './Confirmation';
+
 import { makeReport } from '../utils/makeReport';
-import { getImagePath } from '../utils/imagePath';
+
+import "../../css/ItemModal.css";
 
 const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], showReport = false }) => {
     /*
@@ -40,7 +42,7 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], s
 
                 {images.length ? <Grid.Row>
                     <Grid.Column>
-                        <ItemCarousel itemImages={images} />
+                        <Carousel images={images} />
                     </Grid.Column>
                 </Grid.Row> : <p className="ss-text-light" style={{ textAlign: "center" }}>No images</p>}
             </Modal.Content>

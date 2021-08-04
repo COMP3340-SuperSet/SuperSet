@@ -100,6 +100,11 @@ body{ background-color: var(--ss-bg-primary) !important; }
 .ss-link{ color: var(--ss-text-link) !important; }
 .ss-link:hover{ color: var(--ss-text-link-hover) !important; }
 
+/* Backgrounds */
+
+.ss-bg-primary{ background-color: var(--ss-bg-primary) !important; }
+.ss-bg-secondary{ background-color: var(--ss-bg-secondary) !important; }
+
 /* Buttons */
 
 div[role=button], button.button{ background-color: var(--ss-button-bg) !important; color: var(--ss-button-text); }

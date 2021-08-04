@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Header from "../Header";
-import InstructionsCarousel from '../InstructionsCarousel';
-
-import gif1 from "../../../images/landing_gif1.gif";
-import gif2 from "../../../images/landing_gif2.gif";
-import gif3 from "../../../images/landing_gif3.gif";
+import LandingPage from '../LandingPage';
 
 function Landing() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -23,7 +19,7 @@ function Landing() {
     return (
         <div>
             <Header currentUser={currentUser} />
-            <InstructionsCarousel images={[gif1, gif2, gif3]} />
+            <LandingPage />
         </div>
     );
 }
