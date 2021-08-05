@@ -4,57 +4,66 @@ import { redirect } from '../utils/redirect';
 import { toast } from '../components/Toast';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
-    await updateSet(set);
-    await uploadSetImages(set.setid, setImages);
-    await uploadItems(set.setid, items);
     toast("Redirecting you...");
-    setTimeout(() => {
+
+    const p1 = updateSet(set);
+    const p2 = deleteSetImages(set.setid, setImages[0]);
+    const p3 = postSetImages(set.setid, setImages[1]);
+    const p4 = deleteItems(set.setid, items[0]);
+    const p5 = putItems(items[0]);
+    const p6 = postItems(set.setid, items[1]);
+
+    return Promise.allSettled([p1, p2, p3, p4, p5, p6]).then((result) => {
         redirect("/set", [{
             key: "id",
             value: set.setid
         }]);
-    }, 3000);
-
+    }).catch(error => {
+        toast('Error updating set.');
+    });
 }
 
 async function updateSet(set) {
     try {
-        axios.put(`/api/set`, {
+        return axios.put(`/api/set`, {
             setid: set.setid,
             name: set.name,
             description: set.description
         });
-        return true;
     } catch (error) {
         console.error(error);
         return false;
     }
 }
 
-async function uploadSetImages(setid, images) {
+async function deleteSetImages(setid, images_db) {
     try {
-        const [images_db, images_new] = [images[0], images[1]];
-
         //elems in put are setImage objects - update setImage in database
         //elems in del were deleted by the user and need to be deleted from the database
         const del = await differenceOfSetImages(setid, images_db);
 
+        const promises = [];
+
         //delete setImage by imageid
-        for await (const imageid of del) {
-            axios.post('/api/set/image/delete', { setid, imageid });
+        for (const imageid of del) {
+            promises.push(axios.post('/api/set/image/delete', { setid, imageid }));
         }
 
-        // for await (const image of put) {
-        //     //update in db with new information
-        // }
+        return Promise.allSettled(promises);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-        for await (const image of images_new) {
+function postSetImages(setid, images_new) {
+    try {
+        const promises = [];
+        for (const image of images_new) {
             if ('urls' in image) {//download from unsplash (on backend?)
-                axios.post('/api/set/unsplash', {
+                promises.push(axios.post('/api/set/unsplash', {
                     setid,
                     download: image.urls.download
-                }).then(response => {
-                });
+                }));
             }
 
             else {//upload file to database
@@ -62,16 +71,14 @@ async function uploadSetImages(setid, images) {
                 formData.append("image", image);
                 formData.append("setid", setid);
 
-                axios.post('/api/set/image', formData, {
+                promises.push(axios.post('/api/set/image', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-                }).then(response => {
-                }).catch(error => {
-                    console.error(error);
-                });
+                }));
             }
         }
+        return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
     }
@@ -98,34 +105,58 @@ function keyValueInListObject(key, value, list) {
     return false;
 }
 
-async function uploadItems(setid, items) {
+async function deleteItems(setid, items_db) {
     try {
-        const [items_db, items_new] = [items[0], items[1]];
-
         const del = await differenceOfItems(setid, items_db);
-
+        const promises = [];
         //del item by itemid
-        for await (const itemid of del) {
-            axios.post('/api/item/delete', { itemid });
+        for (const itemid of del) {
+            promises.push(axios.post('/api/item/delete', { itemid }));
         }
 
-        //put
-        for await (const item of items_db) {
-            axios.post('/api/item/update', { name: item.name, description: item.description });
-            uploadItemImages(item.itemid, [item.images_db, item.images_new]);
-        }
+        return Promise.allSettled(promises);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-        for await (const item of items_new) {
+function putItems(items_db) {
+    try {
+        const promises = [];
+
+        for (const item of items_db) {
+            promises.push(axios.post('/api/item/update', { itemid: item.itemid, name: item.name, description: item.description }));
+            promises.push(deleteItemImages(item.itemid, item.images_db));
+            promises.push(postItemImages(item.itemid, item.images_new));
+        }
+        return Promise.allSettled(promises);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function postItems(setid, items_new) {
+    try {
+        const promises = [];
+
+        console.log('received 2: ', items_new);
+
+        items_new.forEach(item => {
             //post new item (await! new itemid is needed, and needs to be returned)
-            axios.post('/api/item', {
-                ...item, setid
-            }).then(response => {
-                const itemid = response.data.itemid;
-                uploadItemImages(itemid, [item.images_db, item.images_new]);
-            }).catch(error => {
-                console.error(error);
-            });
-        }
+            promises.push(new Promise((resolve, reject) => {
+                axios.post('/api/item', {
+                    ...item, setid
+                }).then(response => {
+                    postItemImages(response.data.itemid, item.images_new).then(() => {
+                        resolve();
+                    }).catch(error => {
+                        reject('Failed to post new item images: ', item, error);
+                    });
+                }).catch(error => {
+                    reject('Failed to post new item: ', item, error);
+                });
+            }));
+        })
     } catch (error) {
         console.error(error);
     }
@@ -143,38 +174,45 @@ async function differenceOfItems(setid, items_db) {
     return del;
 }
 
-async function uploadItemImages(itemid, images) {
+async function deleteItemImages(itemid, images_db) {
     try {
-        const [images_db, images_new] = [images[0], images[1]];
         const del = await differenceOfItemImages(itemid, images_db);
+        const promises = [];
 
         //delete setImage by imageid
-        for await (const imageid of del) {
-            axios.post('/api/item/image/delete', { itemid, imageid });
+        for (const imageid of del) {
+            promises.push(axios.post('/api/item/image/delete', { itemid, imageid }));
         }
 
-        for await (const image of images_new) {
+        return Promise.allSettled(promises);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function postItemImages(itemid, images_new) {
+    try {
+        const promises = [];
+        for (const image of images_new) {
             if ('urls' in image) {//download from unsplash (on backend?)
-                axios.post('/api/item/image/unsplash', {
+                promises.push(axios.post('/api/item/image/unsplash', {
                     itemid,
                     download: image.urls.download
-                });
+                }));
             }
             else {//upload file to database
                 var formData = new FormData();
                 formData.append("image", image);
                 formData.append("itemid", itemid);
 
-                axios.post('/api/item/image', formData, {
+                promises.push(axios.post('/api/item/image', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-                }).then(response => {
-                }).catch(error => {
-                    console.error(error);
-                });
+                }));
             }
         }
+        return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
     }
