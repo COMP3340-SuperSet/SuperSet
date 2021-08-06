@@ -70,7 +70,6 @@ function postSetImages(setid, images_new) {
                 var formData = new FormData();
                 formData.append("image", image);
                 formData.append("setid", setid);
-
                 promises.push(axios.post('/api/set/image', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -113,7 +112,6 @@ async function deleteItems(setid, items_db) {
         for (const itemid of del) {
             promises.push(axios.post('/api/item/delete', { itemid }));
         }
-
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
@@ -142,7 +140,6 @@ function postItems(setid, items_new) {
         console.log('received 2: ', items_new);
 
         items_new.forEach(item => {
-            //post new item (await! new itemid is needed, and needs to be returned)
             promises.push(new Promise((resolve, reject) => {
                 axios.post('/api/item', {
                     ...item, setid

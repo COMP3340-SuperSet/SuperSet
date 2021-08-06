@@ -35,11 +35,10 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $userid = $request->userid;
-        $user = User::find($userid);
-        $user->update($request->only(['username', 'bio']));
+        $user = User::find($request->userid);
+        $user->update(['username' => $request->username, 'bio' => $request->bio]);
         $user->save();
-        return response()->json(['user' => $user], 201);
+        return $user;
     }
 
     public function getSets(Request $request, $userid)
@@ -56,18 +55,14 @@ class UserController extends Controller
             if ($request->hasFile('image')) {
                 $imageid = (string) Str::uuid();
                 $path = Storage::disk('local')->put('public/users', $request->file('image'));
-                if ($path) {
-                    Storage::disk('local')->delete('public/users/' . $user->imageid);
-                } else {
-                    return response()->json(['error' => 'Unable to update image.'], 500);
-                }
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
                 $directory = pathinfo($path, PATHINFO_DIRNAME);
-                Storage::move($path, $directory . '/' . $imageid . '.' . $extension);
+
+                Storage::disk('local')->move($path, $directory . '/' . $imageid . '.' . $extension);
 
                 $user->update(['imageid' => $imageid . '.' . $extension]);
                 $user->save();
-                return response()->json(['user' => $user], 200);
+                return $user;
             } else {
                 return response()->json(['error' => 'Could not find attached file.'], 400);
             }
