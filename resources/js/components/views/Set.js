@@ -60,10 +60,8 @@ function Set() {
     }, []);
 
     useEffect(() => { }, [currentUser]);
-    useEffect(() => { /*console.log("Current set: ", set);*/ }, [set]);
+    useEffect(() => { }, [set]);
     useEffect(() => {
-        //console.log("Current items: ", setItems);
-
         if (!setItems || !setItems.length) return;
 
         let tempImages = [];
@@ -72,10 +70,8 @@ function Set() {
         }
 
         if (tempImages.length) setItemImages(tempImages);
-
     }, [setItems]);
-
-    useEffect(() => { /*console.log("Current item images: ", itemImages); */ }, [itemImages]);
+    useEffect(() => { }, [itemImages]);
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container } from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup} from 'semantic-ui-react';
 
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
@@ -68,7 +68,10 @@ const tempimgs = [
 
 const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => {
 
-    if (itemInfo === null) return null;
+    if (!itemInfo) return null;
+    
+    if (!itemInfo.length) return (<p className = "ss-text-light" >No items in this set</p>);
+
     if (view === GRID_MODE) {
         let AllCards = itemInfo.map((obj) => {
             let imgs = [];
@@ -82,7 +85,7 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
                         </Container>} />
                 </Grid.Column>)
         });
-
+        
         return (
             <Grid stackable container columns={5}>
                 {AllCards}
@@ -123,7 +126,7 @@ const SetImagesDisplay = ({ images }) => {
     if (images) allSetImages = images.map((obj, index) => {
         let img = null;
         if (obj && obj.imageid) img = getImagePath('set', obj.imageid);
-        return (<Image key={index} src={img} />);
+        return (<Image key={index} src={img} style = {{height: "200px", width: "200px", objectFit: "cover"}} />);
     });
 
     return (
@@ -170,10 +173,15 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
-
+                        <Popup 
+                            content="Edit Set" 
+                            trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
+                            />}    
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
+                        <Popup 
+                            content="Copy Link to Set" 
+                            trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
+                            />}
                 </Grid.Column>
             </Grid.Row>
 
@@ -208,8 +216,14 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
-                    <Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>
-                    <Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>
+                    <Popup 
+                        content="Display Sets in a Grid" 
+                        trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}
+                        />
+                    <Popup 
+                        content="Display Sets in a List" 
+                        trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}
+                        />
                     {false && <Input placeholder="Search Items" />}
                 </Grid.Column>
             </Grid.Row>

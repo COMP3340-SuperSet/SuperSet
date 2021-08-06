@@ -5,18 +5,13 @@ import "../../css/ImageOverlay.css";
 const ImageOverlay = ({ imageURL, setImageURL }) => {
     if (!imageURL) return null;
 
+    const imageStyle = {
+        objectFit: "contain"
+    };
+
     return (
-        <div
-            className="image-overlay"
-            onClick={() => setImageURL(null)}>
-            <div className="image-container">
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Image
-                        style={{ display: 'inline-block', height: 'auto', width: 'auto' }}
-                        src={imageURL}
-                        className="overlayed-image" />
-                </div>
-            </div>
+        <div className="image-overlay" onClick={() => setImageURL(null)}>
+            <Image style={imageStyle} src={imageURL} />
         </div>
     );
 }

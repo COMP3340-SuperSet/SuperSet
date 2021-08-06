@@ -1,10 +1,13 @@
 import React from "react";
-import { Card, Image } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
-const ItemCard = ({ name, description, image = null }) => {
+const StatusCard = ({ name, description, operational }) => {
+
     return (
         <Card centered link style = {{width: "200px"}} className = "ss-card" role = "a">
-            {image && <Image src={image} style = {{height: "200px", width: "200px", objectFit: "cover"}} />}
+            {operational ?
+                <div style = {{backgroundColor: 'green', height: "50px", width: "200px", objectFit: "cover"}}> </div> :
+                <div style = {{backgroundColor: 'red', height: "50px", width: "200px", objectFit: "cover"}}> </div>}
             <Card.Content textAlign="center">
                 <Card.Header className = "ss-text-primary">{name}</Card.Header>
                 { description ?
@@ -15,4 +18,4 @@ const ItemCard = ({ name, description, image = null }) => {
     );
 }
 
-export default ItemCard;
+export default StatusCard;

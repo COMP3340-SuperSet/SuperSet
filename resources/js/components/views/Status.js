@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Header from "../Header";
-import LandingPage from '../LandingPage';
+import ServiceStatus from "../ServiceStatusPage";
 
-function Landing() {
+function Status() {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
@@ -19,13 +19,13 @@ function Landing() {
     return (
         <div>
             <Header currentUser={currentUser} />
-            <LandingPage />
+            <ServiceStatus />
         </div>
     );
 }
 
-export default Landing;
+export default Status;
 
-if (document.getElementById('landing')) {
-    ReactDOM.render(<Landing />, document.getElementById('landing'));
+if (document.getElementById('status')) {
+    ReactDOM.render(<Status />, document.getElementById('status'));
 }

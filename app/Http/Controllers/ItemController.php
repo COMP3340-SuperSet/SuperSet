@@ -35,10 +35,11 @@ class ItemController extends Controller
 
     public function update(Request $request)
     {
+        error_log('------------------------------------- updating item: ' . json_encode($request->all()));
         $itemid = $request->itemid;
         $item = Item::find($itemid);
         $item->update($request->all());
-        $item->save();
+        $item->save();  
         return $item;
     }
 
