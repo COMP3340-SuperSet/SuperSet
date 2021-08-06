@@ -17,6 +17,7 @@ yarn-error.log
 /public/js/app.js
 public\js\app.js
 public/js/app.js
+package-lock.json
 
 # Created by https://www.toptal.com/developers/gitignore/api/laravel,composer,react,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=laravel,composer,react,visualstudiocode
