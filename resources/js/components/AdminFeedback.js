@@ -119,7 +119,7 @@ const AdminFeedback = () => {
                 }
             }, 1000);
         }).catch(error => {
-            console.log("Error:" + error);
+            console.error("Error:" + error);
         });
     }, [userFeedback]);
 

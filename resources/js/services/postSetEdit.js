@@ -139,8 +139,6 @@ function postItems(setid, items_new) {
     try {
         const promises = [];
 
-        console.log('received 2: ', items_new);
-
         items_new.forEach(item => {
             //post new item (await! new itemid is needed, and needs to be returned)
             promises.push(new Promise((resolve, reject) => {

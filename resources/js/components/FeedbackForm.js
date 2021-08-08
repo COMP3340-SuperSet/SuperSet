@@ -22,8 +22,6 @@ const FeedbackForm = () => {
 
         if (errorCheck) return;
 
-        console.log("email, contact, content, rating:", reachoutEmail, willReachout, textFeedback, intFeedback);
-
         axios.post("/api/feedback", {
             email: reachoutEmail ? reachoutEmail : "none",
             contact: willReachout,
