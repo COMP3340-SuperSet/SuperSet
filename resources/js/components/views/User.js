@@ -31,13 +31,11 @@ function User() {
                 for await (const set of temp) {
                     //get set images
                     await axios.get(`/api/set/${set.setid}/images`).then(response => {
-                        //console.log("set images:", response.data);
                         set.images = [...response.data];
                     }).catch(err => {
                         console.error(err)
                     });
                 }
-                //console.log(temp);
                 setUserSets(temp);
             }).catch((error) => {
                 console.error("Sets Error: " + error);
@@ -51,12 +49,9 @@ function User() {
     useEffect(() => { }, [currentUser, user]);
 
     useEffect(() => {
-        //console.log("Set images: ", setImages);
     }, [setImages]);
 
     useEffect(() => { 
-        //console.log("User sets:", userSets);
-
         if (!userSets || !userSets.length) return;
 
         let tempImages = [];
