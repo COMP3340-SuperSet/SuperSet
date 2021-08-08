@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, Segment, Icon, Grid, Header, List, Image, Divider, Button, Embed } from "semantic-ui-react";
 
+import StatusCard from "./StatusCard";
 import { redirect } from "../utils/redirect";
 
 import signUpImg from "../../images/InfoImgs/signup.png";
@@ -288,6 +289,11 @@ const ServiceStatusSection = () => {
             <InfoText centered>
                 Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not. 
                 If there are any issues on the site, this page will show which services are experiencing difficulties, and which are online.
+
+                <div style = {{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                    <div><StatusCard name = {"Online"} description = {"This type of card indicates the service is online"} operational = {true} /></div>
+                    <div><StatusCard name = {"Offline"} description = {"This type of card indicates the service is not online"} operational = {false} /></div>
+                </div>
             </InfoText>
         </Segment>
     );
