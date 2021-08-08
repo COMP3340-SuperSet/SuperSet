@@ -15,22 +15,22 @@ import Toast, { toast } from '../Toast';
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
-    useEffect(() => {}, [currentUser]);
-    useEffect(() => {}, [set]);
+    useEffect(() => { }, [currentUser]);
+    useEffect(() => { }, [set]);
 
     const [openForm, setOpenForm] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
-    useEffect(() => {}, [selectedItem]);
+    useEffect(() => { }, [selectedItem]);
 
     const [setImages_db, setSetImages_db] = useState([]);
     const [setImages_new, setSetImages_new] = useState([]);
 
     //const selectedSuggestedSetImages state
-    useEffect(() => {}, [setImages_db, setImages_new]);
+    useEffect(() => { }, [setImages_db, setImages_new]);
 
     const [items_db, setItems_db] = useState([]);
     const [items_new, setItems_new] = useState([]);
-    useEffect(() => {}, [items_db, items_new]);
+    useEffect(() => { }, [items_db, items_new]);
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("setid");
@@ -141,6 +141,7 @@ function Edit() {
                         onUploadImages={uploadSetImages}
                         onSelectUnsplashImage={onSelectUnsplashImageSet}
                         onDeleteImage={deleteSetImage} />
+
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -164,14 +165,14 @@ function Edit() {
                     <Divider />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Confirmation
-                        trigger={<Button basic>Cancel</Button>}
-                        onConfirm={onCancelEdit}
-                        text="Are you sure? You will lose all of your changes."/>
+                            trigger={<Button basic>Cancel</Button>}
+                            onConfirm={onCancelEdit}
+                            text="Are you sure? You will lose all of your changes." />
                         <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
                     </div>
                 </Grid.Column>
             </Grid>
-            <Toast/>
+            <Toast />
         </div>
     );
 }

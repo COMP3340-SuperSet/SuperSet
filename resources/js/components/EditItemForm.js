@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Message } from 'semantic-ui-react';
 import ImageList from './ImageList';
 import ImageUploader from './ImageUploader';
 import SuggestedImages from './SuggestedImages';
+import ErrorMessage from './ErrorMessage';
 
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
@@ -10,7 +11,9 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
   const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
 
-  useEffect(() => {}, [itemImages_db, itemImages_new]);
+  const [errors, setErrors] = useState('');
+
+  useEffect(() => { }, [itemImages_db, itemImages_new]);
   const [suggestedImages, setSuggestedImages] = useState([]);
   const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
 
@@ -63,7 +66,13 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSubmit = () => {
-    if (!name) return;
+    console.log("name: ", name);
+    if (!name) {
+      setErrors("Item Name is required.")
+      return;
+    } else {
+      setErrors('');
+    }
     const temp = { ...selectedItem };
     temp.name = name;
     temp.description = description;
@@ -100,8 +109,15 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         </Form.Field>
         <ImageList images={[...itemImages_db, ...itemImages_new]} onDeleteImage={deleteItemImage} />
         <Button basic onClick={() => clearForm()}>Clear</Button>
-        <Button floated="right" primary onClick={() => onSubmit()}>Save</Button>
+        <Button floated="right" primary onClick={() => onSubmit()}>Save Item</Button>
       </Form>
+      {errors ?
+        <Message negative style={{ margin: "0.5em 0", padding: "0.5em" }}>
+          <p>{errors}</p>
+        </Message>
+        : null
+      }
+
     </div >
   );
 }
