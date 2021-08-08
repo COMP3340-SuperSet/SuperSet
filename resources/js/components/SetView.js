@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup} from 'semantic-ui-react';
+import { Grid, Button, Icon, Segment, Header, Input, Table, Image, Container, Popup } from 'semantic-ui-react';
 
 import ItemCard from './ItemCard.js';
 import ItemModal from "./ItemModal.js";
@@ -69,14 +69,14 @@ const tempimgs = [
 const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => {
 
     if (!itemInfo) return null;
-    
-    if (!itemInfo.length) return (<p className = "ss-text-light" >No items in this set</p>);
+
+    if (!itemInfo.length) return (<p className="ss-text-light" >No items in this set</p>);
 
     if (view === GRID_MODE) {
         let AllCards = itemInfo.map((obj) => {
             let imgs = [];
             (itemImages.filter(elem => elem && obj && elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(getImagePath('item', imgObj.imageid)); });
-            
+
             return (
                 <Grid.Column key={obj.itemid}>
                     <ItemModal item={obj} showReport={showReport} images={imgs} modalTrigger={
@@ -85,7 +85,7 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
                         </Container>} />
                 </Grid.Column>)
         });
-        
+
         return (
             <Grid stackable container columns={5}>
                 {AllCards}
@@ -98,10 +98,11 @@ const ItemViewDisplay = ({ view, itemInfo, itemImages, showReport = false }) => 
             (itemImages.filter(elem => elem.itemid === obj.itemid)).forEach((imgObj) => { imgs.push(getImagePath('item', imgObj.imageid)); });
 
             return (
-                <Table.Row className="hoverable" key={obj.itemid}>
-                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style={{ paddingLeft: "18px" }}>{obj.name}</Table.Cell>} />
-                    <ItemModal item={obj} images={imgs} modalTrigger={<Table.Cell style={{ paddingLeft: "18px" }}>{obj.description ? obj.description : <p className="ss-text-light">No description</p>}</Table.Cell>} />
-                </Table.Row>)
+                <ItemModal key={obj.itemid} item={obj} images={imgs} modalTrigger={
+                    <Table.Row className="hoverable">
+                        <Table.Cell style={{ paddingLeft: "18px" }}>{obj.name}</Table.Cell>
+                        <Table.Cell style={{ paddingLeft: "18px" }}>{obj.description ? obj.description : <p className="ss-text-light">No description</p>}</Table.Cell>
+                    </Table.Row>} />);
         });
 
         return (
@@ -126,7 +127,7 @@ const SetImagesDisplay = ({ images }) => {
     if (images) allSetImages = images.map((obj, index) => {
         let img = null;
         if (obj && obj.imageid) img = getImagePath('set', obj.imageid);
-        return (<Image key={index} src={img} style = {{height: "200px", width: "200px", objectFit: "cover"}} />);
+        return (<Image key={index} src={img} style={{ height: "200px", width: "200px", objectFit: "scale-down" }} />);
     });
 
     return (
@@ -140,7 +141,7 @@ const SetImagesDisplay = ({ images }) => {
 }
 
 const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) => {
-    
+
     const [viewType, setViewType] = useState(GRID_MODE);
 
     if (!set) { set = { name: "Set name", description: "Description" }; }
@@ -173,15 +174,15 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center">
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup 
-                            content="Edit Set" 
+                        <Popup
+                            content="Edit Set"
                             trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
-                            />}    
+                        />}
                     {currentUser && set && currentUser.userid === set.userid &&
-                        <Popup 
-                            content="Copy Link to Set" 
+                        <Popup
+                            content="Copy Link to Set"
                             trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
-                            />}
+                        />}
                 </Grid.Column>
             </Grid.Row>
 
@@ -216,14 +217,14 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
 
             <Grid.Row >
                 <Grid.Column>
-                    <Popup 
-                        content="Display Sets in a Grid" 
+                    <Popup
+                        content="Display Sets in a Grid"
                         trigger={<Button onClick={() => setViewType(GRID_MODE)} icon primary={viewType}><Icon name="th" /></Button>}
-                        />
-                    <Popup 
-                        content="Display Sets in a List" 
+                    />
+                    <Popup
+                        content="Display Sets in a List"
                         trigger={<Button onClick={() => setViewType(LIST_MODE)} icon primary={!viewType}><Icon name="list" /></Button>}
-                        />
+                    />
                     {false && <Input placeholder="Search Items" />}
                 </Grid.Column>
             </Grid.Row>

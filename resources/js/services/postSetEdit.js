@@ -5,7 +5,7 @@ import { toast } from '../components/Toast';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
     toast("Redirecting you...");
-
+    
     const p1 = updateSet(set);
     const p2 = deleteSetImages(set.setid, setImages[0]);
     const p3 = postSetImages(set.setid, setImages[1]);
@@ -138,15 +138,16 @@ function putItems(items_db) {
 function postItems(setid, items_new) {
     try {
         const promises = [];
-
+      
         items_new.forEach(item => {
             //post new item (await! new itemid is needed, and needs to be returned)
             promises.push(new Promise((resolve, reject) => {
                 axios.post('/api/item', {
                     ...item, setid
                 }).then(response => {
+                    //console.log("Inner response:", response);
                     postItemImages(response.data.itemid, item.images_new).then(() => {
-                        resolve();
+                        resolve(response.data);
                     }).catch(error => {
                         reject('Failed to post new item images: ', item, error);
                     });
@@ -155,6 +156,8 @@ function postItems(setid, items_new) {
                 });
             }));
         })
+
+        return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
     }

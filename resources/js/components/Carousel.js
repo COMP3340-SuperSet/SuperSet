@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Button, Popup, Image, Icon } from "semantic-ui-react";
+
+import "../../css/Carousel.css";
+
+const generateKey = (length) => {
+    var result = '';
+    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    while (length--) { result += characters.charAt(Math.floor(Math.random() * characters.length)); }
+    return result;
+}
 
 const Dot = ({ active = false, onClick = () => { } }) => {
     const dotStyle = {
@@ -19,15 +28,30 @@ const Dot = ({ active = false, onClick = () => { } }) => {
 
 const Carousel = ({ images }) => {
     const [currentImage, setCurrentImage] = useState(0);
+    const [imageKey, setImageKey] = useState(generateKey(8));
+
+    useEffect(() => {
+        console.log("Carousel images updated");
+    }, [images]);
+
+    const switchSlide = (index) => {
+        document.getElementById(imageKey + "-" + currentImage).classList.remove("show");
+        document.getElementById(imageKey + "-" + currentImage).classList.add("hide");
+
+        document.getElementById(imageKey + "-" + index).classList.remove("hide");
+        document.getElementById(imageKey + "-" + index).classList.add("show");
+
+        setCurrentImage(index);
+    }
 
     const goRight = () => {
-        if (currentImage === (images.length - 1)) { setCurrentImage(0); return; }
-        setCurrentImage(currentImage + 1);
+        if (currentImage === (images.length - 1)) { switchSlide(0); return; }
+        switchSlide(currentImage + 1);
     }
 
     const goLeft = () => {
-        if (currentImage === 0) { setCurrentImage(images.length - 1); return; }
-        setCurrentImage(currentImage - 1);
+        if (currentImage === 0) { switchSlide(images.length - 1); return; }
+        switchSlide(currentImage - 1);
     }
 
     const imageContainerStyle = {
@@ -37,8 +61,7 @@ const Carousel = ({ images }) => {
     const imageStyle = {
         width: "100%",
         height: "550px",
-        objectFit: "scale-down",
-        display: "none"
+        objectFit: "scale-down"
     };
 
     const dotContainerStyle = {
@@ -53,9 +76,20 @@ const Carousel = ({ images }) => {
         alignItems: "center"
     };
 
+    const renderedImages = images.map((img, index) => {
+        const imgid = imageKey + "-" + index;
+        const imgclass = (index === 0) ? " show " : " hide ";
+        return <Image key={index}
+            src={img}
+            style={imageStyle}
+            className={imgclass}
+            id={imgid}
+            onClick={() => { goRight() }} />
+    });
+
     const renderedDots = images.map((img, index) => {
-        if (index === currentImage) return <Dot key = {index} active />;
-        return <Dot key = {index} onClick={() => { setCurrentImage(index) }} />
+        if (index === currentImage) return <Dot key={index} active />;
+        return <Dot key={index} onClick={() => { switchSlide(index) }} />
     });
 
     return (
@@ -63,7 +97,7 @@ const Carousel = ({ images }) => {
             <Grid.Row>
                 <Grid.Column width={8}>
                     <div style={imageContainerStyle}>
-                        <Image src={images[currentImage]} style={{ ...imageStyle, display: "block" }} onClick = {() => {goRight()}} />
+                        {renderedImages}
                     </div>
                 </Grid.Column>
             </Grid.Row>
@@ -73,7 +107,7 @@ const Carousel = ({ images }) => {
                         <Popup
                             content='Previous Slide'
                             position='left center'
-                            trigger={<Button icon onClick={() => { goLeft() }} ><Icon name = "left chevron"/>&nbsp;Prev</Button>}
+                            trigger={<Button icon onClick={() => { goLeft() }} ><Icon name="left chevron" />&nbsp;Prev</Button>}
                         />
                         <div style={dotContainerStyle}>
                             {renderedDots}
@@ -81,7 +115,7 @@ const Carousel = ({ images }) => {
                         <Popup
                             content='Next Slide'
                             position='right center'
-                            trigger={<Button icon onClick={() => { goRight() }} >Next&nbsp;<Icon name = "right chevron"/></Button>}
+                            trigger={<Button icon onClick={() => { goRight() }} >Next&nbsp;<Icon name="right chevron" /></Button>}
                         />
                     </div>
                 </Grid.Column>
