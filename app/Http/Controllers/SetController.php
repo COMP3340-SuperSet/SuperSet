@@ -9,6 +9,8 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use function App\Http\Utils\errorResponse;
+
 class SetController extends Controller
 {
     public function index()
@@ -37,6 +39,17 @@ class SetController extends Controller
 
     public function update(Request $request)
     {
+
+        $setName = $request->name;
+        error_log('----------------------------------- set name: ' . $setName);
+        if (!$setName) {
+            return errorResponse(
+                'Set Name Required',
+                ["set" => ["Set Name is Required"]],
+                401
+            );
+        }
+
         $setid = $request->setid;
         $set = Set::find($setid);
         $set->update($request->all());

@@ -5,7 +5,7 @@ import { toast } from '../components/Toast';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
     toast("Redirecting you...");
-    
+
     const p1 = updateSet(set);
     const p2 = deleteSetImages(set.setid, setImages[0]);
     const p3 = postSetImages(set.setid, setImages[1]);
@@ -29,6 +29,9 @@ async function updateSet(set) {
             setid: set.setid,
             name: set.name,
             description: set.description
+        }).catch(error => {
+            console.error(error);
+            return false;
         });
     } catch (error) {
         console.error(error);

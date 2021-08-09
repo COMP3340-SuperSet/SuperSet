@@ -36,7 +36,6 @@ const RegisterForm = () => {
             storeToken(response.data.token);
             redirect(fetchReferer() ? fetchReferer() : '/');
         }).catch(error => {
-            console.error(error.response.data);
             setErrors(error.response.data.errors);
         });
     }
@@ -47,17 +46,17 @@ const RegisterForm = () => {
                 <Grid.Column width={12}>
                     <Form onSubmit={(e) => onRegisterSubmit(e)} size="large">
                         <Form.Field>
-                            <label className = "ss-text-primary"> Username </label>
+                            <label className="ss-text-primary"> Username </label>
                             <ErrorMessage errors={errors} type='username'></ErrorMessage>
                             <input required id='username' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
-                            <label className = "ss-text-primary"> Email </label>
+                            <label className="ss-text-primary"> Email </label>
                             <ErrorMessage errors={errors} type='email'></ErrorMessage>
                             <input required id='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Form.Field>
                         <Form.Field>
-                            <label className = "ss-text-primary"> Password </label>
+                            <label className="ss-text-primary"> Password </label>
                             <ErrorMessage errors={errors} type='password'></ErrorMessage>
                             <input required id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>
