@@ -132,8 +132,7 @@ const SSHeader = ({ currentUser }) => {
 
                         <Dropdown.Item text = 'Feedback' onClick={() => redirect('/feedback')} />
                         <Dropdown.Item text = 'Info' onClick={() => redirect('/about')} />
-                        <Dropdown.Item text = 'Service Status' onClick={() => redirect('/status')} />
-
+                        {currentUser && <Dropdown.Item text = 'Service Status' onClick={() => redirect('/status')} />}
                     </Dropdown.Menu>
                 </Dropdown>
             </Segment>

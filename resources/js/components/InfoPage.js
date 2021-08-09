@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Menu, Segment, Icon, Grid, Header, List, Image, Divider, Button } from "semantic-ui-react";
+import { Menu, Segment, Icon, Grid, Header, List, Image, Divider, Button, Embed } from "semantic-ui-react";
 
+import StatusCard from "./StatusCard";
 import { redirect } from "../utils/redirect";
 
 import signUpImg from "../../images/InfoImgs/signup.png";
 import logInImg from "../../images/InfoImgs/login.png";
+import tutorialThumbnail from "../../images/tutorial_thumbnail.jpg";
 
 const ABOUT = 0;
 const DOC_AUTH = 1;
@@ -13,6 +15,7 @@ const DOC_SETS = 3;
 const DOC_ITEMS = 4;
 const DOC_SEARCH = 5;
 const FEEDBACK = 6;
+const SERVICE_STATUS = 7;
 const VIDEO_TUTORIAL = 8;
 
 const InfoH1 = (props) => {
@@ -60,35 +63,35 @@ const AboutSection = () => {
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
                         <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
-                                     href="https://github.com/BoKlassen" target="_blank">Brandon Klassen</a>
+                            href="https://github.com/BoKlassen" target="_blank">Brandon Klassen</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
                         <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
-                            href = "https://github.com/Stephen-SW" target = "_blank">Stephen Sarkis-Wiebe</a>
+                            href="https://github.com/Stephen-SW" target="_blank">Stephen Sarkis-Wiebe</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
                         <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
-                            href = "https://github.com/BrettShepley11" target = "_blank">Brett Shepley</a>
+                            href="https://github.com/BrettShepley11" target="_blank">Brett Shepley</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
                         <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
-                            href = "https://github.com/Ru-Two" target = "_blank">Ruturaj Darji</a>
+                            href="https://github.com/Ru-Two" target="_blank">Ruturaj Darji</a>
                     </List.Content>
                 </List.Item>
                 <List.Item>
                     <List.Icon name='github' size='large' verticalAlign='middle' />
                     <List.Content>
                         <a className="ss-link" style={{ fontSize: "16px", fontWeight: "bold", verticalAlign: "middle" }}
-                            href = "https://github.com/ShaneTracey7" target = "_blank">Shane Tracey </a>
+                            href="https://github.com/ShaneTracey7" target="_blank">Shane Tracey </a>
                     </List.Content>
                 </List.Item>
             </List>
@@ -269,7 +272,7 @@ const DocsSearchSection = () => {
 
 const FeedbackSection = () => {
     return (
-        <Segment padded="very" id="about-docs-search" className="ss-segment-primary">
+        <Segment padded="very" id="about-feedback" className="ss-segment-primary">
             <InfoH1>Submit feedback</InfoH1>
             <InfoText centered>
                 Want to submit feedback to the developers? Please do so on
@@ -279,10 +282,31 @@ const FeedbackSection = () => {
     );
 }
 
+const ServiceStatusSection = () => {
+    return (
+        <Segment padded="very" id="about-service-status" className="ss-segment-primary">
+            <InfoH1>Check service status</InfoH1>
+            <InfoText centered>
+                Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not. 
+                If there are any issues on the site, this page will show which services are experiencing difficulties, and which are online.
+
+                <div style = {{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                    <div><StatusCard name = {"Online"} description = {"This type of card indicates the service is online"} operational = {true} /></div>
+                    <div><StatusCard name = {"Offline"} description = {"This type of card indicates the service is not online"} operational = {false} /></div>
+                </div>
+            </InfoText>
+        </Segment>
+    );
+}
+
 const VideoTutorialSection = () => {
     return (
         <Segment padded="very" id="about-video-tutorial" className="ss-segment-primary">
             <InfoH1>Video Tutorial</InfoH1>
+            <Embed  id = "7wgHT5OkTzU"
+                    source = "youtube"
+                    placeholder = {tutorialThumbnail}
+                    hd autoplay aspectRatio = "16:9"/>
         </Segment>
     );
 }
@@ -296,6 +320,7 @@ const InfoSection = ({ section }) => {
         case DOC_ITEMS: return <DocsItemsSection />;
         case DOC_SEARCH: return <DocsSearchSection />;
         case FEEDBACK: return <FeedbackSection />;
+        case SERVICE_STATUS: return <ServiceStatusSection />;
         case VIDEO_TUTORIAL: return <VideoTutorialSection />;
         default: return null;
     }
@@ -307,7 +332,7 @@ const InfoPage = () => {
     return (
         <Grid columns={2} stackable padded>
             <Grid.Column width={3} >
-                <Menu vertical fluid secondary style={{ marginLeft: "6px" }} className = "ss-info-menu">
+                <Menu vertical fluid secondary style={{ marginLeft: "6px" }} className="ss-info-menu">
                     <Menu.Item header>About</Menu.Item>
                     <Menu.Item active={activeItem === ABOUT} onClick={() => setActiveItem(ABOUT)} >
                         <span ><Icon rotated='clockwise' name='level up' />About SuperSet</span>
@@ -333,6 +358,11 @@ const InfoPage = () => {
                     <Menu.Item header>Feedback</Menu.Item>
                     <Menu.Item active={activeItem === FEEDBACK} onClick={() => setActiveItem(FEEDBACK)} >
                         <span ><Icon rotated='clockwise' name='level up' />Submit feedback</span>
+                    </Menu.Item>
+
+                    <Menu.Item header>Service Status</Menu.Item>
+                    <Menu.Item active={activeItem === SERVICE_STATUS} onClick={() => setActiveItem(SERVICE_STATUS)} >
+                        <span ><Icon rotated='clockwise' name='level up' />Check service status</span>
                     </Menu.Item>
 
                     <Menu.Item header>Tutorial</Menu.Item>

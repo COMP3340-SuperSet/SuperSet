@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Grid, Icon } from "semantic-ui-react";
 
 import Carousel from './Carousel';
@@ -18,6 +18,16 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], s
 
     // Use to determine when the modal is open or closed  
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalImages, setModalImages] = useState(images);
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        setCount(count + 1);
+    }, [images]);
+
+    useEffect(() => {
+        if (count === 2) setModalImages(images);
+    }, [count]);
 
     return (
         <Modal
@@ -40,9 +50,9 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], s
                     <p className="ss-text-secondary">{item.description}</p>
                 </Grid.Row>
 
-                {images.length ? <Grid.Row>
+                {modalImages.length ? <Grid.Row>
                     <Grid.Column>
-                        <Carousel images={images} />
+                        <Carousel images={modalImages} />
                     </Grid.Column>
                 </Grid.Row> : <p className="ss-text-light" style={{ textAlign: "center" }}>No images</p>}
             </Modal.Content>

@@ -138,9 +138,8 @@ function pingService(service, query)
 const ServiceStatusPage = () => 
 {
     var count = 0;
-    const [query, setQuery] = useState('');
     const renderedServiceStatus = serviceCheckArray.map(service => {
-    pingService(service, query);
+    pingService(service, 'Unsplash API');
         count++;
         return(
             <Grid.Column key={count}>

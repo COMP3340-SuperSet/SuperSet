@@ -29,7 +29,6 @@ function Set() {
 
             //get set images
             axios.get(`/api/set/${setid}/images`).then(response => {
-                //console.log("set images:", response.data);
                 setSetImages(response.data);
             }).catch(err => {
                 console.error(err)

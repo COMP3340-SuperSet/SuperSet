@@ -51,7 +51,6 @@ class SetImageController extends Controller
             $context = stream_context_create($opts);
             $file = file_get_contents($request->download, false, $context);
             error_log('HERE: ' . json_encode($request->all()));
-            error_log('HERE: ' . json_encode($request->all()));
             //generate imageid
             $imageid = (string) Str::uuid();
             $filename =  $imageid . '.jpg';

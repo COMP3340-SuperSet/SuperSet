@@ -13,7 +13,7 @@ function onReportDelete(reportid) {
     axios.post('/api/delete/report', { reportid }).then(response => {
         toast("Report deleted!", "success");
     }).catch(err => {
-        console.log(err);
+        console.error(err);
         toast("Error deleting report", "error");
     });
 }
@@ -105,7 +105,6 @@ const ReportTableSet = () => {
 
     useEffect(() => {
         return () => {
-            //console.log("Unmounted Set Table");
             isCurrent.current = false;
         };
     }, []);
