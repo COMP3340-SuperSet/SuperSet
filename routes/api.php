@@ -106,4 +106,3 @@ Route::post('/report', [ReportController::class, 'store']);
 Route::middleware('auth:sanctum', 'admin:api')->get('/reports', [ReportController::class, 'index']);
 Route::middleware('auth:sanctum', 'admin:api')->get('/reports/{reportid}', [ReportController::class, 'show']);
 Route::middleware('auth:sanctum', 'admin:api')->post('/delete/report', [ReportController::class, 'destroy']);
-
