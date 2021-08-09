@@ -43,6 +43,7 @@ const UserSettings = ({ userInfo }) => {
         }).then((response) => {
         }).catch((error) => {
             console.error(error);
+            toast("Error deleting profile picture","error");
         });
 
         redirect("/user/settings");
@@ -69,8 +70,12 @@ const UserSettings = ({ userInfo }) => {
                     setImageid(response.data.user.imageid)
                 }).catch(error => {
                     console.error(error);
+                    toast("Error uploading user information","error");
                 });
-            }).catch(err => console.error(err));
+            }).catch(err => {
+                console.error(err);
+                toast("Error uploading profile picture","error");
+            });
         } else {
             axios.put(`/api/user/`, {
                 userid: userInfo.userid,
@@ -80,6 +85,7 @@ const UserSettings = ({ userInfo }) => {
                 setImageid(response.data.user.imageid)
             }).catch(error => {
                 console.error(error);
+                toast("Error uploading user information","error");
             });
         }
         redirect("/user/settings");
@@ -100,7 +106,7 @@ const UserSettings = ({ userInfo }) => {
             } else { toast("Incorrect password!", "error"); }
         }).catch(error => {
             console.error(error);
-            toast("Something went wrong. Please try again", "error");
+            toast("Error matching account password", "error");
         });
     }
 

@@ -21,6 +21,7 @@ const CreateNewSet = (userid, name) => {
         redirect('/edit', [{key: 'setid', value: response.data.setid}]);
     }).catch(error => {
         console.error(error);
+        toast("Error creating new set", "error");
     });
 }
 

@@ -6,12 +6,6 @@ import AdminFeedback from './AdminFeedback';
 import ReportTable from "./ReportLog";
 import AdminThemeSetting from './AdminThemeSetting';
 
-
-/*
-import StatisticsPage from './StatisticsPage';
- not in use: { menuItem: 'View Statistics', render: () => <Tab.Pane><StatisticsPage /></Tab.Pane> },
-*/
-
 const AdminPages = () => {
 
     const panes = [

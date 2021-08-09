@@ -34,7 +34,7 @@ function Edit() {
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("setid");
-
+        if (!setid || setid == 0) redirect("/");
         async function getSetInfo() {
             setCurrentUser(await getUser());
             setSet(await getSet(setid));

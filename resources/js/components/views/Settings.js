@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Header from '../Header';
 import UserSettings from '../UserSettings';
-import Toast from '../Toast';
+import Toast, {toast} from '../Toast';
 import { redirect } from '../../utils/redirect';
 
 function Settings() {
@@ -14,6 +14,8 @@ function Settings() {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
             if (!response.data.user) redirect('/');
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
     }, []);
 

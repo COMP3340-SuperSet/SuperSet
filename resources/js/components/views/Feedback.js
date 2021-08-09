@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
 import axios from 'axios';
 
 import Header from '../Header';
 import FeedbackForm from '../FeedbackForm';
-import Toast from '../Toast';
+import Toast, { toast } from '../Toast';
 
 function Feedback() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -13,6 +12,8 @@ function Feedback() {
     useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
     }, []);
 
