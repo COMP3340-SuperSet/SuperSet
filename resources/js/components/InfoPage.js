@@ -200,6 +200,18 @@ const DocsSetsSection = () => {
 
             <Divider />
 
+            <InfoH1>Adding/Deleting Set Images</InfoH1>
+            <InfoText>
+                There are two options for adding images to a set.<br /> The first is clicking the <Button basic className="no-hover">Add</Button> button to select
+                images from your own file system (images cannot exceed 2Mb).<br /> The second option is to use our image picker powered by Unsplash.
+                This image picker searches Unsplash for images based on what your set's name is, and presents the top ten results to choose from.
+                <br />
+                To remove any of your images, simply click the <Button icon className="no-hover" color = "red"><Icon name = "trash" /></Button> delete button attached at the 
+                bottom of the image.
+            </InfoText>
+
+            <Divider />
+
             <InfoH1>Deleting Sets</InfoH1>
             <InfoText>
                 Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking
@@ -245,9 +257,21 @@ const DocsItemsSection = () => {
 
             <Divider />
 
+            <InfoH1>Adding/Deleting Item Images</InfoH1>
+            <InfoText>
+                There are two options for adding images to an item. <br /> The first is clicking the <Button basic className="no-hover">Add</Button> button to select
+                images from your own file system (images cannot exceed 2Mb). <br />The second option is to use our image picker powered by Unsplash.
+                This image picker searches Unsplash for images based on what your item's name is, and presents the top ten results to choose from.
+                <br />
+                To remove any of your images, simply click the <Button icon className="no-hover" color = "red"><Icon name = "trash" /></Button> delete button attached at the 
+                bottom of the image.
+            </InfoText>
+
+            <Divider />
+
             <InfoH1>Deleting Items</InfoH1>
             <InfoText>
-                To delete an item, simply click the <Button icon className="no-hover"><Icon name="trash" /></Button> delete button on that item in the list of items
+                To delete an item, simply click the <Button icon className="no-hover" color = "red"><Icon name="trash" /></Button> delete button on that item in the list of items
                 below the form. The user is then prompted if they truly wish to delete that item, and upon confirming the item is deleted.
                 Be careful, this action cannot be undone.
             </InfoText>
