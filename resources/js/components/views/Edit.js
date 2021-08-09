@@ -95,6 +95,7 @@ function Edit() {
     }
 
     const onSelectUnsplashImageSet = (urls) => {
+        urls.download += "&w=500&fit=cover";
         setSetImages_new([...setImages_new, { urls }]);
     }
 
