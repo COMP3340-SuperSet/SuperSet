@@ -93,7 +93,6 @@ class ItemImageController extends Controller
         $imageid = $request->imageid;
         if (!$imageid) return response()->json(['message' => 'Image not found'], 404);
 
-        Storage::disk('local')->delete('public/items/' . $imageid);
         return ItemImage::destroy($imageid);
     }
 }
