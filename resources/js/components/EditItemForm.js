@@ -34,6 +34,8 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSelectUnsplashImage = (urls) => {
+    //downsize here
+    urls.download += "&w=500&fit=cover";
     setItemImages_new([...itemImages_new, { urls }]);
   }
 
