@@ -119,7 +119,7 @@ const AdminFeedback = () => {
                 }
             }, 1000);
         }).catch(error => {
-            console.error("Error:" + error);
+            toast("Error fetching feedback from server", "error");
         });
     }, [userFeedback]);
 

@@ -116,7 +116,9 @@ const ReportTableSet = () => {
                     setReports(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching reports from server", "error");
+        });
 
         axios.get(`/api/sets`).then((response) => {
             setTimeout(() => {
@@ -124,7 +126,9 @@ const ReportTableSet = () => {
                     setSets(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching sets from server", "error");
+        });
     }, []);
 
     const renderedSetReports = getReportedSets(sets, reports);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import { toast } from './Toast';
 import { Button, Segment } from "semantic-ui-react";
 
 
@@ -10,7 +10,7 @@ const ImageUploader = ({ onUploadImages, imageCount = null, formID = "image-uplo
 
         for (let i = 0; i < event.target.files.length; i++) {
             if (event.target.files[i].size > 2000000) {
-                toast("One or more of the inputted files exceeds 2MB. Please select images less than 2MB!", "error");
+                toast("One or more of the inputted files exceeds 2MB. Please select images less than 2MB!", "warning");
                 return;
             }
         }

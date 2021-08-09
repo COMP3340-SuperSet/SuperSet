@@ -117,7 +117,9 @@ const ReportTableItem = () => {
                     setReports(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching reports from server", "error");
+        });
 
         axios.get(`/api/items`).then((response) => {
             setTimeout(() => {
@@ -125,7 +127,9 @@ const ReportTableItem = () => {
                     setItems(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching items from server", "error");
+        });
     }, []);
 
     const renderedItemReports = getReportedItems(items, reports);

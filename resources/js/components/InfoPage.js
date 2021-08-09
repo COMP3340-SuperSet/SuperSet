@@ -287,14 +287,14 @@ const ServiceStatusSection = () => {
         <Segment padded="very" id="about-service-status" className="ss-segment-primary">
             <InfoH1>Check service status</InfoH1>
             <InfoText centered>
-                Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not. 
+                Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not.
                 If there are any issues on the site, this page will show which services are experiencing difficulties, and which are online.
-
-                <div style = {{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                    <div><StatusCard name = {"Online"} description = {"This type of card indicates the service is online"} operational = {true} /></div>
-                    <div><StatusCard name = {"Offline"} description = {"This type of card indicates the service is not online"} operational = {false} /></div>
-                </div>
             </InfoText>
+            
+            <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                <div><StatusCard name={"Online"} description={"This type of card indicates the service is online"} operational={true} /></div>
+                <div><StatusCard name={"Offline"} description={"This type of card indicates the service is not online"} operational={false} /></div>
+            </div>
         </Segment>
     );
 }
@@ -303,10 +303,10 @@ const VideoTutorialSection = () => {
     return (
         <Segment padded="very" id="about-video-tutorial" className="ss-segment-primary">
             <InfoH1>Video Tutorial</InfoH1>
-            <Embed  id = "7wgHT5OkTzU"
-                    source = "youtube"
-                    placeholder = {tutorialThumbnail}
-                    hd autoplay aspectRatio = "16:9"/>
+            <Embed id="7wgHT5OkTzU"
+                source="youtube"
+                placeholder={tutorialThumbnail}
+                hd autoplay aspectRatio="16:9" />
         </Segment>
     );
 }

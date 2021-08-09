@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Header from '../Header';
 import SetView from '../SetView';
-import Toast from '../Toast';
+import Toast, {toast} from '../Toast';
 import { redirect } from '../../utils/redirect';
 
 function Set() {
@@ -20,6 +20,8 @@ function Set() {
     useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
 
         let setid = new URL(window.location.href).searchParams.get("id");
@@ -32,10 +34,12 @@ function Set() {
                 setSetImages(response.data);
             }).catch(err => {
                 console.error(err)
+                toast("Error fetching set images","error");
             });
 
         }).catch((error) => {
             console.error("Sets Error: " + error);
+            toast("Error fetching set information","error");
         });
 
         const getItems = async () => {
@@ -47,11 +51,13 @@ function Set() {
                         item.images = [...response.data];
                     }).catch(err => {
                         console.error(err);
+                        toast("Error fetching item images","error");
                     });
                 }
                 setSetItems(temp);
             }).catch((error) => {
                 console.error("Items Error: " + error);
+                toast("Error fetching items","error");
             });
         }
 

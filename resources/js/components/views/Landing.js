@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from "../Header";
 import LandingPage from '../LandingPage';
+import Toast, {toast} from '../Toast';
 
 function Landing() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -11,6 +12,8 @@ function Landing() {
     useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
     }, []);
 
@@ -20,6 +23,7 @@ function Landing() {
         <div>
             <Header currentUser={currentUser} />
             <LandingPage />
+            <Toast />
         </div>
     );
 }

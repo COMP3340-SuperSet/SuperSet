@@ -19,7 +19,7 @@ export async function onSubmitSetUpdate(set, setImages, items) {
             value: set.setid
         }]);
     }).catch(error => {
-        toast('Error updating set.');
+        toast('Error updating set.', 'error');
     });
 }
 
@@ -31,10 +31,12 @@ async function updateSet(set) {
             description: set.description
         }).catch(error => {
             console.error(error);
+            toast('Error updating set information', 'error');
             return false;
         });
     } catch (error) {
         console.error(error);
+        toast('Error updating set information', 'error');
         return false;
     }
 }
@@ -49,11 +51,14 @@ async function deleteSetImages(setid, images_db) {
 
         //delete setImage by imageid
         for (const imageid of del) {
-            promises.push(axios.post('/api/set/image/delete', { setid, imageid }));
+            promises.push(axios.post('/api/set/image/delete', { setid, imageid }).catch(() => {
+                toast('Error deleting set images', 'error');
+            }));
         }
 
         return Promise.allSettled(promises);
     } catch (error) {
+        toast('Error deleting set images', 'error');
         console.error(error);
     }
 }
@@ -66,6 +71,8 @@ function postSetImages(setid, images_new) {
                 promises.push(axios.post('/api/set/unsplash', {
                     setid,
                     download: image.urls.download
+                }).catch(() => {
+                    toast('Error uploading unsplash set image(s)', 'error');
                 }));
             }
 
@@ -78,12 +85,15 @@ function postSetImages(setid, images_new) {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
+                }).catch(() => {
+                    toast('Error uploading set image(s)', 'error');
                 }));
             }
         }
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error uploading set image(s)', 'error');
     }
 }
 
@@ -114,12 +124,15 @@ async function deleteItems(setid, items_db) {
         const promises = [];
         //del item by itemid
         for (const itemid of del) {
-            promises.push(axios.post('/api/item/delete', { itemid }));
+            promises.push(axios.post('/api/item/delete', { itemid }).catch(() => {
+                toast('Error deleting item(s)', 'error');
+            }));
         }
 
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error deleting item(s)', 'error');
     }
 }
 
@@ -128,13 +141,16 @@ function putItems(items_db) {
         const promises = [];
 
         for (const item of items_db) {
-            promises.push(axios.post('/api/item/update', { itemid: item.itemid, name: item.name, description: item.description }));
+            promises.push(axios.post('/api/item/update', { itemid: item.itemid, name: item.name, description: item.description }).catch(() => {
+                toast('Error updating item(s) information', 'error');
+            }));
             promises.push(deleteItemImages(item.itemid, item.images_db));
             promises.push(postItemImages(item.itemid, item.images_new));
         }
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error updating item(s) information', 'error');
     }
 }
 
@@ -152,9 +168,11 @@ function postItems(setid, items_new) {
                     postItemImages(response.data.itemid, item.images_new).then(() => {
                         resolve(response.data);
                     }).catch(error => {
+                        toast('Error uploading new item images', 'error');
                         reject('Failed to post new item images: ', item, error);
                     });
                 }).catch(error => {
+                    toast('Error uploading new item(s)', 'error');
                     reject('Failed to post new item: ', item, error);
                 });
             }));
@@ -163,6 +181,7 @@ function postItems(setid, items_new) {
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error uploading new item(s)', 'error');
     }
 }
 
@@ -185,12 +204,15 @@ async function deleteItemImages(itemid, images_db) {
 
         //delete setImage by imageid
         for (const imageid of del) {
-            promises.push(axios.post('/api/item/image/delete', { itemid, imageid }));
+            promises.push(axios.post('/api/item/image/delete', { itemid, imageid }).catch(() => {
+                toast('Error deleting item(s) images', 'error');
+            }));
         }
 
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error deleting item(s) images', 'error');
     }
 }
 
@@ -202,6 +224,8 @@ function postItemImages(itemid, images_new) {
                 promises.push(axios.post('/api/item/image/unsplash', {
                     itemid,
                     download: image.urls.download
+                }).catch(() => {
+                    toast('Error uploading unsplash item(s) images', 'error');
                 }));
             }
             else {//upload file to database
@@ -213,12 +237,15 @@ function postItemImages(itemid, images_new) {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
+                }).catch(() => {
+                    toast('Error uploading item(s) images', 'error');
                 }));
             }
         }
         return Promise.allSettled(promises);
     } catch (error) {
         console.error(error);
+        toast('Error uploading item(s) images', 'error');
     }
 }
 
