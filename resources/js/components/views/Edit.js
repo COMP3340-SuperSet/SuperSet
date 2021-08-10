@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
+import { Grid, Button, Divider, Accordion, Icon, Message } from 'semantic-ui-react';
 
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
@@ -31,6 +31,8 @@ function Edit() {
     const [items_db, setItems_db] = useState([]);
     const [items_new, setItems_new] = useState([]);
     useEffect(() => { }, [items_db, items_new]);
+
+    const [errors, setErrors] = useState('');
 
     useEffect(() => {
         let setid = new URL(window.location.href).searchParams.get("setid");
@@ -119,6 +121,17 @@ function Edit() {
 
     //submit everything to db
     const onSubmitSet = async () => {
+
+        if (!set.name) {
+            setErrors("Set Name is required.")
+            return;
+        } else if (set.name.length < 4) {
+            setErrors("Set Name must be at least 3 characters.")
+            return;
+        } else {
+            setErrors('');
+        }
+
         onSubmitSetUpdate(set, [setImages_db, setImages_new], [items_db, items_new]);
     }
 
@@ -164,6 +177,12 @@ function Edit() {
                         onDeleteItem={onDeleteItem}
                     />
                     <Divider />
+                    {errors ?
+                        <Message negative style={{ margin: "0.5em 0", padding: "0.5em" }}>
+                            <p>{errors}</p>
+                        </Message>
+                        : null
+                    }
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Confirmation
                             trigger={<Button basic>Cancel</Button>}
