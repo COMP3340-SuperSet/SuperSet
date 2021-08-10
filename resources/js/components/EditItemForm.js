@@ -68,12 +68,11 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSubmit = () => {
-    console.log("name: ", name);
     if (!name) {
-      setErrors("Item Name is required.")
+      setErrors("Item Name is required.");
       return;
-    } else if (name.length < 4) {
-      setErrors("Item Name must be at least 3 characters.")
+    } else if (name.length < 3) {
+      setErrors("Item Name must be at least 3 characters.");
       return;
     } else {
       setErrors('');

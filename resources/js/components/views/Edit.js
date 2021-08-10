@@ -123,10 +123,10 @@ function Edit() {
     const onSubmitSet = async () => {
 
         if (!set.name) {
-            setErrors("Set Name is required.")
+            setErrors("Set Name is required.");
             return;
-        } else if (set.name.length < 4) {
-            setErrors("Set Name must be at least 3 characters.")
+        } else if (set.name.length < 3) {
+            setErrors("Set Name must be at least 3 characters.");
             return;
         } else {
             setErrors('');
