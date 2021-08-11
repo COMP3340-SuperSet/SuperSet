@@ -17,7 +17,6 @@ const GRID_MODE = true;
 const LIST_MODE = false;
 
 
-
 const SetsDisplay = ({ displayMode, setInfo, setImages }) => {
 
     if (displayMode === GRID_MODE) {
@@ -154,7 +153,8 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                                 <Form><Form.Field required>
                                     <Form.Input fluid
                                         value={newSetName}
-                                        onChange={(e) => setNewSetName(e.target.value)} />
+                                        onChange={(e) => setNewSetName(e.target.value)}
+                                        maxLength="60" />
                                 </Form.Field></Form>
                             </Modal.Content>
                             <Modal.Actions>
