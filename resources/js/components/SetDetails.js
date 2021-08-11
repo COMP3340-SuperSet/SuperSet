@@ -56,7 +56,7 @@ const SetDetails = ({ set, updateSet, onUploadImages, onSelectUnsplashImage, onD
       redirect('/user', [{ key: 'id', value: set.userid }]);
     }).catch(error => {
       console.error(error);
-      toast("Error deleting set","error");
+      toast("Error deleting set", "error");
     });
   }
 

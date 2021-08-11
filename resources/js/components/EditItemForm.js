@@ -10,7 +10,6 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
   const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
   const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
-
   const [errors, setErrors] = useState('');
 
   useEffect(() => { }, [itemImages_db, itemImages_new]);
@@ -68,13 +67,17 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSubmit = () => {
-    console.log("name: ", name);
+
     if (!name) {
-      setErrors("Item Name is required.")
+      setErrors("Item Name is required.");
+      return;
+    } else if (name.length < 3) {
+      setErrors("Item Name must be at least 3 characters.");
       return;
     } else {
       setErrors('');
     }
+
     const temp = { ...selectedItem };
     temp.name = name;
     temp.description = description;
@@ -93,6 +96,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="name"
+            maxLength="60"
           ></input>
         </Form.Field>
         <Form.Field>
@@ -102,6 +106,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="description"
+            maxLength="2048"
           ></textarea>
         </Form.Field>
         <Form.Field>
