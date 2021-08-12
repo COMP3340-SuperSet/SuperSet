@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
 
 import Header from "../Header";
@@ -33,6 +34,11 @@ function Edit() {
     useEffect(() => {}, [items_db, items_new]);
 
     useEffect(() => {
+
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
+
         let setid = new URL(window.location.href).searchParams.get("setid");
 
         async function getSetInfo() {
