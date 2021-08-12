@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Header, Button, Popup } from "semantic-ui-react";
+import { Table, Header, Button, Popup, Statistic } from "semantic-ui-react";
 import axios from "axios";
 
 import BanModal from './BanModal';
@@ -117,7 +117,9 @@ const ReportTableItem = () => {
                     setReports(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching reports from server", "error");
+        });
 
         axios.get(`/api/items`).then((response) => {
             setTimeout(() => {
@@ -125,13 +127,17 @@ const ReportTableItem = () => {
                     setItems(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching items from server", "error");
+        });
     }, []);
 
     const renderedItemReports = getReportedItems(items, reports);
 
     return (
         <div>
+            <Statistic horizontal size='mini' label="Item Reports" value={renderedItemReports.length} />
+            <hr/>
             <Table stackable basic='very' celled fixed>
                 <Table.Body>
                     {renderedItemReports}

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
-
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
@@ -16,22 +15,24 @@ import Toast, { toast } from '../Toast';
 function Edit() {
     const [currentUser, setCurrentUser] = useState(null);
     const [set, setSet] = useState(null);
-    useEffect(() => {}, [currentUser]);
-    useEffect(() => {}, [set]);
+    useEffect(() => { }, [currentUser]);
+    useEffect(() => { }, [set]);
 
     const [openForm, setOpenForm] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
-    useEffect(() => {}, [selectedItem]);
+    useEffect(() => { }, [selectedItem]);
 
     const [setImages_db, setSetImages_db] = useState([]);
     const [setImages_new, setSetImages_new] = useState([]);
 
     //const selectedSuggestedSetImages state
-    useEffect(() => {}, [setImages_db, setImages_new]);
+    useEffect(() => { }, [setImages_db, setImages_new]);
 
     const [items_db, setItems_db] = useState([]);
     const [items_new, setItems_new] = useState([]);
-    useEffect(() => {}, [items_db, items_new]);
+    useEffect(() => { }, [items_db, items_new]);
+
+    const [errors, setErrors] = useState('');
 
     useEffect(() => {
 
@@ -40,7 +41,7 @@ function Edit() {
         });
 
         let setid = new URL(window.location.href).searchParams.get("setid");
-
+        if (!setid || setid == 0) redirect("/");
         async function getSetInfo() {
             setCurrentUser(await getUser());
             setSet(await getSet(setid));
@@ -101,6 +102,7 @@ function Edit() {
     }
 
     const onSelectUnsplashImageSet = (urls) => {
+        urls.download += "&w=500&fit=cover";
         setSetImages_new([...setImages_new, { urls }]);
     }
 
@@ -124,6 +126,17 @@ function Edit() {
 
     //submit everything to db
     const onSubmitSet = async () => {
+
+        if (!set.name) {
+            setErrors("Set Name is required.");
+            return;
+        } else if (set.name.length < 3) {
+            setErrors("Set Name must be at least 3 characters.");
+            return;
+        } else {
+            setErrors('');
+        }
+
         onSubmitSetUpdate(set, [setImages_db, setImages_new], [items_db, items_new]);
     }
 
@@ -147,6 +160,7 @@ function Edit() {
                         onUploadImages={uploadSetImages}
                         onSelectUnsplashImage={onSelectUnsplashImageSet}
                         onDeleteImage={deleteSetImage} />
+
                     <Accordion fluid styled>
                         <Accordion.Title
                             active={openForm}
@@ -168,16 +182,22 @@ function Edit() {
                         onDeleteItem={onDeleteItem}
                     />
                     <Divider />
+                    {errors ?
+                        <Message negative style={{ margin: "0.5em 0", padding: "0.5em" }}>
+                            <p>{errors}</p>
+                        </Message>
+                        : null
+                    }
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Confirmation
-                        trigger={<Button basic>Cancel</Button>}
-                        onConfirm={onCancelEdit}
-                        text="Are you sure? You will lose all of your changes."/>
+                            trigger={<Button basic>Cancel</Button>}
+                            onConfirm={onCancelEdit}
+                            text="Are you sure? You will lose all of your changes." />
                         <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
                     </div>
                 </Grid.Column>
             </Grid>
-            <Toast/>
+            <Toast />
         </div>
     );
 }

@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Accordion, Segment, Grid, Image, Icon, Loader } from 'semantic-ui-react';
 
+import { toast } from './Toast';
+
 //todo: debounce search
 const SuggestedImages = ({ term, onSelectImage }) => {
     if (!term) return null;
@@ -40,6 +42,7 @@ const SuggestedImages = ({ term, onSelectImage }) => {
                 setImages(tempResults);
             }).catch(error => {
                 console.error(error);
+                toast("Error fetching unsplash image","error");
             });
         };
 

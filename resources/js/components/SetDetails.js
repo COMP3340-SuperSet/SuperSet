@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from './Toast';
 import { Card, Divider, Form, Button } from "semantic-ui-react";
 import { redirect } from '../utils/redirect';
 import Confirmation from './Confirmation';
@@ -55,6 +56,7 @@ const SetDetails = ({ set, updateSet, onUploadImages, onSelectUnsplashImage, onD
       redirect('/user', [{ key: 'id', value: set.userid }]);
     }).catch(error => {
       console.error(error);
+      toast("Error deleting set", "error");
     });
   }
 

@@ -45,6 +45,8 @@ const AdminThemeSetting = () => {
     useEffect(() => {
         axios.get(`/api/settings/theme`).then(response => {
             setCurrentTheme(response.data.value);
+        }).then().catch((err) => {
+            toast("Error fetching site theme setting from server", "error");
         });
     }, []);
 

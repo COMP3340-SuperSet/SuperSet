@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Header, Button, Popup } from "semantic-ui-react";
+import { Table, Header, Button, Popup, Statistic } from "semantic-ui-react";
 import axios from "axios";
 
 
@@ -116,7 +116,9 @@ const ReportTableSet = () => {
                     setReports(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching reports from server", "error");
+        });
 
         axios.get(`/api/sets`).then((response) => {
             setTimeout(() => {
@@ -124,12 +126,16 @@ const ReportTableSet = () => {
                     setSets(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching sets from server", "error");
+        });
     }, []);
 
     const renderedSetReports = getReportedSets(sets, reports);
     return (
         <div>
+            <Statistic horizontal size='mini' label="Set Reports" value={renderedSetReports.length} />
+            <hr/>
             <Table stackable basic='very' celled fixed>
                 <Table.Body>
                     {renderedSetReports}

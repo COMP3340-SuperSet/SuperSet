@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Header from "../Header";
 import AdminPages from '../AdminPages';
-import Toast from '../Toast';
+import Toast, { toast } from '../Toast';
 
 function Admin() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -12,6 +12,8 @@ function Admin() {
     useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
     }, []);
 

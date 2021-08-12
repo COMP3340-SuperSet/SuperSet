@@ -91,11 +91,9 @@ class SetImageController extends Controller
 
     public static function destroySetImage(Request $request)
     {
-        error_log("========================================================" . json_encode($request->all()));
         $imageid = $request->imageid;
         if (!$imageid) return response()->json(['message' => 'Image not found'], 404);
 
-        Storage::disk('local')->delete('public/sets/' . $imageid);
         return SetImage::destroy($imageid);
     }
 }

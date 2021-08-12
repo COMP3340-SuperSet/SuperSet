@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Header from '../Header';
 import InfoPage from '../InfoPage';
+import Toast, { toast } from '../Toast';
 
 function About() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -11,6 +12,8 @@ function About() {
     useEffect(() => {
         axios.get("/api/check").then((response) => {
             setCurrentUser(response.data.user);
+        }).catch(() => {
+            toast("Error fetching current user","error");
         });
     }, []);
 
@@ -20,6 +23,7 @@ function About() {
         <div>
             <Header currentUser={currentUser} />
             <InfoPage />
+            <Toast />
         </div>
     );
 }

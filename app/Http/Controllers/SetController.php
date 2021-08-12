@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Set;
+use App\Models\SetImage;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
+use function App\Http\Utils\errorResponse;
 
 class SetController extends Controller
 {
@@ -37,6 +40,17 @@ class SetController extends Controller
 
     public function update(Request $request)
     {
+
+        $setName = $request->name;
+        error_log('----------------------------------- set name: ' . $setName);
+        if (!$setName) {
+            return errorResponse(
+                'Set Name Required',
+                ["set" => ["Set Name is Required"]],
+                401
+            );
+        }
+
         $setid = $request->setid;
         $set = Set::find($setid);
         $set->update($request->all());
@@ -82,30 +96,13 @@ class SetController extends Controller
         }
     }
 
-    public function delete_image(Request $request)
-    {
-        $set = Set::find($request->setid);
-        //return response()->json(['set' => $set], 200);
-
-        try {
-            if ($set->imageid) {
-                $imageid = $set->imageid;
-
-                Storage::disk('local')->delete('public/sets/' . $imageid);
-                $set->update(['imageid' => null]);
-                $set->save();
-            }
-
-            return response()->json(['set' => $set], 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Error deleting image.'], 500);
-        }
-    }
-
     public static function destroySet(Request $request)
     {
+
+        //TODO :: delete set images from file system
         $setid = $request->setid;
 
+        //check if set exists
         $set = Set::find($setid);
         if (!$set) {
             return response()->json(['message' => 'Set not found.'], 404);
@@ -121,19 +118,23 @@ class SetController extends Controller
         }
 
         //get the image for that set
-        $deletedImage = [];
-        $imageid = $set->imageid;
-        if ($imageid) {
-            array_push($deletedImage, $imageid);
-            $set->update(['imageid' => null]);
-            Storage::disk('local')->delete('public/sets/' . $imageid);
+        $setImages = SetImage::where('setid', '=', $setid)->get();
+
+        $deletedImages = [];
+
+        foreach ($setImages as $setImage) {
+            $request->replace(['imageid' => $setImage->imageid]);
+
+            $result = SetImageController::destroySetImage($request);
+            array_push($deletedImages, [$setImage->setid, $result]);
         }
+
         //delete the set
         $result = Set::destroy($setid);
 
         //if set was successfully deleted / else
         if ($result) {
-            return response()->json(['set' => $setid, 'setImage' => $deletedImage], 200);
+            return response()->json(['set' => $setid, 'setImage' => $deletedImages], 200);
         } else {
             return response()->json(['message' => 'Error when deleting set.'], 400);
         }

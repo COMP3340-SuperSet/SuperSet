@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Segment, Header, Image, Icon, Button, Table, Form, Modal, Popup } from "semantic-ui-react";
+import { Grid, Segment, Header, Image, Icon, Button, Table, Form, Modal, Popup, Message } from "semantic-ui-react";
 import axios from "axios";
 
 import SetCard from "./SetCard.js";
@@ -16,19 +16,12 @@ import tmp_pic from "../../images/pfp_placeholder.png";
 const GRID_MODE = true;
 const LIST_MODE = false;
 
-const CreateNewSet = (userid, name) => {
-    axios.post('/api/set', { userid, name }).then(response => {
-        redirect('/edit', [{key: 'setid', value: response.data.setid}]);
-    }).catch(error => {
-        console.error(error);
-    });
-}
 
 const SetsDisplay = ({ displayMode, setInfo, setImages }) => {
-    
+
     if (displayMode === GRID_MODE) {
         let allCards = setInfo.map((obj) => {
-            let img = null; 
+            let img = null;
             if (setImages && setImages.length) {
                 const tmp = setImages.find(elem => elem.setid === obj.setid);
                 if (tmp && tmp.imageid) img = getImagePath('set', tmp.imageid);
@@ -36,7 +29,7 @@ const SetsDisplay = ({ displayMode, setInfo, setImages }) => {
             if (!img) img = null;
             return (
                 <Grid.Column key={obj.setid}>
-                    <SetCard id={obj.setid} name={obj.name} image = {img} description={obj.description} />
+                    <SetCard id={obj.setid} name={obj.name} image={img} description={obj.description} />
                 </Grid.Column>);
         });
 
@@ -71,6 +64,7 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
     const [newSetName, setNewSetName] = useState("");
     const [displayType, setDisplayType] = useState(GRID_MODE);
     const [modalOpen, setModalOpen] = useState(false);
+    const [errors, setErrors] = useState('');
 
     const copyLinkToProfile = () => {
         let temp = document.createElement('input');
@@ -83,6 +77,27 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
         document.body.removeChild(temp);
 
         toast("Copied profile link to clipboard!", "success");
+    }
+
+    const CreateNewSet = (userid, name) => {
+
+        if (!name) {
+            setErrors("Set Name is required.")
+            return;
+        } else if (name.length < 3) {
+            setErrors("Set Name must be at least 3 characters.")
+            return;
+        } else {
+            setErrors('');
+            setModalOpen(false);
+            axios.post('/api/set', { userid, name }).then(response => {
+                redirect('/edit', [{ key: 'setid', value: response.data.setid }]);
+            }).catch(error => {
+                console.error(error);
+                toast("Error creating new set", "error");
+            });
+        }
+
     }
 
     return (
@@ -104,14 +119,14 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
-                                <Popup 
-                                    content="Copy Link to Profile" 
+                                <Popup
+                                    content="Copy Link to Profile"
                                     trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}
-                                 />
-                                <Popup 
-                                    content="User Settings" 
+                                />
+                                <Popup
+                                    content="User Settings"
                                     trigger={<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}
-                                    />
+                                />
                             </div>} </div>}
 
 
@@ -131,29 +146,36 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
 
-                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon onClick = {() => setModalOpen(true)}><Icon name="plus" /></Button>}/>}
-                            >
+                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon onClick={() => setModalOpen(true)}><Icon name="plus" /></Button>} />}
+                        >
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
                                 <Form><Form.Field required>
                                     <Form.Input fluid
                                         value={newSetName}
-                                        onChange={(e) => setNewSetName(e.target.value)} />
+                                        onChange={(e) => setNewSetName(e.target.value)}
+                                        maxLength="60" />
                                 </Form.Field></Form>
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button onClick={() => { CreateNewSet(userInfo.userid, newSetName); setModalOpen(false); }} positive>Create</Button>
+                                <Button onClick={() => { CreateNewSet(userInfo.userid, newSetName); }} positive>Create</Button>
                                 <Button onClick={() => setModalOpen(false)} negative >Cancel</Button>
                             </Modal.Actions>
+                            {errors ?
+                                <Message negative style={{ margin: "1em 1em", padding: "0.5em" }}>
+                                    <p>{errors}</p>
+                                </Message>
+                                : null
+                            }
                         </Modal>}
-                    <Popup 
-                        content="Display Sets in a List" 
+                    <Popup
+                        content="Display Sets in a List"
                         trigger={<Button onClick={() => setDisplayType(LIST_MODE)} floated="right" icon primary={!displayType}><Icon name="list" /></Button>}
-                        />
-                    <Popup 
-                        content="Display Sets in a Grid" 
+                    />
+                    <Popup
+                        content="Display Sets in a Grid"
                         trigger={<Button onClick={() => setDisplayType(GRID_MODE)} floated="right" icon primary={displayType}><Icon name="th" /></Button>}
-                        />
+                    />
                 </Segment>
 
                 <Segment padded className="ss-segment-primary">

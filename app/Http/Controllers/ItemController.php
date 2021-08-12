@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-
+use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -23,7 +23,7 @@ class ItemController extends Controller
             'name' => 'required|string'
         ]);
         $properties = $request->all();
-        if(!$properties['description']) $properties['description'] = '';
+        if (!$properties['description']) $properties['description'] = '';
         $result = Item::create($properties);
         return $result;
     }
@@ -39,7 +39,7 @@ class ItemController extends Controller
         $itemid = $request->itemid;
         $item = Item::find($itemid);
         $item->update($request->all());
-        $item->save();  
+        $item->save();
         return $item;
     }
 
@@ -72,34 +72,42 @@ class ItemController extends Controller
         }
     }
 
-    public function delete_image(Request $request)
-    {
-        $item = Item::find($request->itemid);
-        //return response()->json(['item' => $item], 200);
-
-        try {
-            if ($item->imageid) {
-                $imageid = $item->imageid;
-
-                Storage::disk('local')->delete('public/items/' . $imageid);
-                $item->update(['imageid' => null]);
-                $item->save();
-            }
-
-            return response()->json(['item' => $item], 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Error deleting image.'], 500);
-        }
-    }
-
     public static function destroyItem(Request $request)
     {
-        $item = Item::find($request->itemid);
+
+        //TODO :: delete item images from file system
+
+        $itemid = $request->itemid;
+
+        //check if item exists
+        $item = Item::find($itemid);
 
         if (!$item) {
             return response()->json(['message' => 'Item not found.'], 404);
         }
 
-        return Item::destroy($item->itemid);
+        //get list of item images pointing to this item
+        $itemImages = ItemImage::where('itemid', '=', $item->itemid)->get();
+
+        //deleted item images array for detailed response
+        $deletedImages = [];
+
+        //delete all related itemImages
+        foreach ($itemImages as $itemImage) {
+            $request->replace(['imageid' => $itemImage->imageid]);
+
+            $result = ItemImageController::destroyItemImage($request);
+            array_push($deletedImages, [$itemImage->itemid, $result]);
+        }
+
+        //destroy item
+        $result = Item::destroy($itemid);
+
+        //if item was successfully deleted / else
+        if ($result) {
+            return response()->json(['itemid' => $itemid, 'itemImages' => $deletedImages], 200);
+        } else {
+            return response()->json(['message' => 'Error when deleting item.'], 400);
+        }
     }
 }

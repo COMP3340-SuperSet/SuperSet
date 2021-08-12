@@ -29,6 +29,7 @@ const SearchInput = () => {
                 setLoading(false);
             }).catch((error) => {
                 console.error(error);
+                toast("Error fetching search from server", "error");
             });
         }
 
@@ -86,6 +87,8 @@ const SSHeader = ({ currentUser }) => {
     useEffect(() => {
         axios.get(`/api/settings/theme`).then(response => {
             if (response.data.value !== "0"){ setHeaderLogo(logoFullGrey); }
+        }).catch((err) => {
+            toast("Error fetching theme", "error");
         });
     }, []);
     

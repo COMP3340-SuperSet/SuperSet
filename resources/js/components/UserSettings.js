@@ -43,6 +43,7 @@ const UserSettings = ({ userInfo }) => {
         }).then((response) => {
         }).catch((error) => {
             console.error(error);
+            toast("Error deleting profile picture", "error");
         });
 
         redirect("/user/settings");
@@ -69,8 +70,12 @@ const UserSettings = ({ userInfo }) => {
                     setImageid(response.data.user.imageid)
                 }).catch(error => {
                     console.error(error);
+                    toast("Error uploading user information", "error");
                 });
-            }).catch(err => console.error(err));
+            }).catch(err => {
+                console.error(err);
+                toast("Error uploading profile picture", "error");
+            });
         } else {
             axios.put(`/api/user/`, {
                 userid: userInfo.userid,
@@ -80,6 +85,7 @@ const UserSettings = ({ userInfo }) => {
                 setImageid(response.data.user.imageid)
             }).catch(error => {
                 console.error(error);
+                toast("Error uploading user information", "error");
             });
         }
         redirect("/user/settings");
@@ -100,7 +106,7 @@ const UserSettings = ({ userInfo }) => {
             } else { toast("Incorrect password!", "error"); }
         }).catch(error => {
             console.error(error);
-            toast("Something went wrong. Please try again", "error");
+            toast("Error matching account password", "error");
         });
     }
 
@@ -115,8 +121,8 @@ const UserSettings = ({ userInfo }) => {
                                 <Image src={imageid ? imageid : tmp_pic} circular centered size="small" />
 
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
-                                    <Button style = {{paddingLeft: "0", paddingRight: "0"}} id="pfp-upload-button">
-                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style = {{padding: ".78571429em 1.5em"}}>Upload</label>
+                                    <Button style={{ paddingLeft: "0", paddingRight: "0" }} id="pfp-upload-button">
+                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style={{ padding: ".78571429em 1.5em" }}>Upload</label>
                                     </Button>
                                     <input id="pfp-upload" onChange={onImageInput} hidden type="file" accept=".jpg, .jpeg, .png" />
                                     <Confirmation trigger={<Button color="red" icon><Icon name="trash" /></Button>}
@@ -134,13 +140,15 @@ const UserSettings = ({ userInfo }) => {
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         style={{ textAlign: "center", fontSize: "22px", padding: "8px" }}
-                                        size="large" />
+                                        size="large"
+                                        maxLength="60" />
                                     <div style={{ marginTop: "24px" }}>
                                         <Form.Field label="Description" className="no-resize"
                                             control="textarea"
                                             rows={4}
                                             value={bio}
-                                            onChange={(e) => setBio(e.target.value)} />
+                                            onChange={(e) => setBio(e.target.value)}
+                                            maxLength="2048" />
                                     </div>
 
                                 </Segment>

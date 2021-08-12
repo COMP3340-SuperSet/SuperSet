@@ -2,6 +2,7 @@ import React from 'react';
 import { Message } from 'semantic-ui-react';
 
 const ErrorMessage = ({ errors, type }) => {
+
     if (!errors || !errors[type]) {
         return null;
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Image, Header, Button, Popup } from "semantic-ui-react";
+import { Table, Image, Header, Button, Popup, Statistic } from "semantic-ui-react";
 import axios from "axios";
 
 import BanModal from './BanModal';
@@ -129,20 +129,26 @@ const ReportTableAccount = () => {
                     setReports(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching reports from server", "error");
+        });
         axios.get(`/api/users`).then((response) => {
             setTimeout(() => {
                 if (isCurrent.current) {
                     setUsers(response.data);
                 }
             }, 1000);
-        })
+        }).catch(() => {
+            toast("Error fetching users from server", "error");
+        });
     }, []);
 
     const renderedAccountReports = getReportedUser(users, reports);
 
     return (
         <div>
+            <Statistic horizontal size='mini' label="Account Reports" value={renderedAccountReports.length} />
+            <hr/>
             <Table stackable basic='very' celled fixed>
                 <Table.Body>
                     {renderedAccountReports}

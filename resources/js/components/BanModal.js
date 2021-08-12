@@ -13,7 +13,9 @@ const BanModal = ({ trigger, userid, reportid, onBan = () => { }, item_setid = 0
 
     const submitBanReason = (userid, reportid) => {
         setOpen(false);
-        axios.post(`/api/delete/report`, { reportid: reportid })
+        axios.post(`/api/delete/report`, { reportid: reportid }).then().catch(() => {
+            toast("Error posting report delete request", "error");
+        });
 
         if (item_setid) {
             axios.get(`/api/sets/${item_setid}`).then(response => {

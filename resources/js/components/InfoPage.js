@@ -200,6 +200,18 @@ const DocsSetsSection = () => {
 
             <Divider />
 
+            <InfoH1>Adding/Deleting Set Images</InfoH1>
+            <InfoText>
+                There are two options for adding images to a set.<br /> The first is clicking the <Button basic className="no-hover">Add</Button> button to select
+                images from your own file system (images cannot exceed 2Mb).<br /> The second option is to use our image picker powered by Unsplash.
+                This image picker searches Unsplash for images based on what your set's name is, and presents the top ten results to choose from.
+                <br />
+                To remove any of your images, simply click the <Button icon className="no-hover" color = "red"><Icon name = "trash" /></Button> delete button attached at the 
+                bottom of the image.
+            </InfoText>
+
+            <Divider />
+
             <InfoH1>Deleting Sets</InfoH1>
             <InfoText>
                 Once you are on the set editing page, you may also delete your set entirely. You can do this by clicking
@@ -245,9 +257,21 @@ const DocsItemsSection = () => {
 
             <Divider />
 
+            <InfoH1>Adding/Deleting Item Images</InfoH1>
+            <InfoText>
+                There are two options for adding images to an item. <br /> The first is clicking the <Button basic className="no-hover">Add</Button> button to select
+                images from your own file system (images cannot exceed 2Mb). <br />The second option is to use our image picker powered by Unsplash.
+                This image picker searches Unsplash for images based on what your item's name is, and presents the top ten results to choose from.
+                <br />
+                To remove any of your images, simply click the <Button icon className="no-hover" color = "red"><Icon name = "trash" /></Button> delete button attached at the 
+                bottom of the image.
+            </InfoText>
+
+            <Divider />
+
             <InfoH1>Deleting Items</InfoH1>
             <InfoText>
-                To delete an item, simply click the <Button icon className="no-hover"><Icon name="trash" /></Button> delete button on that item in the list of items
+                To delete an item, simply click the <Button icon className="no-hover" color = "red"><Icon name="trash" /></Button> delete button on that item in the list of items
                 below the form. The user is then prompted if they truly wish to delete that item, and upon confirming the item is deleted.
                 Be careful, this action cannot be undone.
             </InfoText>
@@ -287,14 +311,14 @@ const ServiceStatusSection = () => {
         <Segment padded="very" id="about-service-status" className="ss-segment-primary">
             <InfoH1>Check service status</InfoH1>
             <InfoText centered>
-                Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not. 
+                Our <InfoLink text="Service Status Module" loc="/status" /> offers a look at which of our services are online and which are not.
                 If there are any issues on the site, this page will show which services are experiencing difficulties, and which are online.
-
-                <div style = {{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                    <div><StatusCard name = {"Online"} description = {"This type of card indicates the service is online"} operational = {true} /></div>
-                    <div><StatusCard name = {"Offline"} description = {"This type of card indicates the service is not online"} operational = {false} /></div>
-                </div>
             </InfoText>
+            
+            <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                <div><StatusCard name={"Online"} description={"This type of card indicates the service is online"} operational={true} /></div>
+                <div><StatusCard name={"Offline"} description={"This type of card indicates the service is not online"} operational={false} /></div>
+            </div>
         </Segment>
     );
 }
@@ -303,10 +327,10 @@ const VideoTutorialSection = () => {
     return (
         <Segment padded="very" id="about-video-tutorial" className="ss-segment-primary">
             <InfoH1>Video Tutorial</InfoH1>
-            <Embed  id = "7wgHT5OkTzU"
-                    source = "youtube"
-                    placeholder = {tutorialThumbnail}
-                    hd autoplay aspectRatio = "16:9"/>
+            <Embed id="7wgHT5OkTzU"
+                source="youtube"
+                placeholder={tutorialThumbnail}
+                hd autoplay aspectRatio="16:9" />
         </Segment>
     );
 }

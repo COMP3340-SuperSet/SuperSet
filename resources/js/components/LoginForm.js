@@ -5,6 +5,7 @@ import axios from 'axios';
 import { storeToken } from '../utils/localStorage';
 import { fetchReferer } from '../utils/sessionStorage';
 import { redirect } from '../utils/redirect';
+import { toast } from './Toast';
 
 import ErrorMessage from './ErrorMessage';
 
@@ -40,6 +41,8 @@ const LoginForm = () => {
             }).catch(error => {
                 setErrors(error.response.data.errors);
             });
+        }).catch((err) => {
+            toast("Error fetching sanctum cookie", "error");
         });
     }
 

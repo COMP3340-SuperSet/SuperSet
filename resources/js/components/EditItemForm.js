@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Message } from 'semantic-ui-react';
 import ImageList from './ImageList';
 import ImageUploader from './ImageUploader';
 import SuggestedImages from './SuggestedImages';
+import ErrorMessage from './ErrorMessage';
 
 const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   const [name, setName] = useState(selectedItem && selectedItem.name ? selectedItem.name : '');
   const [description, setDescription] = useState(selectedItem && selectedItem.description ? selectedItem.description : '');
   const [itemImages_db, setItemImages_db] = useState(selectedItem && selectedItem.images_db ? selectedItem.images_db : []);
   const [itemImages_new, setItemImages_new] = useState(selectedItem && selectedItem.images_new ? selectedItem.images_new : []);
+  const [errors, setErrors] = useState('');
 
-  useEffect(() => {}, [itemImages_db, itemImages_new]);
+  useEffect(() => { }, [itemImages_db, itemImages_new]);
   const [suggestedImages, setSuggestedImages] = useState([]);
   const [selectedSuggestedImages, setSelectedSuggestedImages] = useState([]);
 
@@ -31,6 +33,8 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSelectUnsplashImage = (urls) => {
+    //downsize here
+    urls.download += "&w=500&fit=cover";
     setItemImages_new([...itemImages_new, { urls }]);
   }
 
@@ -63,7 +67,17 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
   }
 
   const onSubmit = () => {
-    if (!name) return;
+
+    if (!name) {
+      setErrors("Item Name is required.");
+      return;
+    } else if (name.length < 3) {
+      setErrors("Item Name must be at least 3 characters.");
+      return;
+    } else {
+      setErrors('');
+    }
+
     const temp = { ...selectedItem };
     temp.name = name;
     temp.description = description;
@@ -82,6 +96,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="name"
+            maxLength="60"
           ></input>
         </Form.Field>
         <Form.Field>
@@ -91,6 +106,7 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="description"
+            maxLength="2048"
           ></textarea>
         </Form.Field>
         <Form.Field>
@@ -100,8 +116,15 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
         </Form.Field>
         <ImageList images={[...itemImages_db, ...itemImages_new]} onDeleteImage={deleteItemImage} />
         <Button basic onClick={() => clearForm()}>Clear</Button>
-        <Button floated="right" primary onClick={() => onSubmit()}>Save</Button>
+        <Button floated="right" primary onClick={() => onSubmit()}>Save Item</Button>
       </Form>
+      {errors ?
+        <Message negative style={{ margin: "0.5em 0", padding: "0.5em" }}>
+          <p>{errors}</p>
+        </Message>
+        : null
+      }
+
     </div >
   );
 }

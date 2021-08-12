@@ -36,7 +36,7 @@ class AuthController extends Controller
         $credentials = $request->only('userid', 'password');
         if (auth('web')->attempt($credentials)) {
             return response()->json(['result' => true], 200);
-        }else{
+        } else {
             return response()->json(['result' => false], 200);
         }
     }
@@ -102,6 +102,7 @@ class AuthController extends Controller
                 );
             }
         }
+
         //else user entered username
         else {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
