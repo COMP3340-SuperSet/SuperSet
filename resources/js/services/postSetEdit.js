@@ -2,24 +2,27 @@ import axios from 'axios';
 import { getSetImages, getItems, getItemImages } from './fetchSet';
 import { redirect } from '../utils/redirect';
 import { toast } from '../components/Toast';
+import _ from 'lodash';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
     toast("Redirecting you...");
 
-    const p1 = updateSet(set);
-    const p2 = deleteSetImages(set.setid, setImages[0]);
-    const p3 = postSetImages(set.setid, setImages[1]);
-    const p4 = deleteItems(set.setid, items[0]);
-    const p5 = putItems(items[0]);
-    const p6 = postItems(set.setid, items[1]);
+    const promises = [
+        updateSet(set),
+        deleteSetImages(set.setid, setImages[0]),
+        postSetImages(set.setid, setImages[1]),
+        //deleteItems(set.setid, items[0]), functionality temporarily moved to postItems - can be fixed by maintaining 'deleted items' state rather than checking during post
+        putItems(items[0]),
+        postItems(set.setid, items[1], items[0])
+    ];
 
-    return Promise.allSettled([p1, p2, p3, p4, p5, p6]).then((result) => {
+    return Promise.allSettled(promises).then((result) => {
         redirect("/set", [{
             key: "id",
             value: set.setid
         }]);
     }).catch(error => {
-        toast('Error updating set.', 'error');
+        toast('Error updating set.', error);
     });
 }
 
@@ -43,7 +46,6 @@ async function updateSet(set) {
 
 async function deleteSetImages(setid, images_db) {
     try {
-        //elems in put are setImage objects - update setImage in database
         //elems in del were deleted by the user and need to be deleted from the database
         const del = await differenceOfSetImages(setid, images_db);
 
@@ -137,6 +139,7 @@ async function deleteItems(setid, items_db) {
 }
 
 function putItems(items_db) {
+
     try {
         const promises = [];
 
@@ -154,25 +157,25 @@ function putItems(items_db) {
     }
 }
 
-function postItems(setid, items_new) {
-    try {
+async function postItems(setid, items_new, items_db) {
+    try {        
         const promises = [];
-      
+        promises.push(await deleteItems(setid, items_db));
+
         items_new.forEach(item => {
             //post new item (await! new itemid is needed, and needs to be returned)
             promises.push(new Promise((resolve, reject) => {
                 axios.post('/api/item', {
                     ...item, setid
                 }).then(response => {
-                    //console.log("Inner response:", response);
                     postItemImages(response.data.itemid, item.images_new).then(() => {
                         resolve(response.data);
                     }).catch(error => {
-                        toast('Error uploading new item images', 'error');
+                        toast('Error uploading new item images', error);
                         reject('Failed to post new item images: ', item, error);
                     });
                 }).catch(error => {
-                    toast('Error uploading new item(s)', 'error');
+                    toast('Error uploading new item(s)', error);
                     reject('Failed to post new item: ', item, error);
                 });
             }));
@@ -193,7 +196,6 @@ async function differenceOfItems(setid, items_db) {
     items_og.forEach(item => {
         if (!keyValueInListObject('itemid', item.itemid, items_db)) del.push(item.itemid);
     });
-
     return del;
 }
 
