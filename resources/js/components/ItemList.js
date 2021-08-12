@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { List, Button, Icon } from "semantic-ui-react";
+import { List, Button, Icon, Popup } from "semantic-ui-react";
 
 const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
   const [items_merged, setItems_merged] = useState([...items[0], ...items[1]]);
@@ -30,8 +30,16 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
         className="hoverable"
         key={index} >
         <List.Content floated='right'>
-          <Button icon onClick={() => onSelectItem(item) }><Icon name="edit"></Icon></Button>
-          <Button icon color = "red" onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>
+          <Popup 
+              content='Edit item' 
+              position='left center'
+              trigger={<Button icon onClick={() => onSelectItem(item) }><Icon name="edit"></Icon></Button>}
+            />
+          <Popup 
+              content='Delete Item' 
+              position='left center'
+              trigger={<Button icon color = "red" onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>}
+            />
         </List.Content>
         <List.Content>
           <List.Header as='a'>{item.name}</List.Header>

@@ -148,9 +148,17 @@ const UserSettings = ({ userInfo }) => {
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
-                                <Button color="green" onClick={onSubmit}>Save</Button>
-                                <Button onClick={() => redirect('/user', [{ key: "id", value: userInfo.userid }])}>Back to profile</Button>
-                            </Grid.Column>
+                                <Popup 
+                                        content='Save changes' 
+                                        position='left center'
+                                        trigger={<Button color="green" onClick={onSubmit}>Save</Button>}
+                                    />
+                                <Popup 
+                                        content='Go back to profile page' 
+                                        position='left center'
+                                        trigger={<Button onClick={() => redirect('/user', [{ key: "id", value: userInfo.userid }])}>Back to profile</Button>}
+                                    />
+                                </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Form>
@@ -171,8 +179,11 @@ const UserSettings = ({ userInfo }) => {
                                     text="Are you sure you would like to delete your account? This action cannot be undone."
                                     confirmText="Delete"
                                     onConfirm={() => { onDeleteAccount() }} />
-
-                                <Button onClick={() => { setToggleDel(true); setDelPass(""); }}>Cancel</Button>
+                                 <Popup 
+                                        content='Cancel account deletion' 
+                                        position='left center'
+                                        trigger={<Button onClick={() => { setToggleDel(true); setDelPass(""); }}>Cancel</Button>}
+                                    />
                             </Form.Group>
                         </Form>)}
                 </Segment>

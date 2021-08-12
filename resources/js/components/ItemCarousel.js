@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid, Button, Container, Progress } from "semantic-ui-react";
+import { Grid, Button, Container, Progress, Popup} from "semantic-ui-react";
 
 import ImageSlider from "./ImageSlider";
 
@@ -28,9 +28,17 @@ const ItemCarousel = ({ itemImages }) => {
                     </Container>
                     <Progress percent={percent} style={{ marginTop: '10px' }}></Progress>
                     <Button.Group fluid>
-                        <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />
-                        <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)} />
-                    </Button.Group>
+                        <Popup 
+                                content='Move Backward' 
+                                position='left center'
+                                trigger={<Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />}
+                            />
+                        <Popup 
+                                content='Move Forward' 
+                                position='left center'
+                                trigger={<Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)} />}
+                            />
+                        </Button.Group>
                 </Grid.Column>
             </Grid>
         </div>

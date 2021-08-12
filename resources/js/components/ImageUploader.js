@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Segment } from "semantic-ui-react";
+import { Button, Segment, Popup } from "semantic-ui-react";
 
 
 const ImageUploader = ({ onUploadImages, imageCount = null, formID = "image-uploader" }) => {
@@ -23,7 +23,11 @@ const ImageUploader = ({ onUploadImages, imageCount = null, formID = "image-uplo
     return (
         <div>
             <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
-                <Button basic onClick={() => onClickAddFiles()}>Add</Button>
+            <Popup 
+                    content='Ban the account' 
+                    position='left center'
+                    trigger={<Button basic onClick={() => onClickAddFiles()}>Add</Button>}
+                />
                 {count}
             </Segment>
             <input multiple hidden

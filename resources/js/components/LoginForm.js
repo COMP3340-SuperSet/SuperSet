@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Grid } from 'semantic-ui-react';
+import { Form, Button, Grid, Popup } from 'semantic-ui-react';
 import axios from 'axios';
 
 import { storeToken } from '../utils/localStorage';
@@ -57,7 +57,11 @@ const LoginForm = () => {
                             <input id='password' placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
                         </Form.Field>
                         <ErrorMessage errors={errors} type='login'></ErrorMessage>
-                        <Button type='submit'>Login</Button>
+                        <Popup 
+                                content='Login to account' 
+                                position='left center'
+                                trigger={<Button type='submit'>Login</Button>}
+                            />
                     </Form>
                 </Grid.Column>
             </Grid.Row>

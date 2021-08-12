@@ -405,10 +405,12 @@ const SetEditPage = ({ currentUser, set = [], items = [] }) => {
                                     <List.Content floated='right'>
                                         <Popup 
                                             content="Edit Item" 
+                                            position='left center'
                                             trigger={<Button icon onClick={() => { onEditItem(item) }}><Icon name="edit"></Icon></Button>}
                                             />
                                         <Popup 
-                                            content="Delete Item" 
+                                            content="Delete Item"
+                                            position='left center'
                                             trigger={<Button icon onClick={() => { onDeleteItem(item.hashid) }}><Icon name="trash"></Icon></Button>}
                                             />
                                     </List.Content>

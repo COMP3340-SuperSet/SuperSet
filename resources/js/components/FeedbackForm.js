@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Form, Header, Rating, Button, Checkbox, Segment } from "semantic-ui-react";
+import { Grid, Form, Header, Rating, Button, Checkbox, Segment, Popup } from "semantic-ui-react";
 import axios from 'axios';
 
 import { toast } from './Toast'
@@ -73,8 +73,12 @@ const FeedbackForm = () => {
                             rows={1}
                         />
                     </Form>
-                    <Button content="Submit Feedback" onClick={() => { fullFeedback() }} style={{ marginTop: "12px" }} />
-                </Segment>
+                    <Popup 
+                            content='Submit Feedback' 
+                            position='left center'
+                            trigger={<Button content="Submit Feedback" onClick={() => { fullFeedback() }} style={{ marginTop: "12px" }} />}
+                        />
+                    </Segment>
             </Grid.Column>
         </Grid>
     );

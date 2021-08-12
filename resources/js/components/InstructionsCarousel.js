@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid, Button, Container, Progress, Image } from "semantic-ui-react";
+import { Grid, Button, Container, Progress, Image, Popup} from "semantic-ui-react";
 
 import ImageSlider from "./ImageSlider";
 import { redirect } from '../utils/redirect';
@@ -37,11 +37,23 @@ const InstructionsCarousel = ({ images }) => {
                         </Container>
                         <Progress percent={percent} style={{ marginBottom: "6px" }}></Progress>
                         <Button.Group fluid>
-                            <Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />  
-                            <Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)} />
-                        </Button.Group>
-                        <Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')} />
-                    </Grid.Column>
+                            <Popup 
+                                    content='Move Backward' 
+                                    position='left center'
+                                    trigger={<Button content="Back" icon="left chevron" labelPosition='left' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(-1)} />}
+                                />
+                            <Popup 
+                                    content='Move forward' 
+                                    position='left center'
+                                    trigger={<Button content="Forward" icon="right chevron" labelPosition='right' className="ss-instructions-button" attached="bottom" onClick={() => setPageOffset(1)} />}
+                                />
+                            </Button.Group>
+                            <Popup 
+                                    content='Go to registration page' 
+                                    position='left center'
+                                    trigger={<Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')} />}
+                                />
+                        </Grid.Column>
                 </Grid>
             </div>
         </div>

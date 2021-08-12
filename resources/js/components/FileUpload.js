@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Popup } from "semantic-ui-react";
 import { uploadFile } from '../services/fileUpload';
 
 const FileUpload = ({ fileUploadURL }) => {
@@ -15,7 +16,11 @@ const FileUpload = ({ fileUploadURL }) => {
         <div>
             <form name="file" role="form" encType="multipart/form-data">
                 <input type="file" id={fileUploadURL} name="file" />
-                <input type="button" onClick={() => onSubmitFile()} value="Upload" />
+                <Popup 
+                        content='Upload File' 
+                        position='left center'
+                        trigger={<input type="button" onClick={() => onSubmitFile()} value="Upload" />}
+                    />
             </form>
         </div>
     );
