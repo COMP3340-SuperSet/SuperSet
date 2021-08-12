@@ -190,12 +190,17 @@ function Edit() {
                     }
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Confirmation
-
-                            trigger={<Button basic>Cancel</Button>}
+                            trigger={
+                                <Popup 
+                                content='Disregard Changes' 
+                                position='right center'
+                                trigger={<Button basic>Cancel</Button>}
+                            />
+                            }
                             onConfirm={onCancelEdit}
                             text="Are you sure? You will lose all of your changes." />
                         <Popup 
-                                content='Save set' 
+                                content='Save Set' 
                                 position='left center'
                                 trigger={<Button primary onClick={() => onSubmitSet()}>Save Set</Button>}
                             />

@@ -61,8 +61,8 @@ const LoginForm = () => {
                         </Form.Field>
                         <ErrorMessage errors={errors} type='login'></ErrorMessage>
                         <Popup 
-                                content='Login to account' 
-                                position='left center'
+                                content='Login to Account' 
+                                position='top center'
                                 trigger={<Button type='submit'>Login</Button>}
                             />
                     </Form>

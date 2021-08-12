@@ -191,10 +191,13 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
             <Grid.Row>
                 <Grid.Column textAlign="center" verticalAlign="middle">
                     <Header as="h1" className="ss-text-primary">{set.name ? set.name : <p className="ss-text-light">Nameless set</p>}</Header>
-
-                    <Button style={{ position: "absolute", top: "0px", left: "0px" }} icon labelPosition="left" onClick={() => redirect('/user', [{ key: "id", value: set.userid }])}>
-                        <Icon name="left arrow" /> Back to profile
-                    </Button>
+                    <Popup
+                            content="Go Back to Profile Page"
+                            trigger={<Button style={{ position: "absolute", top: "0px", left: "0px" }} icon labelPosition="left" onClick={() => redirect('/user', [{ key: "id", value: set.userid }])}>
+                                            <Icon name="left arrow" /> Back to profile
+                                        </Button>}
+                            />
+                    
 
                     {!(currentUser && set && currentUser.userid === set.userid) &&
                         <Confirmation style={{ position: "absolute", top: "0px", right: "0px" }}

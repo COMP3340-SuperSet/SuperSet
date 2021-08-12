@@ -75,7 +75,13 @@ const SetDetails = ({ set, updateSet, onUploadImages, onSelectUnsplashImage, onD
               ></input>
             </Form.Field>
             <Confirmation
-              trigger={<Button color="red">Delete Set</Button>}
+              trigger={
+                <Popup 
+                    content='Delete Set' 
+                    position='left center'
+                    trigger={<Button color="red">Delete Set</Button>}
+                  />    
+                }
               onConfirm={onDeleteSet}
               text="Are you sure?" />
           </span>

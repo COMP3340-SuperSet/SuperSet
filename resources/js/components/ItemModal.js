@@ -60,8 +60,8 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], s
 
             <Modal.Actions style={{ textAlign: "center" }}>
             <Popup 
-                    content='Go back' 
-                    position='left center'
+                    content='Go Back' 
+                    position='top center'
                     trigger={<Button color='blue' onClick={() => setModalOpen(false)}> Back </Button>}
                 />
             </Modal.Actions>

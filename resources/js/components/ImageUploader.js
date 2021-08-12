@@ -35,8 +35,8 @@ const ImageUploader = ({ onUploadImages, imageCount = null, formID = "image-uplo
         <div>
             <Segment style={{ boxShadow: 'none', display: 'flex', alignItems: 'center', margin: 'none', padding: 'none' }}>
             <Popup 
-                    content='Ban the account' 
-                    position='left center'
+                    content='Add Image' 
+                    position='top center'
                     trigger={<Button basic onClick={() => onClickAddFiles()}>Add</Button>}
                 />
                 {count}

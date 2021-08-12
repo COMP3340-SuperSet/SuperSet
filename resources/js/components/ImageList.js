@@ -45,7 +45,7 @@ const ImageList = ({ images, onDeleteImage }) => {
                     onClick={() => setOverlayed(images[index].urls.full)} />
                 <Popup 
                         content='Delete Image' 
-                        position='left center'
+                        position='top center'
                         trigger={<Button icon onClick={() => onDeleteImage(index)} attached="bottom" color="red"><Icon name="trash" /></Button>}
                     />
                 </Grid.Column>

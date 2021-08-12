@@ -115,8 +115,18 @@ const EditItemForm = ({ selectedItem, setSelectedItem, onSubmitItem }) => {
           <SuggestedImages term={name} onSelectImage={onSelectUnsplashImage} />
         </Form.Field>
         <ImageList images={[...itemImages_db, ...itemImages_new]} onDeleteImage={deleteItemImage} />
-        <Button basic onClick={() => clearForm()}>Clear</Button>
-        <Button floated="right" primary onClick={() => onSubmit()}>Save Item</Button>
+          <Popup 
+              content='Clear Form' 
+              position='right center'
+              trigger={<Button basic onClick={() => clearForm()}>Clear</Button>}
+            /> 
+          <Popup 
+              content='Save Item' 
+              position='left center'
+              trigger={<Button floated="right" primary onClick={() => onSubmit()}>Save Item</Button>}
+            />   
+        
+        
       </Form>
       {errors ?
         <Message negative style={{ margin: "0.5em 0", padding: "0.5em" }}>

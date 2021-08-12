@@ -31,13 +31,13 @@ const ItemList = ({ items, onSelectItem, onDeleteItem }) => {
         key={index} >
         <List.Content floated='right'>
           <Popup 
-              content='Edit item' 
-              position='left center'
+              content='Edit Item' 
+              position='top center'
               trigger={<Button icon onClick={() => onSelectItem(item) }><Icon name="edit"></Icon></Button>}
             />
           <Popup 
               content='Delete Item' 
-              position='left center'
+              position='top center'
               trigger={<Button icon color = "red" onClick={() => onDeleteItem(item) }><Icon name="trash"></Icon></Button>}
             />
         </List.Content>

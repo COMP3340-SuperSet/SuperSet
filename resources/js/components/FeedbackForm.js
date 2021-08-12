@@ -73,7 +73,7 @@ const FeedbackForm = () => {
                     </Form>
                     <Popup 
                             content='Submit Feedback' 
-                            position='left center'
+                            position='top center'
                             trigger={<Button content="Submit Feedback" onClick={() => { fullFeedback() }} style={{ marginTop: "12px" }} />}
                         />
                     </Segment>

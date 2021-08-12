@@ -65,7 +65,7 @@ const RegisterForm = () => {
                         </Form.Field>
                         <Popup 
                                 content='Register to SuperSet' 
-                                position='left center'
+                                position='top center'
                                 trigger={<Button type='submit'>Register</Button>}
                             />
                     </Form>

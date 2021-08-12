@@ -55,13 +55,13 @@ const BanModal = ({ trigger, userid, reportid, onBan = () => { }, item_setid = 0
                             <h1 className="ss-text-primary">Are you sure you would like to ban this user?</h1>
                             <br />
                             <Popup 
-                                content='Cancel banning the user' 
-                                position='left center'
+                                content='Cancel Banning the User' 
+                                position='top center'
                                 trigger={<Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>}
                                 />
                             <Popup 
-                                content='Ban the account' 
-                                position='left center'
+                                content='Ban the Account' 
+                                position='top center'
                                 trigger={<Button color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>}
                                 />
                         </Grid.Column>

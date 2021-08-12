@@ -26,7 +26,12 @@ const ServiceStatusModal = ({ name, description, statusDescription, trigger }) =
                             <Header as='h3' content={'Status Description'} textAlign='center' className='ss-text-primary' />
                             <Header.Subheader as='h5' content={statusDescription}/>
                             <br />
-                            <Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>
+                            <Popup 
+                                content='Go Back to Page' 
+                                position='top center'
+                                trigger={<Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>}
+                                />
+                            
                         </Grid.Column>
                     </Grid.Row>
                 </Modal.Content>
