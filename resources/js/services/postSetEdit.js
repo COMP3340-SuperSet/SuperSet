@@ -16,10 +16,11 @@ export async function onSubmitSetUpdate(set, setImages, items) {
     ];
 
     return Promise.allSettled(promises).then((result) => {
-        redirect("/set", [{
-            key: "id",
-            value: set.setid
-        }]);
+        console.log('Result of promises: ', result);
+        // redirect("/set", [{
+        //     key: "id",
+        //     value: set.setid
+        // }]);
     }).catch(error => {
         toast('Error updating set.', error);
     });
@@ -45,7 +46,6 @@ async function updateSet(set) {
 
 async function deleteSetImages(setid, images_db) {
     try {
-        //elems in put are setImage objects - update setImage in database
         //elems in del were deleted by the user and need to be deleted from the database
         const del = await differenceOfSetImages(setid, images_db);
 
@@ -157,6 +157,7 @@ function putItems(items_db) {
 }
 
 function postItems(setid, items_new) {
+    console.log('received items to post: ', items_new);
     try {
         const promises = [];
       
@@ -170,11 +171,11 @@ function postItems(setid, items_new) {
                     postItemImages(response.data.itemid, item.images_new).then(() => {
                         resolve(response.data);
                     }).catch(error => {
-                        toast('Error uploading new item images', 'error');
+                        toast('Error uploading new item images', error);
                         reject('Failed to post new item images: ', item, error);
                     });
                 }).catch(error => {
-                    toast('Error uploading new item(s)', 'error');
+                    toast('Error uploading new item(s)', error);
                     reject('Failed to post new item: ', item, error);
                 });
             }));
