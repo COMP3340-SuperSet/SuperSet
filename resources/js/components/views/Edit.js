@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Grid, Button, Divider, Accordion, Icon, Message } from 'semantic-ui-react';
-
+import axios from 'axios';
+import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
@@ -35,6 +35,11 @@ function Edit() {
     const [errors, setErrors] = useState('');
 
     useEffect(() => {
+
+        axios.get("/api/check").then((response) => {
+            setCurrentUser(response.data.user);
+        });
+
         let setid = new URL(window.location.href).searchParams.get("setid");
         if (!setid || setid == 0) redirect("/");
         async function getSetInfo() {
