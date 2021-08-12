@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Image, Header, Button, Popup } from "semantic-ui-react";
+import { Table, Image, Header, Button, Popup, Statistic } from "semantic-ui-react";
 import axios from "axios";
 
 import BanModal from './BanModal';
@@ -147,6 +147,8 @@ const ReportTableAccount = () => {
 
     return (
         <div>
+            <Statistic horizontal size='mini' label="Account Reports" value={renderedAccountReports.length} />
+            <hr/>
             <Table stackable basic='very' celled fixed>
                 <Table.Body>
                     {renderedAccountReports}
