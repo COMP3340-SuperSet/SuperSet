@@ -49,7 +49,7 @@ const FeedbackForm = () => {
                         </Header.Subheader>
                     </Header>
                     <Form>
-                        <Form.TextArea className="ss-text-primary no-resize" style={{ fontSize: "16px", marginTop: "6px", background: "none" }}
+                        <Form.TextArea className="ss-text-primary no-resize" style={{ fontSize: "16px", marginTop: "6px"}}
                             onChange={(e, { value }) => { setTextFeedback(value) }}
                             placeholder='Enter feedback'
                             value={textFeedback}
@@ -64,7 +64,7 @@ const FeedbackForm = () => {
                             onChange={() => { setWillReachout(!willReachout) }}
                             checked={willReachout}
                         />
-                        <Form.TextArea className="ss-text-primary no-resize" style={{ fontSize: "16px", marginTop: "12px", background: "none" }}
+                        <Form.TextArea className="ss-text-primary no-resize" style={{ fontSize: "16px", marginTop: "12px"}}
                             onChange={(e, { value }) => { setReachoutEmail(value) }}
                             placeholder='E-mail'
                             value={reachoutEmail}
