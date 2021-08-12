@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getSetImages, getItems, getItemImages } from './fetchSet';
 import { redirect } from '../utils/redirect';
 import { toast } from '../components/Toast';
+import _ from 'lodash';
 
 export async function onSubmitSetUpdate(set, setImages, items) {
     toast("Redirecting you...");
@@ -10,17 +11,16 @@ export async function onSubmitSetUpdate(set, setImages, items) {
         updateSet(set),
         deleteSetImages(set.setid, setImages[0]),
         postSetImages(set.setid, setImages[1]),
-        deleteItems(set.setid, items[0]),
+        //deleteItems(set.setid, items[0]), functionality temporarily moved to postItems - can be fixed by maintaining 'deleted items' state rather than checking during post
         putItems(items[0]),
-        postItems(set.setid, items[1])
+        postItems(set.setid, items[1], items[0])
     ];
 
     return Promise.allSettled(promises).then((result) => {
-        console.log('Result of promises: ', result);
-        // redirect("/set", [{
-        //     key: "id",
-        //     value: set.setid
-        // }]);
+        redirect("/set", [{
+            key: "id",
+            value: set.setid
+        }]);
     }).catch(error => {
         toast('Error updating set.', error);
     });
@@ -139,6 +139,7 @@ async function deleteItems(setid, items_db) {
 }
 
 function putItems(items_db) {
+
     try {
         const promises = [];
 
@@ -156,18 +157,17 @@ function putItems(items_db) {
     }
 }
 
-function postItems(setid, items_new) {
-    console.log('received items to post: ', items_new);
-    try {
+async function postItems(setid, items_new, items_db) {
+    try {        
         const promises = [];
-      
+        promises.push(await deleteItems(setid, items_db));
+
         items_new.forEach(item => {
             //post new item (await! new itemid is needed, and needs to be returned)
             promises.push(new Promise((resolve, reject) => {
                 axios.post('/api/item', {
                     ...item, setid
                 }).then(response => {
-                    //console.log("Inner response:", response);
                     postItemImages(response.data.itemid, item.images_new).then(() => {
                         resolve(response.data);
                     }).catch(error => {
@@ -196,7 +196,6 @@ async function differenceOfItems(setid, items_db) {
     items_og.forEach(item => {
         if (!keyValueInListObject('itemid', item.itemid, items_db)) del.push(item.itemid);
     });
-
     return del;
 }
 
