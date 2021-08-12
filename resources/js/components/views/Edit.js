@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Grid, Button, Divider, Accordion, Icon } from 'semantic-ui-react';
+import { Grid, Button, Divider, Accordion, Icon, Popup } from 'semantic-ui-react';
 import Header from "../Header";
 import EditItemForm from '../EditItemForm';
 import SetDetails from '../SetDetails';
@@ -190,10 +190,15 @@ function Edit() {
                     }
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Confirmation
+
                             trigger={<Button basic>Cancel</Button>}
                             onConfirm={onCancelEdit}
                             text="Are you sure? You will lose all of your changes." />
-                        <Button primary onClick={() => onSubmitSet()}>Save Set</Button>
+                        <Popup 
+                                content='Save set' 
+                                position='left center'
+                                trigger={<Button primary onClick={() => onSubmitSet()}>Save Set</Button>}
+                            />
                     </div>
                 </Grid.Column>
             </Grid>

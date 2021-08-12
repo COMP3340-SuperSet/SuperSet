@@ -177,12 +177,14 @@ const SetView = ({ set, items, setImages = [], itemImages = [], currentUser }) =
                         <Popup
                             content="Edit Set"
                             trigger={<Button onClick={() => editSet()} style={{ padding: "11px" }}><Icon name="pencil" style={{ margin: "0px" }} /></Button>}
-                        />}
+                            />
+                        }    
                     {currentUser && set && currentUser.userid === set.userid &&
                         <Popup
                             content="Copy Link to Set"
                             trigger={<Button onClick={() => copyLinkToSet()} style={{ padding: "11px" }}><Icon name="linkify" style={{ margin: "0px" }} /></Button>}
-                        />}
+                            />
+                        }
                 </Grid.Column>
             </Grid.Row>
 

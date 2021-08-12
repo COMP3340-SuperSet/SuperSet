@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Grid } from 'semantic-ui-react';
+import { Form, Button, Grid, Popup } from 'semantic-ui-react';
 import axios from 'axios';
 
 import { storeToken } from '../utils/localStorage';
@@ -63,7 +63,11 @@ const RegisterForm = () => {
                         <Form.Field>
                             <input required id='password_confirmation' placeholder="Confirm Password" value={password_confirmation} type="password" onChange={(e) => setPassword_Confirmation(e.target.value)} maxLength="255" />
                         </Form.Field>
-                        <Button type='submit'>Register</Button>
+                        <Popup 
+                                content='Register to SuperSet' 
+                                position='left center'
+                                trigger={<Button type='submit'>Register</Button>}
+                            />
                     </Form>
                 </Grid.Column>
             </Grid.Row>
