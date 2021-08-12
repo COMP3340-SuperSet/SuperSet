@@ -12,7 +12,7 @@ const StatusCard = ({ name, description, operational }) => {
                 <Card.Header className = "ss-text-primary">{name}</Card.Header>
                 { description ?
                     <Card.Description className = "ss-text-secondary">{description}</Card.Description> :
-                    <p className = "ss-text-light">No description</p>}
+                    <p className = "ss-text-light">Checking Status...</p>}
             </Card.Content>
         </Card>
     );
