@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Grid, Icon } from "semantic-ui-react";
+import { Modal, Button, Grid, Icon, Popup} from "semantic-ui-react";
 import "../../css/ItemModal.css";
 import ItemCarousel from './ItemCarousel';
 import Confirmation from './Confirmation';
