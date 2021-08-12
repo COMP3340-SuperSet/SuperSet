@@ -6,20 +6,22 @@ import { toast } from '../components/Toast';
 export async function onSubmitSetUpdate(set, setImages, items) {
     toast("Redirecting you...");
 
-    const p1 = updateSet(set);
-    const p2 = deleteSetImages(set.setid, setImages[0]);
-    const p3 = postSetImages(set.setid, setImages[1]);
-    const p4 = deleteItems(set.setid, items[0]);
-    const p5 = putItems(items[0]);
-    const p6 = postItems(set.setid, items[1]);
+    const promises = [
+        updateSet(set),
+        deleteSetImages(set.setid, setImages[0]),
+        postSetImages(set.setid, setImages[1]),
+        deleteItems(set.setid, items[0]),
+        putItems(items[0]),
+        postItems(set.setid, items[1])
+    ];
 
-    return Promise.allSettled([p1, p2, p3, p4, p5, p6]).then((result) => {
+    return Promise.allSettled(promises).then((result) => {
         redirect("/set", [{
             key: "id",
             value: set.setid
         }]);
     }).catch(error => {
-        toast('Error updating set.', 'error');
+        toast('Error updating set.', error);
     });
 }
 
