@@ -31,7 +31,6 @@ const Carousel = ({ images }) => {
     const [imageKey, setImageKey] = useState(generateKey(8));
 
     useEffect(() => {
-        console.log("Carousel images updated");
     }, [images]);
 
     const switchSlide = (index) => {
