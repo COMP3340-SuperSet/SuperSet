@@ -11,6 +11,7 @@
         <meta name="author" content="">
         @include('util.logic')
         @include('util.onpopstate')
+        @include('util.env')
     </head>
     <body>
         @yield('content')
