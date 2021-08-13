@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from './Toast';
-import { Card, Divider, Form, Button } from "semantic-ui-react";
+import { Card, Divider, Form, Button, Popup } from "semantic-ui-react";
 import { redirect } from '../utils/redirect';
 import Confirmation from './Confirmation';
 import ImageList from './ImageList';

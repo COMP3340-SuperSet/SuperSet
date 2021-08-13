@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Grid, Header } from "semantic-ui-react";
+import { Modal, Button, Grid, Header, Popup } from "semantic-ui-react";
 
 const ServiceStatusModal = ({ name, description, statusDescription, trigger }) => {
 

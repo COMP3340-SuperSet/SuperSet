@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Button, Container, Image } from "semantic-ui-react";
+import { Button, Container, Image, Popup } from "semantic-ui-react";
 
 import Carousel from './Carousel';
 import { redirect } from '../utils/redirect';
@@ -25,7 +25,6 @@ const LandingPage = () => {
                     position='top center'
                     trigger={<Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')}  />}
                 />
-            <Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')}  />
         </Container>
     );
 };
