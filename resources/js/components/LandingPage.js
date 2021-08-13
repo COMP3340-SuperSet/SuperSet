@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Button, Container, Image } from "semantic-ui-react";
+import { Button, Container, Image, Popup } from "semantic-ui-react";
 
 import Carousel from './Carousel';
 import { redirect } from '../utils/redirect';
@@ -20,7 +20,11 @@ const LandingPage = () => {
                 <p className="ss-text-primary" style={{ marginBottom: "14px", fontSize: "16px" }}>Create and manage organized sets of items</p>
             </Container>
             <Carousel images = {[gif1, gif2, gif3]} />
-            <Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')}  />
+            <Popup 
+                    content='Register to SuperSet' 
+                    position='top center'
+                    trigger={<Button content="Get Started" className="ss-instructions-button"  onClick={() => redirect('/register')}  />}
+                />
         </Container>
     );
 };

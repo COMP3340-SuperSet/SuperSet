@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Grid, Icon } from "semantic-ui-react";
+import { Modal, Button, Grid, Icon} from "semantic-ui-react";
 
 import Carousel from './Carousel';
 import Confirmation from './Confirmation';
@@ -58,7 +59,7 @@ const ItemModal = ({ item, modalTrigger = <Button>Modal</Button>, images = [], s
             </Modal.Content>
 
             <Modal.Actions style={{ textAlign: "center" }}>
-                <Button color='blue' onClick={() => setModalOpen(false)}> Back </Button>
+            <Button color='blue' onClick={() => setModalOpen(false)}> Back </Button>
             </Modal.Actions>
         </Modal>
     );

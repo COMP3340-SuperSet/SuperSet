@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Grid } from "semantic-ui-react";
+import { Modal, Button, Grid, Popup } from "semantic-ui-react";
 import axios from 'axios';
 
 import { toast } from './Toast';
@@ -54,8 +54,16 @@ const BanModal = ({ trigger, userid, reportid, onBan = () => { }, item_setid = 0
                         <Grid.Column>
                             <h1 className="ss-text-primary">Are you sure you would like to ban this user?</h1>
                             <br />
-                            <Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>
-                            <Button color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>
+                            <Popup 
+                                content='Cancel Banning the User' 
+                                position='top center'
+                                trigger={<Button color='blue' onClick={() => setOpen(false)}> Cancel </Button>}
+                                />
+                            <Popup 
+                                content='Ban the Account' 
+                                position='top center'
+                                trigger={<Button color='red' onClick={() => submitBanReason(userid, reportid)}> Ban Account </Button>}
+                                />
                         </Grid.Column>
                     </Grid.Row>
                 </Modal.Content>

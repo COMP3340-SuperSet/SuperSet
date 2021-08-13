@@ -119,12 +119,15 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                         </Segment>
                         {currentUser && userInfo && currentUser.userid === userInfo.userid &&
                             <div style={{ width: "100%", textAlign: "center", marginTop: "60px" }}>
-                                <Popup
-                                    content="Copy Link to Profile"
+
+                                <Popup 
+                                    content='Copy Link to Profile' 
+                                    position='top center'
                                     trigger={<Button icon onClick={() => copyLinkToProfile()}><Icon name="linkify" /></Button>}
-                                />
-                                <Popup
-                                    content="User Settings"
+                                    />
+                                <Popup 
+                                    content='User Settings'
+                                    position='top center' 
                                     trigger={<Button icon onClick={() => redirect("/user/settings")}><Icon name="setting" /></Button>}
                                 />
                             </div>} </div>}
@@ -145,9 +148,17 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                             onClose={() => setModalOpen(false)}
                             onOpen={() => setModalOpen(true)}
                             open={modalOpen}
+                            trigger={
+                                <Popup content="Create a Set"
+                                       position='top center' 
+                                       trigger={<Button floated="left" icon onClick={() => setModalOpen(true)}><Icon name="plus" /></Button>} 
+                                       />
+                                    }
+                            >
 
-                            trigger={<Popup content="Create a Set" trigger={<Button floated="left" icon onClick={() => setModalOpen(true)}><Icon name="plus" /></Button>} />}
-                        >
+                           
+                           
+
                             <Modal.Header>Enter your set's name</Modal.Header>
                             <Modal.Content>
                                 <Form><Form.Field required>
@@ -158,8 +169,14 @@ const Profile = ({ userInfo, userSets, setImages, currentUser }) => {
                                 </Form.Field></Form>
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button onClick={() => { CreateNewSet(userInfo.userid, newSetName); }} positive>Create</Button>
-                                <Button onClick={() => setModalOpen(false)} negative >Cancel</Button>
+                                <Popup content="Create Set"
+                                        position='top center' 
+                                       trigger={<Button onClick={() => { CreateNewSet(userInfo.userid, newSetName); }} positive>Create</Button>} 
+                                    />
+                                <Popup content="Cancel Set" 
+                                       position='top center'
+                                       trigger={<Button onClick={() => setModalOpen(false)} negative >Cancel</Button>} 
+                                    />
                             </Modal.Actions>
                             {errors ?
                                 <Message negative style={{ margin: "1em 1em", padding: "0.5em" }}>

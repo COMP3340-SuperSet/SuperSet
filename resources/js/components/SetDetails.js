@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from './Toast';
-import { Card, Divider, Form, Button } from "semantic-ui-react";
+import { Card, Divider, Form, Button, Popup } from "semantic-ui-react";
 import { redirect } from '../utils/redirect';
 import Confirmation from './Confirmation';
 import ImageList from './ImageList';
@@ -75,7 +75,13 @@ const SetDetails = ({ set, updateSet, onUploadImages, onSelectUnsplashImage, onD
               ></input>
             </Form.Field>
             <Confirmation
-              trigger={<Button color="red">Delete Set</Button>}
+              trigger={
+                <Popup 
+                    content='Delete Set' 
+                    position='left center'
+                    trigger={<Button color="red">Delete Set</Button>}
+                  />    
+                }
               onConfirm={onDeleteSet}
               text="Are you sure?" />
           </span>

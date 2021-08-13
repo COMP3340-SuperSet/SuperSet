@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Form, Header, Rating, Button, Checkbox, Segment } from "semantic-ui-react";
+import { Grid, Form, Header, Rating, Button, Checkbox, Segment} from "semantic-ui-react";
 import axios from 'axios';
 
 import { toast } from './Toast'
@@ -72,7 +72,7 @@ const FeedbackForm = () => {
                         />
                     </Form>
                     <Button content="Submit Feedback" onClick={() => { fullFeedback() }} style={{ marginTop: "12px" }} />
-                </Segment>
+                    </Segment>
             </Grid.Column>
         </Grid>
     );

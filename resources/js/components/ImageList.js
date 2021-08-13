@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Image, Button, Icon } from 'semantic-ui-react';
+import { Grid, Image, Button, Icon, Popup } from 'semantic-ui-react';
 import { getImagePath } from '../utils/imagePath';
 import ImageOverlay from './ImageOverlay';
 
@@ -43,8 +43,12 @@ const ImageList = ({ images, onDeleteImage }) => {
                     className="grid-image"
                     src={image.display}
                     onClick={() => setOverlayed(images[index].urls.full)} />
-                <Button icon onClick={() => onDeleteImage(index)} attached="bottom" color="red"><Icon name="trash" /></Button>
-            </Grid.Column>
+                <Popup 
+                        content='Delete Image' 
+                        position='top center'
+                        trigger={<Button icon onClick={() => onDeleteImage(index)} attached="bottom" color="red"><Icon name="trash" /></Button>}
+                    />
+                </Grid.Column>
         );
     });
 

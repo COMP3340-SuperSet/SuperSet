@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Icon } from 'semantic-ui-react';
+import { Segment, Divider, Container, Header, Grid, Form, Image, Button, Icon, Popup } from 'semantic-ui-react';
 
 import { redirect } from "../utils/redirect";
 
@@ -121,11 +121,22 @@ const UserSettings = ({ userInfo }) => {
                                 <Image src={imageid ? imageid : tmp_pic} circular centered size="small" />
 
                                 <div style={{ width: "100%", textAlign: "center", marginTop: "30px" }}>
-                                    <Button style={{ paddingLeft: "0", paddingRight: "0" }} id="pfp-upload-button">
-                                        <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style={{ padding: ".78571429em 1.5em" }}>Upload</label>
-                                    </Button>
+                                    <Popup 
+                                            content='Upload Profile Picture' 
+                                            position='left center'
+                                            trigger={<Button style={{ paddingLeft: "0", paddingRight: "0" }} id="pfp-upload-button">
+                                                            <label htmlFor="pfp-upload" className="pfp-upload-label hoverable" style={{ padding: ".78571429em 1.5em" }}>Upload</label>
+                                                        </Button>}
+                                        />
                                     <input id="pfp-upload" onChange={onImageInput} hidden type="file" accept=".jpg, .jpeg, .png" />
-                                    <Confirmation trigger={<Button color="red" icon><Icon name="trash" /></Button>}
+                                    <Confirmation 
+                                        trigger={ 
+                                            <Popup 
+                                                    content='Delete Profile Picture' 
+                                                    position='right center'
+                                                    trigger={<Button color="red" icon><Icon name="trash" /></Button>}
+                                                />
+                                        }
                                         text="Delete profile picture?"
                                         onConfirm={() => { onDeleteImage() }}
                                         confirmText="Delete"
@@ -156,9 +167,17 @@ const UserSettings = ({ userInfo }) => {
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
-                                <Button color="green" onClick={onSubmit}>Save</Button>
-                                <Button onClick={() => redirect('/user', [{ key: "id", value: userInfo.userid }])}>Back to profile</Button>
-                            </Grid.Column>
+                                <Popup 
+                                        content='Save Changes' 
+                                        position='left center'
+                                        trigger={<Button color="green" onClick={onSubmit}>Save</Button>}
+                                    />
+                                <Popup 
+                                        content='Go Back to Profile Page' 
+                                        position='right center'
+                                        trigger={<Button onClick={() => redirect('/user', [{ key: "id", value: userInfo.userid }])}>Back to profile</Button>}
+                                    />
+                                </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Form>
@@ -166,7 +185,11 @@ const UserSettings = ({ userInfo }) => {
                 <Divider />
 
                 <Segment compact style={{ margin: "20px auto 0 auto" }} className="ss-segment-secondary">
-                    {(toggleDel) ? (<Button color="red" onClick={() => { setToggleDel(false) }}>Delete Account</Button>) :
+                    {(toggleDel) ? ( <Popup 
+                                        content='Delete Your Account' 
+                                        position='top center'
+                                        trigger={<Button color="red" onClick={() => { setToggleDel(false) }}>Delete Account</Button>}
+                                    /> ) :
                         (<Form>
                             <Form.Group style={{ justifyContent: "center", marginBottom: "0" }}>
                                 <Form.Field required
@@ -175,12 +198,21 @@ const UserSettings = ({ userInfo }) => {
                                     value={delPass}
                                     onChange={(e) => { setDelPass(e.target.value) }} />
 
-                                <Confirmation trigger={<Button color="red">Confirm</Button>}
+                                <Confirmation trigger={
+                                    <Popup 
+                                    content='Delete Account' 
+                                    position='top center'
+                                    trigger={<Button color="red">Confirm</Button>}
+                                        />
+                                    }
                                     text="Are you sure you would like to delete your account? This action cannot be undone."
                                     confirmText="Delete"
                                     onConfirm={() => { onDeleteAccount() }} />
-
-                                <Button onClick={() => { setToggleDel(true); setDelPass(""); }}>Cancel</Button>
+                                 <Popup 
+                                        content='Cancel Account Deletion' 
+                                        position='top center'
+                                        trigger={<Button onClick={() => { setToggleDel(true); setDelPass(""); }}>Cancel</Button>}
+                                    />
                             </Form.Group>
                         </Form>)}
                 </Segment>
