@@ -65,12 +65,7 @@ function getReportedItems(items, reports) {
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Confirmation style={{ marginBottom: "14px" }}
-                            trigger={
-                                <Popup
-                                content='Remove from database'
-                                position='top center'
-                                trigger={<Button color='red' content='Delete Report' />}
-                                />}
+                            trigger={<Button color='red' content='Delete Report' />}
                             onConfirm={() => {
                                 onReportDelete(reportInformation.reportid);
                                 setDeleted([reportInformation.reportid, ...deleted]);
@@ -78,12 +73,7 @@ function getReportedItems(items, reports) {
                             text="Remove this report?" />
                         <BanModal userid={reportInformation.userid} item_setid = {reportInformation.setid}
                             reportid={reportInformation.reportid}
-                            trigger={
-                                <Popup
-                                content='Remove from database'
-                                position='bottom center'
-                                trigger={<Button color='red' content='Ban Account' />}
-                                />}
+                            trigger={<Button color='red' content='Ban Account' />}
                             onBan={() => {
                                 setDeleted([reportInformation.reportid, ...deleted]);
                             }} />

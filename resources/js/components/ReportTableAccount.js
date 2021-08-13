@@ -74,13 +74,7 @@ function getReportedUser(users, reports) {
                     </Table.Cell>
                     <Table.Cell textAlign='center'>
                         <Confirmation style={{ marginBottom: "14px" }}
-                            trigger={
-                                <Popup
-                                content='Remove from database'
-                                position='top center'
-                                trigger={<Button color='red' content='Delete Report' />}
-                                />
-                            }
+                            trigger={<Button color='red' content='Delete Report' />}
                             onConfirm={() => {
                                 onReportDelete(reportInformation.reportid);
                                 setDeleted([reportInformation.reportid, ...deleted]);
@@ -89,13 +83,7 @@ function getReportedUser(users, reports) {
                         />
                         <BanModal userid={reportInformation.userid}
                             reportid={reportInformation.reportid}
-                            trigger={
-                                <Popup
-                                content='Remove from database'
-                                position='bottom center'
-                                trigger={<Button color='red' content='Ban Account' />}
-                                />
-                            }
+                            trigger={<Button color='red' content='Ban Account' />}
                             onBan = {() => {
                                 setDeleted([reportInformation.reportid, ...deleted]);
                             }} />
